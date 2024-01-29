@@ -107,7 +107,7 @@ CREATE TABLE `boards` (
 	`board_title`	varchar(50)	NOT NULL,
 	`board_content`	varchar(500)	NOT NULL,
 	`board_type`	int	NOT NULL	COMMENT '0 : 일반, 1: Q&A, 2:건의',
-	`board_regist_date`	datetime	NOT NULL,
+	`board_regist_date`	datetime	NOT NULL default now(),
 	`board_update_date`	datetime	NULL,
 	`board_delete_date`	datetime	NULL,
     CONSTRAINT `PK_BOARDS` PRIMARY KEY (`board_id`)
@@ -177,7 +177,7 @@ CREATE TABLE `comments` (
 	`comment_card_id`	int	NULL,
 	`comment_content`	varchar(100)	NOT NULL,
 	`comment_picked`	boolean	NOT NULL	DEFAULT false	COMMENT 'true : 채택',
-	`comment_regist_date`	datetime	NOT NULL,
+	`comment_regist_date`	datetime	NOT NULL default now(),
 	`comment_delete_date`	datetime	NULL,
     CONSTRAINT `PK_COMMENTS` PRIMARY KEY (`comment_id`)
 )default character set utf8mb4;
