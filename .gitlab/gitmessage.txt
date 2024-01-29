@@ -41,7 +41,7 @@
 # 커밋 메시지 템플릿 적용방법
 #
 # 1. local에서 명령어 입력하기
-# git config --local commit.template .gitlab/.gitmessage.txt
+# git config --local commit.template .gitlab/gitmessage.txt
 #
 # 2. commit 하기
 # - 'git add .'를 통해서 변경사항이 있는 파일을 스테이지에 올린다.
