@@ -16,12 +16,13 @@
     </resultMap>
 
     <!-- getWordList 쿼리 -->
-    <select id="getWordList" resultMap="wordListResultMap">
+    <select id="getWordList" parameterType="String" resultMap="wordListResultMap">
         select w.word_id, w.word_name_kr, w.word_name_en, w.word_def, w.word_summ, w.word_link, c.category_name
         from words w join words_categories wc join categories c
         on w.word_id = wc.wc_word_id
         and c.category_id = wc.wc_category_id
-        order by word_id;
+        where lower(w.word_name_en) like lower(concat(#{alphabet}, '%'))
+        order by word_name_en;
     </select>
 
 </mapper>
