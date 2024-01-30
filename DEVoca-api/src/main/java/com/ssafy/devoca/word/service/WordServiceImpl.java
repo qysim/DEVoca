@@ -22,14 +22,6 @@ public class WordServiceImpl implements WordService{
      */
     @Override
     public List<WordDTO> getWordList() throws Exception {
-        List<WordDTO> wordList = wordMapper.getWordList();
-
-        // 단어 카테고리를 가져오기 위해 반복문 사용
-        for(WordDTO word : wordList){
-            List<String> wordCategoryList = wordMapper.getWordCategoryList(word.getWordId());
-            word.setWordCategory(wordCategoryList);
-        }
-
-        return wordList;
+        return wordMapper.getWordList();
     }
 }

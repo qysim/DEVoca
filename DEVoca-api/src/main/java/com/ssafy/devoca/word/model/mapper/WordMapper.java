@@ -10,5 +10,4 @@ import java.util.List;
 @Mapper
 public interface WordMapper {
     public List<WordDTO> getWordList() throws SQLException;
-    public List<String> getWordCategoryList(int wordId) throws SQLException;
 }

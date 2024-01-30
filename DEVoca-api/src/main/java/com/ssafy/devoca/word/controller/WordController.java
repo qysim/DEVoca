@@ -32,8 +32,8 @@ public class WordController {
      *
      * @return HttpStatus.OK, 단어 목록
      */
-    @GetMapping
-    public ResponseEntity<?> getWordList() {
+    @GetMapping("")
+    public ResponseEntity<Object> getWordList() {
         log.info("getWordList 호출");
         try {
             List<WordDTO> wordList = wordService.getWordList();
@@ -51,8 +51,8 @@ public class WordController {
      * @param e 발생한 Exception
      * @return Exception Message, HttpStatus.INTERNAL_SERVER_ERROR
      */
-    public ResponseEntity<String> exceptionHandling(Exception e) {
+    public ResponseEntity<Object> exceptionHandling(Exception e) {
         e.printStackTrace();
-        return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<Object>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
