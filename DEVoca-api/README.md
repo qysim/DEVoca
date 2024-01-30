@@ -1,13 +1,16 @@
-# DEVOCA - backend part
+# DEVoca-api
 
-backend server for DEVOCA
+REST API server for DEVoca
 
 ## 실행 방법
 
 ### 실행 전 필요한 사항
 
-- `.env` 파일의 생성 : [deploy/README.md](../deploy/README.md) 참고하여 .env 파일 생성
-- 환경 변수 세팅 : 위에서 생성한 .env파일을 IDE, 실행환경 별 환경변수에 추가
+- 환경 변수 확인
+  - [deploy/README.md](../deploy/README.md) 참고하여 `.env` 파일 생성.
+  - IDE, 실행환경 별 환경변수에 추가.
+
+### 빌드, 실행
 
 ```bash
 $ ./gradlew bootJar
@@ -20,48 +23,8 @@ $ ./gradlew bootRun
 
 ```bash
 DEVoca-api
-├─.gradle
-│  ├─8.5
-│  │  ├─checksums
-│  │  ├─dependencies-accessors
-│  │  ├─executionHistory
-│  │  ├─fileChanges
-│  │  ├─fileHashes
-│  │  └─vcsMetadata
-│  ├─buildOutputCleanup
-│  └─vcs-1
-├─.idea
-├─gradle
-│  └─wrapper
-├─out
-│  └─production
-│      ├─classes
-│      │  └─com
-│      │      └─ssafy
-│      │          └─devoca
-│      │              ├─board
-│      │              │  ├─controller
-│      │              │  ├─model
-│      │              │  │  └─mapper
-│      │              │  └─service
-│      │              ├─card
-│      │              │  ├─controller
-│      │              │  ├─model
-│      │              │  │  └─mapper
-│      │              │  └─service
-│      │              ├─config
-│      │              └─word
-│      │                  ├─controller
-│      │                  ├─model
-│      │                  │  └─mapper
-│      │                  └─service
-│      └─resources
-│          ├─mapper
-│          │  ├─board
-│          │  └─card
-│          └─mapper.word
 ├─resources
-│  └─sql
+│  └─sql        # DB 초기화, 샘플 데이터 생성 등에 사용되는 SQL 파일
 └─src
     ├─main
     │  ├─generated
@@ -95,9 +58,6 @@ DEVoca-api
             └─com
                 └─ssafy
                     └─devoca
-
-
-($tree 명령어 사용, 구조 다시 업데이트)
 ```
 
 ## Contributors
