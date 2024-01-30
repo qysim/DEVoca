@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/user/login")
 public class OauthController {
 
     private final OauthService oauthService;

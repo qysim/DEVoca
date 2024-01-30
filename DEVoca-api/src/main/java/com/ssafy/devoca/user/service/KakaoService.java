@@ -1,6 +1,7 @@
 package com.ssafy.devoca.user.service;
 
 import com.ssafy.devoca.user.model.KakaoDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+@Slf4j
 @Service
 public class KakaoService {
 
@@ -42,7 +44,6 @@ public class KakaoService {
         String refreshToken = "";
 
         try {
-            System.out.println("code "+code);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-type", "application/x-www-form-urlencoded");
 
@@ -72,8 +73,8 @@ public class KakaoService {
 
             accessToken  = (String) jsonObj.get("access_token");
             refreshToken = (String) jsonObj.get("refresh_token");
-            System.out.println("access" + accessToken);
-            System.out.println("refresh" + refreshToken); // 카카오에서 전달받은 리프레쉬 토큰 -> 이후에 사용자 정보와 함께 DB 저장 구현 예정
+            log.debug("access" + accessToken);
+            log.debug("refresh" + refreshToken); // 카카오에서 전달받은 리프레쉬 토큰 -> 이후에 사용자 정보와 함께 DB 저장 구현 예정
         } catch (Exception e) {
             throw new Exception("API call failed", e);
         }
