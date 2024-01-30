@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,26 +35,15 @@ public class WordController {
      * @return HttpStatus.OK, 단어 목록
      */
     @GetMapping("")
-    public ResponseEntity<Object> getWordList() {
+    public ResponseEntity<List<WordDTO>> getWordList() {
         log.info("getWordList 호출");
         try {
             List<WordDTO> wordList = wordService.getWordList();
             return ResponseEntity.status(HttpStatus.OK).body(wordList);
         } catch (Exception e) {
             log.error("wordList 조회 실패 : {}", e);
-            return exceptionHandling(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
         }
     }
-
-
-    /**
-     * 에러 핸들링
-     *
-     * @param e 발생한 Exception
-     * @return Exception Message, HttpStatus.INTERNAL_SERVER_ERROR
-     */
-    public ResponseEntity<Object> exceptionHandling(Exception e) {
-        e.printStackTrace();
-        return new ResponseEntity<Object>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    
 }
