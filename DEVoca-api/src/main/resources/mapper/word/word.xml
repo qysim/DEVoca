@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.word.model.mapper.WordMapper">
+
+    <!-- getWordList 결과 매핑 -->
+    <resultMap id="wordListResultMap" type="WordDTO">
+        <id property="wordId" column="word_id"/>
+        <result property="wordNameKr" column="word_name_kr"/>
+        <result property="wordNameEn" column="word_name_en"/>
+        <result property="wordSumm" column="word_summ"/>
+        <collection property="wordCategory" javaType="ArrayList" ofType="String">
+            <result column="category_name"/>
+        </collection>
+    </resultMap>
+
+    <!-- getWordList 쿼리 -->
+    <select id="getWordList" resultMap="wordListResultMap">
+        select w.word_id, w.word_name_kr, w.word_name_en, w.word_def, w.word_summ, w.word_link, c.category_name
+        from words w join words_categories wc join categories c
+        on w.word_id = wc.wc_word_id
+        and c.category_id = wc.wc_category_id
+        order by word_id;
+    </select>
+
+</mapper>
