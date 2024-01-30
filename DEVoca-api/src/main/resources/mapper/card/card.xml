@@ -7,7 +7,7 @@
     <!--  카드 등록  -->
     <select id="registerCard" parameterType="CardDTO">
         insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_access)
-        values((select user_idx from users where user_id = #{userId}), #{wordId}, #{cardContent}, #{cardLink}, #{cardAccess});
+        values((select user_idx from users where user_id = #{userId} and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardAccess});
     </select>
 
 </mapper>

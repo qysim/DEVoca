@@ -2,24 +2,24 @@ package com.ssafy.devoca.card.controller;
 
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.card.service.CardService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/card")
 public class CardController {
 
-    @Autowired
-    CardService cardService;
+    private final CardService cardService;
 
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity<String> registerCard(@RequestBody CardDTO cardDTO){
         log.info("registerCard 호출");
         try{
