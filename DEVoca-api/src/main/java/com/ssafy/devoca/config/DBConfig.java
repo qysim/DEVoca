@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -64,6 +65,11 @@ public class DBConfig {
         session.setDataSource(dataSource());
         session.setMapperLocations(applicationContext.getResources("classpath:mapper/**/*.xml"));
         session.setTypeAliasesPackage("com.ssafy.devoca.*.model");
+
+        // MyBatis 전역 설정 추가
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setJdbcTypeForNull(JdbcType.NULL);
+        session.setConfiguration(configuration);
 
         return session.getObject();
     }
