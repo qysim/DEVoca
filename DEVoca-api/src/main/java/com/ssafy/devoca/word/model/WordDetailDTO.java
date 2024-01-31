@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class WordDetailDTO {
-    WordDTO wordDTO;
-    List<NewsDTO> newsList;
-    List<CardDTO> cardList;
+    private WordDTO wordDTO;
+    private List<NewsDTO> newsList;
+    private List<CardDTO> cardList;
 }
