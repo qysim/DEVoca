@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.user.model.mapper.UserMapper">
+
+    <resultMap id="getUserInfo" type="UserDTO">
+        <id property="userIdx" column="user_idx"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userBirth" column="user_birth"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userNickname" column="user_nickname"/>
+        <result property="userIntro" column="user_intro"/>
+        <result property="userExp" column="user_exp"/>
+        <result property="userImg" column="user_img"/>
+        <result property="userJoinDate" column="user_join_date"/>
+        <result property="userUpdateDate" column="user_update_date"/>
+        <result property="userRevokeDate" column="user_revoke_date"/>
+        <result property="userRefreshToken" column="user_refresh_token"/>
+    </resultMap>
+
+
+    <select id="checkUser" parameterType="long" resultType="Integer">
+        select count(user_id) from users where user_id = #{id}
+    </select>
+
+</mapper>

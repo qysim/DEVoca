@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,19 +21,65 @@ public class CardController {
 
     @PostMapping("")
     public ResponseEntity<String> registerCard(@RequestBody CardDTO cardDTO){
-        log.info("registerCard 호출");
+        log.info("registerCard 호출 : 카드 등록 요청");
         try{
             cardService.registerCard(cardDTO);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
             log.error("카드 등록 실패 : {}", e);
-            return exceptionHandling(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    public ResponseEntity<String> exceptionHandling(Exception e){
-        e.printStackTrace();
-        return new ResponseEntity<String>("Error : " + e.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+    @PutMapping("/{cardId}")
+    public ResponseEntity<String> updateCard(@RequestBody CardDTO cardDTO){
+        log.info("updateCard 호출 : 카드 수정 요청");
+        try{
+            cardService.updateCard(cardDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("카드 수정 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
+    @PatchMapping("/{cardId}")
+    public ResponseEntity<String> deleteCard(@PathVariable("cardId") int cardId){
+        log.info("deleteCard 호출 : 카드 삭제 요청");
+        try {
+            cardService.deleteCard(cardId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("카드 삭제 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/{cardId}")
+    public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
+        log.info("getCardDetail 호출 : 카드 상세정보 요청");
+        try {
+            CardDTO cardDetail = cardService.getCardDetail(cardId);
+            log.info("불러온 데이터 : ", cardDetail);
+            return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
+        }catch(Exception e){
+            log.error("카드 상세 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/list/{scroll}")
+    public ResponseEntity<List<CardDTO>> getCardList(@PathVariable("scroll") int scroll){
+        log.info("getCardList 호출 : 카드 목록 요청");
+        try{
+            String userId = "ffasy";
+            List<CardDTO> cardList = cardService.getCardList(scroll, userId);
+            log.info("불러온 데이터 : ", cardList);
+            return ResponseEntity.status(HttpStatus.OK).body(cardList);
+        }catch (Exception e){
+            log.error("카드 목록 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

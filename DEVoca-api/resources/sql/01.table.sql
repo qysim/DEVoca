@@ -1,7 +1,7 @@
 CREATE TABLE `users` (
 	`user_idx`	int	NOT NULL	auto_increment,
 	`fk_user_su_id`	int	NULL,
-	`user_id`	varchar(20)	NOT NULL,
+	`user_id`	varchar(20)	NOT NULL unique,
 	`user_pwd`	varchar(20)	NOT NULL,
 	`user_name`	varchar(20)	NOT NULL,
 	`user_birth`	char(10)	NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `words` (
 CREATE TABLE `cards` (
 	`card_id`	int	NOT NULL	auto_increment,
 	`fk_card_user_idx`	int	NOT NULL,
-	`card_quatate_cnt`	int	NULL	DEFAULT 0,
+	`card_repost_cnt`	int	NULL	DEFAULT 0,
 	`card_word_id`	int	NULL,
 	`card_origin_card_id`	int	NULL,
 	`card_content`	varchar(300)	NULL,
@@ -59,7 +59,7 @@ CREATE TABLE `cards` (
 	`card_regist_date`	datetime	NOT NULL	DEFAULT now(),
 	`card_update_date`	datetime	NULL,
 	`card_delete_date`	datetime	NULL,
-	`card_access`	int	NOT NULL	COMMENT '0: 전체, 1: 팔로워, 2: 비공개',
+	`card_related_keyword`	varchar(100)	NULL,
     CONSTRAINT `PK_CARDS` PRIMARY KEY (`card_id`)
 )default character set utf8mb4;
 
@@ -80,12 +80,6 @@ CREATE TABLE `words_categories` (
 	`wc_word_id`	int	NOT NULL,
 	`wc_category_id`	int	NOT NULL,
     CONSTRAINT `PK_WORDS_CATEGORIES` PRIMARY KEY (`wc_word_id`,	`wc_category_id`)
-)default character set utf8mb4;
-
-CREATE TABLE `cards_relation_words` (
-	`cr_card_id`	int	NOT NULL,
-	`cr_word_id`	int	NOT NULL,
-    CONSTRAINT `PK_CARDS_RELATION_WORDS` PRIMARY KEY (`cr_card_id`,	`cr_word_id`)
 )default character set utf8mb4;
 
 CREATE TABLE `users_favorite_categories` (
@@ -290,20 +284,6 @@ ALTER TABLE `words_categories` ADD CONSTRAINT `FK_categories_TO_words_categories
 )
 REFERENCES `categories` (
 	`category_id`
-);
-
-ALTER TABLE `cards_relation_words` ADD CONSTRAINT `FK_cards_TO_cards_relation_words_1` FOREIGN KEY (
-	`cr_card_id`
-)
-REFERENCES `cards` (
-	`card_id`
-);
-
-ALTER TABLE `cards_relation_words` ADD CONSTRAINT `FK_words_TO_cards_relation_words_1` FOREIGN KEY (
-	`cr_word_id`
-)
-REFERENCES `words` (
-	`word_id`
 );
 
 ALTER TABLE `users_favorite_categories` ADD CONSTRAINT `FK_users_TO_users_favorite_categories_1` FOREIGN KEY (
