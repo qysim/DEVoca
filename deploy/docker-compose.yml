@@ -1,4 +1,16 @@
 services:
+  api:
+    build:
+      context: "../DEVoca-api/"
+      dockerfile: Dockerfile
+    container_name: devoca_api
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+    command: ["java", "-jar", "/app/build/libs/devoca-0.0.1-SNAPSHOT.jar"]
+
   jenkins:
     image: jenkins/jenkins:2.442-jdk17
     container_name: devoca_jenkins
