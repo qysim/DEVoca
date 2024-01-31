@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.devoca.card.model.mapper.UserMapper">
+<mapper namespace="com.ssafy.devoca.user.model.mapper.UserMapper">
 
     <resultMap id="getUserInfo" type="UserDTO">
         <id property="userIdx" column="user_idx"/>
@@ -20,9 +20,9 @@
         <result property="userRefreshToken" column="user_refresh_token"/>
     </resultMap>
 
-    <insert id="joinUser" parameterType="userDTO">
-        insert into users (user_id, user_name, user_birth, user_email, user_nickname, user_join_date)
-        values (#{userId}, #{userName}, #{userBirth}, #{userEmail}, #{userNickname}, now())
-    </insert>
+
+    <select id="checkUser" parameterType="long" resultType="Integer">
+        select count(user_id) from users where user_id = #{id}
+    </select>
 
 </mapper>
