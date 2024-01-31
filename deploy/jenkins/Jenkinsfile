@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('build') {
+            steps {
+                sh 'echo "docker compose up -d"'
+                sh 'docker-compose version'
+            }
+        }
+    }
+}

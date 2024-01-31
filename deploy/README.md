@@ -35,8 +35,10 @@ docker compose up -d
 
 ### Plugin 설치
 
+- Docker Pipeline
 - docker-build-step
 - Docker Compose Build Step
+- GitLab
 
 ## Author
 

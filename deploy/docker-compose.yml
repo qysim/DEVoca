@@ -8,7 +8,7 @@ services:
     ports:
       - "${JENKINS_PORT}:8080"
     volumes:
-      - "./jenkins_home:/var/jenkins_home:rw"
+      - "./jenkins/jenkins_home:/var/jenkins_home:rw"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
       - "/usr/bin/docker-compose:/usr/bin/docker-compose"
