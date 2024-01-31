@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class NewsDTO {
-    String title;
-    String originallink;
-    String link;
-    String description;
-    String pubDate;
+    private String title;
+    private String originallink;
+    private String link;
+    private String description;
+    private String pubDate;
 }

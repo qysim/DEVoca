@@ -1,6 +1,8 @@
 package com.ssafy.devoca.word.controller;
 
+import com.ssafy.devoca.word.model.NewsDTO;
 import com.ssafy.devoca.word.model.WordDTO;
+import com.ssafy.devoca.word.model.WordDetailDTO;
 import com.ssafy.devoca.word.service.WordService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
+
 
 /**
  * 단어 사전 Controller
@@ -50,7 +53,7 @@ public class WordController {
         if(alphabet.length() != 1 ||
                 !((alphabet.charAt(0) >= 'a' && alphabet.charAt(0) <= 'z') || (alphabet.charAt(0) >= 'A') && (alphabet.charAt(0) <= 'Z'))) {
             log.error("wordList 조회 실패 : Bad Request");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.emptyList());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         try {
@@ -60,6 +63,20 @@ public class WordController {
             log.error("wordList 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/detail/{wordId}")
+    public ResponseEntity<WordDetailDTO> getWordDetail(@PathVariable("wordId") int wordId) {
+        log.info("getWordDetail 호출 : {}", wordId);
+
+        try {
+            WordDetailDTO wordDetailDTO = wordService.getWordDetail(wordId);
+            return ResponseEntity.status(HttpStatus.OK).body(wordDetailDTO);
+        } catch (Exception e) {
+            log.error("getWordDetail 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 }
