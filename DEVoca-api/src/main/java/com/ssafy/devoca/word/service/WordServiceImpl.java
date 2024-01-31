@@ -2,7 +2,6 @@ package com.ssafy.devoca.word.service;
 
 import com.ssafy.devoca.word.model.WordDTO;
 import com.ssafy.devoca.word.model.mapper.WordMapper;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
