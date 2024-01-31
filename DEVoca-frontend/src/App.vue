@@ -1,9 +1,18 @@
 <template>
-  <div class="container">
-    <p>Hello World!</p>
+  <div class="container mx-auto" >
+
+    <RouterView/>
+      
   </div>
 </template>
 
-<script setup></script>
+<script setup>
 
-<style scoped></style>
+</script>
+
+<style scoped>
+.devoca-bg-color {
+  background-color: rgb(0, 180, 216);
+}
+
+</style>
