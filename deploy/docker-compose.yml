@@ -1,4 +1,18 @@
 services:
+  jenkins:
+    image: jenkins/jenkins:2.442-jdk17
+    container_name: devoca_jenkins
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    ports:
+      - "${JENKINS_PORT}:8080"
+    volumes:
+      - "./jenkins_home:/var/jenkins_home:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/usr/bin/docker:/usr/bin/docker"
+      - "/usr/bin/docker-compose:/usr/bin/docker-compose"
+
   mysql:
     image: mysql:8.0.35
     container_name: devoca_mysql
@@ -19,3 +33,4 @@ services:
 
 volumes:
   mysql_data:
+  jenkins_home:
