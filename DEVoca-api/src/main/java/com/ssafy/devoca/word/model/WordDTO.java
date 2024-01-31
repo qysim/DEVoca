@@ -1,7 +1,6 @@
 package com.ssafy.devoca.word.model;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.List;
 
