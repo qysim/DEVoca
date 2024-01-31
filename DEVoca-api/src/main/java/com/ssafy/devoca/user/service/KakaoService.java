@@ -1,6 +1,8 @@
 package com.ssafy.devoca.user.service;
 
 import com.ssafy.devoca.user.model.KakaoDTO;
+import com.ssafy.devoca.user.model.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -16,7 +18,10 @@ import org.json.simple.parser.JSONParser;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class KakaoService {
+
+    private final UserMapper userMapper;
 
     @Value("${kakao.client.id}")
     private String KAKAO_CLIENT_ID;
@@ -102,17 +107,21 @@ public class KakaoService {
         //Response 데이터 파싱
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj    = (JSONObject) jsonParser.parse(response.getBody());
-        JSONObject account = (JSONObject) jsonObj.get("kakao_account");
-        JSONObject profile = (JSONObject) account.get("profile");
 
         long id = (long) jsonObj.get("id");
-        String email = String.valueOf(account.get("email"));
-        String nickname = String.valueOf(profile.get("nickname"));
-
-        return KakaoDTO.builder()
-                .id(id)
-                .email(email)
-                .nickname(nickname).build();
+        // 회원/비회원 확인
+        int result = userMapper.checkUser(id);
+        if (result > 0) {
+            log.info("기존 회원");
+            return KakaoDTO.builder()
+                    .id(0)
+                    .userYn(true).build();
+        } else {
+            log.info("비회원");
+            return KakaoDTO.builder()
+                    .id(id)
+                    .userYn(false).build();
+        }
     }
 
 }
