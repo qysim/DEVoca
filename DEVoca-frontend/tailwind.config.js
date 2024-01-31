@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jalnan: ['JalnanGothic'],
+      },
+      colors: {
+        devoca: '#00B4D8'
+      }
+    },
   },
   plugins: [require("daisyui")],
 }
