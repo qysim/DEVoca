@@ -13,6 +13,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void joinUser(UserDTO userDTO) throws Exception {
-        userMapper.joinUser(userDTO);
+        //userMapper.joinUser(userDTO);
     }
 }
