@@ -45,23 +45,41 @@
 
     <!--  카드 등록  -->
     <select id="registerCard" parameterType="CardDTO">
-        insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_access)
-        values((<include refid="userIdxLoad"></include> and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardAccess});
+        insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword)
+        values((<include refid="userIdxLoad"></include> and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword});
     </select>
+
+    <!--  카드 수정  -->
+    <update id="updateCard" parameterType="CardDTO">
+        update cards
+            set card_content = #{cardContent},
+                card_link = #{cardLink},
+                card_related_keyword = #{cardRelatedKeyword},
+                card_update_date = now()
+        where card_id = #{cardId};
+    </update>
+
+    <!--  카드 삭제  -->
+    <update id="deleteCard" parameterType="int">
+        update cards
+        set card_delete_date = now()
+        where card_id = #{cardId};
+    </update>
 
     <!--  카드 상세 조회  -->
     <select id="getCardDetail" parameterType="int" resultMap="CardDTOResultMap">
         select user_id, user_nickname, user_intro, user_img,
-               card_content,
+               card_content, card_related_keyword,
                ifnull((select 'true' from likes
                        where like_from = (select user_idx from users where user_id = "ffasy")
                          and like_to = card_id), 'false')
-                                                                         as card_like_yn,
+               as card_like_yn,
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_link, card_regist_date, card_update_date
         from cards c left join users u
             on c.fk_card_user_idx = u.user_idx
-        where card_id = #{cardId};
+        where card_id = #{cardId}
+        and card_delete_date is null;
     </select>
 
     <!--  카드 목록 조회  -->
