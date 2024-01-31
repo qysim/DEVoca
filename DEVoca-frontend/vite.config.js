@@ -14,3 +14,14 @@ export default defineConfig({
     }
   }
 })
+
+// vue.config.js
+module.exports = {
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `@import "@/assets/css/fonts.css";`,
+      },
+    },
+  },
+};
