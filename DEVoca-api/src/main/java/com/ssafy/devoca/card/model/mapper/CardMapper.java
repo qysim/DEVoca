@@ -11,8 +11,8 @@ import java.util.List;
 public interface CardMapper {
     public void registerCard(CardDTO cardDTO) throws SQLException;
 
-    CardDTO getCardDetail(int cardId) throws SQLException;
+    public CardDTO getCardDetail(int cardId) throws SQLException;
 
-    List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("userId") String userId)
+    public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("userId") String userId)
             throws SQLException;
 }
