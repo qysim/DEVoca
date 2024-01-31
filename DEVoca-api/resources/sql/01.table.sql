@@ -1,7 +1,7 @@
 CREATE TABLE `users` (
 	`user_idx`	int	NOT NULL	auto_increment,
 	`fk_user_su_id`	int	NULL,
-	`user_id`	varchar(20)	NOT NULL,
+	`user_id`	varchar(20)	NOT NULL unique,
 	`user_pwd`	varchar(20)	NOT NULL,
 	`user_name`	varchar(20)	NOT NULL,
 	`user_birth`	char(10)	NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `words` (
 CREATE TABLE `cards` (
 	`card_id`	int	NOT NULL	auto_increment,
 	`fk_card_user_idx`	int	NOT NULL,
-	`card_quatate_cnt`	int	NULL	DEFAULT 0,
+	`card_repost_cnt`	int	NULL	DEFAULT 0,
 	`card_word_id`	int	NULL,
 	`card_origin_card_id`	int	NULL,
 	`card_content`	varchar(300)	NULL,
