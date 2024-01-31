@@ -21,7 +21,7 @@ public class WordServiceImpl implements WordService{
      * @throws Exception
      */
     @Override
-    public List<WordDTO> getWordList() throws Exception {
-        return wordMapper.getWordList();
+    public List<WordDTO> getWordList(String alphabet) throws Exception {
+        return wordMapper.getWordList(alphabet);
     }
 }
