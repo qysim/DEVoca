@@ -20,7 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<String> joinUser(@RequestBody UserDTO userDTO) {
         log.info("user 회원가입 호출");
         try{
