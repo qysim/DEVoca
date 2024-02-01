@@ -1,5 +1,7 @@
 # DEVoca Deploy Guides
 
+DEVoca 배포 방법 설명입니다.
+
 ## 환경 변수 설정
 
 ```bash
@@ -13,13 +15,31 @@ vi .env
 # ...
 ```
 
+### Run
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+```
+
 ## MySQL DB
 
 - Version: 8.0.35
 - Docker container
 
-### Run
+## Jenkins setup
 
-```bash
-docker compose -f docker-compose.mysql.yml up -d mysql
-```
+- Version: 2.442
+- Docker container
+
+- Go to <http://${HOST}:${JENKINS_PORT}>
+
+### Plugin 설치
+
+- Docker Pipeline
+- docker-build-step
+- Docker Compose Build Step
+- GitLab
+
+## Author
+
+- [@cheesecat47](https://github.com/cheesecat47)
