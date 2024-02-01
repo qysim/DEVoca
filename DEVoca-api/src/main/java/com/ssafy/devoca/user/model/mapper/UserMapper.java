@@ -9,4 +9,6 @@ import java.sql.SQLException;
 public interface UserMapper {
 
     int checkUser(long id) throws SQLException;
+
+    void joinUser(UserDTO userDTO);
 }

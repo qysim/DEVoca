@@ -2,7 +2,7 @@
   <div class="container h-screen flex items-center">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
       <div class="flex justify-center">
-        <img src="@/assets/images/logo.png" class="w-3/4">
+        <img src="@/assets/images/DEVoca_logo_en_only.png" class="w-3/4">
       </div>
       <form class="card-body">
         <div class="form-control">
@@ -56,7 +56,7 @@ onMounted(() => {
 });
 </script>
   
-<style lang="scss" scoped>
+<style scoped>
 /* Your component-specific styles go here */
 </style>
   
