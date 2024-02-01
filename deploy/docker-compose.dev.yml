@@ -1,8 +1,4 @@
 services:
-  api:
-    env_file:
-      - ".env"
-
   jenkins:
     env_file:
       - ".env"
