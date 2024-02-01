@@ -43,7 +43,7 @@ public class CardController {
         }
     }
 
-    @PatchMapping("/delete/{cardId}")
+    @DeleteMapping("/{cardId}")
     public ResponseEntity<String> deleteCard(@PathVariable("cardId") int cardId){
         log.info("deleteCard 호출 : 카드 삭제 요청");
         try {
@@ -59,7 +59,7 @@ public class CardController {
     public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
         log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
-            //향후 session에서 userId 뽑아 같이 보내기
+            //향후 session에서 watcherId 뽑아 같이 보내기
             CardDTO cardDetail = cardService.getCardDetail(cardId);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){

@@ -15,7 +15,6 @@
         <result property="wordNameKr" column="word_name_kr"/>
         <result property="wordNameEn" column="word_name_en"/>
         <result property="wordSumm" column="word_summ"/>
-        <result property="wordCategory" column="category_name"/>
 
         <result property="originCardId" column="card_origin_card_id"/>
         <result property="originUserNickName" column="card_origin_user_nickname"/>
@@ -53,15 +52,6 @@
         <include refid="watcherIdxLoad"></include>
     </sql>
 
-    <!--  단어 카테고리 1개 불러오기  -->
-    <sql id="wordCategoryLoad">
-        select c.category_name
-        from words_categories wc join categories c
-            on c.category_id = wc.wc_category_id
-        where c.category_id = word_id
-            limit 1
-    </sql>
-
     <!--  재게시 원본 카드 작성자 정보 불러오기  -->
     <sql id="originUserInfoLoad">
         from users u join cards c
@@ -96,7 +86,6 @@
     <select id="getCardDetail" parameterType="int" resultMap="CardDTOResultMap">
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
-               (<include refid="wordCategoryLoad"></include>) as word_category,
                card_origin_card_id, card_origin_card_id as oci,
                (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
                (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,
@@ -123,7 +112,6 @@
     <select id="getCardList" parameterType="map" resultMap="CardDTOResultMap">
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
-               (<include refid="wordCategoryLoad"></include>) as word_category,
                card_origin_card_id, card_origin_card_id as oci,
                (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
                (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,

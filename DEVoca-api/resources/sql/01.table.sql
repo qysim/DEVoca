@@ -18,8 +18,8 @@ CREATE TABLE `users` (
 CREATE TABLE `badges` (
 	`badge_id`	int	NOT NULL	auto_increment,
 	`badge_name`	varchar(20)	NOT NULL,
-	`badge_img`	varchar(2000)	NOT NULL,
 	`badge_info`	varchar(30)	NOT NULL,
+    `badge_img_name`	varchar(20) NULL,
      CONSTRAINT `PK_BADGES` PRIMARY KEY (`badge_id`)
 )default character set utf8mb4;
 
@@ -38,11 +38,11 @@ CREATE TABLE `follows` (
 
 CREATE TABLE `words` (
 	`word_id`	int	NOT NULL	auto_increment,
-	`word_name_kr`	varchar(50)	NOT NULL,
-	`word_name_en`	varchar(50)	NOT NULL,
-	`word_def`	varchar(300)	NOT NULL,
-	`word_summ`	varchar(100)	NOT NULL,
-	`word_link`	varchar(200)	NULL,
+	`word_name_kr`	varchar(100)	NOT NULL,
+	`word_name_en`	varchar(100)	NOT NULL,
+	`word_def`	varchar(1000)	NOT NULL,
+	`word_summ`	varchar(500)	NOT NULL,
+	`word_link`	varchar(2000)	NULL,
     CONSTRAINT `PK_WORDS` PRIMARY KEY (`word_id`)
 )default character set utf8mb4;
 
@@ -53,7 +53,7 @@ CREATE TABLE `cards` (
 	`card_word_id`	int	NULL,
 	`card_origin_card_id`	int	NULL,
 	`card_content`	varchar(300)	NULL,
-	`card_link`	varchar(200)	NULL,
+	`card_link`	varchar(2000)	NULL,
 	`card_regist_date`	datetime	NOT NULL	DEFAULT now(),
 	`card_update_date`	datetime	NULL,
 	`card_delete_date`	datetime	NULL,
