@@ -2,7 +2,6 @@ package com.ssafy.devoca.user.model;
 
 import lombok.Data;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Data
@@ -20,4 +19,9 @@ public class UserDTO {
     private Timestamp userUpdateDate;
     private Timestamp userRevokeDate;
     private String userRefreshToken;
+
+    // only response
+    private Integer userFollowingCnt;
+    private Integer userFollowerCnt;
+    private Integer userBgCnt;
 }

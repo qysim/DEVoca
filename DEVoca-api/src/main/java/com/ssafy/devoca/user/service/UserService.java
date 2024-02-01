@@ -4,5 +4,6 @@ import com.ssafy.devoca.user.model.UserDTO;
 
 public interface UserService {
 
-    public void joinUser(UserDTO userDTO) throws Exception;
+    void joinUser(UserDTO userDTO) throws Exception;
+    UserDTO getUserInfo(int userIdx) throws Exception;
 }
