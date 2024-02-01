@@ -65,6 +65,12 @@ public class WordController {
         }
     }
 
+    /**
+     * 단어 상세 (단어, 뉴스) 조회
+     *
+     * @param wordId 단어 아이디
+     * @return 단어 데이터, 뉴스 데이터 리스트
+     */
     @GetMapping("/detail/{wordId}")
     public ResponseEntity<WordDetailDTO> getWordDetail(@PathVariable("wordId") int wordId) {
         log.info("getWordDetail 호출 : {}", wordId);
