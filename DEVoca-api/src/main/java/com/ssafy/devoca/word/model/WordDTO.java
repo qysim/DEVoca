@@ -6,11 +6,11 @@ import java.util.List;
 
 @Data
 public class WordDTO {
-    int wordId;
-    String wordNameKr;
-    String wordNameEn;
-    String wordDef;
-    String wordSumm;
-    String wordLink;
-    List<String> wordCategory;
+    private int wordId;
+    private String wordNameKr;
+    private String wordNameEn;
+    private String wordDef;
+    private String wordSumm;
+    private String wordLink;
+    private List<String> wordCategory;
 }

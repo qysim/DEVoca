@@ -1,0 +1,98 @@
+pipeline {
+    agent any
+
+    environment {
+        AUTHOR_ID = """${sh(
+            script: 'git show -s --pretty=%an',
+            returnStdout: true
+        ).trim()}"""
+        AUTHOR_NAME = """${sh(
+            script: 'git show -s --pretty=%ae',
+            returnStdout: true
+        ).trim()}"""
+        ENDPOINT = 'https://meeting.ssafy.com/hooks/63piomqgsjyf9mshb7wxsy4yuo'
+        CHANNEL = 'D112-Alert'
+        SUCCESS_ICON = 'https://www.jenkins.io/images/logos/seonbi/256.png'
+        FAILED_ICON = 'https://www.jenkins.io/images/logos/fire/256.png'
+    }
+
+    stages {
+        stage('Set environments') {
+            steps {
+                dir('deploy') {
+                    sh './setenv.sh'
+                }
+            }
+        }
+        stage('Build API server') {
+            steps {
+                dir('deploy') {
+                    sh 'echo "Build API server"'
+                    sh 'docker-compose -p devoca-deploy build api'
+                }
+            }
+            post {
+                success {
+                    script {
+                        mattermostSend(
+                            color: 'good',
+                            message: "Succeed to build api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${SUCCESS_ICON}"
+                        )
+                    }
+                }
+                failure {
+                    script {
+                        mattermostSend(
+                            color: 'danger',
+                            message: "Failed to build api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${FAILED_ICON}"
+                        )
+                    }
+                }
+            }
+        }
+
+        stage('Deploy API server') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                dir('deploy') {
+                    sh 'echo "Deploy API server"'
+                    sh 'docker-compose -p devoca-deploy up -d --force-recreate api'
+                }
+            }
+            post {
+                success {
+                    script {
+                        mattermostSend(
+                            color: 'good',
+                            message: "Succeed to deploy api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${SUCCESS_ICON}"
+                        )
+                    }
+                }
+                failure {
+                    script {
+                        mattermostSend(
+                            color: 'danger',
+                            message: "Failed to deploy api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${FAILED_ICON}"
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

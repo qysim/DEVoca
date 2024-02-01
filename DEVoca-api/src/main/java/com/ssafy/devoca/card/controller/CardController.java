@@ -21,7 +21,7 @@ public class CardController {
 
     @PostMapping("")
     public ResponseEntity<String> registerCard(@RequestBody CardDTO cardDTO){
-        log.info("registerCard 호출");
+        log.info("registerCard 호출 : 카드 등록 요청");
         try{
             cardService.registerCard(cardDTO);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -31,12 +31,36 @@ public class CardController {
         }
     }
 
+    @PatchMapping("/{cardId}")
+    public ResponseEntity<String> updateCard(@RequestBody CardDTO cardDTO){
+        log.info("updateCard 호출 : 카드 수정 요청");
+        try{
+            cardService.updateCard(cardDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("카드 수정 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<String> deleteCard(@PathVariable("cardId") int cardId){
+        log.info("deleteCard 호출 : 카드 삭제 요청");
+        try {
+            cardService.deleteCard(cardId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("카드 삭제 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping("/{cardId}")
     public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
-        log.info("getCardDetail 호출");
+        log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
+            //향후 session에서 watcherId 뽑아 같이 보내기
             CardDTO cardDetail = cardService.getCardDetail(cardId);
-            log.info("불러온 데이터 : ", cardDetail);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){
             log.error("카드 상세 호출 실패 : {}", e);
@@ -46,9 +70,10 @@ public class CardController {
 
     @GetMapping("/list/{scroll}")
     public ResponseEntity<List<CardDTO>> getCardList(@PathVariable("scroll") int scroll){
-        log.info("getCardList 호출");
+        log.info("getCardList 호출 : 카드 목록 요청");
         try{
-            String userId = "ffasy";
+            //향후 session에서 userId 뽑아 같이 보내기
+            String userId = "aabbccc";
             List<CardDTO> cardList = cardService.getCardList(scroll, userId);
             log.info("불러온 데이터 : ", cardList);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);

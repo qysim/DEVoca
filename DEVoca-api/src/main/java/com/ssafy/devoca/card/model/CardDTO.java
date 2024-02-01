@@ -16,8 +16,6 @@ public class CardDTO {
     private String wordNameKr;
     private String wordNameEn;
     private String wordSumm;
-    private String wordCategory;    // 카드 목록 조회에서 사용하는 대표 카테고리 1개
-    private String[] wordCategories;    //카테고리 전체 목록
 
     private int originCardId;
     private String originUserNickName;
@@ -30,8 +28,8 @@ public class CardDTO {
     private int cardLikeCnt;
     private int cardRepostCnt;
     private String cardLink;
-    private String[] cardRelationWords;
+    private String cardRelatedKeyword;  // DB로 보내기 위해 가공한 String 형태
+    private String[] cardRelatedKeywordList;    // frontend에서 받아온 배열 형태
     private Timestamp cardRegistDate;
     private Timestamp cardUpdateDate;
-    private int cardAccess;
 }

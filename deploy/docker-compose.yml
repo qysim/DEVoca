@@ -1,0 +1,43 @@
+services:
+  api:
+    build:
+      context: "../DEVoca-api/"
+      dockerfile: Dockerfile
+    container_name: devoca_api
+    restart: unless-stopped
+    env_file:
+      - ".env"
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+
+  jenkins:
+    image: jenkins/jenkins:2.442-jdk17
+    container_name: devoca_jenkins
+    restart: unless-stopped
+    ports:
+      - "${JENKINS_PORT}:8080"
+    volumes:
+      - "./jenkins/jenkins_home:/var/jenkins_home:rw"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/usr/bin/docker:/usr/bin/docker"
+      - "/usr/bin/docker-compose:/usr/bin/docker-compose"
+
+  mysql:
+    image: mysql:8.0.35
+    container_name: devoca_mysql
+    restart: unless-stopped
+    ports:
+      - "${MYSQL_EXTERNAL_PORT}:${MYSQL_PORT}"
+    volumes:
+      - "../DEVoca-api/resources/sql/:/docker-entrypoint-initdb.d/"
+      - "mysql_data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    command: --character-set-server=utf8mb4  --collation-server=utf8mb4_bin
+
+volumes:
+  mysql_data:
+  jenkins_home:
