@@ -34,5 +34,4 @@ public class CardDTO {
     private String[] cardRelatedKeywordList;    // frontend에서 받아온 배열 형태
     private Timestamp cardRegistDate;
     private Timestamp cardUpdateDate;
-    private int cardAccess;
 }

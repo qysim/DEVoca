@@ -1,8 +1,6 @@
 CREATE TABLE `users` (
 	`user_idx`	int	NOT NULL	auto_increment,
-	`fk_user_su_id`	int	NULL,
 	`user_id`	varchar(20)	NOT NULL unique,
-	`user_pwd`	varchar(20)	NOT NULL,
 	`user_name`	varchar(20)	NOT NULL,
 	`user_birth`	char(10)	NOT NULL,
 	`user_email`	varchar(40)	NOT NULL,
@@ -86,13 +84,6 @@ CREATE TABLE `users_favorite_categories` (
 	`uf_user_idx`	int	NOT NULL,
 	`uf_category_id`	int	NOT NULL,
     CONSTRAINT `PK_USERS_FAVORITE_CATEGORIES` PRIMARY KEY (`uf_user_idx`,	`uf_category_id`)
-)default character set utf8mb4;
-
-CREATE TABLE `sns_users` (
-	`su_id`	int	NOT NULL	auto_increment,
-	`su_name`	varchar(20)	NULL,
-	`su_img`	varchar(2000)	NULL,
-    CONSTRAINT `PK_SNS_USERS` PRIMARY KEY (`su_id`)
 )default character set utf8mb4;
 
 CREATE TABLE `boards` (
@@ -215,13 +206,6 @@ CREATE TABLE `quiz_answers` (
 	`qa_yn`	int	NULL	COMMENT '0: 오답, 1: 정답',
     CONSTRAINT `PK_QUIZ_ANSWERS` PRIMARY KEY (`qw_id`,	`qa_user_idx`)
 )default character set utf8mb4;
-
-ALTER TABLE `users` ADD CONSTRAINT `FK_sns_users_TO_users_1` FOREIGN KEY (
-	`fk_user_su_id`
-)
-REFERENCES `sns_users` (
-	`su_id`
-);
 
 ALTER TABLE `follows` ADD CONSTRAINT `FK_users_TO_follows_1` FOREIGN KEY (
 	`follow_from`

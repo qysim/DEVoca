@@ -17,6 +17,6 @@ public interface CardMapper {
 
     public CardDTO getCardDetail(int cardId) throws SQLException;
 
-    public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("userId") String userId)
+    public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("watcherId") String watcherId)
             throws SQLException;
 }
