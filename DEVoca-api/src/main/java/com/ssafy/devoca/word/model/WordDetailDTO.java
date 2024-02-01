@@ -9,5 +9,4 @@ import java.util.List;
 public class WordDetailDTO {
     private WordDTO wordDTO;
     private List<NewsDTO> newsList;
-    private List<CardDTO> cardList;
 }
