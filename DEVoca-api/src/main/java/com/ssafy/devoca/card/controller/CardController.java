@@ -31,7 +31,7 @@ public class CardController {
         }
     }
 
-    @PutMapping("/{cardId}")
+    @PatchMapping("/{cardId}")
     public ResponseEntity<String> updateCard(@RequestBody CardDTO cardDTO){
         log.info("updateCard 호출 : 카드 수정 요청");
         try{
@@ -43,7 +43,7 @@ public class CardController {
         }
     }
 
-    @PatchMapping("/{cardId}")
+    @DeleteMapping("/{cardId}")
     public ResponseEntity<String> deleteCard(@PathVariable("cardId") int cardId){
         log.info("deleteCard 호출 : 카드 삭제 요청");
         try {
@@ -59,8 +59,8 @@ public class CardController {
     public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
         log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
+            //향후 session에서 watcherId 뽑아 같이 보내기
             CardDTO cardDetail = cardService.getCardDetail(cardId);
-            log.info("불러온 데이터 : ", cardDetail);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){
             log.error("카드 상세 호출 실패 : {}", e);
@@ -72,7 +72,8 @@ public class CardController {
     public ResponseEntity<List<CardDTO>> getCardList(@PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
-            String userId = "ffasy";
+            //향후 session에서 userId 뽑아 같이 보내기
+            String userId = "aabbccc";
             List<CardDTO> cardList = cardService.getCardList(scroll, userId);
             log.info("불러온 데이터 : ", cardList);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);

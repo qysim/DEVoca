@@ -18,7 +18,7 @@ public class CardServiceImpl implements CardService{
     public void registerCard(CardDTO cardDTO) throws Exception {
         // String[] cardRelatedKeywordArray를 String cardRelatedKeyword로
         String[] tempStringArray = cardDTO.getCardRelatedKeywordList();
-        if(tempStringArray.length > 0) {
+        if(tempStringArray != null) {
             String tempString = Arrays.toString(tempStringArray);
             cardDTO.setCardRelatedKeyword(tempString);
         }
@@ -29,7 +29,7 @@ public class CardServiceImpl implements CardService{
     public void updateCard(CardDTO cardDTO) throws Exception {
         // String[] cardRelatedKeywordArray를 String cardRelatedKeyword로
         String[] tempStringArray = cardDTO.getCardRelatedKeywordList();
-        if(tempStringArray.length > 0) {
+        if(tempStringArray != null) {
             String tempString = Arrays.toString(tempStringArray);
             cardDTO.setCardRelatedKeyword(tempString);
         }
@@ -49,7 +49,7 @@ public class CardServiceImpl implements CardService{
         String tempString = cardDTO.getCardRelatedKeyword();
         if(tempString != null) {
             tempString = tempString.substring(1);
-            String[] tempStringArray = tempString.split(",");
+            String[] tempStringArray = tempString.split(", ");
 
             String temp = tempStringArray[tempStringArray.length - 1];
             temp = temp.substring(0, temp.length() - 1);
