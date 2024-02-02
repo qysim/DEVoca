@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/Membership_Management/LoginView.vue'
-import SignupView from '@/views/Membership_Management/SignupView.vue'
-import SelectInterestsView from '@/views/Membership_Management/SelectInterestsView.vue'
+import LoginView from '@/views/MembershipManagement/LoginView.vue'
+import SignupView from '@/views/MembershipManagement/SignupView.vue'
+import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
@@ -18,7 +18,7 @@ const router = createRouter({
     },
     {
       path:'/signup',
-      name:'SigupView',
+      name:'SignupView',
       component : SignupView
     },
     {
