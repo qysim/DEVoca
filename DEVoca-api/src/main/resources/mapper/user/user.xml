@@ -20,6 +20,10 @@
         <result property="userRefreshToken" column="user_refresh_token"/>
     </resultMap>
 
+    <!--  userId로 userIdx 불러오기  -->
+    <select id="userIdxLoad" parameterType="String">
+        select user_idx from users where user_id = #{userId}
+    </select>
 
     <select id="checkUser" parameterType="long" resultType="Integer">
         select count(user_id) from users where user_id = #{id}
