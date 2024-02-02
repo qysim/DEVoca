@@ -2,14 +2,10 @@ pipeline {
     agent any
 
     environment {
-        AUTHOR_ID = """${sh(
-            script: 'git show -s --pretty=%an',
+        GIT_MESSAGE = """${sh(
+            script: 'git show -s --pretty="* Commit %h by %cn <%ce>%n* Title: %s%n* Date: %cI"',
             returnStdout: true
-        ).trim()}"""
-        AUTHOR_NAME = """${sh(
-            script: 'git show -s --pretty=%ae',
-            returnStdout: true
-        ).trim()}"""
+        )}"""
         ENDPOINT = 'https://meeting.ssafy.com/hooks/63piomqgsjyf9mshb7wxsy4yuo'
         CHANNEL = 'D112-Alert'
         SUCCESS_ICON = 'https://www.jenkins.io/images/logos/seonbi/256.png'
@@ -28,7 +24,7 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Build API server"'
-                    sh 'docker-compose -p devoca-deploy build api'
+                    sh 'docker-compose -p devoca-deploy build --no-cache api'
                 }
             }
             post {
@@ -36,7 +32,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'good',
-                            message: "Succeed to build api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            message: "Succeed to build api server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${SUCCESS_ICON}"
@@ -47,7 +43,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'danger',
-                            message: "Failed to build api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            message: "Failed to build api server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${FAILED_ICON}"
@@ -74,7 +70,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'good',
-                            message: "Succeed to deploy api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            message: "Succeed to deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${SUCCESS_ICON}"
@@ -85,7 +81,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'danger',
-                            message: "Failed to deploy api server: ${env.BUILD_TAG} by ${AUTHOR_ID}(${AUTHOR_NAME})\n(${env.BUILD_URL}|Details)",
+                            message: "Failed to deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${FAILED_ICON}"
@@ -94,5 +90,76 @@ pipeline {
                 }
             }
         }
+
+        stage('Build FE server') {
+            steps {
+                dir('deploy') {
+                    sh 'echo "Build FE server"'
+                    sh 'docker-compose -p devoca-deploy build --no-cache nginx'
+                }
+            }
+            post {
+                success {
+                    script {
+                        mattermostSend(
+                            color: 'good',
+                            message: "Succeed to build FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${SUCCESS_ICON}"
+                        )
+                    }
+                }
+                failure {
+                    script {
+                        mattermostSend(
+                            color: 'danger',
+                            message: "Failed to build FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            endpoint: "${ENDPOINT}",
+                            channel: "${CHANNEL}",
+                            icon: "${FAILED_ICON}"
+                        )
+                    }
+                }
+            }
+        }
+
+        stage('Deploy FE server') {
+                    when {
+                        expression {
+                            currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                        }
+                    }
+                    steps {
+                        dir('deploy') {
+                            sh 'echo "Deploy FE server"'
+                            sh 'docker-compose -p devoca-deploy up -d --force-recreate nginx'
+                        }
+                    }
+                    post {
+                        success {
+                            script {
+                                mattermostSend(
+                                    color: 'good',
+                                    message: "Succeed to deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                                    endpoint: "${ENDPOINT}",
+                                    channel: "${CHANNEL}",
+                                    icon: "${SUCCESS_ICON}"
+                                )
+                            }
+                        }
+                        failure {
+                            script {
+                                mattermostSend(
+                                    color: 'danger',
+                                    message: "Failed to deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                                    endpoint: "${ENDPOINT}",
+                                    channel: "${CHANNEL}",
+                                    icon: "${FAILED_ICON}"
+                                )
+                            }
+                        }
+                    }
+                }
     }
 }
