@@ -2,10 +2,11 @@
   <div class="navbar bg-base-100 fixed top-0 z-10">
     <div class="navbar-start ml-2">
       <a>
-        <img src="@/assets/images/logo.png" class="w-1/2" alt="logo">
+        <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-1/2" alt="devoca_logo">
       </a>
     </div>
 
+    <!-- 알림페이지 연결 후 swap 기능 구현 예정 -->
     <div class="navbar-end">
       <button class="btn btn-ghost btn-circle">
         <div class="indicator text-neutral-900">
