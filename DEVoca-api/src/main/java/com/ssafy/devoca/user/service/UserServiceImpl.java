@@ -15,4 +15,9 @@ public class UserServiceImpl implements UserService{
     public void joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
     }
+
+    @Override
+    public UserDTO getUserInfo(int userIdx) throws Exception {
+        return userMapper.getUserInfo(userIdx);
+    }
 }
