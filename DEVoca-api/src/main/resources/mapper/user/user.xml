@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.devoca.user.model.mapper.UserMapper">
 
-    <resultMap id="getUserInfo" type="UserDTO">
+    <resultMap id="getUserDTO" type="UserDTO">
         <id property="userIdx" column="user_idx"/>
         <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
@@ -20,6 +20,10 @@
         <result property="userRefreshToken" column="user_refresh_token"/>
     </resultMap>
 
+    <!--  userId로 userIdx 불러오기  -->
+    <select id="userIdxLoad" parameterType="String" resultType="Integer">
+        select user_idx from users where user_id = #{userId}
+    </select>
 
     <select id="checkUser" parameterType="long" resultType="Integer">
         select count(user_id) from users where user_id = #{id}
@@ -30,4 +34,14 @@
         values (#{userId}, #{userName}, #{userBirth}, #{userEmail}, #{userNickname}, now())
     </insert>
 
+    <!-- 회원 정보 조회 -->
+    <select id="getUserInfo" parameterType="Integer" resultMap="getUserDTO">
+        select user_id, user_name, user_nickname
+             , user_birth, user_email, user_intro, user_exp
+             , (select count(follow_from) from follows where follow_from = #{userIdx}) as userFollowingCnt
+             , (select count(follow_to) from follows where follow_to = #{userIdx}) as userFollowerCnt
+             , (select count(ub_badge_id) from user_badges where ub_user_idx = #{userIdx}) as userBgCnt
+        from users
+        where user_idx = #{userIdx}
+    </select>
 </mapper>
