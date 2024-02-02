@@ -55,9 +55,8 @@ services:
     ports:
       - "${NGINX_PORT}:443"
     volumes:
-      - "./nginx.conf:/etc/nginx/nginx.conf"
-      - "/etc/letsencrypt/live/p.ssafy.io/fullchain.pem:/.cert/fullchain.pem:ro"
-      - "/etc/letsencrypt/live/p.ssafy.io/privkey.pem:/.cert/privkey.pem:ro"
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - "/etc/letsencrypt/live/p.ssafy.io/:/.cert/:ro"
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
