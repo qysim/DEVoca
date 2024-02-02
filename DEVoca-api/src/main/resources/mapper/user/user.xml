@@ -44,4 +44,17 @@
         from users
         where user_idx = #{userIdx}
     </select>
+
+    <update id="updateUserInfo" parameterType="UserDTO">
+        update users
+        <set>
+            <if test="userNickname != null">
+                user_nickname = #{userNickname},
+            </if>
+            <if test="userIntro != null">
+                user_intro = #{userIntro},
+            </if>
+        </set>
+        where user_idx=#{userIdx};
+    </update>
 </mapper>
