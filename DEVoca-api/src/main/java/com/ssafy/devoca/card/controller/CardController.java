@@ -59,7 +59,7 @@ public class CardController {
     public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
         log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
-            //향후 session에서 watcherId 뽑아 같이 보내기
+            //향후 session에서 loginUserId 뽑아 같이 보내기
             CardDTO cardDetail = cardService.getCardDetail(cardId);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){
@@ -72,13 +72,38 @@ public class CardController {
     public ResponseEntity<List<CardDTO>> getCardList(@PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
-            //향후 session에서 userId 뽑아 같이 보내기
-            String userId = "aabbccc";
-            List<CardDTO> cardList = cardService.getCardList(scroll, userId);
-            log.info("불러온 데이터 : ", cardList);
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            List<CardDTO> cardList = cardService.getCardList(scroll, loginUserId);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
             log.error("카드 목록 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/list/{userId}/{scroll}")
+    public ResponseEntity<List<CardDTO>> getCardListByUserId(@PathVariable("userId") String userId, @PathVariable("scroll") int scroll){
+        log.info("getCardListByUserId 호출 : " + userId + "의 카드 목록 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            List<CardDTO> cardList = cardService.getCardListByUserId(userId, scroll, loginUserId);
+            return ResponseEntity.status(HttpStatus.OK).body(cardList);
+        }catch (Exception e){
+            log.error("카드 목록 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/repost")
+    public ResponseEntity<String> repostCard (@RequestBody CardDTO cardDTO){
+        log.info("repostCard 호출 : 카드 재게시 요청");
+        try{
+            cardService.repostCard(cardDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (Exception e){
+            log.error("카드 재게시 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

@@ -13,5 +13,11 @@ public interface CardService {
 
     public CardDTO getCardDetail(int cardId) throws Exception;
 
-    public List<CardDTO> getCardList(int scroll, String userId) throws Exception;
+    public List<CardDTO> getCardList(int scroll, String loginUserId) throws Exception;
+
+    public List<CardDTO> getCardListByWord(int wordId, int scroll, String loginUserId) throws Exception;
+
+    public List<CardDTO> getCardListByUserId(String userId, int scroll, String loginUserId) throws Exception;
+
+    public void repostCard(CardDTO cardDTO) throws Exception;
 }

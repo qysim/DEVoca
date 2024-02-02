@@ -61,7 +61,29 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public List<CardDTO> getCardList(int scroll, String userId) throws Exception {
-        return cardMapper.getCardList(scroll * 10, userId);
+    public List<CardDTO> getCardList(int scroll, String loginUserId) throws Exception {
+        return cardMapper.getCardList(scroll * 10, loginUserId);
+    }
+
+    @Override
+    public List<CardDTO> getCardListByWord(int wordId, int scroll, String loginUserId) throws Exception {
+        return cardMapper.getCardListByWord(wordId, scroll, loginUserId);
+    }
+
+    @Override
+    public List<CardDTO> getCardListByUserId(String userId, int scroll, String loginUserId) throws Exception {
+        return cardMapper.getCardListByUserId(userId, scroll, loginUserId);
+    }
+
+    @Override
+    public void repostCard(CardDTO cardDTO) throws Exception {
+        // String[] cardRelatedKeywordArray를 String cardRelatedKeyword로
+        String[] tempStringArray = cardDTO.getCardRelatedKeywordList();
+        if(tempStringArray != null) {
+            String tempString = Arrays.toString(tempStringArray);
+            cardDTO.setCardRelatedKeyword(tempString);
+        }
+        cardMapper.repostCard(cardDTO);
+        cardMapper.repostCntUpdate(cardDTO.getOriginCardId());
     }
 }
