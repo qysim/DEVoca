@@ -84,5 +84,6 @@ public class CardServiceImpl implements CardService{
             cardDTO.setCardRelatedKeyword(tempString);
         }
         cardMapper.repostCard(cardDTO);
+        cardMapper.repostCntUpdate(cardDTO.getOriginCardId());
     }
 }

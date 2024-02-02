@@ -29,4 +29,6 @@ public interface CardMapper {
             throws SQLException;
 
     public void repostCard(CardDTO cardDTO) throws SQLException;
+    public void repostCntUpdate(int originCardId) throws SQLException;
+
 }

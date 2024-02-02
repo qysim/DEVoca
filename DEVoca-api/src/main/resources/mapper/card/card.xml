@@ -206,5 +206,10 @@
                #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword}, #{originCardId});
     </select>
     <!--  재게시 시 원본 카드의 repostCnt  -->
+    <update id="repostCntUpdate" parameterType="int">
+        update cards
+        set card_repost_cnt = card_repost_cnt + 1
+        where card_id = #{originCardId};
+    </update>
 
 </mapper>
