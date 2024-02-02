@@ -24,7 +24,7 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Build API server"'
-                    sh 'docker-compose -p devoca-deploy build --no-cache api'
+                    sh 'docker-compose -p devoca-deploy build api'
                 }
             }
             post {
@@ -62,7 +62,7 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Deploy API server"'
-                    sh 'docker-compose -p devoca-deploy up -d --force-recreate api'
+                    sh 'docker-compose -p devoca-deploy up -d api'
                 }
             }
             post {
@@ -95,7 +95,7 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Build FE server"'
-                    sh 'docker-compose -p devoca-deploy build --no-cache nginx'
+                    sh 'docker-compose -p devoca-deploy build nginx'
                 }
             }
             post {
@@ -133,7 +133,7 @@ pipeline {
                     steps {
                         dir('deploy') {
                             sh 'echo "Deploy FE server"'
-                            sh 'docker-compose -p devoca-deploy up -d --force-recreate nginx'
+                            sh 'docker-compose -p devoca-deploy up -d nginx'
                         }
                     }
                     post {
