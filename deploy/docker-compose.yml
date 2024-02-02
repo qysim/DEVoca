@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: devoca_api
     restart: unless-stopped
+    networks:
+      - devoca_network
     env_file:
       - ".env"
     ports:
@@ -26,6 +28,8 @@ services:
     image: mysql:8.0.35
     container_name: devoca_mysql
     restart: unless-stopped
+    networks:
+      - devoca_network
     ports:
       - "${MYSQL_EXTERNAL_PORT}:${MYSQL_PORT}"
     volumes:
@@ -38,6 +42,29 @@ services:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
     command: --character-set-server=utf8mb4  --collation-server=utf8mb4_bin
 
+  nginx:
+    build:
+      context: "../DEVoca-frontend/"
+      dockerfile: Dockerfile
+    container_name: devoca_nginx
+    restart: unless-stopped
+    networks:
+      - devoca_network
+    env_file:
+      - ".env"
+    ports:
+      - "${NGINX_PORT}:443"
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./nginx/.cert/:/.cert/:ro"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 volumes:
   mysql_data:
   jenkins_home:
+
+networks:
+  devoca_network:
+    name: devoca_network
+    external: true

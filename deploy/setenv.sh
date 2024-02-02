@@ -1,7 +1,6 @@
 if [ ! -f ".env" ]; then
   touch .env
   {
-    echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}";
     echo "MYSQL_USER=${MYSQL_USER}";
     echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}";
     echo "MYSQL_DATABASE=${MYSQL_DATABASE}";
@@ -9,11 +8,11 @@ if [ ! -f ".env" ]; then
     echo "MYSQL_PORT=${MYSQL_PORT}";
     echo "MYSQL_EXTERNAL_PORT=${MYSQL_EXTERNAL_PORT}";
     echo "HTTP_PORT=${HTTP_PORT}";
+    echo "NGINX_PORT=${NGINX_PORT}";
     echo "KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}";
     echo "KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}";
     echo "KAKAO_REDIRECT_URL=${KAKAO_REDIRECT_URL}";
     echo "NAVER_CLIENT_ID=${NAVER_CLIENT_ID}";
     echo "NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}";
-    echo "JENKINS_PORT=${JENKINS_PORT}";
   } >> .env
 fi

@@ -1,8 +1,7 @@
 .idea/
 .vscode/
 
-.env
-.env.*
+*.env*
 *.pem
 
 venv/
