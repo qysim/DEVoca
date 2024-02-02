@@ -14,6 +14,7 @@ RUN npm run build
 FROM nginx:1.25
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY ../deploy/nginx/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
