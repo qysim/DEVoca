@@ -42,4 +42,18 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PatchMapping("")
+    public ResponseEntity<UserDTO> updateUserInfo(@RequestHeader("userId") String userId, @RequestBody UserDTO userDTO){
+        log.info("user 정보 수정 호출");
+        try{
+            int userIdx = userService.userIdxLoad(userId);
+            userDTO.setUserIdx(userIdx);
+            userService.updateUserInfo(userDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            log.error("회원 정보 수정 실패: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
