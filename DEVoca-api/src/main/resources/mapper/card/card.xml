@@ -124,11 +124,16 @@
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
         from users u right join cards c
-        on u.user_idx = c.fk_card_user_idx
-        left join words w
-        on c.card_word_id = word_id
+            on u.user_idx = c.fk_card_user_idx
+            left join words w
+            on c.card_word_id = word_id
         where u.user_idx in (<include refid="userFollowIdx"></include>)
-        and card_delete_date is null
+            and card_delete_date is null
+        ORDER BY
+            CASE
+            WHEN card_update_date IS NOT NULL AND card_update_date >= card_regist_date THEN card_update_date
+            ELSE card_regist_date
+            END DESC
         limit #{scroll}, 10;
     </select>
 
@@ -149,11 +154,18 @@
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
         from users u right join cards c
-        on u.user_idx = c.fk_card_user_idx
-        left join words w
-        on c.card_word_id = word_id
+            on u.user_idx = c.fk_card_user_idx
+            left join words w
+            on c.card_word_id = word_id
         where c.card_word_id = #{wordId}
-        and card_delete_date is null
+            and card_delete_date is null
+            and card_content is not null
+        ORDER BY
+            card_like_cnt desc,
+                CASE
+                WHEN card_update_date IS NOT NULL AND card_update_date >= card_regist_date THEN card_update_date
+                ELSE card_regist_date
+            END DESC
         limit #{scroll}, 10;
     </select>
 
@@ -174,11 +186,16 @@
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
         from users u right join cards c
-        on u.user_idx = c.fk_card_user_idx
-        left join words w
-        on c.card_word_id = word_id
+            on u.user_idx = c.fk_card_user_idx
+            left join words w
+            on c.card_word_id = word_id
         where c.fk_card_user_idx = (<include refid="userIdxLoad"></include>)
-        and card_delete_date is null
+            and card_delete_date is null
+        ORDER BY
+            CASE
+                WHEN card_update_date IS NOT NULL AND card_update_date >= card_regist_date THEN card_update_date
+                ELSE card_regist_date
+            END DESC
         limit #{scroll}, 10;
     </select>
 
