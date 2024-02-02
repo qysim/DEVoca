@@ -74,4 +74,15 @@ public class CardServiceImpl implements CardService{
     public List<CardDTO> getCardListByUserId(String userId, int scroll, String loginUserId) throws Exception {
         return cardMapper.getCardListByUserId(userId, scroll, loginUserId);
     }
+
+    @Override
+    public void repostCard(CardDTO cardDTO) throws Exception {
+        // String[] cardRelatedKeywordArray를 String cardRelatedKeyword로
+        String[] tempStringArray = cardDTO.getCardRelatedKeywordList();
+        if(tempStringArray != null) {
+            String tempString = Arrays.toString(tempStringArray);
+            cardDTO.setCardRelatedKeyword(tempString);
+        }
+        cardMapper.repostCard(cardDTO);
+    }
 }

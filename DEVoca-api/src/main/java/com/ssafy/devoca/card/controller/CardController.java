@@ -96,4 +96,16 @@ public class CardController {
         }
     }
 
+    @PostMapping("/repost")
+    public ResponseEntity<String> repostCard (@RequestBody CardDTO cardDTO){
+        log.info("repostCard 호출 : 카드 재게시 요청");
+        try{
+            cardService.repostCard(cardDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (Exception e){
+            log.error("카드 재게시 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }
