@@ -5,20 +5,12 @@ import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsVie
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import MainView from '@/views/feeds/MainView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    // user
     {
       path: '/login',
       name: 'LoginView',
@@ -48,6 +40,12 @@ const router = createRouter({
       path : '/Follower',
       name : 'FollowerView',
       component : FollowerView
+    },
+    // feed
+    {
+      path: '/',
+      name: 'MainView',
+      component: MainView
     },
   ]
 })
