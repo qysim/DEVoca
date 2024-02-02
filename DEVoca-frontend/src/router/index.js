@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/MemberShip_Management/LoginView.vue'
 import SignupView from '@/views/MemberShip_Management/SignupView.vue'
-import SelectInterestsView from '@/views/MemberShip_Management/SelectInterestsView.vue'
+import SelectInterestsView from '@/views/Membership_Management/SelectInterestsView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
-
+import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
+import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,16 @@ const router = createRouter({
       name : 'FollowerView',
       component : FollowerView
     },
+    {
+      path : '/selectinterestschange',
+      name : 'SelectInterestsChangeView',
+      component : SelectInterestsChangeView
+    },
+    {
+      path : '/mypagesetting',
+      name : 'MypageSettingView',
+      component : MypageSettingView
+    }
   ]
 })
 
