@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '@/views/MemberShip_Management/LoginView.vue'
-import SignupView from '@/views/MemberShip_Management/SignupView.vue'
+import LoginView from '@/views/Membership_Management/LoginView.vue'
+import SignupView from '@/views/Membership_Management/SignupView.vue'
 import SelectInterestsView from '@/views/Membership_Management/SelectInterestsView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
