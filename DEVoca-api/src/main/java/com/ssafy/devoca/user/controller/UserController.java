@@ -31,9 +31,10 @@ public class UserController {
 
     // token 구현 전이므로 http 요청 헤더에 token 대신 userIdx 가 담겨 있다고 가정. token 유효성 검사도 추후 구현 예정.
     @GetMapping("")
-    public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("userIdx") Integer userIdx){
+    public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("userId") String userId){
         log.info("user 정보 조회 호출");
         try{
+            int userIdx = userService.userIdxLoad(userId);
             UserDTO userInfo = userService.getUserInfo(userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(userInfo);
         } catch (Exception e) {

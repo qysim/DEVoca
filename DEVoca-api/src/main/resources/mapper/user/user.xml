@@ -21,7 +21,7 @@
     </resultMap>
 
     <!--  userId로 userIdx 불러오기  -->
-    <select id="userIdxLoad" parameterType="String">
+    <select id="userIdxLoad" parameterType="String" resultType="Integer">
         select user_idx from users where user_id = #{userId}
     </select>
 
