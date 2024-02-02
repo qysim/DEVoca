@@ -27,4 +27,8 @@ public interface CardMapper {
     List<CardDTO> getCardListByUserId
             (@Param("userId") String userId, @Param("scroll") int scroll, @Param("loginUserId") String loginUserId)
             throws SQLException;
+
+    public void repostCard(CardDTO cardDTO) throws SQLException;
+    public void repostCntUpdate(int originCardId) throws SQLException;
+
 }

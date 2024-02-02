@@ -199,5 +199,17 @@
         limit #{scroll}, 10;
     </select>
 
+    <!--  카드 재게시  -->
+    <select id="repostCard" parameterType="CardDTO">
+        insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword, card_origin_card_id)
+        values((<include refid="userIdxLoad"></include> and user_revoke_date is null),
+               #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword}, #{originCardId});
+    </select>
+    <!--  재게시 시 원본 카드의 repostCnt  -->
+    <update id="repostCntUpdate" parameterType="int">
+        update cards
+        set card_repost_cnt = card_repost_cnt + 1
+        where card_id = #{originCardId};
+    </update>
 
 </mapper>
