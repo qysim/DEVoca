@@ -5,6 +5,9 @@ import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsVie
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
+import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
+import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import MainView from '@/views/feeds/MainView.vue'
 
 const router = createRouter({
@@ -40,6 +43,21 @@ const router = createRouter({
       path : '/Follower',
       name : 'FollowerView',
       component : FollowerView
+    },
+    {
+      path : '/mypagesetting',
+      name : 'MypageSettingView',
+      component : MypageSettingView
+    },
+    {
+      path : '/selecinterestschange',
+      name : 'SelectInterestsChangeView',
+      component : SelectInterestsChangeView
+    },
+    {
+      path : '/passwordchange',
+      name : 'PasswordChangeView',
+      component : PasswordChangeView
     },
     // feed
     {
