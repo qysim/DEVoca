@@ -37,7 +37,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("userId") String userId){
         log.info("user 정보 조회 호출");
         try{
-            int userIdx = userService.userIdxLoad(userId);
+            int userIdx = userService.loadUserIdx(userId);
             UserDTO userInfo = userService.getUserInfo(userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(userInfo);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class UserController {
                                                   @RequestBody UserDTO userDTO){
         log.info("user 정보 수정 호출");
         try{
-            int userIdx = userService.userIdxLoad(userId);
+            int userIdx = userService.loadUserIdx(userId);
             userDTO.setUserIdx(userIdx);
             userService.updateUserInfo(userDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -62,27 +62,35 @@ public class UserController {
     }
 
     /* 관심 분야 설정
-    < 로직 구현 고민 점 >
-        - 회원 가입 시에 관심 분야 미설정 한 경우 있으므로 insert, update 확인 필요
-        - client에서 요청을 다르게 하는 것이 좋은가?
-        - server에서 db 확인해서 다르게 insert or update 하는 것이 좋은가?
+        - delete 후 insert
     */
     @PostMapping("/fav")
-    public ResponseEntity<String> setFavCategory(@RequestHeader("userId") String userId,
+    public ResponseEntity<String> updateFavCategory(@RequestHeader("userId") String userId,
                                                  @RequestBody List<Integer> favList){
         log.info("user 관심 분야 설정 호출");
         try{
-            int userIdx = userService.userIdxLoad(userId);
+            int userIdx = userService.loadUserIdx(userId);
             Map<String, Object> params = new HashMap<>();
             params.put("userIdx", userIdx);
             params.put("favList", favList);
-            userService.setFavCategory(params);
+            userService.updateFavCategory(params);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("user 관심 분야 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-
+    
+    @GetMapping("/fav")
+    public ResponseEntity<List<Integer>> getFavCategory(@RequestHeader("userId") String userId){
+        log.info("회원 관심 분야 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<Integer> favList = userService.getFavCategory(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(favList);
+        } catch (Exception e){
+            log.error("회원 관심 분야 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
