@@ -1,5 +1,6 @@
 package com.ssafy.devoca.user.controller;
 
+import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -90,6 +91,19 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(favList);
         } catch (Exception e){
             log.error("회원 관심 분야 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/badge")
+    public ResponseEntity<List<BadgeDTO>> getUserBadges(@RequestHeader("userId") String userId) {
+        log.info("회원의 배지 목록 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<BadgeDTO> badgeList = userService.getUserBadges(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(badgeList);
+        } catch (Exception e){
+            log.error("회원의 배지 목록 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
