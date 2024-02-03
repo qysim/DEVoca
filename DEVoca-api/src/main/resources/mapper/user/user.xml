@@ -20,8 +20,16 @@
         <result property="userRefreshToken" column="user_refresh_token"/>
     </resultMap>
 
+    <resultMap id="getBadgeDTO" type="BadgeDTO">
+        <id property="badgeId" column="badge_id"/>
+        <result property="badgeName" column="badge_name"/>
+        <result property="badgeInfo" column="badge_info"/>
+        <result property="badgeImgName" column="badge_img_name"/>
+
+    </resultMap>
+
     <!--  userId로 userIdx 불러오기  -->
-    <select id="userIdxLoad" parameterType="String" resultType="Integer">
+    <select id="loadUserIdx" parameterType="String" resultType="Integer">
         select user_idx from users where user_id = #{userId}
     </select>
 
@@ -57,4 +65,28 @@
         </set>
         where user_idx=#{userIdx};
     </update>
+
+    <delete id="delFavCategory" parameterType="Integer">
+        delete from users_favorite_categories where uf_user_idx = #{userIdx};
+    </delete>
+
+    <insert id="setFavCategory" parameterType="map">
+        insert into users_favorite_categories (uf_user_idx, uf_category_id)
+        values
+            <foreach collection="favList" item="item" separator=",">
+                (#{userIdx}, #{item})
+            </foreach>
+    </insert>
+
+    <select id="getFavCategory" parameterType="Integer" resultType="Integer">
+        select uf_category_id from users_favorite_categories
+        where uf_user_idx = #{userIdx};
+    </select>
+    
+    <select id="getUserBadges" parameterType="Integer" resultMap="getBadgeDTO">
+        select b.badge_id, b.badge_name, b.badge_info, b.badge_img_name
+             ,if(ub_badge_id is null, 0, 1) as badgeHaveYn
+        from badges b
+            left join (select ub_badge_id from user_badges where ub_user_idx = #{userIdx}) s on b.badge_id = s.ub_badge_id;
+    </select>
 </mapper>

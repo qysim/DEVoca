@@ -8,7 +8,10 @@ import FollowerView from '@/views/Mypage/FollowerView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
-import MainView from '@/views/feeds/MainView.vue'
+import MainView from '@/views/feed/MainView.vue'
+import FeedListView from '@/views/feed/FeedListView.vue'
+import CreateCardView from '@/views/card/CreateCardView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,7 +66,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'MainView',
-      component: MainView
+      component: MainView,
+      redirect: '/mainfeed',
+      children: [
+        {
+          path: '/mainfeed',
+          name: 'FeedListView',
+          component: FeedListView,
+        },
+        {
+          path: '/card/create',
+          name: 'CreateCardView',
+          component: CreateCardView,
+        },
+      ]
     },
   ]
 })
