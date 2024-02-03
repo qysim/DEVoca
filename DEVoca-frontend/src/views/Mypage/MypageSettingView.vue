@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-between">
+  <div class="flex flex-col justify-between h-full">
     <div class="h-full">
       <p class="font-['GmarketSansMedium'] text-2xl text-center mt-5">설정</p>
       <form class="card-body">
