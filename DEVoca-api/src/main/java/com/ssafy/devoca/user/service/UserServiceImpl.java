@@ -5,6 +5,8 @@ import com.ssafy.devoca.user.model.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
@@ -29,5 +31,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public void updateUserInfo(UserDTO userDTO) throws Exception {
         userMapper.updateUserInfo(userDTO);
+    }
+
+    @Override
+    public void setFavCategory(Map<String, Object> params) throws Exception {
+        userMapper.setFavCategory(params);
     }
 }

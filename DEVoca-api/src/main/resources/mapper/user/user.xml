@@ -57,4 +57,13 @@
         </set>
         where user_idx=#{userIdx};
     </update>
+
+    <insert id="setFavCategory" parameterType="map">
+        insert into users_favorite_categories (uf_user_idx, uf_category_id)
+        values
+            <foreach collection="favList" item="item" separator=",">
+                (#{userIdx}, #{item})
+            </foreach>
+    </insert>
+
 </mapper>
