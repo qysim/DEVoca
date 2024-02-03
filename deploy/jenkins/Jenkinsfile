@@ -91,11 +91,12 @@ pipeline {
             }
         }
 
-        stage('Build FE server') {
+        stage('Build and deploy FE server') {
             steps {
                 dir('deploy') {
-                    sh 'echo "Build FE server"'
-                    sh 'docker-compose -p devoca-deploy build nginx'
+                    sh 'echo "Build and deploy FE server"'
+                    sh 'docker-compose -p devoca-deploy up -d --build frontend'
+                    sh 'docker-compose -p devoca-deploy rm -f frontend'
                 }
             }
             post {
@@ -103,7 +104,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'good',
-                            message: "Succeed to build FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            message: "Succeed to build and deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${SUCCESS_ICON}"
@@ -114,45 +115,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'danger',
-                            message: "Failed to build FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
-                            endpoint: "${ENDPOINT}",
-                            channel: "${CHANNEL}",
-                            icon: "${FAILED_ICON}"
-                        )
-                    }
-                }
-            }
-        }
-
-        stage('Deploy FE server') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                dir('deploy') {
-                    sh 'echo "Deploy FE server"'
-                    sh 'docker-compose -p devoca-deploy up -d nginx'
-                }
-            }
-            post {
-                success {
-                    script {
-                        mattermostSend(
-                            color: 'good',
-                            message: "Succeed to deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
-                            endpoint: "${ENDPOINT}",
-                            channel: "${CHANNEL}",
-                            icon: "${SUCCESS_ICON}"
-                        )
-                    }
-                }
-                failure {
-                    script {
-                        mattermostSend(
-                            color: 'danger',
-                            message: "Failed to deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            message: "Failed to build and deploy FE server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${FAILED_ICON}"
