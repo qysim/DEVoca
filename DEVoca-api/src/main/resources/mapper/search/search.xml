@@ -4,6 +4,19 @@
 
 <mapper namespace="com.ssafy.devoca.search.model.mapper.SearchMapper">
 
+    <!-- WordDTO 매핑 -->
+    <resultMap id="wordListResultMap" type="WordDTO">
+        <id property="wordId" column="word_id"/>
+        <result property="wordNameKr" column="word_name_kr"/>
+        <result property="wordNameEn" column="word_name_en"/>
+        <result property="wordDef" column="word_def"/>
+        <result property="wordSumm" column="word_summ"/>
+        <result property="wordLink" column="word_link"/>
+        <collection property="wordCategory" javaType="ArrayList" ofType="String">
+            <result column="category_name"/>
+        </collection>
+    </resultMap>
+
     <!--  CardDTO 매핑 -->
     <resultMap id="CardDTOResultMap" type="CardDTO">
         <result property="userId" column="user_id"/>
@@ -51,6 +64,25 @@
         values (#{loginUserIdx}, #{keyword})
         on duplicate key update sk_searched_date = now();
     </select>
+
+    <!-- 단어 검색 -->
+    <select id="searchWord" parameterType="map" resultMap="wordListResultMap">
+        select w.word_id, w.word_name_kr, w.word_name_en, w.word_summ, c.category_name
+        from words w join words_categories wc join categories c
+            on w.word_id = wc.wc_word_id
+            and c.category_id = wc.wc_category_id
+        where lower(w.word_name_en) like lower(concat("%", #{keyword}, "%"))
+            or w.word_name_kr like concat("%", #{keyword}, "%")
+        order by word_name_en
+        limit #{scroll}, 10;
+    </select>
+
+    <!--  단어 검색 조회수 업데이트  -->
+    <update id="updateWordSearchedCnt" parameterType="int">
+        update words
+        set word_searched_cnt = word_searched_cnt + 1
+        where word_id = #{wordId};
+    </update>
 
     <!--  카드 검색 : 검색 조건 향후 회의 필요  -->
     <select id="searchCard" parameterType="map" resultMap="CardDTOResultMap">
