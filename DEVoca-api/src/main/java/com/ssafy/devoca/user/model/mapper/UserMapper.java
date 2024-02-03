@@ -1,5 +1,6 @@
 package com.ssafy.devoca.user.model.mapper;
 
+import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.jdbc.SQL;
@@ -19,4 +20,5 @@ public interface UserMapper {
     void delFavCategory(int userIdx) throws SQLException;
     void setFavCategory(Map<String, Object> params) throws SQLException;
     List<Integer> getFavCategory(int userIdx) throws SQLException;
+    List<BadgeDTO> getUserBadges(int userIdx) throws SQLException;
 }
