@@ -64,7 +64,7 @@ public class UserController {
     /* 관심 분야 설정
         - delete 후 insert
     */
-    @PostMapping("/fav")
+    @PutMapping("/fav")
     public ResponseEntity<String> updateFavCategory(@RequestHeader("userId") String userId,
                                                  @RequestBody List<Integer> favList){
         log.info("user 관심 분야 설정 호출");
