@@ -1,6 +1,5 @@
 package com.ssafy.devoca.user.controller;
 
-import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +37,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("userId") String userId){
         log.info("user 정보 조회 호출");
         try{
-            int userIdx = userService.userIdxLoad(userId);
+            int userIdx = userService.loadUserIdx(userId);
             UserDTO userInfo = userService.getUserInfo(userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(userInfo);
         } catch (Exception e) {
@@ -44,15 +47,49 @@ public class UserController {
     }
 
     @PatchMapping("")
-    public ResponseEntity<UserDTO> updateUserInfo(@RequestHeader("userId") String userId, @RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> updateUserInfo(@RequestHeader("userId") String userId,
+                                                  @RequestBody UserDTO userDTO){
         log.info("user 정보 수정 호출");
         try{
-            int userIdx = userService.userIdxLoad(userId);
+            int userIdx = userService.loadUserIdx(userId);
             userDTO.setUserIdx(userIdx);
             userService.updateUserInfo(userDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             log.error("회원 정보 수정 실패: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /* 관심 분야 설정
+        - delete 후 insert
+    */
+    @PutMapping("/fav")
+    public ResponseEntity<String> updateFavCategory(@RequestHeader("userId") String userId,
+                                                 @RequestBody List<Integer> favList){
+        log.info("user 관심 분야 설정 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            Map<String, Object> params = new HashMap<>();
+            params.put("userIdx", userIdx);
+            params.put("favList", favList);
+            userService.updateFavCategory(params);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e){
+            log.error("user 관심 분야 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GetMapping("/fav")
+    public ResponseEntity<List<Integer>> getFavCategory(@RequestHeader("userId") String userId){
+        log.info("회원 관심 분야 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<Integer> favList = userService.getFavCategory(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(favList);
+        } catch (Exception e){
+            log.error("회원 관심 분야 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
