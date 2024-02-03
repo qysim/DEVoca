@@ -12,7 +12,7 @@
             </a>
           </div>
 
-          <div id="app" class="mb-5">
+          <!-- <div id="app" class="mb-5">
             <a :href="doGoogleLogin" alt="kakao login">
               <img alt="google logo" src="@/assets/images/google_logo.png" class="logo" />
             </a>
@@ -22,7 +22,7 @@
             <a :href="kakaoLoginLink" alt="kakao login">
               <img alt="github logo" src="@/assets/images/github_logo.png" class="logo" />
             </a>
-          </div>
+          </div> -->
         </div>
 
       </form>

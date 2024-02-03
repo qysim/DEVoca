@@ -2,7 +2,7 @@
   <div class="container h-screen">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
       <div class="h-full">
-        <p class="font-['GmarketSansMedium'] text-2xl text-center mt-5">비밀번호 변경</p>
+        <p class="text-2xl text-center mt-5">비밀번호 변경</p>
         <form class="card-body">
           <div class="form-control">
             <label class="label">
