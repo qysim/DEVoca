@@ -42,8 +42,8 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public CardDTO getCardDetail(int cardId) throws Exception{
-        CardDTO cardDTO = cardMapper.getCardDetail(cardId);
+    public CardDTO getCardDetail(int cardId, int loginUserIdx) throws Exception{
+        CardDTO cardDTO = cardMapper.getCardDetail(cardId, loginUserIdx);
 
         // String cardRelatedKeyword를 String[] cardRelatedKeywordArray로
         String tempString = cardDTO.getCardRelatedKeyword();
@@ -61,18 +61,18 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public List<CardDTO> getCardList(int scroll, String loginUserId) throws Exception {
-        return cardMapper.getCardList(scroll * 10, loginUserId);
+    public List<CardDTO> getCardList(int scroll, int loginUserIdx) throws Exception {
+        return cardMapper.getCardList(scroll * 10, loginUserIdx);
     }
 
     @Override
-    public List<CardDTO> getCardListByWord(int wordId, int scroll, String loginUserId) throws Exception {
-        return cardMapper.getCardListByWord(wordId, scroll, loginUserId);
+    public List<CardDTO> getCardListByWord(int wordId, int scroll, int loginUserIdx) throws Exception {
+        return cardMapper.getCardListByWord(wordId, scroll * 10, loginUserIdx);
     }
 
     @Override
-    public List<CardDTO> getCardListByUserId(String userId, int scroll, String loginUserId) throws Exception {
-        return cardMapper.getCardListByUserId(userId, scroll, loginUserId);
+    public List<CardDTO> getCardListByUserId(String userId, int scroll, int loginUserIdx) throws Exception {
+        return cardMapper.getCardListByUserId(userId, scroll * 10, loginUserIdx);
     }
 
     @Override
