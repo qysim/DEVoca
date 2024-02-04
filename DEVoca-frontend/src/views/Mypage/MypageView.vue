@@ -1,5 +1,5 @@
 <template>
-    <div class="font-['GmarketSansMedium'] text-xl">
+    <div class="text-xl">
         <div>
             <ProfIleCardComponents />
         </div>
@@ -17,31 +17,31 @@
             <div class="ml-10 mt-8">
                 <div class="flex justify-between">
                     <a href="">나의 피드</a>
-                    <img src="@/assets/images/Right.png" class="mr-10" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-20 mr-10"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                 </div>
             </div>
             <div class="ml-10 mt-8">
                 <div class="flex justify-between">
                     <a href="">참여한 퀴즈</a>
-                    <img src="@/assets/images/Right.png" class="mr-10" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-20 mr-10"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                 </div>
             </div>
             <div class="ml-10 mt-8">
                 <div class="flex justify-between">
                     <a href="">단어장</a>
-                    <img src="@/assets/images/Right.png" class="mr-10" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-20 mr-10"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                 </div>
             </div>
             <div class="ml-10 mt-8">
                 <div class="flex justify-between">
                     <a href="">나의 글</a>
-                    <img src="@/assets/images/Right.png" class="mr-10" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-20 mr-10"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                 </div>
             </div>
             <div class="ml-10 mt-8">
                 <div class="flex justify-between selection">
                     <a href="">나의 댓글</a>
-                    <img src="@/assets/images/Right.png" class="mr-10" alt="">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-20 mr-10"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
                 </div>
             </div>
         </div>

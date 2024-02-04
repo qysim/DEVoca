@@ -33,27 +33,22 @@
     </resultMap>
 
     <!--  userId로 userIdx 불러오기  -->
-    <sql id="userIdxLoad">
+    <sql id="loadUserIdx">
         select user_idx from users where user_id = #{userId}
     </sql>
 
-    <!--  loginUserID로 userIdx 불러오기  -->
-    <sql id="loginUserIdxLoad">
-        select user_idx from users where user_id = #{loginUserId}
-    </sql>
-
-    <!--  loginUserId가 follow하는 userIdx 불러오기  -->
-    <sql id="userFollowIdx">
+    <!--  loginUserIdx가 follow하는 userIdx 불러오기  -->
+    <sql id="loginUserFollowIdx">
         select u.user_idx
         from users u right join follows f
         on u.user_idx = f.follow_to
-        where f.follow_from = (<include refid="loginUserIdxLoad"></include>)
+        where f.follow_from = #{loginUserIdx}
         union
-        <include refid="loginUserIdxLoad"></include>
+        #{loginUserIdx}
     </sql>
 
     <!--  재게시 원본 카드 작성자 정보 불러오기  -->
-    <sql id="originUserInfoLoad">
+    <sql id="loadOriginUserInfo">
         from users u join cards c
 			on u.user_idx = c.fk_card_user_idx
             where c.card_id = oci
@@ -62,7 +57,7 @@
     <!--  카드 등록  -->
     <select id="registerCard" parameterType="CardDTO">
         insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword)
-        values((<include refid="userIdxLoad"></include> and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword});
+        values((<include refid="loadUserIdx"></include> and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword});
     </select>
 
     <!--  카드 수정  -->
@@ -82,19 +77,19 @@
         where card_id = #{cardId};
     </update>
 
-    <!--  카드 상세 조회 : 향후 이용자 user_id 세션에서 뽑아와 "aabbccc"에 투입  -->
-    <select id="getCardDetail" parameterType="int" resultMap="CardDTOResultMap">
+    <!--  카드 상세 조회  -->
+    <select id="getCardDetail" parameterType="map" resultMap="CardDTOResultMap">
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
                card_origin_card_id, card_origin_card_id as oci,
-               (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
-               (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,
+               (select u.user_nickname <include refid="loadOriginUserInfo"></include>) as card_origin_user_nickname,
+               (select u.user_img <include refid="loadOriginUserInfo"></include>) as card_origin_user_img,
                (select card_content
                     from cards
                     where card_id = oci) as card_origin_card_content,
                card_id, card_content,
                ifnull((select 'true' from likes
-                            where like_from = (select user_idx from users where user_id = "aabbccc")
+                            where like_from = #{loginUserIdx}
                             and like_to = card_id), 'false') as card_like_yn,
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_link, card_related_keyword, card_regist_date, card_update_date
@@ -107,19 +102,18 @@
     </select>
 
     <!--  카드 목록 조회 -->
-    <!--  글쓴 유저 아이디를 user_id로 가져오기 때문에 혼동을 피하기 위해 loginUserId로 현재 페이지 보는 user의 id 설정  -->
     <select id="getCardList" parameterType="map" resultMap="CardDTOResultMap">
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
                card_origin_card_id, card_origin_card_id as oci,
-               (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
-               (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,
+               (select u.user_nickname <include refid="loadOriginUserInfo"></include>) as card_origin_user_nickname,
+               (select u.user_img <include refid="loadOriginUserInfo"></include>) as card_origin_user_img,
                (select card_content
                     from cards
                     where card_id = oci) as card_origin_card_content,
                     card_id, card_content,
                ifnull((select 'true' from likes
-                            where like_from = (select user_idx from users where user_id = #{loginUserId})
+                            where like_from = #{loginUserIdx}
                             and like_to = card_id), 'false') as card_like_yn,
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
@@ -127,7 +121,7 @@
             on u.user_idx = c.fk_card_user_idx
             left join words w
             on c.card_word_id = word_id
-        where u.user_idx in (<include refid="userFollowIdx"></include>)
+        where u.user_idx in (<include refid="loginUserFollowIdx"></include>)
             and card_delete_date is null
         ORDER BY
             CASE
@@ -142,14 +136,14 @@
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
                card_origin_card_id, card_origin_card_id as oci,
-               (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
-               (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,
+               (select u.user_nickname <include refid="loadOriginUserInfo"></include>) as card_origin_user_nickname,
+               (select u.user_img <include refid="loadOriginUserInfo"></include>) as card_origin_user_img,
                (select card_content
                     from cards
                     where card_id = oci) as card_origin_card_content,
                     card_id, card_content,
                ifnull((select 'true' from likes
-                            where like_from = (select user_idx from users where user_id = #{loginUserId})
+                            where like_from = #{loginUserIdx}
                             and like_to = card_id), 'false') as card_like_yn,
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
@@ -174,14 +168,14 @@
         select user_id, user_nickname, user_intro, user_img,
                word_id, word_name_kr, word_name_en, word_summ,
                card_origin_card_id, card_origin_card_id as oci,
-               (select u.user_nickname <include refid="originUserInfoLoad"></include>) as card_origin_user_nickname,
-               (select u.user_img <include refid="originUserInfoLoad"></include>) as card_origin_user_img,
+               (select u.user_nickname <include refid="loadOriginUserInfo"></include>) as card_origin_user_nickname,
+               (select u.user_img <include refid="loadOriginUserInfo"></include>) as card_origin_user_img,
                (select card_content
                     from cards
                     where card_id = oci) as card_origin_card_content,
                     card_id, card_content,
                ifnull((select 'true' from likes
-                            where like_from = (select user_idx from users where user_id = #{loginUserId})
+                            where like_from = #{loginUserIdx}
                             and like_to = card_id), 'false') as card_like_yn,
                (select count('true') from likes where like_to = card_id) as card_like_cnt,
                card_repost_cnt, card_regist_date, card_update_date
@@ -189,7 +183,7 @@
             on u.user_idx = c.fk_card_user_idx
             left join words w
             on c.card_word_id = word_id
-        where c.fk_card_user_idx = (<include refid="userIdxLoad"></include>)
+        where c.fk_card_user_idx = (<include refid="loadUserIdx"></include>)
             and card_delete_date is null
         ORDER BY
             CASE
@@ -202,7 +196,7 @@
     <!--  카드 재게시  -->
     <select id="repostCard" parameterType="CardDTO">
         insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword, card_origin_card_id)
-        values((<include refid="userIdxLoad"></include> and user_revoke_date is null),
+        values((<include refid="loadUserIdx"></include> and user_revoke_date is null),
                #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword}, #{originCardId});
     </select>
     <!--  재게시 시 원본 카드의 repostCnt  -->
