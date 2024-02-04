@@ -25,7 +25,11 @@
         <result property="badgeName" column="badge_name"/>
         <result property="badgeInfo" column="badge_info"/>
         <result property="badgeImgName" column="badge_img_name"/>
+    </resultMap>
 
+    <resultMap id="getFavDTO" type="FavCategoryDTO">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
     </resultMap>
 
     <!--  userId로 userIdx 불러오기  -->
@@ -78,9 +82,11 @@
             </foreach>
     </insert>
 
-    <select id="getFavCategory" parameterType="Integer" resultType="Integer">
-        select uf_category_id from users_favorite_categories
-        where uf_user_idx = #{userIdx};
+    <select id="getFavCategory" parameterType="Integer" resultMap="getFavDTO">
+        select category_id, category_name
+             ,if(uf_category_id is null, 0, 1) as userChoiceYn
+        from categories c
+            left join (select uf_category_id from users_favorite_categories where uf_user_idx = #{userIdx}) u on c.category_id = u.uf_category_id
     </select>
     
     <select id="getUserBadges" parameterType="Integer" resultMap="getBadgeDTO">

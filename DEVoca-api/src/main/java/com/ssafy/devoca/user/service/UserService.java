@@ -1,6 +1,7 @@
 package com.ssafy.devoca.user.service;
 
 import com.ssafy.devoca.user.model.BadgeDTO;
+import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public interface UserService {
     void updateFavCategory(Map<String, Object> params) throws Exception;
     void delFavCategory(int userIdx) throws Exception;
     void setFavCategory(Map<String, Object> params) throws Exception;
-    List<Integer> getFavCategory(int userIdx) throws Exception;
+    List<FavCategoryDTO> getFavCategory(int userIdx) throws Exception;
     List<BadgeDTO> getUserBadges(int userIdx) throws Exception;
 }
