@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-side bg-[#ECFCFF]">
+  <div class="card card-side bg-devoca_skyblue">
     <div class="avatar">
       <div class="w-24 h-24 rounded-full my-10 ml-5">
         <img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" />
