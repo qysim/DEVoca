@@ -11,7 +11,8 @@ import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CreateCardView from '@/views/card/CreateCardView.vue'
-
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +62,17 @@ const router = createRouter({
       path : '/passwordchange',
       name : 'PasswordChangeView',
       component : PasswordChangeView
+    },
+    //DM
+    {
+      path : '/otherusesrprofile',
+      name : 'OtherUserProfileView',
+      component : OtherUserProfileView
+    },
+    {
+      path : '/dmmessage',
+      name : 'DMMessageView',
+      component : DMMessageView
     },
     // feed
     {

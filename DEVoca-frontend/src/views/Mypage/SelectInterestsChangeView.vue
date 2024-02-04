@@ -9,14 +9,14 @@
       <div>
         <div v-for="(buttonGroup, groupIndex) in buttonGroups" :key="groupIndex" class="flex">
           <button v-for="(button, index) in buttonGroup" :key="index" type="submit" class="btn flex-grow m-2"
-            :class="{ 'bg-white': !button.clicked, 'bg-[#00B4D8]': button.clicked }"
+            :class="{ 'bg-white': !button.clicked, 'bg-devoca': button.clicked }"
             @click="handleClick(groupIndex, index)">
             Button {{ groupIndex * 2 + index + 1 }}
           </button>
         </div>
       </div>
       <div class="form-control mt-6">
-        <button class="btn bg-[#00B4D8]">확인</button>
+        <button class="btn bg-devocao">확인</button>
       </div>
     </div>
   </div>
