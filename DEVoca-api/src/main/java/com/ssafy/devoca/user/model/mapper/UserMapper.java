@@ -21,4 +21,6 @@ public interface UserMapper {
     void setFavCategory(Map<String, Object> params) throws SQLException;
     List<FavCategoryDTO> getFavCategory(int userIdx) throws SQLException;
     List<BadgeDTO> getUserBadges(int userIdx) throws SQLException;
+    List<UserDTO> getFollowList(int userIdx) throws SQLException;
+    List<UserDTO> getFollowingList(int userIdx) throws SQLException;
 }

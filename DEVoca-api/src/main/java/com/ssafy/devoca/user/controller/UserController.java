@@ -6,6 +6,7 @@ import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -105,6 +106,32 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(badgeList);
         } catch (Exception e){
             log.error("회원의 배지 목록 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/follower")
+    public ResponseEntity<List<UserDTO>> getFollowList(@RequestHeader("userId") String userId){
+        log.info("회원의 팔로워 목록 조회 호출 : 나를 팔로우하는 사람들");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<UserDTO> followerList = userService.getFollowList(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(followerList);
+        } catch (Exception e){
+            log.error("회원의 팔로워 목록 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/following")
+    public ResponseEntity<List<UserDTO>> getFollowingList(@RequestHeader("userId") String userId){
+        log.info("회원의 팔로잉 목록 조회 호출 : 내가 팔로우 하는 사람들");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<UserDTO> followingList = userService.getFollowingList(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(followingList);
+        } catch (Exception e){
+            log.error("회원의 팔로잉 목록 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
