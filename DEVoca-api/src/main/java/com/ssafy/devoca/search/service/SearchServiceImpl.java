@@ -33,4 +33,14 @@ public class SearchServiceImpl implements SearchService{
     public List<CardDTO> searchCard(String keyword, int scroll, int loginUserIdx) throws Exception {
         return searchMapper.searchCard(keyword, scroll * 10, loginUserIdx);
     }
+
+    @Override
+    public List<WordDTO> searchRecommendWord() throws Exception {
+        return searchMapper.searchRecommendWord();
+    }
+
+    @Override
+    public List<String> getRecentKeyword(int loginUserIdx) throws Exception {
+        return searchMapper.getRecentKeyword(loginUserIdx);
+    }
 }

@@ -4,7 +4,6 @@ import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.search.service.SearchService;
 import com.ssafy.devoca.user.service.UserService;
 import com.ssafy.devoca.word.model.WordDTO;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -72,6 +71,33 @@ public class SearchController {
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
             log.error("카드 검색 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/reco/word")
+    public ResponseEntity<List<WordDTO>> searchRecommendWord(){
+        log.info("searchRecommendWord 호출 : 검색 조회수 상위 단어 조회");
+        try{
+            List<WordDTO> wordList = searchService.searchRecommendWord();
+            return ResponseEntity.status(HttpStatus.OK).body(wordList);
+        }catch (Exception e){
+            log.error("검색 조회수 상위 단어 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/reco/keyword")
+    public ResponseEntity<List<String>> getRecentKeyword(){
+        log.info("getRecentKeyword 호출 : 최근 검색어 조회");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            List<String> keywordList = searchService.getRecentKeyword(loginUserIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(keywordList);
+        }catch (Exception e){
+            log.error("검색 조회수 상위 단어 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

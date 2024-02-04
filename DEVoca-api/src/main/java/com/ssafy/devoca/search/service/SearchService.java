@@ -13,4 +13,8 @@ public interface SearchService {
     public void updateWordSearchedCnt(int wordId) throws Exception;
 
     public List<CardDTO> searchCard(String keyword, int scroll, int loginUserIdx) throws Exception;
+
+    List<WordDTO> searchRecommendWord() throws Exception;
+
+    List<String> getRecentKeyword(int loginUserIdx) throws Exception;
 }

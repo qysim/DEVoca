@@ -19,4 +19,8 @@ public interface SearchMapper {
 
     List<CardDTO> searchCard(@Param("keyword")String keyword, @Param("scroll")int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
+
+    List<WordDTO> searchRecommendWord() throws SQLException;
+
+    List<String> getRecentKeyword(int loginUserIdx) throws SQLException;
 }

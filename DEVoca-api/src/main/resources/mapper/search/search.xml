@@ -119,4 +119,23 @@
         limit #{scroll}, 10;
     </select>
 
+    <!-- 검색 조회수 상위 단어 10개 조회 : 별도의 DTO를 만들지 않아 정보를 과하게 가져옴. 별도의 DTO 만들지 여부 회의 필요 -->
+    <select id="searchRecommendWord" resultMap="wordListResultMap">
+        select w.word_id, w.word_name_kr, w.word_name_en, w.word_summ, c.category_name
+        from words w join words_categories wc join categories c
+            on w.word_id = wc.wc_word_id
+            and c.category_id = wc.wc_category_id
+        order by word_searched_cnt desc
+        limit 10;
+    </select>
+
+    <!-- 최근 검색어 5개 조회 -->
+    <select id="getRecentKeyword" parameterType="Integer" resultType="String">
+        select sk_searched_keyword
+        from searched_keywords
+        where sk_user_idx = #{loginUserIdx}
+        order by sk_searched_date desc
+        limit 5;
+    </select>
+
 </mapper>
