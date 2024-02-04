@@ -12,12 +12,13 @@ import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
+import WordListView from '@/views/word/WordListView.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // user
+    // 전체화면
     {
       path: '/login',
       name: 'LoginView',
@@ -63,7 +64,7 @@ const router = createRouter({
       name : 'PasswordChangeView',
       component : PasswordChangeView
     },
-    // feed
+    // 상하단바
     {
       path: '/',
       name: 'MainView',
@@ -71,7 +72,7 @@ const router = createRouter({
       redirect: '/mainfeed',
       children: [
         {
-          path: '/mainfeed',
+          path: '/main',
           name: 'FeedListView',
           component: FeedListView,
         },
@@ -84,6 +85,11 @@ const router = createRouter({
           path: '/card/detail',
           name: 'CardDetailView',
           component: CardDetailView,
+        },
+        {
+          path: '/word/list',
+          name: 'WordListView',
+          component: WordListView,
         },
       ]
     },
