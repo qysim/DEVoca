@@ -95,4 +95,31 @@
         from badges b
             left join (select ub_badge_id from user_badges where ub_user_idx = #{userIdx}) s on b.badge_id = s.ub_badge_id;
     </select>
+    
+    <select id="getFollowerList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+             ,if(f.follow_to is null, "N", "Y") as followingYn
+        from follows t
+                 join users u on t.follow_from = u.user_idx
+                 left join (select follow_to from follows where follow_from = #{userIdx}) f
+                           on t.follow_from = f.follow_to
+        where t.follow_to = #{userIdx}
+    </select>
+
+    <select id="getFollowList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+             ,if(f.follow_to is null, "N", "Y") as followingYn
+        from follows t
+                 join users u on t.follow_from = u.user_idx
+                 left join (select follow_to from follows where follow_from = #{userIdx}) f
+                           on t.follow_from = f.follow_to
+        where t.follow_to = #{userIdx}
+    </select>
+
+    <select id="getFollowingList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+        from follows t
+                 join users u on t.follow_to = u.user_idx
+        where t.follow_from =#{userIdx}
+    </select>
 </mapper>
