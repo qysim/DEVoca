@@ -21,4 +21,5 @@ public interface UserService {
     List<BadgeDTO> getUserBadges(int userIdx) throws Exception;
     List<UserDTO> getFollowList(int userIdx) throws Exception;
     List<UserDTO> getFollowingList(int userIdx) throws Exception;
+    List<UserDTO> recommendFollow(int userIdx) throws Exception;
 }

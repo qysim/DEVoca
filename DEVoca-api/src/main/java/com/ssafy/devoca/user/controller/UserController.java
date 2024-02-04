@@ -135,4 +135,17 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/recommend")
+    public ResponseEntity<List<UserDTO>> recommendFollow(@RequestHeader("userId") String userId){
+        log.info("팔로우 추천 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<UserDTO> recommendList = userService.recommendFollow(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(recommendList);
+        } catch(Exception e){
+            log.error("팔로우 추천 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

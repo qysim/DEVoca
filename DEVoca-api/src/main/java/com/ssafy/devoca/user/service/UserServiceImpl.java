@@ -79,4 +79,9 @@ public class UserServiceImpl implements UserService{
         return userMapper.getFollowingList(userIdx);
     }
 
+    @Override
+    public List<UserDTO> recommendFollow(int userIdx) throws Exception {
+        return userMapper.recommendFollow(userIdx);
+    }
+
 }
