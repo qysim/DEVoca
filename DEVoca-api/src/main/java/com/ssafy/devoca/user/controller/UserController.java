@@ -1,6 +1,7 @@
 package com.ssafy.devoca.user.controller;
 
 import com.ssafy.devoca.user.model.BadgeDTO;
+import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -83,11 +84,11 @@ public class UserController {
     }
     
     @GetMapping("/fav")
-    public ResponseEntity<List<Integer>> getFavCategory(@RequestHeader("userId") String userId){
+    public ResponseEntity<List<FavCategoryDTO>> getFavCategory(@RequestHeader("userId") String userId){
         log.info("회원 관심 분야 조회 호출");
         try{
             int userIdx = userService.loadUserIdx(userId);
-            List<Integer> favList = userService.getFavCategory(userIdx);
+            List<FavCategoryDTO> favList = userService.getFavCategory(userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(favList);
         } catch (Exception e){
             log.error("회원 관심 분야 조회 실패 : {}", e);
