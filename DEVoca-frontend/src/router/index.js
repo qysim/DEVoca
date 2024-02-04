@@ -10,7 +10,8 @@ import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import CreateCardView from '@/views/card/CreateCardView.vue'
+import CardCreateView from '@/views/card/CardCreateView.vue'
+import CardDetailView from '@/views/card/CardDetailView.vue'
 
 
 const router = createRouter({
@@ -76,8 +77,13 @@ const router = createRouter({
         },
         {
           path: '/card/create',
-          name: 'CreateCardView',
-          component: CreateCardView,
+          name: 'CardCreateView',
+          component: CardCreateView,
+        },
+        {
+          path: '/card/detail',
+          name: 'CardDetailView',
+          component: CardDetailView,
         },
       ]
     },
