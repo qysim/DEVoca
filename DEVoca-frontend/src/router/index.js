@@ -7,7 +7,8 @@ import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import CreateCardView from '@/views/card/CreateCardView.vue'
+import CardCreateView from '@/views/card/CardCreateView.vue'
+import CardDetailView from '@/views/card/CardDetailView.vue'
 
 
 const router = createRouter({
@@ -58,8 +59,13 @@ const router = createRouter({
         },
         {
           path: '/card/create',
-          name: 'CreateCardView',
-          component: CreateCardView,
+          name: 'CardCreateView',
+          component: CardCreateView,
+        },
+        {
+          path: '/card/detail',
+          name: 'CardDetailView',
+          component: CardDetailView,
         },
       ]
     },

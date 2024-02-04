@@ -14,7 +14,8 @@ export default {
         jalnan: ['JalnanGothic'],
       },
       colors: {
-        devoca: '#00B4D8'
+        devoca: '#00B4D8', // 대표색
+        devoca_sky: '#DDF7FC',
       }
     },
   },
