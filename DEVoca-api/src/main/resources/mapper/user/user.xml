@@ -25,7 +25,11 @@
         <result property="badgeName" column="badge_name"/>
         <result property="badgeInfo" column="badge_info"/>
         <result property="badgeImgName" column="badge_img_name"/>
+    </resultMap>
 
+    <resultMap id="getFavDTO" type="FavCategoryDTO">
+        <id property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
     </resultMap>
 
     <!--  userId로 userIdx 불러오기  -->
@@ -78,9 +82,11 @@
             </foreach>
     </insert>
 
-    <select id="getFavCategory" parameterType="Integer" resultType="Integer">
-        select uf_category_id from users_favorite_categories
-        where uf_user_idx = #{userIdx};
+    <select id="getFavCategory" parameterType="Integer" resultMap="getFavDTO">
+        select category_id, category_name
+             ,if(uf_category_id is null, 0, 1) as userChoiceYn
+        from categories c
+            left join (select uf_category_id from users_favorite_categories where uf_user_idx = #{userIdx}) u on c.category_id = u.uf_category_id
     </select>
     
     <select id="getUserBadges" parameterType="Integer" resultMap="getBadgeDTO">
@@ -88,5 +94,46 @@
              ,if(ub_badge_id is null, 0, 1) as badgeHaveYn
         from badges b
             left join (select ub_badge_id from user_badges where ub_user_idx = #{userIdx}) s on b.badge_id = s.ub_badge_id;
+    </select>
+    
+    <select id="getFollowerList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+             ,if(f.follow_to is null, "N", "Y") as followingYn
+        from follows t
+                 join users u on t.follow_from = u.user_idx
+                 left join (select follow_to from follows where follow_from = #{userIdx}) f
+                           on t.follow_from = f.follow_to
+        where t.follow_to = #{userIdx}
+    </select>
+
+    <select id="getFollowList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+             ,if(f.follow_to is null, "N", "Y") as followingYn
+        from follows t
+                 join users u on t.follow_from = u.user_idx
+                 left join (select follow_to from follows where follow_from = #{userIdx}) f
+                           on t.follow_from = f.follow_to
+        where t.follow_to = #{userIdx}
+    </select>
+
+    <select id="getFollowingList" parameterType="Integer" resultMap="getUserDTO">
+        select u.user_id, u.user_name, u.user_intro, u.user_img
+        from follows t
+                 join users u on t.follow_to = u.user_idx
+        where t.follow_from =#{userIdx}
+    </select>
+
+    <select id="recommendFollow" parameterType="Integer" resultMap="getUserDTO">
+        select count(follow_from) as userFollowerCnt, u.user_id, u.user_name, u.user_intro, u.user_img
+        from follows f
+                 join users u on u.user_idx = f.follow_to
+        where follow_to
+                  in (select distinct uf_user_idx from users_favorite_categories
+                      where
+                          uf_category_id
+                          in (select uf_category_id from users_favorite_categories where uf_user_idx = #{userIdx})
+                        and uf_user_idx != #{userIdx})
+        group by follow_to
+        order by userFollowerCnt desc
     </select>
 </mapper>

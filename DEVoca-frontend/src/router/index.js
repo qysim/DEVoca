@@ -5,9 +5,15 @@ import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsVie
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
+import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
+import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import CreateCardView from '@/views/card/CreateCardView.vue'
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
+import CardCreateView from '@/views/card/CardCreateView.vue'
+import CardDetailView from '@/views/card/CardDetailView.vue'
 
 
 const router = createRouter({
@@ -44,6 +50,32 @@ const router = createRouter({
       name : 'FollowerView',
       component : FollowerView
     },
+    {
+      path : '/mypagesetting',
+      name : 'MypageSettingView',
+      component : MypageSettingView
+    },
+    {
+      path : '/selecinterestschange',
+      name : 'SelectInterestsChangeView',
+      component : SelectInterestsChangeView
+    },
+    {
+      path : '/passwordchange',
+      name : 'PasswordChangeView',
+      component : PasswordChangeView
+    },
+    //DM
+    {
+      path : '/otherusesrprofile',
+      name : 'OtherUserProfileView',
+      component : OtherUserProfileView
+    },
+    {
+      path : '/dmmessage',
+      name : 'DMMessageView',
+      component : DMMessageView
+    },
     // feed
     {
       path: '/',
@@ -58,8 +90,13 @@ const router = createRouter({
         },
         {
           path: '/card/create',
-          name: 'CreateCardView',
-          component: CreateCardView,
+          name: 'CardCreateView',
+          component: CardCreateView,
+        },
+        {
+          path: '/card/detail',
+          name: 'CardDetailView',
+          component: CardDetailView,
         },
       ]
     },

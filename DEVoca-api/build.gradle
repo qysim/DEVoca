@@ -32,8 +32,12 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 
-	//WebClient 의존성 추가
+	// WebClient 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// WebSocket, STOMP, Redis 의존성 추가
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {
