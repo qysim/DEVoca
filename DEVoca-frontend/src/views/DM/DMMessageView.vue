@@ -19,7 +19,7 @@
           </div>
         </div>
         </div>
-      <div class="chat chat-start mt-5">
+      <div class="chat chat-start mt-5 ml-5">
         <div class="chat-image avatar">
           <div class="w-10 rounded-full">
             <img alt="Tailwind CSS chat bubble component"
@@ -35,7 +35,7 @@
           Delivered
         </div>
       </div>
-      <div class="chat chat-end">
+      <div class="chat chat-end mr-5">
         <div class="chat-image avatar">
           <div class="w-10 rounded-full">
             <img alt="Tailwind CSS chat bubble component"
@@ -52,9 +52,9 @@
         </div>
       </div>
     </div>
-    <div class="input-container flex">
+    <div class="input-container flex ml-2">
       <input type="text" placeholder="Type here" class="input input-bordered w-full"/>
-      <button type="submit" class="btn bg-devoca text-white">
+      <button type="submit" class="btn bg-devoca text-white mr-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" /></svg>
       </button>
     </div>

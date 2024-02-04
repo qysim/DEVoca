@@ -35,7 +35,7 @@
       <button type="submit" class="btn btn-sm w-24 bg-devoca text-white">DM</button>
     </div> 
     <div>
-      <button type="submit" class="btn btn-sm w-24 mr-5 bg-devoca text-white">게시</button>
+      <button type="submit" class="btn btn-sm w-24 mr-5 bg-devoca text-white">VS</button>
     </div>  
     
     </div>
