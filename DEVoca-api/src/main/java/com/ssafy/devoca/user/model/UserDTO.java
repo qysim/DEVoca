@@ -24,4 +24,7 @@ public class UserDTO {
     private Integer userFollowingCnt;
     private Integer userFollowerCnt;
     private Integer userBgCnt;
+
+    // follow
+    private String followingYn;
 }

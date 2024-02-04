@@ -1,25 +1,27 @@
 <template>
   <div class="container p-3">
     <form>
-      <h2 class="font-jalnan px-2">단어 선택</h2>
+      <h2 class="font-jalnan text-lg px-2">단어 선택</h2>
       <SearchBarComponent />
       
       <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"></textarea>
       
-      <div class="flex w-full mb-4 input input-bordered">
-        <span class="inline-flex justify-center items-center select-none w-20">참 고</span>
-        <div class="divider divider-horizontal mx-2"></div>
-        <input type="text" placeholder="참고 링크를 추가할 수 있어요"/>
-      </div>
-      
-      <div class="flex w-full mb-4 input input-bordered">
-        <span class="inline-flex justify-center items-center select-none w-20">연관 개념</span>
-        <div class="divider divider-horizontal mx-2"></div>
-        <input type="text" placeholder="연관 개념을 추가할 수 있어요"/>
-      </div>
+      <label class="form-control w-full mb-4">
+        <div class="label">
+          <span class="label-text font-jalnan text-lg px-2">참 고</span>
+        </div>
+        <input type="text" placeholder="참고 링크를 추가할 수 있어요" class="input input-bordered w-full" />
+      </label>
+
+      <label class="form-control w-full mb-4">
+        <div class="label">
+          <span class="label-text font-jalnan text-lg px-2">연관 개념</span>
+        </div>
+        <input type="text" placeholder="연관 개념을 추가할 수 있어요" class="input input-bordered w-full" />
+      </label>
       
       <div class="flex justify-end">
-        <button type="submit" class="btn btn-sm bg-devoca text-white">게시</button>
+        <button type="submit" class="btn btn-md bg-devoca text-white text-lg">게시</button>
       </div>
     </form>
   </div>

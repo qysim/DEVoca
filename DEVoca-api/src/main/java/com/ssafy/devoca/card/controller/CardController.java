@@ -2,6 +2,7 @@ package com.ssafy.devoca.card.controller;
 
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.card.service.CardService;
+import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CardController {
 
     private final CardService cardService;
+    private final UserService userService;
 
     @PostMapping("")
     public ResponseEntity<String> registerCard(@RequestBody CardDTO cardDTO){
@@ -60,7 +62,9 @@ public class CardController {
         log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
             //향후 session에서 loginUserId 뽑아 같이 보내기
-            CardDTO cardDetail = cardService.getCardDetail(cardId);
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            CardDTO cardDetail = cardService.getCardDetail(cardId, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){
             log.error("카드 상세 호출 실패 : {}", e);
@@ -74,7 +78,8 @@ public class CardController {
         try{
             //향후 session에서 loginUserId 뽑아 같이 보내기
             String loginUserId = "aabbccc";
-            List<CardDTO> cardList = cardService.getCardList(scroll, loginUserId);
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            List<CardDTO> cardList = cardService.getCardList(scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
             log.error("카드 목록 호출 실패 : {}", e);
@@ -88,7 +93,8 @@ public class CardController {
         try{
             //향후 session에서 loginUserId 뽑아 같이 보내기
             String loginUserId = "aabbccc";
-            List<CardDTO> cardList = cardService.getCardListByUserId(userId, scroll, loginUserId);
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            List<CardDTO> cardList = cardService.getCardListByUserId(userId, scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
             log.error("카드 목록 호출 실패 : {}", e);

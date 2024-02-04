@@ -15,17 +15,17 @@ public interface CardMapper {
 
     void deleteCard(int cardId) throws SQLException;
 
-    public CardDTO getCardDetail(int cardId) throws SQLException;
+    public CardDTO getCardDetail(@Param("cardId") int cardId, @Param("loginUserIdx") int loginUserIdx) throws SQLException;
 
-    public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("loginUserId") String loginUserId)
+    public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
     List<CardDTO> getCardListByWord
-            (@Param("wordId") int wordId, @Param("scroll") int scroll, @Param("loginUserId") String loginUserId)
+            (@Param("wordId") int wordId, @Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
     List<CardDTO> getCardListByUserId
-            (@Param("userId") String userId, @Param("scroll") int scroll, @Param("loginUserId") String loginUserId)
+            (@Param("userId") String userId, @Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
     public void repostCard(CardDTO cardDTO) throws SQLException;
