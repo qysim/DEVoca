@@ -23,4 +23,5 @@ public interface UserMapper {
     List<BadgeDTO> getUserBadges(int userIdx) throws SQLException;
     List<UserDTO> getFollowList(int userIdx) throws SQLException;
     List<UserDTO> getFollowingList(int userIdx) throws SQLException;
+    List<UserDTO> recommendFollow(int userIdx) throws SQLException;
 }
