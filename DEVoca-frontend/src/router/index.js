@@ -15,6 +15,7 @@ import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
+import WordDetailView from '@/views/word/WordDetailView.vue'
 
 
 const router = createRouter({
@@ -105,6 +106,11 @@ const router = createRouter({
           path: '/word/list',
           name: 'WordListView',
           component: WordListView,
+        },
+        {
+          path: '/word/detail',
+          name: 'WordDetailView',
+          component: WordDetailView,
         },
       ]
     },
