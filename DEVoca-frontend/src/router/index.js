@@ -10,14 +10,17 @@ import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
+import WordListView from '@/views/word/WordListView.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // user
+    // 전체화면
     {
       path: '/login',
       name: 'LoginView',
@@ -63,15 +66,27 @@ const router = createRouter({
       name : 'PasswordChangeView',
       component : PasswordChangeView
     },
-    // feed
+    //DM
+    {
+      path : '/otherusesrprofile',
+      name : 'OtherUserProfileView',
+      component : OtherUserProfileView
+    },
+    {
+      path : '/dmmessage',
+      name : 'DMMessageView',
+      component : DMMessageView
+    },
+    // 상하단바
     {
       path: '/',
       name: 'MainView',
       component: MainView,
-      redirect: '/mainfeed',
+      redirect: '/main',
       children: [
+        // feed
         {
-          path: '/mainfeed',
+          path: '/main',
           name: 'FeedListView',
           component: FeedListView,
         },
@@ -84,6 +99,12 @@ const router = createRouter({
           path: '/card/detail',
           name: 'CardDetailView',
           component: CardDetailView,
+        },
+        // word
+        {
+          path: '/word/list',
+          name: 'WordListView',
+          component: WordListView,
         },
       ]
     },
