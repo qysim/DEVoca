@@ -69,7 +69,7 @@ const router = createRouter({
       path: '/',
       name: 'MainView',
       component: MainView,
-      redirect: '/mainfeed',
+      redirect: '/main',
       children: [
         {
           path: '/main',

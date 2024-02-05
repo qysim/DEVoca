@@ -1,15 +1,26 @@
 <template>
-  <div>
-    <!-- 상단바에서 터치로 좌우로 움직이도록 -->
-    <div class="join join-vertical shadow-xl mb-16">
-      <button class="btn join-item bg-base-100 px-2 py-6 " v-for="alphabet in alphabets">{{ alphabet }}</button>
+  <div class="flex flex-col justify-start">
+    <div class="join join-vertical overflow-y-scroll overscroll-contain fixed z-10 h-[85svh]">
+      <button class="btn join-item bg-base-100" v-for="alphabet in alphabets">{{ alphabet }}</button>
+    </div>
+    <div class="pl-12">
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
+      <WordComponent />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import LoginViewVue from '../MembershipManagement/LoginView.vue';
+import WordComponent from '@/components/word/WordComponent.vue'
 
 const alphabets = ref('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
 
