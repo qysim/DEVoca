@@ -17,7 +17,8 @@ import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
-
+import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
+import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +68,16 @@ const router = createRouter({
       path : '/passwordchange',
       name : 'PasswordChangeView',
       component : PasswordChangeView
+    },
+    {
+      path : '/profilechange',
+      name : 'ProfileChangeView',
+      component : ProfileChangeView
+    },
+    {
+      path : '/mybadge',
+      name : 'MyBadgeView',
+      component : MyBadgeView
     },
     //DM
     {
