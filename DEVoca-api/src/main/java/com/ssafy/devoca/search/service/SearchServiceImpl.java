@@ -3,6 +3,7 @@ package com.ssafy.devoca.search.service;
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.search.model.mapper.SearchMapper;
 import com.ssafy.devoca.word.model.WordDTO;
+import com.ssafy.devoca.word.model.WordRecoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class SearchServiceImpl implements SearchService{
     }
 
     @Override
-    public List<WordDTO> searchRecommendWord() throws Exception {
+    public List<WordRecoDTO> searchRecommendWord() throws Exception {
         return searchMapper.searchRecommendWord();
     }
 

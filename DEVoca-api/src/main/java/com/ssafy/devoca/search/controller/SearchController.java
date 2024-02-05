@@ -4,6 +4,7 @@ import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.search.service.SearchService;
 import com.ssafy.devoca.user.service.UserService;
 import com.ssafy.devoca.word.model.WordDTO;
+import com.ssafy.devoca.word.model.WordRecoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -76,10 +77,10 @@ public class SearchController {
     }
 
     @GetMapping("/reco/word")
-    public ResponseEntity<List<WordDTO>> searchRecommendWord(){
+    public ResponseEntity<List<WordRecoDTO>> searchRecommendWord(){
         log.info("searchRecommendWord 호출 : 검색 조회수 상위 단어 조회");
         try{
-            List<WordDTO> wordList = searchService.searchRecommendWord();
+            List<WordRecoDTO> wordList = searchService.searchRecommendWord();
             return ResponseEntity.status(HttpStatus.OK).body(wordList);
         }catch (Exception e){
             log.error("검색 조회수 상위 단어 조회 실패 : {}", e);
