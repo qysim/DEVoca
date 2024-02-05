@@ -1,9 +1,7 @@
 <template>
   <div class="py-16">
     <TopNavbarComponent/>
-    <div>
-      <RouterView/>
-    </div>
+    <RouterView/>
     <BottomNavbarComponent />
   </div>
 </template>

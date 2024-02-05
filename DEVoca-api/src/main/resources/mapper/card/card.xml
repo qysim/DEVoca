@@ -55,10 +55,10 @@
     </sql>
 
     <!--  카드 등록  -->
-    <select id="registerCard" parameterType="CardDTO">
+    <insert id="registerCard" parameterType="CardDTO">
         insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword)
         values((<include refid="loadUserIdx"></include> and user_revoke_date is null), #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword});
-    </select>
+    </insert>
 
     <!--  카드 수정  -->
     <update id="updateCard" parameterType="CardDTO">

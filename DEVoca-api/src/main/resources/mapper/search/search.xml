@@ -64,12 +64,12 @@
     </sql>
 
     <!--  키워드 저장, 이미 저장되어 있다면 일시 갱신  -->
-    <select id="saveSearchKeyword" parameterType="map">
+    <insert id="saveSearchKeyword" parameterType="map">
         insert into searched_keywords
             (sk_user_idx, sk_searched_keyword)
         values (#{loginUserIdx}, #{keyword})
         on duplicate key update sk_searched_date = now();
-    </select>
+    </insert>
 
     <!-- 단어 검색 -->
     <select id="searchWord" parameterType="map" resultMap="wordListResultMap">
