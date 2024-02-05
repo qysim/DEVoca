@@ -29,29 +29,7 @@ export default {
       return `https://kauth.kakao.com/oauth/authorize?client_id=${this.client_id}&redirect_uri=${this.redirect_uri}&response_type=code`;
     },
   },
-  doGoogleLogin() {
-    const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
-      process.env.VUE_APP_GOOGLE_CLIENT_ID +
-      '&redirect_uri=' +
-      process.env.VUE_APP_GOOGLE_REDIRECT_URL +
-      '&response_type=code' +
-      '&scope=email profile';
-
-    this.showSocialLoginPopup(url)
-  },
 }
-// todo
-// doGoogleLogin() {
-//   const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
-//       process.env.VUE_APP_GOOGLE_CLIENT_ID +
-//       '&redirect_uri=' +
-//       process.env.VUE_APP_GOOGLE_REDIRECT_URL +
-//       '&response_type=code' +
-//       '&scope=email profile';
-
-//   this.showSocialLoginPopup(url)
-// },
-// };
 
 </script>
 
