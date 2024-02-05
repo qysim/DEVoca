@@ -11,20 +11,20 @@ import java.util.List;
 public interface CardMapper {
     public void registerCard(CardDTO cardDTO) throws SQLException;
 
-    void updateCard(CardDTO cardDTO) throws SQLException;
+    public void updateCard(CardDTO cardDTO) throws SQLException;
 
-    void deleteCard(int cardId) throws SQLException;
+    public void deleteCard(int cardId) throws SQLException;
 
     public CardDTO getCardDetail(@Param("cardId") int cardId, @Param("loginUserIdx") int loginUserIdx) throws SQLException;
 
     public List<CardDTO> getCardList(@Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
-    List<CardDTO> getCardListByWord
+    public List<CardDTO> getCardListByWord
             (@Param("wordId") int wordId, @Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
-    List<CardDTO> getCardListByUserId
+    public List<CardDTO> getCardListByUserId
             (@Param("userId") String userId, @Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
