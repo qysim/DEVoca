@@ -16,6 +16,7 @@ import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
+import SearchView from '@/views/search/SearchView.vue'
 
 
 const router = createRouter({
@@ -111,6 +112,12 @@ const router = createRouter({
           path: '/word/detail',
           name: 'WordDetailView',
           component: WordDetailView,
+        },
+        //search
+        {
+          path: '/search',
+          name: 'SearchView',
+          component: SearchView,
         },
       ]
     },
