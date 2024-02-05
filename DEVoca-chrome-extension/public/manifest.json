@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "DEVoca Chrome Extension",
+    "description": "DEVoca: 개발자를 위한 단어장",
+    "version": "1.0",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "128.png"
+    }
+}
