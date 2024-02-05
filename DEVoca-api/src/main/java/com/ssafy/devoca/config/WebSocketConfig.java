@@ -34,7 +34,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub");
+//        registry.enableSimpleBroker("/sub");
+//        registry.setApplicationDestinationPrefixes("/pub");
+
+        // EC2 서버에 Redis 설치 후 아래 코드로 변경
+        registry.enableStompBrokerRelay("/sub"); // STOMP 메시지 브로커 설정
         registry.setApplicationDestinationPrefixes("/pub");
     }
 }
