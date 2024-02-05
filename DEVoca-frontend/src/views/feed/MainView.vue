@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <TopNavbarComponent />
-    <div class="my-16">
-      <RouterView />
+  <div class="py-16">
+    <TopNavbarComponent/>
+    <div>
+      <RouterView/>
     </div>
     <BottomNavbarComponent />
   </div>

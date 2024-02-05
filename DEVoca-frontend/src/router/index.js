@@ -14,12 +14,14 @@ import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
 import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
+import WordListView from '@/views/word/WordListView.vue'
+import WordDetailView from '@/views/word/WordDetailView.vue'
 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // user
+    // 전체화면
     {
       path: '/login',
       name: 'LoginView',
@@ -76,15 +78,16 @@ const router = createRouter({
       name : 'DMMessageView',
       component : DMMessageView
     },
-    // feed
+    // 상하단바
     {
       path: '/',
       name: 'MainView',
       component: MainView,
-      redirect: '/mainfeed',
+      redirect: '/main',
       children: [
+        // feed
         {
-          path: '/mainfeed',
+          path: '/main',
           name: 'FeedListView',
           component: FeedListView,
         },
@@ -97,6 +100,17 @@ const router = createRouter({
           path: '/card/detail',
           name: 'CardDetailView',
           component: CardDetailView,
+        },
+        // word
+        {
+          path: '/word/list',
+          name: 'WordListView',
+          component: WordListView,
+        },
+        {
+          path: '/word/detail',
+          name: 'WordDetailView',
+          component: WordDetailView,
         },
       ]
     },
