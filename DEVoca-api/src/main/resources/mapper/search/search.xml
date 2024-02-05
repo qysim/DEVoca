@@ -45,6 +45,12 @@
         <result property="cardUpdateDate" column="card_update_date"/>
     </resultMap>
 
+    <!--  WordRecoDTO 매핑 -->
+    <resultMap id="WordRecoDTOResultMap" type="WordRecoDTO">
+        <result property="wordId" column="word_id"/>
+        <result property="wordNameEn" column="word_name_en"/>
+    </resultMap>
+
     <!--  userId로 userIdx 불러오기  -->
     <sql id="loadUserIdx">
         select user_idx from users where user_id = #{userId}
@@ -117,6 +123,23 @@
                 ELSE card_regist_date
             END DESC
         limit #{scroll}, 10;
+    </select>
+
+    <!-- 검색 조회수 상위 단어 10개 조회 : 별도의 DTO를 만들지 않아 정보를 과하게 가져옴. 별도의 DTO 만들지 여부 회의 필요 -->
+    <select id="searchRecommendWord" resultMap="WordRecoDTOResultMap">
+        select word_id, word_name_en
+        from words
+        order by word_searched_cnt desc
+        limit 10;
+    </select>
+
+    <!-- 최근 검색어 5개 조회 -->
+    <select id="getRecentKeyword" parameterType="Integer" resultType="String">
+        select sk_searched_keyword
+        from searched_keywords
+        where sk_user_idx = #{loginUserIdx}
+        order by sk_searched_date desc
+        limit 5;
     </select>
 
 </mapper>

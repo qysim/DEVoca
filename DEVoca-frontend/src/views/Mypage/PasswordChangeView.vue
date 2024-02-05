@@ -17,7 +17,7 @@
             <input type="password" placeholder="비밀번호를 입력해주세요." class="input input-bordered" required />
           </div>
           <div class="form-control mt-6">
-            <button class="btn bg-[#00B4D8]">변경하기</button>
+            <button class="btn bg-devoca">변경하기</button>
           </div>
         </form>
       </div>

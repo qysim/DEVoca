@@ -122,4 +122,18 @@
                  join users u on t.follow_to = u.user_idx
         where t.follow_from =#{userIdx}
     </select>
+
+    <select id="recommendFollow" parameterType="Integer" resultMap="getUserDTO">
+        select count(follow_from) as userFollowerCnt, u.user_id, u.user_name, u.user_intro, u.user_img
+        from follows f
+                 join users u on u.user_idx = f.follow_to
+        where follow_to
+                  in (select distinct uf_user_idx from users_favorite_categories
+                      where
+                          uf_category_id
+                          in (select uf_category_id from users_favorite_categories where uf_user_idx = #{userIdx})
+                        and uf_user_idx != #{userIdx})
+        group by follow_to
+        order by userFollowerCnt desc
+    </select>
 </mapper>

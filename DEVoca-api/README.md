@@ -19,6 +19,14 @@ $ ./gradlew bootRun
 
 - Go to <http://localhost/swagger-ui.html>
 
+### 프로젝트로써의 실행
+
+- java 17
+- Gradle
+- Intellij IDEA 권장
+- [Lombok 설치 및 어노테이션 설정](https://inpa.tistory.com/entry/IntelliJ-%F0%9F%92%BD-Lombok-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0)
+- [redis 설치 및 환경변수 설정](https://github.com/microsoftarchive/redis/releases)
+
 ## 디렉토리 구조
 
 ```bash
