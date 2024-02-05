@@ -2,6 +2,7 @@ package com.ssafy.devoca.search.model.mapper;
 
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.word.model.WordDTO;
+import com.ssafy.devoca.word.model.WordRecoDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,8 @@ public interface SearchMapper {
 
     List<CardDTO> searchCard(@Param("keyword")String keyword, @Param("scroll")int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
+
+    List<WordRecoDTO> searchRecommendWord() throws SQLException;
+
+    List<String> getRecentKeyword(int loginUserIdx) throws SQLException;
 }
