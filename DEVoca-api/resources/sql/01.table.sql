@@ -106,10 +106,11 @@ CREATE TABLE `view_words` (
     CONSTRAINT `PK_VIEW_WORDS` PRIMARY KEY (`vw_word_id`,	`vw_user_idx`)
 )default character set utf8mb4;
 
-CREATE TABLE `dm_lists` (
-    `dl_id`	int	NOT NULL	auto_increment,
-    `dl_create_date`	datetime	NOT NULL	DEFAULT now(),
-    CONSTRAINT `PK_DM_LISTS` PRIMARY KEY (`dl_id`)
+CREATE TABLE `dm_rooms` (
+    `dr_idx`	int	NOT NULL	auto_increment,
+    `dr_uuid`	varchar(45)	NOT NULL,
+    `dr_create_date`	datetime	NOT NULL	DEFAULT now(),
+    CONSTRAINT `PK_DM_ROOMS` PRIMARY KEY (`dr_idx`)
 )default character set utf8mb4;
 
 CREATE TABLE `quizzes` (
@@ -169,16 +170,16 @@ CREATE TABLE `comments` (
 )default character set utf8mb4;
 
 CREATE TABLE `dm_participants` (
-    `fk_dp_dl_id`	int	NOT NULL,
-    `fk_dp_user_idx`	int	NOT NULL,
-    `dp_dl_last_date`	datetime	NOT NULL	DEFAULT now(),
-    CONSTRAINT `PK_DM_PARTICIPANTS` PRIMARY KEY (`fk_dp_dl_id`, `fk_dp_user_idx`)
+    `dp_dr_idx`	int	NOT NULL,
+    `dp_user_idx`	int	NOT NULL,
+    `dp_last_date`	datetime	NOT NULL	DEFAULT now(),
+    CONSTRAINT `PK_DM_PARTICIPANTS` PRIMARY KEY (`dp_dr_idx`, `dp_user_idx`)
 )default character set utf8mb4;
 
-CREATE TABLE `dm_messages` (
+CREATE TABLE `dms` (
     `dm_id`	int	NOT NULL	auto_increment,
+    `fk_dm_dr_idx`	int	NOT NULL,
     `fk_dm_user_idx`	int	NOT NULL,
-    `fk_dm_dl_id`	int	NOT NULL,
     `dm_content`	varchar(300)	NOT NULL,
     `dm_send_date`	datetime	NOT NULL	DEFAULT now(),
     `dm_battle_YN`	boolean	NOT NULL	DEFAULT false	COMMENT 'true : 도전 메시지',
@@ -370,15 +371,15 @@ REFERENCES `users` (
     `user_idx`
 );
 
-ALTER TABLE `dm_participants` ADD CONSTRAINT `FK_dm_lists_TO_dm_participants_1` FOREIGN KEY (
-    `fk_dp_dl_id`
+ALTER TABLE `dm_participants` ADD CONSTRAINT `FK_dm_rooms_TO_dm_participants_1` FOREIGN KEY (
+    `dp_dr_idx`
 )
-REFERENCES `dm_lists` (
-    `dl_id`
+REFERENCES `dm_rooms` (
+    `dr_idx`
 );
 
 ALTER TABLE `dm_participants` ADD CONSTRAINT `FK_users_TO_dm_participants_1` FOREIGN KEY (
-    `fk_dp_user_idx`
+    `dp_user_idx`
 )
 REFERENCES `users` (
     `user_idx`
@@ -391,11 +392,11 @@ REFERENCES `users` (
     `user_idx`
 );
 
-ALTER TABLE `dm_messages` ADD CONSTRAINT `FK_dm_lists_TO_dm_messages_1` FOREIGN KEY (
-    `fk_dm_dl_id`
+ALTER TABLE `dm_messages` ADD CONSTRAINT `FK_dm_rooms_TO_dm_messages_1` FOREIGN KEY (
+    `fk_dm_dr_idx`
 )
-REFERENCES `dm_lists` (
-    `dl_id`
+REFERENCES `dm_rooms` (
+    `dr_idx`
 );
 
 ALTER TABLE `quiz_words` ADD CONSTRAINT `FK_words_TO_quiz_words_1` FOREIGN KEY (
