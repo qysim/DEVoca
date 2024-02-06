@@ -23,8 +23,6 @@ services:
       - devoca_network
     env_file:
       - ".env"
-    ports:
-      - "${HTTP_PORT}:${HTTP_PORT}"
 
   jenkins:
     image: jenkins/jenkins:2.442-jdk17
@@ -76,8 +74,9 @@ services:
     ports:
       - "${NGINX_PORT}:443"
     volumes:
-      - "./nginx/.cert/:/.cert/:ro"
+      - "./.cert/:/.cert/:ro"
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./nginx/nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro"
       - "/etc/nginx/html:/usr/share/nginx/html"
     extra_hosts:
       - "host.docker.internal:host-gateway"
