@@ -20,7 +20,8 @@ vi .env
 ```bash
 docker network create devoca_network
 docker compose -p devoca-deploy up -d --build api
-docker compose -p devoca-deploy up -d --build nginx
+docker compose -p devoca-deploy up -d --build frontend && docker compose stop frontend && docker compose rm -f frontend
+docker compose -p devoca-deploy up -d nginx
 ```
 
 ## MySQL DB
