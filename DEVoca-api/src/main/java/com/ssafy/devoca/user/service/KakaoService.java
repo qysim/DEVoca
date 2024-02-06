@@ -111,6 +111,8 @@ public class KakaoService {
         long id = (long) jsonObj.get("id");
         // 회원/비회원 확인
         int result = userMapper.checkUser(id);
+        log.info("token : " + accessToken);
+        log.info("id : " + id);
         if (result > 0) {
             log.info("기존 회원");
             return KakaoDTO.builder()
@@ -120,8 +122,10 @@ public class KakaoService {
             log.info("비회원");
             return KakaoDTO.builder()
                     .id(id)
+                    .token(accessToken)
                     .userYn(false).build();
         }
     }
+
 
 }
