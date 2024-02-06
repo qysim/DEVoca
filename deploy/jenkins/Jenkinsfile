@@ -20,6 +20,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build API server') {
             steps {
                 dir('deploy') {
@@ -97,6 +98,16 @@ pipeline {
                     sh 'echo "Build and deploy FE server"'
                     sh 'docker-compose -p devoca-deploy up -d --build frontend'
                     sh 'docker-compose -p devoca-deploy rm -f frontend'
+                }
+                sh 'sleep 10'
+                script {
+                    def HEALTH = sh(
+                        returnStdout: true,
+                        script: 'curl -fsS https://i10d112.p.ssafy.io/ > /dev/null && echo "success"'
+                    ).trim()
+                    if (HEALTH != "success") {
+                        error "failed"
+                    }
                 }
             }
             post {
