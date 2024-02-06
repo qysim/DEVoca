@@ -6,7 +6,6 @@ import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
