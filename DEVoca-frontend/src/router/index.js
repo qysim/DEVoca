@@ -17,6 +17,7 @@ import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
+import SearchResultView from '@/views/search/SearchResultView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 
@@ -129,6 +130,11 @@ const router = createRouter({
           path: '/search',
           name: 'SearchView',
           component: SearchView,
+        },
+        {
+          path: '/search/result',
+          name: 'SearchResultView',
+          component: SearchResultView,
         },
       ]
     },
