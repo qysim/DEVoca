@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/user/login")
+@RequestMapping("/user")
 public class OauthController {
 
     private final OauthService oauthService;
-    @GetMapping("/kakao")
+    @GetMapping("/kakao/login")
     public void kakaoLogin(HttpServletResponse response) throws Exception{
         String kakaoLoginURL = oauthService.getKakaoLogin();
         response.sendRedirect(kakaoLoginURL);
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/kakao/logout")
     public void logoutKakao(HttpServletResponse response) throws Exception{
         String kakaoLogoutURL = oauthService.logoutKakao();
         response.sendRedirect(kakaoLogoutURL);

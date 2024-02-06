@@ -1,12 +1,13 @@
-package com.ssafy.devoca.vocalist.service;
-
-import com.ssafy.devoca.vocalist.model.vocalistDTO;
-
-import java.util.List;
-import java.util.Map;
-
-public interface VocalistService {
-
-    void createVocalist(Map<String, Object> params) throws Exception;
-    List<vocalistDTO> getVocalist(Integer userIdx) throws Exception;
-}
+//package com.ssafy.devoca.vocalist.service;
+//
+//import com.ssafy.devoca.vocalist.model.VocalistDTO;
+//
+//import java.util.List;
+//import java.util.Map;
+//
+//public interface VocalistService {
+//
+//    void createVocalist(VocalistDTO vocalistDTO) throws Exception;
+//    List<VocalistDTO> getVocalist(Integer userIdx) throws Exception;
+//    void storeVocalist(VocalistDTO vocalistDTO) throws Exception;
+//}

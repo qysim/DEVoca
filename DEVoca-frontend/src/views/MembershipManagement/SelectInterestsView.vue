@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-screen flex items-center">
+  <div class="flex items-center">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
       <div class="flex justify-center">
         <img src="@/assets/images/DEVoca_logo_en_only.png" class="w-3/4">
