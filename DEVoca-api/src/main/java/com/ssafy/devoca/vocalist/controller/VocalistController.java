@@ -1,6 +1,7 @@
 package com.ssafy.devoca.vocalist.controller;
 
 import com.ssafy.devoca.user.service.UserService;
+import com.ssafy.devoca.vocalist.model.vocalistDTO;
 import com.ssafy.devoca.vocalist.service.VocalistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,5 +40,17 @@ public class VocalistController {
         }
     }
 
-
+    @GetMapping("")
+    public ResponseEntity<List<vocalistDTO>> getVocalist(@RequestHeader("userId") String userId){
+        log.info("단어장 목록 api 호출");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<vocalistDTO> vocaList = vocalistService.getVocalist(userIdx);
+            log.info("vocaList : {}", vocaList);
+            return ResponseEntity.status(HttpStatus.OK).body(vocaList);
+        } catch (Exception e){
+            log.info("단어장 목록 api 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

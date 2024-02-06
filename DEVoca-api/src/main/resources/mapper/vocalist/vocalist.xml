@@ -4,9 +4,19 @@
 
 <mapper namespace="com.ssafy.devoca.vocalist.model.mapper.VocalistMapper">
 
+    <resultMap id="getVocalistDTO" type="vocalistDTO">
+        <id property="vocalistId" column="vl_id"/>
+        <result property="vocalistName" column="vl_name"/>
+    </resultMap>
+
     <insert id="createVocaList" parameterType="map">
         insert into voca_lists (fk_vl_user_idx, vl_name)
         values (#{userIdx}, #{vocalistName})
     </insert>
+
+    <select id="getVocalist" parameterType="Integer" resultMap="getVocalistDTO">
+        select vl_id, vl_name from voca_lists
+        where fk_vl_user_idx = #{userIdx}
+    </select>
 
 </mapper>
