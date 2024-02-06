@@ -21,57 +21,31 @@ pipeline {
             }
         }
 
-        stage('Build API server') {
+        stage('Build and deploy API server') {
             steps {
                 dir('deploy') {
                     sh 'echo "Build API server"'
                     sh 'docker-compose -p devoca-deploy build api'
-                }
-            }
-            post {
-                success {
-                    script {
-                        mattermostSend(
-                            color: 'good',
-                            message: "Succeed to build api server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
-                            endpoint: "${ENDPOINT}",
-                            channel: "${CHANNEL}",
-                            icon: "${SUCCESS_ICON}"
-                        )
-                    }
-                }
-                failure {
-                    script {
-                        mattermostSend(
-                            color: 'danger',
-                            message: "Failed to build api server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
-                            endpoint: "${ENDPOINT}",
-                            channel: "${CHANNEL}",
-                            icon: "${FAILED_ICON}"
-                        )
-                    }
-                }
-            }
-        }
-
-        stage('Deploy API server') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                dir('deploy') {
                     sh 'echo "Deploy API server"'
                     sh 'docker-compose -p devoca-deploy up -d api'
                 }
+                sh 'sleep 10'
+                script {
+                    def HEALTH = sh(
+                        returnStdout: true,
+                        script: 'curl https://i10d112.p.ssafy.io/devoca/health'
+                    ).trim()
+                    if (HEALTH != '{"health":"good"}') {
+                        error "failed"
+                    }
+                }
             }
             post {
                 success {
                     script {
                         mattermostSend(
                             color: 'good',
-                            message: "Succeed to deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            message: "Succeed to build and deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${SUCCESS_ICON}"
@@ -82,7 +56,7 @@ pipeline {
                     script {
                         mattermostSend(
                             color: 'danger',
-                            message: "Failed to deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
+                            message: "Failed to build and deploy API server: ${env.BUILD_URL}\n${GIT_MESSAGE}",
                             endpoint: "${ENDPOINT}",
                             channel: "${CHANNEL}",
                             icon: "${FAILED_ICON}"
