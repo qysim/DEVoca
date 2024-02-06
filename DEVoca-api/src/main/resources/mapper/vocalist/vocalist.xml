@@ -4,19 +4,27 @@
 
 <mapper namespace="com.ssafy.devoca.vocalist.model.mapper.VocalistMapper">
 
-    <resultMap id="getVocalistDTO" type="vocalistDTO">
-        <id property="vocalistId" column="vl_id"/>
-        <result property="vocalistName" column="vl_name"/>
-    </resultMap>
+<!--    <resultMap id="getVocalistDTO" type="VocalistDTO">-->
+<!--        <id property="vocalistId" column="vl_id"/>-->
+<!--        <result property="vocalistName" column="vl_name"/>-->
+<!--        <result property="cardId" column="vlc_wc_id"/>-->
+<!--        <result property="vlWordCard" column="vlc_wc_select"/>-->
+<!--    </resultMap>-->
 
-    <insert id="createVocaList" parameterType="map">
-        insert into voca_lists (fk_vl_user_idx, vl_name)
-        values (#{userIdx}, #{vocalistName})
-    </insert>
+<!--    <insert id="createVocaList" parameterType="VocalistDTO"-->
+<!--            useGeneratedKeys="true" keyColumn="vl_id" keyProperty="vocalistId">-->
+<!--        insert into voca_lists (fk_vl_user_idx, vl_name)-->
+<!--        values (#{userIdx}, #{vocalistName})-->
+<!--    </insert>-->
 
-    <select id="getVocalist" parameterType="Integer" resultMap="getVocalistDTO">
-        select vl_id, vl_name from voca_lists
-        where fk_vl_user_idx = #{userIdx}
-    </select>
+<!--    <select id="getVocalist" parameterType="Integer" resultMap="getVocalistDTO">-->
+<!--        select vl_id, vl_name from voca_lists-->
+<!--        where fk_vl_user_idx = #{userIdx}-->
+<!--    </select>-->
+
+<!--    <insert id="storeVocalist" parameterType="VocalistDTO">-->
+<!--        insert into voca_list_cards (vlc_sl_id, vlc_wc_id, vlc_wc_select)-->
+<!--        values (#{vocalistId}, #{cardId}, #{vlWordCard})-->
+<!--    </insert>-->
 
 </mapper>
