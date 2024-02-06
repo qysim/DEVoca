@@ -18,8 +18,11 @@ import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import SearchResultView from '@/views/search/SearchResultView.vue'
+import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
+import VocalistListView from '@/views/vocalist/VocalistListView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import RouterErrorView from '@/views/error/RouterErrorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -136,7 +139,23 @@ const router = createRouter({
           name: 'SearchResultView',
           component: SearchResultView,
         },
+        // article
+        {
+          path: '/article/create',
+          name: 'ArticleCreateView',
+          component: ArticleCreateView,
+        },
+        // vocalist
+        {
+          path: '/vocalist',
+          name: 'VocalistListView',
+          component: VocalistListView,
+        },
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: RouterErrorView,
     },
   ]
 })
