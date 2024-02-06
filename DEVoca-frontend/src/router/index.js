@@ -22,6 +22,7 @@ import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import RouterErrorView from '@/views/error/RouterErrorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -151,6 +152,10 @@ const router = createRouter({
           component: VocalistListView,
         },
       ]
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: RouterErrorView,
     },
   ]
 })
