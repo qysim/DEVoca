@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,8 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    // 스케줄러 설정 : 월~금 오전 8시 35분에 퀴즈 생성 및 저장 메서드 실행
+    @Scheduled(cron = "0 35 8 ? * MON-FRI", zone = "Asia/Seoul")
     @PostMapping("")
     public ResponseEntity<String> createQuiz(){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
