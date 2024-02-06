@@ -6,8 +6,8 @@
       </div>
       <form class="card-body">
         <div class="mt-3 flex flex-col items-center">
-          <div id="app" class="mb-5">
-            <a :href="kakaoLoginLink" alt="kakao login">
+          <div class="mb-5">
+            <a @click="loginWithKaKao" class="button" title="kakao login">
               <img alt="kakao logo" src="@/assets/images/kakao_login.png" class="logo" />
             </a>
           </div>
@@ -17,19 +17,41 @@
   </div>
 </template>
   
-<script>
-export default {
-  name: "App",
-  data: () => ({
-    client_id: "CLIENT_ID",
-    redirect_uri: "http://localhost/oauth/callback",
-  }),
-  computed: {
-    kakaoLoginLink() {
-      return `https://kauth.kakao.com/oauth/authorize?client_id=${this.client_id}&redirect_uri=${this.redirect_uri}&response_type=code`;
-    },
-  },
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { login } from '@/api/user.js'
+
+const router = useRouter()
+
+const loginInfo = ref({
+  id: "",
+  token: "",
+  userYn: ""
+})
+
+const loginWithKaKao = () => {
+    login(), (res) => {
+    console.log(res)
+  }, (err) => {
+    console.log(err)
+  }
+
+  
+  // loginInfo(obj, () => {
+  //   if (userYn.value === true) {
+  //     router.push({ name: "MainView" });
+  //   } else if (userYn.value === flase) {
+  //     router.push({ naeme: "SignupView" })
+  //   }
+  // },
+  //   (error) => {
+  //     console.log(error)
+  //     router.push({ name: "LoginView" })
+  //   }
+  // );
 }
+
 </script>
 
 <style scoped>
