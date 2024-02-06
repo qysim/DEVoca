@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.dm.model.mapper.DmMapper">
+
+    <!-- getDmRoomList 결과 매핑-->
+    <resultMap id="DmRoomResultMap" type="DmRoomDTO">
+        <id property="roomIdx" column="dr_idx"/>
+        <result property="roomUuid" column="dr_uuid"/>
+        <result property="userImg" column="user_img"/>
+        <result property="userNickName" column="user_nickname"/>
+        <result property="lastMessage" column="dm_content"/>
+        <result property="lastSendDate" column="dm_send_date"/>
+        <result property="unReadCnt" column="unread_cnt"/>
+    </resultMap>
+
+    <!-- loginUserIdx가 참여한 방 아이디 가져오기 -->
+    <sql id="getRoomIdxByLoginUser">
+        select dp_dr_idx from dm_participants where dp_user_idx = #{loginUserIdx}
+    </sql>
+
+    <!-- getDmRoomList 쿼리 -->
+    <select id="getDmRoomList" parameterType="int" resultMap="DmRoomResultMap">
+        select dr.dr_idx, dr.dr_uuid, u.user_id, u.user_nickname, u.user_img, dm.dm_content, dm.dm_send_date, unread_cnt
+        from dm_participants dp
+            join dm_rooms dr on dp.dp_dr_idx = dr.dr_idx
+            join users u on dp.dp_user_idx = u.user_idx
+            join dm_messages dm on dm.fk_dm_dr_idx = dr.dr_idx
+            join (select dm.fk_dm_dr_idx, count(*) unread_cnt
+                  from dm_participants dp join dm_messages dm
+                      on dp.dp_dr_idx = dm.fk_dm_dr_idx
+                      and dp.dp_user_idx = dm.fk_dm_user_idx
+                  where dp.dp_dr_idx in (<include refid="getRoomIdxByLoginUser"/>)
+                      and dm.fk_dm_user_idx != #{loginUserIdx}
+                      and dm.dm_send_date > all (select dp_last_date
+                                                 from dm_participants
+                                                 where dp_user_idx = #{loginUserIdx})
+                  group by dm.fk_dm_dr_idx, dm.fk_dm_user_idx) um on um.fk_dm_dr_idx = dr.dr_idx
+        where dp.dp_dr_idx in (<include refid="getRoomIdxByLoginUser"/>)
+          and dp.dp_user_idx != #{loginUserIdx}
+        and dm.dm_send_date in ( select max(dm_send_date)
+								 from dm_messages
+								 group by fk_dm_dr_idx)
+        order by dm.dm_send_date desc;
+    </select>
+
+</mapper>
