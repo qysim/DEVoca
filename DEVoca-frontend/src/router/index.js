@@ -19,6 +19,7 @@ import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import SearchResultView from '@/views/search/SearchResultView.vue'
 import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
+import VocalistListView from '@/views/vocalist/VocalistListView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 
@@ -142,6 +143,12 @@ const router = createRouter({
           path: '/article/create',
           name: 'ArticleCreateView',
           component: ArticleCreateView,
+        },
+        // vocalist
+        {
+          path: '/vocalist',
+          name: 'VocalistListView',
+          component: VocalistListView,
         },
       ]
     },
