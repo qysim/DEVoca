@@ -20,7 +20,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { login } from '@/api/user.js'
+import { login, listArticle } from '@/api/user.js'
 
 const router = useRouter()
 
@@ -30,26 +30,20 @@ const loginInfo = ref({
   userYn: ""
 })
 
-const loginWithKaKao = () => {
-    login(), (res) => {
+const kakao_url = "https://accounts.kakao.com/login/?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fi10d112.p.ssafy.io%252Fdevoca%252Fkakao%252Fcallback%26through_account%3Dtrue%26client_id%3Df9cb962075484b28551d411e7d63c0eb"
+
+const loginWithKaKao = function () {
+  // 카카오 url로 연결하면 로그인 페이지로 넘어가고 정보가 화면에 출력됨
+  // axios 요청이 아니라 링크연결을 해야 할 것 같음
+  location.href = kakao_url
+
+  // axios 요청 보내면 cors 에러
+  login(), (res) => {
+    console.log('OK')
     console.log(res)
   }, (err) => {
     console.log(err)
   }
-
-  
-  // loginInfo(obj, () => {
-  //   if (userYn.value === true) {
-  //     router.push({ name: "MainView" });
-  //   } else if (userYn.value === flase) {
-  //     router.push({ naeme: "SignupView" })
-  //   }
-  // },
-  //   (error) => {
-  //     console.log(error)
-  //     router.push({ name: "LoginView" })
-  //   }
-  // );
 }
 
 </script>
@@ -60,4 +54,3 @@ const loginWithKaKao = () => {
   height: 50px;
 }
 </style>
-  

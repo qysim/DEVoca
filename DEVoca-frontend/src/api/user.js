@@ -2,9 +2,14 @@ import { localAxios } from "@/util/http-commons";
 
 const local = localAxios();   //axios instance 호출
 
-function login(param, success, fail) {
-  local.get('/user/kakao/login', param).then(success).catch(fail);
+function login(success, fail) {
+  local.get('/user/kakao/login').then(success).catch(fail);
 }
+
+function listArticle(success, fail) {
+  local.get('/vocalist').then(success).catch(fail);
+}
+
 
 async function userConfirm(param, success, fail) {
   console.log("param", param);
@@ -59,5 +64,6 @@ export {
   mypage,
   modifyUser,
   deleteUser,
+  listArticle,
   // refreshUser,
 };
