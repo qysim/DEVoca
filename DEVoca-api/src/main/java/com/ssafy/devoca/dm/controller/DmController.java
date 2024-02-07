@@ -1,27 +1,41 @@
 package com.ssafy.devoca.dm.controller;
 
-import com.ssafy.devoca.dm.service.RedisPublisher;
+import com.ssafy.devoca.dm.model.DmRoomDTO;
+import com.ssafy.devoca.dm.service.DmService;
+import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-/**
- * DM 관련 Controller
- *
- * @author kimjuyi
- */
+import java.util.List;
+
 @Slf4j
-@Controller
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/dm")
 public class DmController {
-    private final RedisPublisher redisPublisher;
-    private final ChannelTopic channelTopic;
 
-    @MessageMapping("/chat")
-    public void handleChatMessage(String message) {
-        log.info("hadleChatMessage 호출 : {}", message);
-        redisPublisher.publish(channelTopic, message);
+    private final DmService dmService;
+    private final UserService userService;
+
+    @GetMapping("")
+    public ResponseEntity<List<DmRoomDTO>> getDmRoomList() {
+
+        try {
+            // 유저 idx 가져오기
+            String userId = "aabbc";
+            int loginUserIdx = userService.loadUserIdx(userId);
+
+            List<DmRoomDTO> dmRoomList = dmService.getDmRoomList(loginUserIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(dmRoomList);
+        } catch (Exception e) {
+            log.error("wordList 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
 }
