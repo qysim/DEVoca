@@ -23,8 +23,15 @@ public class KakaoController {
     @GetMapping("/callback")
     public ResponseEntity<KakaoDTO> callback(HttpServletRequest request) throws Exception {
         // "code" 가 카카오에서 전달해준 인증 코드
+        log.info("code : {}", request.getParameter("code"));
         KakaoDTO kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"));
         return ResponseEntity.status(HttpStatus.OK).body(kakaoInfo);
+    }
+
+    @GetMapping("/logout")
+    public void logoutKakao(HttpServletResponse response) throws Exception{
+        String kakaoLogoutURL = kakaoService.logoutKakao();
+        response.sendRedirect(kakaoLogoutURL);
     }
 
 }
