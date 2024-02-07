@@ -1,6 +1,13 @@
 // 백그라운드에서 브라우저 이벤트를 모니터링.
 // 서비스 워커는 이벤트를 처리하고 필요하지 않을 때 종료되는 특수 JS 환경.
 
+// chrome.action.onClicked.addListener((tab) => {
+//     chrome.scripting.executeScript({
+//         target: { tabId: tab.id },
+//         files: ['content.js']
+//     })
+// })
+
 // // 상태 배지 추가
 // chrome.runtime.onInstalled.addListener(() => {
 //     chrome.action.setBadgeText({

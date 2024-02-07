@@ -33,7 +33,8 @@
         "service_worker": "background.js"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "scripting"
     ],
     "commands": {
         "_execute_action": {
