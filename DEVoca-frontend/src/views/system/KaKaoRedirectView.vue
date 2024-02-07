@@ -10,6 +10,8 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getKaKaoToken } from '@/api/user.js'
+import { localAxios } from '@/util/http-commons';
+import axios from 'axios'
 
 const router = useRouter()
 
@@ -23,9 +25,13 @@ onMounted (() => {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   const codeParam = urlParams.get('code')
-  // console.log('Code parameter:', codeParam)
+  console.log('Code parameter:', codeParam)
 
-  getKaKaoToken(codeParam, (res) => {
+  axios({
+    method: 'get',
+    url: `https://i10d112.p.ssafy.io/devoca/kakao/callback?code=${codeParam}`
+  })
+  .then ((res) => {
     tokenInfo = res.data
     console.log(tokenInfo)
     console.log(tokenInfo.value)
@@ -35,10 +41,24 @@ onMounted (() => {
     } else if (res.data.userYn === false) {
       router.push({name : 'SignupView'})
     }
-  }, (err) => {
+  })
+  .catch((err) => {
     console.log(err)
-  })}
-)
+  })
+  // getKaKaoToken(codeParam, (res) => {
+  //   tokenInfo = res.data
+  //   console.log(tokenInfo)
+  //   console.log(tokenInfo.value)
+
+  //   if (res.data.userYn === true) {
+  //     router.push({name : 'MainView'})
+  //   } else if (res.data.userYn === false) {
+  //     router.push({name : 'SignupView'})
+  //   }
+  // }, (err) => {
+  //   console.log(err)
+  // })}
+  })
 
 </script>
 
