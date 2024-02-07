@@ -10,4 +10,5 @@ public interface VocalistService {
     void createVocalist(VocalistDTO vocalistDTO) throws Exception;
     List<VocalistDTO> getVocalist(Integer userIdx) throws Exception;
     void storeVocalist(VocalistDTO vocalistDTO) throws Exception;
+    void deleteVocalist(Map<String, Integer> params) throws Exception;
 }

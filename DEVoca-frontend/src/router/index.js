@@ -2,18 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
-import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
-import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
+import MainView from '@/views/feed/MainView.vue'
+import MypageView from '@/views/Mypage/MypageView.vue'
+import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
-import MainView from '@/views/feed/MainView.vue'
+import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
-import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
@@ -24,7 +26,8 @@ import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
-import RouterErrorView from '@/views/error/RouterErrorView.vue'
+import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -109,6 +112,11 @@ const router = createRouter({
           name : 'AlarmPageView',
           component : AlarmPageView
         },
+        {
+          path : 'followrecommendation',
+          name : 'FollowRecommendationView',
+          component : FollowRecommendationView
+        },
         // feed
         {
           path: '/main',
@@ -160,6 +168,10 @@ const router = createRouter({
           component: VocalistListView,
         },
       ]
+    },
+    {
+      path: '/kakao/callback',
+      component: KaKaoRedirectView,
     },
     {
       path: '/:pathMatch(.*)*',

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -33,6 +34,10 @@ public class VocalistServiceImpl implements VocalistService{
         vocalistMapper.storeVocalist(vocalistDTO);
     }
 
+    @Override
+    public void deleteVocalist(Map<String, Integer> params) throws Exception {
+        vocalistMapper.deleteVocalist(params);
+    }
 
 
 }
