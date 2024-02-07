@@ -1,6 +1,7 @@
 package com.ssafy.devoca.vocalist.controller;
 
 import com.ssafy.devoca.user.service.UserService;
+import com.ssafy.devoca.vocalist.model.VldetailDTO;
 import com.ssafy.devoca.vocalist.model.VocalistDTO;
 import com.ssafy.devoca.vocalist.service.VocalistService;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +85,7 @@ public class VocalistController {
      * 단어장 삭제 api
      * @author Ryu jiyun
      * */
-    @GetMapping("/delete/{vlId}")
+    @PatchMapping("/{vlId}")
     public ResponseEntity<String> deleteVocalist(@RequestHeader("userId") String userId
                                                 , @PathVariable("vlId") Integer vlId){
         log.info("단어장 삭제 api 호출 : {}", vlId);
@@ -99,5 +100,24 @@ public class VocalistController {
             log.info("단어장 삭제 api 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    /*
+     * 단어장 상세 목록 조회 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/{vocaListId}")
+    public ResponseEntity<List<VldetailDTO>> getVocalistDetail(@RequestHeader("userId") String userId
+                                                                ,@PathVariable("vocaListId") Integer vocaListId){
+        log.info("단어장 상세 목록 조회 api 호출 : {}", vocaListId);
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<VldetailDTO> vldetailDTOList = vocalistService.getVocalistDetail(vocaListId, userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(vldetailDTOList);
+        } catch (Exception e){
+            log.info("단어장 상세 목록 조회 api 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 }
