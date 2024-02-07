@@ -42,7 +42,7 @@
       <div class="w-10 mr-2">
         <img alt="logo image" src="./images/icon-128.png" />
       </div>
-      <input class="input input-bordered" type="text" placeholder="검색어를 입력하세요" />
+      <input class="input input-bordered bg-white" type="text" placeholder="검색어를 입력하세요" />
       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 stroke-white dark:stroke-black" fill="none"
         viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,18 +50,21 @@
       </svg>
     </div>
 
-    <!-- 단어에 블록을 잡는 등의 특정 이벤트가 발생한 후 팝업이 뜨므로 -->
-    <!-- 기본적으로는 검색 결과를 바로 보여줌 -->
-    <div role="tablist" class="tabs tabs-bordered tabs-lg justify-center">
-      <input type="radio" name="my_tabs_1" role="tab" class="tab px-20" aria-label="단어" checked />
-      <div role="tabpanel" class="tab-content p-10">Tab content 2</div>
+    <!-- 단어에 블록을 잡는 등의 특정 이벤트가 발생한 후 팝업이 뜨므로 기본적으로는 검색 결과를 바로 보여줌 -->
+    <div class="p-2 bg-white">
+      <div role="tablist" class="tabs tabs-bordered tabs-lg justify-center">
+        <input type="radio" name="my_tabs_1" role="tab" class="tab px-16" aria-label="단어" checked />
+        <div role="tabpanel" class="tab-content p-4">Tab content 2</div>
 
-      <input type="radio" name="my_tabs_1" role="tab" class="tab px-20" aria-label="&nbsp;글&nbsp;" />
-      <div role="tabpanel" class="tab-content p-10">Tab content 3</div>
-    </div>
+        <input type="radio" name="my_tabs_1" role="tab" class="tab px-16" aria-label="&nbsp;글&nbsp;" />
+        <div role="tabpanel" class="tab-content p-4">Tab content 3</div>
+      </div>
 
-    <div class="text-right">
-      <img class="w-20 inline" src="./images/logo.png" alt="devoca" /> 에서 더 보기 →
+      <div class="text-right mt-4">
+        <button :onclick="moreInDevoca">
+          <img class="w-20 inline drop-shadow-lg drop-shadow-white" src="./images/logo.png" alt="devoca" /> 에서 더 보기 ▶
+        </button>
+      </div>
     </div>
   </div>
 
@@ -72,8 +75,15 @@
     createApp({
       setup() {
         const message = ref('Hello vue!')
+
+        const moreInDevoca = () => {
+          console.log('DEVoca에서 더 보기 클릭')
+          location.href = 'https://i10d112.p.ssafy.io/search'
+        }
+
         return {
-          message
+          message,
+          moreInDevoca
         }
       }
     }).mount('#app')
