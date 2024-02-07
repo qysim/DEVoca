@@ -15,11 +15,7 @@ import axios from 'axios'
 
 const router = useRouter()
 
-const tokenInfo = ref({
-  id: null,
-  token: null,
-  userYn: null
-})
+const tokenInfo = ref(null)
 
 onMounted (() => {
   const queryString = window.location.search
@@ -33,9 +29,9 @@ onMounted (() => {
   })
   .then ((res) => {
     console.log(res)
-    // tokenInfo.value = res.data
-    // console.log(tokenInfo)
-    // console.log(tokenInfo.value)
+    tokenInfo.value = res.data
+    console.log(tokenInfo)
+    console.log(tokenInfo.value)
     
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
@@ -58,7 +54,6 @@ onMounted (() => {
   //   }
   // }, (err) => {
   //   console.log(err)
-  // })}
   })
 
 </script>

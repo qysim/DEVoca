@@ -2,8 +2,8 @@ import { localAxios } from "@/util/http-commons"
 
 const local = localAxios()   //axios instance 호출
 
-async function getKaKaoToken(param, success, fail) {
-  await local.get(`/kakao/callback?code=${param}`).then(success).catch(fail);
+function getKaKaoToken(param, success, fail) {
+  local.get(`/kakao/callback?code=${param}`).then(success).catch(fail);
 }
 
 async function userConfirm(param, success, fail) {
