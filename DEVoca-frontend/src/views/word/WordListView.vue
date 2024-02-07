@@ -4,25 +4,30 @@
       <button class="btn join-item bg-base-100" v-for="alphabet in alphabets">{{ alphabet }}</button>
     </div>
     <div class="pl-12">
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
-      <WordComponent />
+      <div v-for="word in wordList">
+        <WordComponent :word="word"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import WordComponent from '@/components/word/WordComponent.vue'
+import { getWordList } from '@/api/word.js'
 
 const alphabets = ref('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
+const wordList = ref(null)
+
+onMounted(() => {
+  getWordList('A', (res) => {
+    // console.log(res)
+    wordList.value = res.data.slice(0, 10)
+    // console.log(wordList.value)
+  }, (err) => {
+    console.log(err)
+  })
+})
 
 </script>
 
