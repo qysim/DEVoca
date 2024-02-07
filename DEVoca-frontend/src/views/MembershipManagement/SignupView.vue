@@ -39,11 +39,12 @@
 </template>
   
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
-import router from '@/router';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const datepicker = ref(null)
 
 const goMain = function () {
