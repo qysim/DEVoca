@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * DM 관련 Controller
@@ -79,6 +80,52 @@ public class DmController {
 
         } catch (Exception e) {
             log.error("getDmList 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 타 유저의 피드에서 메시지 버튼 클릭 시
+     * 채팅방이 존재하면 해당 방 랜덤 아이디 반환
+     *        존재하지 않으면 채팅 방 생성, 참여자 저장 후 방 랜덤 아이디 반환
+     *
+     * @param chatUserId 채팅할 유저 아이디
+     * @return
+     */
+    @GetMapping("/{chatUserId}")
+    public ResponseEntity<String> getRoomUuid(@PathVariable("chatUserId") String chatUserId) {
+        log.info("getRoomUuid 호출 : {}", chatUserId);
+
+        try {
+            // 로그인 유저 idx 가져오기
+            String userId = "aabbc";
+            int loginUserIdx = userService.loadUserIdx(userId);
+
+            // 채팅 유저 idx 가져오기
+            int chatUserIdx = userService.loadUserIdx(chatUserId);
+
+            String roomUuid = dmService.getRoomUuid(loginUserIdx, chatUserIdx);
+
+            // 두 사용자가 참여한 채팅방이 있을 경우 해당 방 랜덤 아이디 반환
+            if(roomUuid != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(roomUuid);
+            }
+
+            // 두 사용자가 참여한 채팅방이 없을 경우
+            // 랜덤 방 아이디 생성
+            UUID uuid = UUID.randomUUID();
+            String newRoomUuid = uuid.toString().substring(0, 8);
+
+            dmService.createRoom(newRoomUuid);
+            log.info("방 생성 완료");
+
+            // 참여자 테이블에 참여자 저장
+            dmService.insertParticipants(newRoomUuid, loginUserIdx, chatUserIdx);
+            log.info("참여자 저장 완료");
+
+            return ResponseEntity.status(HttpStatus.OK).body(newRoomUuid);
+        } catch (Exception e) {
+            log.error("getRoomUuid 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

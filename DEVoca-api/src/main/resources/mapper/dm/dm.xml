@@ -72,4 +72,32 @@
                                         where dr_uuid = #{roomUuid})) participants_YN;
     </select>
 
+    <!-- getRoomUuid 쿼리 -->
+    <select id="getRoomUuid" resultType="String">
+        select dr_uuid
+        from dm_rooms
+        where dr_idx = (select dm1.dp_dr_idx from dm_participants dm1
+                                                      join dm_participants dm2 on dm1.dp_dr_idx = dm2.dp_dr_idx
+                        where dm1.dp_user_idx = #{loginUserIdx} and dm2.dp_user_idx = #{chatUserIdx});
+    </select>
+
+    <!-- dm_rooms 테이블에 새로운 방 생성 -->
+    <insert id="createRoom" parameterType="String">
+        insert into dm_rooms (dr_uuid, dr_create_date)
+        values (#{roomUuid}, NOW());
+    </insert>
+
+    <!-- roomUuid로 idx 가져오기 -->
+    <sql id="getRoomIdx">
+        select dr_idx from dm_rooms where dr_uuid = #{roomUuid}
+    </sql>
+
+    <!-- dm_participants 테이블에 참여자 정보 insert -->
+    <insert id="insertParticipants">
+        insert into dm_participants (dp_dr_idx, dp_user_idx, dp_last_date)
+        values ((<include refid="getRoomIdx"></include>), #{loginUserIdx},
+                (select dr_create_date from dm_rooms where dr_idx = (<include refid="getRoomIdx"></include>))),
+               ((<include refid="getRoomIdx"></include>), #{chatUserIdx},
+                (select dr_create_date from dm_rooms where dr_idx = (<include refid="getRoomIdx"></include>)));
+    </insert>
 </mapper>
