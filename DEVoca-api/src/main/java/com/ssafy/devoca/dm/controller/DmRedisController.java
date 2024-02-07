@@ -8,7 +8,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
 /**
- * DM 관련 Controller
+ * DM Redis 관련 Controller
  *
  * @author kimjuyi
  */
