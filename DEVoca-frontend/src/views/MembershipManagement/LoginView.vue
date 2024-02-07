@@ -7,7 +7,7 @@
       <form class="card-body">
         <div class="mt-3 flex flex-col items-center">
           <div class="mb-5">
-            <a @click="loginWithKaKao" class="button" title="kakao login">
+            <a :href=kakaoURI>
               <img alt="kakao logo" src="@/assets/images/kakao_login.png" class="logo" />
             </a>
           </div>
@@ -18,33 +18,10 @@
 </template>
   
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { login, listArticle } from '@/api/user.js'
 
-const router = useRouter()
-
-const loginInfo = ref({
-  id: "",
-  token: "",
-  userYn: ""
-})
-
-const kakao_url = "https://accounts.kakao.com/login/?continue=https%3A%2F%2Fkauth.kakao.com%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Fi10d112.p.ssafy.io%252Fdevoca%252Fkakao%252Fcallback%26through_account%3Dtrue%26client_id%3Df9cb962075484b28551d411e7d63c0eb"
-
-const loginWithKaKao = function () {
-  // 카카오 url로 연결하면 로그인 페이지로 넘어가고 정보가 화면에 출력됨
-  // axios 요청이 아니라 링크연결을 해야 할 것 같음
-  location.href = kakao_url
-
-  // axios 요청 보내면 cors 에러
-  login(), (res) => {
-    console.log('OK')
-    console.log(res)
-  }, (err) => {
-    console.log(err)
-  }
-}
+const clientId = 'f9cb962075484b28551d411e7d63c0eb'
+const redirectURI = "https://i10d112.p.ssafy.io/kakao/callback"
+const kakaoURI = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code`
 
 </script>
 

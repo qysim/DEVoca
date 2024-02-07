@@ -1,15 +1,10 @@
-import { localAxios } from "@/util/http-commons";
+import { localAxios } from "@/util/http-commons"
 
-const local = localAxios();   //axios instance 호출
+const local = localAxios()   //axios instance 호출
 
-function login(success, fail) {
-  local.get('/user/kakao/login').then(success).catch(fail);
+function getKaKaoToken(param, success, fail) {
+  local.get(`/kakao/callback?code=${param}`).then(success).catch(fail);
 }
-
-function listArticle(success, fail) {
-  local.get('/vocalist').then(success).catch(fail);
-}
-
 
 async function userConfirm(param, success, fail) {
   console.log("param", param);
@@ -55,15 +50,15 @@ function deleteUser(userId, success, fail) {
 // }
 
 export {
+  getKaKaoToken,
   userConfirm,
   findById,
   tokenRegeneration,
-  login,
+  // login,
   logout,
   join,
   mypage,
   modifyUser,
   deleteUser,
-  listArticle,
   // refreshUser,
 };
