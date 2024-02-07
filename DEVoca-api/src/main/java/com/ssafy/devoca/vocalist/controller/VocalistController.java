@@ -62,6 +62,10 @@ public class VocalistController {
         }
     }
 
+    /*
+     * 단어장 목록 api
+     * @author Ryu jiyun
+     * */
     @GetMapping("")
     public ResponseEntity<List<VocalistDTO>> getVocalist(@RequestHeader("userId") String userId){
         log.info("단어장 목록 api 호출");
@@ -72,6 +76,27 @@ public class VocalistController {
             return ResponseEntity.status(HttpStatus.OK).body(vocaList);
         } catch (Exception e){
             log.info("단어장 목록 api 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 단어장 삭제 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/delete/{vlId}")
+    public ResponseEntity<String> deleteVocalist(@RequestHeader("userId") String userId
+                                                , @PathVariable("vlId") Integer vlId){
+        log.info("단어장 삭제 api 호출 : {}", vlId);
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            Map<String, Integer> params = new HashMap<>();
+            params.put("vlId", vlId);
+            params.put("userIdx", userIdx);
+            vocalistService.deleteVocalist(params);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e){
+            log.info("단어장 삭제 api 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

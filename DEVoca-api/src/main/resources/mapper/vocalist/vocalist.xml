@@ -27,4 +27,9 @@
         values (#{vocalistId}, #{cardId}, #{vlWordCard})
     </insert>
 
+    <update id="deleteVocalist" parameterType="java.util.Map">
+        update voca_lists
+        set vl_delete_date = now()
+        where vl_id = #{vlId} and fk_vl_user_idx = #{userIdx}
+    </update>
 </mapper>
