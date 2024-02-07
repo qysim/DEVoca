@@ -46,31 +46,6 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path : '/selecinterestschange',
-      name : 'SelectInterestsChangeView',
-      component : SelectInterestsChangeView
-    },
-    {
-      path : '/passwordchange',
-      name : 'PasswordChangeView',
-      component : PasswordChangeView
-    },
-    {
-      path : '/mypagesetting',
-      name : 'MypageSettingView',
-      component : MypageSettingView
-    },
-    {
-      path : '/followrecommendation',
-      name : 'FollowRecommendationView',
-      component : FollowRecommendationView
-    },
-    {
-      path : '/mypage',
-      name : 'MypageView',
-      component : MypageView
-    },
-    {
       path: '/Follow',
       name : 'FollowView',
       component : FollowView
@@ -79,31 +54,6 @@ const router = createRouter({
       path : '/Follower',
       name : 'FollowerView',
       component : FollowerView
-    },
-    {
-      path : '/mypagesetting',
-      name : 'MypageSettingView',
-      component : MypageSettingView
-    },
-    {
-      path : '/selecinterestschange',
-      name : 'SelectInterestsChangeView',
-      component : SelectInterestsChangeView
-    },
-    {
-      path : '/passwordchange',
-      name : 'PasswordChangeView',
-      component : PasswordChangeView
-    },
-    {
-      path : '/profilechange',
-      name : 'ProfileChangeView',
-      component : ProfileChangeView
-    },
-    {
-      path : '/mybadge',
-      name : 'MyBadgeView',
-      component : MyBadgeView
     },
     //DM
     {
@@ -123,6 +73,37 @@ const router = createRouter({
       component: MainView,
       redirect: '/main',
       children: [
+        //mypage
+        {
+          path : '/mypage',
+          name : 'MypageView',
+          component : MypageView
+        },
+        {
+          path : '/mybadge',
+          name : 'MyBadgeView',
+          component : MyBadgeView
+        },
+        {
+          path : '/profilechange',
+          name : 'ProfileChangeView',
+          component : ProfileChangeView
+        },
+        {
+          path : '/mypagesetting',
+          name : 'MypageSettingView',
+          component : MypageSettingView
+        },
+        {
+          path : '/selecinterestschange',
+          name : 'SelectInterestsChangeView',
+          component : SelectInterestsChangeView
+        },
+        {
+          path : '/passwordchange',
+          name : 'PasswordChangeView',
+          component : PasswordChangeView
+        },
         {
           path : '/alarmpage',
           name : 'AlarmPageView',

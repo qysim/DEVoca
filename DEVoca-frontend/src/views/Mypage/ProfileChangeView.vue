@@ -14,7 +14,7 @@
       <input type="text" placeholder="한줄소개" class="input input-bordered" required />
     </div>
     <div class="flex justify-end">
-      <button type="submit" class="btn btn-sm w-24 bg-devoca text-white ">변경하기</button>
+      <button type="button" onclick="location.href='/mypage'" class="btn btn-sm w-24 bg-devoca text-white ">변경하기</button>
     </div>
   </form>
 </template>

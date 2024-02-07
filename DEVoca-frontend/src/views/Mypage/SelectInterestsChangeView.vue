@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="form-control mt-6">
-        <button class="btn bg-devoca">확인</button>
+        <button type="button" onclick="location.href='/mypagesetting'" class="btn bg-devoca">확인</button>
       </div>
     </div>
   </div>
