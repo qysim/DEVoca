@@ -93,7 +93,7 @@ public class NotifyService {
     // 알림창 조회 메서드
     public  List<NotifyDTO> getNotification(int scroll, int loginUserIdx) throws Exception{
         // 알림 가져오기
-        List<NotifyDTO> notifyDTOList = notifyMapper.getNotification(scroll * 10, loginUserIdx)
+        List<NotifyDTO> notifyDTOList = notifyMapper.getNotification(scroll * 10, loginUserIdx);
         // 지금까지의 모든 알림 isRead true로 바꾸기
         notifyMapper.updateNotificationReadYN(loginUserIdx);
         return notifyDTOList;
