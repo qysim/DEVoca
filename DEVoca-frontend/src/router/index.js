@@ -2,12 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
+import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
+import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
@@ -44,11 +46,6 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path : '/mypage',
-      name : 'MypageView',
-      component : MypageView
-    },
-    {
       path: '/Follow',
       name : 'FollowView',
       component : FollowView
@@ -57,31 +54,6 @@ const router = createRouter({
       path : '/Follower',
       name : 'FollowerView',
       component : FollowerView
-    },
-    {
-      path : '/mypagesetting',
-      name : 'MypageSettingView',
-      component : MypageSettingView
-    },
-    {
-      path : '/selecinterestschange',
-      name : 'SelectInterestsChangeView',
-      component : SelectInterestsChangeView
-    },
-    {
-      path : '/passwordchange',
-      name : 'PasswordChangeView',
-      component : PasswordChangeView
-    },
-    {
-      path : '/profilechange',
-      name : 'ProfileChangeView',
-      component : ProfileChangeView
-    },
-    {
-      path : '/mybadge',
-      name : 'MyBadgeView',
-      component : MyBadgeView
     },
     //DM
     {
@@ -101,6 +73,42 @@ const router = createRouter({
       component: MainView,
       redirect: '/main',
       children: [
+        //mypage
+        {
+          path : '/mypage',
+          name : 'MypageView',
+          component : MypageView
+        },
+        {
+          path : '/mybadge',
+          name : 'MyBadgeView',
+          component : MyBadgeView
+        },
+        {
+          path : '/profilechange',
+          name : 'ProfileChangeView',
+          component : ProfileChangeView
+        },
+        {
+          path : '/mypagesetting',
+          name : 'MypageSettingView',
+          component : MypageSettingView
+        },
+        {
+          path : '/selecinterestschange',
+          name : 'SelectInterestsChangeView',
+          component : SelectInterestsChangeView
+        },
+        {
+          path : '/passwordchange',
+          name : 'PasswordChangeView',
+          component : PasswordChangeView
+        },
+        {
+          path : '/alarmpage',
+          name : 'AlarmPageView',
+          component : AlarmPageView
+        },
         // feed
         {
           path: '/main',

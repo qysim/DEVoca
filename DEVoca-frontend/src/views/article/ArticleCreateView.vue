@@ -16,7 +16,7 @@
       </div>
       
       <div class="flex justify-end">
-        <button type="submit" class="btn btn-md bg-devoca text-white text-lg">등록</button>
+        <button type="button" onclick="location.href='/main'" class="btn btn-md bg-devoca text-white text-lg">등록</button>
       </div>
     </form>
   </div>
