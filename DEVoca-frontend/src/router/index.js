@@ -72,9 +72,9 @@ const router = createRouter({
       path: '/',
       name: 'MainView',
       component: MainView,
-      redirect: '/main',
+      redirect: {name: 'FeedListView'},
       children: [
-        //mypage
+        // mypage
         {
           path : '/mypage',
           name : 'MypageView',
@@ -138,9 +138,10 @@ const router = createRouter({
           component: WordListView,
         },
         {
-          path: '/word/detail',
+          path: '/word/detail/:id',
           name: 'WordDetailView',
           component: WordDetailView,
+          props: true,
         },
         //search
         {

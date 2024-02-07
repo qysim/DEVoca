@@ -8,7 +8,9 @@
       <p>{{ word.wordSumm }}</p>
       <p>{{ word.wordDef }}</p>
       <p>{{ word.wordLink }}</p>
-      <p>{{ word.wordCategory }}</p>
+      <div>
+        <p v-for="category in word.wordCategory" class="inline-block mr-4"># {{ category }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +20,6 @@
 const props = defineProps({
   word: Object
 })
-
-console.log(props.word)
 
 </script>
 

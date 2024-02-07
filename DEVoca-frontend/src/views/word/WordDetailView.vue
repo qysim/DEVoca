@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bg-neutral-100 py-1">
-      <WordComponent />
+      <WordComponent :word="word"/>
     </div>
 
     <!-- 기사 -->
@@ -42,9 +42,37 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeMount } from 'vue'
 import WordComponent from '@/components/word/WordComponent.vue'
 import CardComponent from '@/components/feed/CardComponent.vue'
+import { getWordDetail } from '@/api/word.js'
+import { defineAsyncComponent } from 'vue'
 
+const props = defineProps({
+  id: String
+})
+
+const wordId = Number(props.id)
+const word = ref(null)
+const news = ref(null)
+
+onBeforeMount(async() => {
+  try {
+    await getWordDetail(wordId, (res) => {
+      // console.log(res.data)
+      word.value = res.data.wordDTO
+      news.value = res.data.newsList
+      console.log(word.value)
+      console.log(news.value)
+  })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+// onMounted( async () => {
+  
+// })
 </script>
 
 <style scoped>
