@@ -5,7 +5,7 @@ import com.ssafy.devoca.quiz.model.QuizDTO;
 import java.util.List;
 
 public interface QuizService {
-    public void createQuiz() throws Exception;
+    public int createQuiz() throws Exception;
 
     public List<QuizDTO> getQuiz() throws Exception;
 }

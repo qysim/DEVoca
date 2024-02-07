@@ -1,5 +1,6 @@
 package com.ssafy.devoca.quiz.controller;
 
+import com.ssafy.devoca.notify.service.NotifyService;
 import com.ssafy.devoca.quiz.model.QuizDTO;
 import com.ssafy.devoca.quiz.service.QuizService;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +22,22 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
+    private final NotifyService notifyService;
 
     // 스케줄러 설정 : 월~금 오전 8시 35분에 퀴즈 생성 및 저장 메서드 실행
-    @Scheduled(cron = "0 35 8 ? * MON-FRI", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 52 15 ? * MON-FRI", zone = "Asia/Seoul")
     @PostMapping("")
     public ResponseEntity<String> createQuiz(){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
         try{
-            quizService.createQuiz();
+            int quizId = quizService.createQuiz();
+
+            // 퀴즈 생성 푸시알림 전송
+            List<Integer> allUserIdx = notifyService.getAllUserIdx();
+            for(Integer userIdx : allUserIdx){
+                notifyService.send(userIdx, 5, quizId);
+            }
+
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
             log.error("퀴즈 생성 실패 : {}", e);

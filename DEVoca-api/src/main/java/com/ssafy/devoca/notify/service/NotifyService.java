@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -70,8 +70,10 @@ public class NotifyService {
     public void send(int userIdx, int notificationType, int notificationLinkId) throws Exception{
         NotifyDTO notifyDTO = new NotifyDTO(userIdx, notificationType, notificationLinkId, null, false);
         notifyDTO.setNotificationId(createEId(userIdx));
+        log.info("notifyDTO 생성 완료");
         // 알림 DB에 저장
         notifyMapper.saveNotify(notifyDTO);
+        log.info("notifyDTO DB 저장 완료");
 
         String eventId = notifyDTO.getNotificationId();
         Map<String, SseEmitter> emitters = emitterRepository.findEmittersByUserIdx(userIdx);
@@ -81,7 +83,19 @@ public class NotifyService {
                     sendNotification(emitter, eventId, key, notifyDTO);
                 }
         );
+        log.info(userIdx + "에게 알림 보내기 완료 : " + notifyDTO.toString());
     }
 
+    public List<Integer> getAllUserIdx() throws Exception{
+        return notifyMapper.getAllUserIdx();
+    }
+
+    // 알림창 조회 메서드
+    public  List<NotifyDTO> getNotification(int scroll, int loginUserIdx) throws Exception{
+        // 지금까지의 모든 알림 isRead true로 바꾸기
+        notifyMapper.updateNotificationReadYN(loginUserIdx);
+        // 알림 가져오기
+        return notifyMapper.getNotification(scroll * 10, loginUserIdx);
+    }
 
 }
