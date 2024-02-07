@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.notify.model.mapper.NotifyMapper">
+    <!--  NotifyDTO 매핑  -->
+    <resultMap id="CardDTOResultMap" type="NotifyDTO">
+        <result property="notificationId" column="notifications_id"/>
+        <result property="userIdx" column="fk_notifications_user_idx"/>
+        <result property="notificationType" column="notifications_type"/>
+        <result property="notificationLinkId" column="notifications_link_id"/>
+        <result property="notificationDate" column="notifications_date"/>
+        <result property="isRead" column="notifications_read_yn"/>
+    </resultMap>
+
+    <insert id="saveNotify" parameterType="NotifyDTO">
+        insert into notifications
+        (notifications_id, fk_notifications_user_idx, notifications_type, notifications_link_id, notifications_date, notifications_read_yn)
+        values (#{notificationId}, #{userIdx}, #{notificationType}, #{notificationLinkId}, now(), false);
+    </insert>
+</mapper>
