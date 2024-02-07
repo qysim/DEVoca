@@ -17,7 +17,7 @@ public class QuizServiceImpl implements QuizService{
     private final QuizMapper quizMapper;
 
     @Override
-    public void createQuiz() throws Exception {
+    public int createQuiz() throws Exception {
         log.info("createQuizId 호출 : 퀴즈 아이디 새로 생성");
         quizMapper.createQuizId(0);
 
@@ -30,6 +30,8 @@ public class QuizServiceImpl implements QuizService{
 
         log.info("saveQuizWord 호출 : 퀴즈 아이디에 단어로 다시 저장");
         quizMapper.saveQuizWord(quizList, quizId);
+
+        return quizId;
     }
 
     @Override
