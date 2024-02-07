@@ -25,4 +25,8 @@ touch .env
   echo "REDIS_PORT=${REDIS_PORT}";
   echo "REDIS_USER=${REDIS_USER}";
   echo "REDIS_PASSWORD=${REDIS_PASSWORD}";
+  echo "";
+  echo "VITE_SERVER_URL=${VITE_SERVER_URL}";
+  echo "VITE_CLIENT_ID=${VITE_CLIENT_ID}";
+  echo "";
 } > .env
