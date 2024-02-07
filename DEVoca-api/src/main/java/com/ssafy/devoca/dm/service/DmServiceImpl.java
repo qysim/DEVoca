@@ -31,4 +31,20 @@ public class DmServiceImpl implements DmService {
     public Boolean getParticipantsYN(String roomUuid, int loginUserIdx) throws Exception {
         return dmMapper.getParticipantsYN(roomUuid, loginUserIdx);
     }
+
+    // 방 랜덤 아이디 가져오기
+    @Override
+    public String getRoomUuid(int loginUserIdx, int chatUserIdx) throws Exception {
+        return dmMapper.getRoomUuid(loginUserIdx, chatUserIdx);
+    }
+
+    @Override
+    public int createRoom(String roomUuid) throws Exception {
+        return dmMapper.createRoom(roomUuid);
+    }
+
+    @Override
+    public void insertParticipants(String roomUuid, int loginUserIdx, int chatUserIdx) throws Exception {
+        dmMapper.insertParticipants(roomUuid, loginUserIdx, chatUserIdx);
+    }
 }
