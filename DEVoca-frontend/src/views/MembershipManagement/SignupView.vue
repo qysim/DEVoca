@@ -31,7 +31,7 @@
         </div>
 
         <div class="form-control mt-6">
-          <button class="btn bg-[#00B4D8]">회원가입</button>
+          <button @click="goMain" class="btn bg-devoca text-white text-xl align-bottom">회원가입</button>
         </div>
       </form>
     </div>
@@ -39,11 +39,16 @@
 </template>
   
 <script setup>
-import { onMounted, ref } from 'vue';
-import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css';
+import { onMounted, ref } from 'vue'
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
+import router from '@/router';
 
-const datepicker = ref(null);
+const datepicker = ref(null)
+
+const goMain = function () {
+  router.push({name: 'MainView'})
+}
 
 onMounted(() => {
   flatpickr(datepicker.value, {
@@ -52,11 +57,11 @@ onMounted(() => {
     // Configuration options for Flatpickr
     // You can customize the appearance and behavior here
     // todo -> 라이브러리 설정으로 디자인 수정이 필요해서 우선순위가 아니라 나중에 다시 보겠습니다.
-  });
-});
+  })
+})
 </script>
   
 <style scoped>
-/* Your component-specific styles go here */
+
 </style>
   
