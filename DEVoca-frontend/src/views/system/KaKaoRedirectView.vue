@@ -28,14 +28,14 @@ onMounted (() => {
     url: `https://i10d112.p.ssafy.io/devoca/kakao/callback?code=${codeParam}`,
   })
   .then ((res) => {
-    console.log(res)
+    console.log(res.data)
+    console.log(res.data.userYn)
     tokenInfo.value = res.data
-    console.log(tokenInfo)
     console.log(tokenInfo.value)
     
-    if (res.data.userYn === true) {
+    if (res.data.userYn == true) {
       router.push({name : 'MainView'})
-    } else if (res.data.userYn === false) {
+    } else if (res.data.userYn == false) {
       router.push({name : 'SignupView'})
     }
   })
