@@ -6,8 +6,8 @@
       </div>
       <form class="card-body">
         <div class="mt-3 flex flex-col items-center">
-          <div id="app" class="mb-5">
-            <a :href="kakaoLoginLink" alt="kakao login">
+          <div class="mb-5">
+            <a :href=kakaoURI>
               <img alt="kakao logo" src="@/assets/images/kakao_login.png" class="logo" />
             </a>
           </div>
@@ -17,19 +17,12 @@
   </div>
 </template>
   
-<script>
-export default {
-  name: "App",
-  data: () => ({
-    client_id: "CLIENT_ID",
-    redirect_uri: "http://localhost/oauth/callback",
-  }),
-  computed: {
-    kakaoLoginLink() {
-      return `https://kauth.kakao.com/oauth/authorize?client_id=${this.client_id}&redirect_uri=${this.redirect_uri}&response_type=code`;
-    },
-  },
-}
+<script setup>
+
+const clientId = 'f9cb962075484b28551d411e7d63c0eb'
+const redirectURI = "https://i10d112.p.ssafy.io/kakao/callback"
+const kakaoURI = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code`
+
 </script>
 
 <style scoped>
@@ -38,4 +31,3 @@ export default {
   height: 50px;
 }
 </style>
-  

@@ -15,6 +15,14 @@
         <result property="unReadCnt" column="unread_cnt"/>
     </resultMap>
 
+    <!-- getDmList 결과 매핑 -->
+    <resultMap id="DmResultMap" type="DmDTO">
+        <result property="sendUserId" column="user_id"/>
+        <result property="dmContent" column="dm_content"/>
+        <result property="dmSendDate" column="dm_send_date"/>
+        <result property="dmBattleYN" column="dm_battle_YN"/>
+    </resultMap>
+
     <!-- loginUserIdx가 참여한 방 아이디 가져오기 -->
     <sql id="getRoomIdxByLoginUser">
         select dp_dr_idx from dm_participants where dp_user_idx = #{loginUserIdx}
@@ -45,4 +53,51 @@
         order by dm.dm_send_date desc;
     </select>
 
+    <!-- getDmList 쿼리 -->
+    <select id="getDmList" resultMap="DmResultMap">
+        select u.user_id, dm.dm_content, dm.dm_send_date, dm.dm_battle_YN
+        from dm_messages dm join users u
+            on dm.fk_dm_user_idx = u.user_idx
+        where fk_dm_dr_idx = (select dr_idx from dm_rooms where dr_uuid = #{roomUuid})
+        order by dm_send_date desc
+            limit #{scroll}, 10;
+    </select>
+
+    <!-- 해당 유저가 채팅방 참여자인지 확인 -->
+    <select id="getParticipantsYN" resultType="Boolean">
+        select #{loginUserIdx} in (select dp_user_idx
+                     from dm_participants
+                     where dp_dr_idx = (select dr_idx
+                                        from dm_rooms
+                                        where dr_uuid = #{roomUuid})) participants_YN;
+    </select>
+
+    <!-- getRoomUuid 쿼리 -->
+    <select id="getRoomUuid" resultType="String">
+        select dr_uuid
+        from dm_rooms
+        where dr_idx = (select dm1.dp_dr_idx from dm_participants dm1
+                                                      join dm_participants dm2 on dm1.dp_dr_idx = dm2.dp_dr_idx
+                        where dm1.dp_user_idx = #{loginUserIdx} and dm2.dp_user_idx = #{chatUserIdx});
+    </select>
+
+    <!-- dm_rooms 테이블에 새로운 방 생성 -->
+    <insert id="createRoom" parameterType="String">
+        insert into dm_rooms (dr_uuid, dr_create_date)
+        values (#{roomUuid}, NOW());
+    </insert>
+
+    <!-- roomUuid로 idx 가져오기 -->
+    <sql id="getRoomIdx">
+        select dr_idx from dm_rooms where dr_uuid = #{roomUuid}
+    </sql>
+
+    <!-- dm_participants 테이블에 참여자 정보 insert -->
+    <insert id="insertParticipants">
+        insert into dm_participants (dp_dr_idx, dp_user_idx, dp_last_date)
+        values ((<include refid="getRoomIdx"></include>), #{loginUserIdx},
+                (select dr_create_date from dm_rooms where dr_idx = (<include refid="getRoomIdx"></include>))),
+               ((<include refid="getRoomIdx"></include>), #{chatUserIdx},
+                (select dr_create_date from dm_rooms where dr_idx = (<include refid="getRoomIdx"></include>)));
+    </insert>
 </mapper>

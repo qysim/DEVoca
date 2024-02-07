@@ -24,7 +24,10 @@ import SearchView from '@/views/search/SearchView.vue'
 import SearchResultView from '@/views/search/SearchResultView.vue'
 import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
-import RouterErrorView from '@/views/error/RouterErrorView.vue'
+import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
+import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -165,6 +168,10 @@ const router = createRouter({
           component: VocalistListView,
         },
       ]
+    },
+    {
+      path: '/kakao/callback',
+      component: KaKaoRedirectView,
     },
     {
       path: '/:pathMatch(.*)*',
