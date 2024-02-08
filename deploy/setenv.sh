@@ -10,9 +10,12 @@ touch .env
   echo "HTTP_PORT=${HTTP_PORT}";
   echo "NGINX_PORT=${NGINX_PORT}";
   echo "";
+  echo "ALLOWED_ORIGINS=${ALLOWED_ORIGINS}";
+  echo "";
   echo "KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}";
   echo "KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}";
   echo "KAKAO_REDIRECT_URL=${KAKAO_REDIRECT_URL}";
+  echo "KAKAO_LOGOUT_REDIRECT_URL=${KAKAO_LOGOUT_REDIRECT_URL}";
   echo "";
   echo "NAVER_CLIENT_ID=${NAVER_CLIENT_ID}";
   echo "NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}";
@@ -24,4 +27,5 @@ touch .env
   echo "REDIS_PORT=${REDIS_PORT}";
   echo "REDIS_USER=${REDIS_USER}";
   echo "REDIS_PASSWORD=${REDIS_PASSWORD}";
+  echo "";
 } > .env

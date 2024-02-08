@@ -32,6 +32,9 @@ public class KakaoService {
     @Value("${kakao.redirect.url}")
     private String KAKAO_REDIRECT_URL;
 
+    @Value("${kakao.logout.redirect.url}")
+    private String KAKAO_LOGOUT_REDIRECT_URL;
+
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com"; //https://kauth.kakao.com/oauth/token
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
 
@@ -111,6 +114,8 @@ public class KakaoService {
         long id = (long) jsonObj.get("id");
         // 회원/비회원 확인
         int result = userMapper.checkUser(id);
+        log.info("token : " + accessToken);
+        log.info("id : " + id);
         if (result > 0) {
             log.info("기존 회원");
             return KakaoDTO.builder()
@@ -120,8 +125,14 @@ public class KakaoService {
             log.info("비회원");
             return KakaoDTO.builder()
                     .id(id)
+                    .token(accessToken)
                     .userYn(false).build();
         }
     }
 
+    public String logoutKakao(){
+        return KAKAO_AUTH_URI + "/oauth/logout"
+                + "?client_id=" + KAKAO_CLIENT_ID
+                + "&logout_redirect_uri=" + KAKAO_LOGOUT_REDIRECT_URL;
+    }
 }

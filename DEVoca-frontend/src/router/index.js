@@ -2,24 +2,30 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
-import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
+import MainView from '@/views/feed/MainView.vue'
+import MypageView from '@/views/Mypage/MypageView.vue'
+import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
-import MainView from '@/views/feed/MainView.vue'
+import AlarmPageView from '@/views/feed/AlarmPageView.vue'
+import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
-import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import SearchResultView from '@/views/search/SearchResultView.vue'
-import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
-import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
+import VocalistListView from '@/views/vocalist/VocalistListView.vue'
+import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,11 +47,6 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path : '/mypage',
-      name : 'MypageView',
-      component : MypageView
-    },
-    {
       path: '/Follow',
       name : 'FollowView',
       component : FollowView
@@ -54,31 +55,6 @@ const router = createRouter({
       path : '/Follower',
       name : 'FollowerView',
       component : FollowerView
-    },
-    {
-      path : '/mypagesetting',
-      name : 'MypageSettingView',
-      component : MypageSettingView
-    },
-    {
-      path : '/selecinterestschange',
-      name : 'SelectInterestsChangeView',
-      component : SelectInterestsChangeView
-    },
-    {
-      path : '/passwordchange',
-      name : 'PasswordChangeView',
-      component : PasswordChangeView
-    },
-    {
-      path : '/profilechange',
-      name : 'ProfileChangeView',
-      component : ProfileChangeView
-    },
-    {
-      path : '/mybadge',
-      name : 'MyBadgeView',
-      component : MyBadgeView
     },
     //DM
     {
@@ -98,6 +74,47 @@ const router = createRouter({
       component: MainView,
       redirect: '/main',
       children: [
+        //mypage
+        {
+          path : '/mypage',
+          name : 'MypageView',
+          component : MypageView
+        },
+        {
+          path : '/mybadge',
+          name : 'MyBadgeView',
+          component : MyBadgeView
+        },
+        {
+          path : '/profilechange',
+          name : 'ProfileChangeView',
+          component : ProfileChangeView
+        },
+        {
+          path : '/mypagesetting',
+          name : 'MypageSettingView',
+          component : MypageSettingView
+        },
+        {
+          path : '/selecinterestschange',
+          name : 'SelectInterestsChangeView',
+          component : SelectInterestsChangeView
+        },
+        {
+          path : '/passwordchange',
+          name : 'PasswordChangeView',
+          component : PasswordChangeView
+        },
+        {
+          path : '/alarmpage',
+          name : 'AlarmPageView',
+          component : AlarmPageView
+        },
+        {
+          path : 'followrecommendation',
+          name : 'FollowRecommendationView',
+          component : FollowRecommendationView
+        },
         // feed
         {
           path: '/main',
@@ -136,7 +153,27 @@ const router = createRouter({
           name: 'SearchResultView',
           component: SearchResultView,
         },
+        // article
+        {
+          path: '/article/create',
+          name: 'ArticleCreateView',
+          component: ArticleCreateView,
+        },
+        // vocalist
+        {
+          path: '/vocalist',
+          name: 'VocalistListView',
+          component: VocalistListView,
+        },
       ]
+    },
+    {
+      path: '/kakao/callback',
+      component: KaKaoRedirectView,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: RouterErrorView,
     },
   ]
 })

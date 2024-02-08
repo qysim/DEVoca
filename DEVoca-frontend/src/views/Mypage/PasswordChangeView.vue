@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-screen">
+  <div class="container">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
       <div class="h-full">
         <p class="text-2xl text-center mt-5">비밀번호 변경</p>
@@ -17,7 +17,7 @@
             <input type="password" placeholder="비밀번호를 입력해주세요." class="input input-bordered" required />
           </div>
           <div class="form-control mt-6">
-            <button class="btn bg-devoca">변경하기</button>
+            <button type="button" onclick="location.href='/mypagesetting'" class="btn bg-devoca">변경하기</button>
           </div>
         </form>
       </div>

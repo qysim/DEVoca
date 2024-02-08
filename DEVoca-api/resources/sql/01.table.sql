@@ -217,6 +217,16 @@ CREATE TABLE `share_imgs` (
     CONSTRAINT `PK_SHARE_IMGS` PRIMARY KEY (`sm_id`)
 )default character set utf8mb4;
 
+CREATE TABLE `notifications` (
+    `notifications_id`	varchar(30)	NOT NULL,
+    `fk_notifications_user_idx`	int	NOT NULL,
+    `notifications_type`	int	NOT NULL,
+    `notifications_link_id`	int	NOT NULL,
+    `notifications_date`	datetime	NOT NULL,
+    `notifications_read_yn`	boolean	NOT NULL,
+    CONSTRAINT `PK_NOTIFICATIONS` PRIMARY KEY (`notifications_id`)
+)default character set utf8mb4;
+
 ALTER TABLE `follows` ADD CONSTRAINT `FK_users_TO_follows_1` FOREIGN KEY (
     `follow_from`
 )
@@ -443,6 +453,13 @@ REFERENCES `users` (
 
 ALTER TABLE `share_imgs` ADD CONSTRAINT `FK_users_TO_share_imgs_1` FOREIGN KEY (
     `fk_sm_user_idx`
+)
+REFERENCES `users` (
+    `user_idx`
+);
+
+ALTER TABLE `notifications` ADD CONSTRAINT `FK_users_TO_Notifications_1` FOREIGN KEY (
+    `fk_notifications_user_idx`
 )
 REFERENCES `users` (
     `user_idx`
