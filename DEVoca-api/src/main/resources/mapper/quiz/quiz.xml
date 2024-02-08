@@ -51,4 +51,19 @@
         where qw_quiz_id = #{quizId};
     </select>
 
+    <!--  퀴즈 결과 저장하기  -->
+    <insert id="saveQuizResult" parameterType="QuizResultDTO">
+        insert into quiz_participants (qp_quiz_id, fk_qp_user_idx, qp_score)
+        values (#{quizId}, #{userIdx}, #{score});
+    </insert>
+
+    <!--  퀴즈 답 저장하기  -->
+    <insert id="saveQuizAnswerList" parameterType="map">
+        insert into quiz_answers (qw_id, qa_user_idx, qa_answer, qa_yn)
+            values
+        <foreach collection="list" item="item" separator=",">
+                ((select qw_id from quiz_words where qw_word_id = #{item.quizWordId}), #{userIdx}, #{item.quizAnswer}, #{item.quizYn})
+        </foreach>
+    </insert>
+
 </mapper>

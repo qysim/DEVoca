@@ -1,6 +1,7 @@
 package com.ssafy.devoca.quiz.service;
 
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import com.ssafy.devoca.quiz.model.mapper.QuizMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,12 @@ public class QuizServiceImpl implements QuizService{
         log.info(Arrays.toString(quizList.toArray()));
 
         return quizList;
+    }
+
+    @Override
+    public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
+        quizMapper.saveQuizResult(quizResultDTO);
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
     }
 
 
