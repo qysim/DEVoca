@@ -5,7 +5,7 @@
     </div>
     <div class="flex flex-row mt-3 ">
       <img src="@/assets/images/badge.png" alt="" class="ml-4">
-      <a href="/mybadge" class="ml-1">획득한 배지 00개></a>
+      <RouterLink to="/mybadge" class="ml-1">획득한 배지 00개></RouterLink>
     </div>
     <div class="mt-2 flex justify-end mr-14">
       <p>등급</p>
@@ -15,7 +15,7 @@
     </div>
     <div>
       <div class="ml-10 mt-8">
-        <a href="/vocalist">
+        <RouterLink to="/vocalist">
           <div class="flex justify-between">
             <div>
               <p>나의 피드</p>
@@ -25,10 +25,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-        </a>
+        </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <a href="">
+        <RouterLink to="/vocalist">
           <div class="flex justify-between">
             <div>
               <p>참여한 퀴즈</p>
@@ -38,10 +38,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-        </a>
+        </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <a href="/vocalist">
+        <RouterLink to="/vocalist">
           <div class="flex justify-between">
             <div>
               <p>단어장</p>
@@ -51,10 +51,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-        </a>
+        </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <a href="/vocalist">
+        <RouterLink to="/vocalist">
           <div class="flex justify-between">
             <div>
               <p>나의 글</p>
@@ -64,10 +64,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-        </a>
+        </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <a href="/vocalist">
+        <RouterLink to="/vocalist">
           <div class="flex justify-between">
             <div>
               <p>나의 댓글</p>
@@ -77,7 +77,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
           </div>
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>

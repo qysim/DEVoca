@@ -21,7 +21,9 @@
       </label>
       
       <div class="flex justify-end">
-        <button type="button" onclick="location.href='/main'" class="btn btn-md bg-devoca text-white text-lg">게시</button>
+        <RouterLink to="/main">
+          <button class="btn btn-md bg-devoca text-white text-lg">게시</button>
+        </RouterLink>
       </div>
     </form>
   </div>
