@@ -1,6 +1,7 @@
 package com.ssafy.devoca.search.service;
 
 import com.ssafy.devoca.card.model.CardDTO;
+import com.ssafy.devoca.search.model.WordAutoDTO;
 import com.ssafy.devoca.word.model.WordDTO;
 import com.ssafy.devoca.word.model.WordRecoDTO;
 
@@ -18,4 +19,6 @@ public interface SearchService {
     List<WordRecoDTO> searchRecommendWord() throws Exception;
 
     List<String> getRecentKeyword(int loginUserIdx) throws Exception;
+
+    List<WordAutoDTO> getAutoCompList() throws Exception;
 }
