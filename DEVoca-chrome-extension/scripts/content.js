@@ -1,15 +1,16 @@
 // 콘텐츠 스크립트
 // - 웹페이지 컨텍스트에서 JS 실행
 // - 표준 DOM을 사용해 방문한 웹페이지 세부 정보를 읽고, 변경하고, 정보를 상위 확장 프로그램에 전달.
+//
+// author: cheesecat47 <cheese47@gmail.com>
 
 document.querySelector('#searchBtn').addEventListener('click', () => {
-    const testWord = document.querySelector('#searchInput').value
-    if (testWord === '') {
+    const searchInput = document.querySelector('#searchInput').value
+    if (searchInput === '') {
         return
     }
 
-    const url = `https://i10d112.p.ssafy.io/devoca/search/word/${testWord}/0`
-    console.log('url:', url)
+    const url = `https://i10d112.p.ssafy.io/devoca/search/word/${searchInput}/0`
 
     axios.get(url)
         .then((response) => {
@@ -67,3 +68,16 @@ document.querySelector('#searchBtn').addEventListener('click', () => {
             }
         })
 });
+
+document.querySelector('#moreOnDEVocaBtn').addEventListener('click', () => {
+    let url = 'https://i10d112.p.ssafy.io'
+
+    const searchInput = document.querySelector('#searchInput').value
+    if (searchInput === '') {
+        url += '/word/list'
+    } else {
+        url += `/search/result?q=${searchInput}`
+    }
+
+    window.open(url, '_blank');
+})
