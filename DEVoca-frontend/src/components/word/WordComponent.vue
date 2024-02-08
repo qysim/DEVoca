@@ -1,20 +1,19 @@
 <template>
-  <div class="card bg-base-100 shadow-xl m-2">
+  <div class="card card-compact bg-base-100 dark:bg-base-100 shadow-xl mb-4 p-2">
     <div class="card-body">
-      <div class="flex justify-between pb-2">
-        <h2 class="card-title">Hypervisor</h2>
-        <h2 class="card-title">하이퍼바이저</h2>
+      <h2 class="card-title text-base">{{ word['wordNameEn'] }}</h2>
+      <span class="text-gray-400 text-xs">{{ word['wordNameKr'] }}</span>
+      <hr>
+      <p class="text-sm">{{ word['wordSumm'] }}</p>
+      <div class="flex justify-start gap-1 mt-2 text-xs">
+        <span v-for="category in word['wordCategory']" :key="category.id">#{{ category }}</span>
       </div>
-      <p>가상머신을 실행하기 위한 프로그램</p>
-      <p>Backend</p>
     </div>
   </div>
 </template>
 
 <script setup>
-
+defineProps({
+  word: Object
+})
 </script>
-
-<style scoped>
-
-</style>
