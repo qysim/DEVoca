@@ -17,33 +17,40 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import WordComponent from '@/components/word/WordComponent.vue'
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
-import { getWordList } from '@/api/word.js'
+import { getWordList } from '@/api/word'
+import { useWordStore } from '@/stores/word'
 
 const router = useRouter()
+const wordStore = useWordStore()
 const alphabets = ref('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
 const wordList = ref(null)
-const pageNo = ref(0)
 
 onMounted(() => {
-  getWordList('A', (res) => {
-    // console.log(res)
-    wordList.value = res.data.slice(0, 10)
-    pageNo.value++
-    // console.log(wordList.value)
-  }, (err) => {
-    console.log(err)
-  })
+  if ('A' in wordStore.wordList) {
+    wordList.value = wordStore.wordList['A']
+  } else {
+    getWordList('A', (res) => {
+      wordList.value = res.data
+      wordStore.wordList['A'] = res.data
+      console.log(wordStore.wordList)
+    }, (err) => {
+      console.log(err)
+    })
+  }
 })
 
 const getAlphabetWord = function (alphabet) {
-  getWordList(alphabet, (res) => {
-    // console.log(res)
-    wordList.value = res.data.slice(0, 10)
-    pageNo.value = 0
-    console.log(wordList.value)
-  }, (err) => {
-    console.log(err)
-  })
+  if (alphabet in wordStore.wordList) {
+    wordList.value = wordStore.wordList[alphabet]
+  } else {
+    getWordList(alphabet, (res) => {
+      wordList.value = res.data
+      wordStore.wordList[alphabet] = res.data
+      console.log(wordStore.wordList)
+    }, (err) => {
+      console.log(err)
+    })
+  }
 }
 
 const goWordDetail = function (wordId) {
@@ -51,7 +58,3 @@ const goWordDetail = function (wordId) {
 }
 
 </script>
-
-<style scoped>
-
-</style>

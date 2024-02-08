@@ -1,6 +1,7 @@
 package com.ssafy.devoca.search.controller;
 
 import com.ssafy.devoca.card.model.CardDTO;
+import com.ssafy.devoca.search.model.WordAutoDTO;
 import com.ssafy.devoca.search.service.SearchService;
 import com.ssafy.devoca.user.service.UserService;
 import com.ssafy.devoca.word.model.WordDTO;
@@ -103,4 +104,15 @@ public class SearchController {
         }
     }
 
+    @GetMapping("/autocomplete")
+    public ResponseEntity<List<WordAutoDTO>> getAutoCompList(){
+        log.info("getAutoCompList 호출 : 자동완성용 단어 조회");
+        try{
+            List<WordAutoDTO> autoList = searchService.getAutoCompList();
+            return ResponseEntity.status(HttpStatus.OK).body(autoList);
+        }catch (Exception e){
+            log.error("자동완성용 단어 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
