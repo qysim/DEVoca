@@ -1,6 +1,6 @@
 <template>
   <div class="m-2 h-full flex flex-col">
-    <SearchBarComponent :param="param" />
+    <SearchBarComponent />
 
     <div role="tablist" class="tabs tabs-bordered tabs-lg">
       <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="단어" />
