@@ -64,7 +64,7 @@ public class VocalistController {
     }
 
     /*
-     * 단어장 목록 api
+     * 마이페이지 > 단어장 목록 api
      * @author Ryu jiyun
      * */
     @GetMapping("")
@@ -78,6 +78,23 @@ public class VocalistController {
         } catch (Exception e){
             log.info("단어장 목록 api 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 메인 피드 > 단어장 목록 api
+     * 해당 의견 카드 id로 단어장 목록 호출
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/{cardId}")
+    public ResponseEntity<List<VocalistDTO>> checkVocalist(@RequestHeader("userId") String userId,
+                                                           @PathVariable("cardId") Integer cardId){
+        log.info("메인 피드 > 단어장 목록 api");
+        try{
+            int userIdx = userService.loadUserIdx(userId);
+            List<VocalistDTO> vocaList = vocalistService.checkVocalist(userIdx, cardId);
+        } catch(Exception e){
+
         }
     }
 
@@ -120,4 +137,5 @@ public class VocalistController {
         }
 
     }
+
 }

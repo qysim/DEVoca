@@ -81,6 +81,7 @@
             ,u.user_nickname, u.user_intro, u.user_img -- author 데이터
             ,rp.card_id as card_origin_card_id , rp.card_content as card_origin_card_content ,rp.user_idx as origin_author_idx
             ,rp.user_img as card_origin_user_img, rp.user_nickname as card_origin_user_nickname -- ori_author_img, ori_author_name
+        -- likeCnt
         from cards c
             left join (<include refid="loadOriginCardInfo"></include>) rp
                         on c.card_origin_card_id = rp.card_id
@@ -91,5 +92,9 @@
                     and vlc.svc_delete_date is null) vl on vl.vlc_wc_id = c.card_id
             join words w on c.card_word_id = w.word_id
             join users u on u.user_idx = c.fk_card_user_idx and c.card_delete_date is null
+    </select>
+
+    <select id="checkVocalist" parameterType="map" resultMap="getVocalistDTO">
+
     </select>
 </mapper>
