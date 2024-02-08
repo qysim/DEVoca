@@ -1,6 +1,8 @@
 package com.ssafy.devoca.quiz.model.mapper;
 
+import com.ssafy.devoca.quiz.model.QuizAnswerDTO;
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,4 +18,7 @@ public interface QuizMapper {
             throws SQLException;
 
     public List<QuizDTO> getQuizWordList(int quizId) throws SQLException;
+
+    public void saveQuizResult(QuizResultDTO quizResultDTO) throws SQLException;
+    public void saveQuizAnswerList(@Param("userIdx") int userIdx, @Param("list") List<QuizAnswerDTO> quizAnswerDTOList) throws SQLException;
 }
