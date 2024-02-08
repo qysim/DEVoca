@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div class="flex justify-start items-center py-2 relative " id="searchbar">
+    <div class="flex justify-start items-center p-2 relative " id="searchbar">
       <input
-        class="input input-bordered w-full"
+        class="input input-bordered w-full px-6"
         type="text"
         placeholder="검색어를 입력하세요"
+        v-model="searchInput"
       />
       <svg
-        class="absolute right-3 z-10 cursor-pointer"
+        class="absolute right-6 z-10 cursor-pointer"
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -35,9 +36,11 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 
+const props = defineProps({
+  param: String
+})
+
+const searchInput = ref(props.param)
 </script>
-
-<style scoped>
-
-</style>
