@@ -51,6 +51,13 @@
         <result property="wordNameEn" column="word_name_en"/>
     </resultMap>
 
+    <!-- WordAutoDTO 매핑 -->
+    <resultMap id="wordAutoDTOResultMap" type="WordAutoDTO">
+        <id property="wordId" column="word_id"/>
+        <result property="wordNameKr" column="word_name_kr"/>
+        <result property="wordNameEn" column="word_name_en"/>
+    </resultMap>
+
     <!--  userId로 userIdx 불러오기  -->
     <sql id="loadUserIdx">
         select user_idx from users where user_id = #{userId}
@@ -79,7 +86,7 @@
             and c.category_id = wc.wc_category_id
         where lower(w.word_name_en) like lower(concat("%", #{keyword}, "%"))
             or w.word_name_kr like concat("%", #{keyword}, "%")
-        order by word_name_en
+        order by length(w.word_name_en), length(w.word_name_kr)
         limit #{scroll}, 10;
     </select>
 
@@ -141,5 +148,13 @@
         order by sk_searched_date desc
         limit 5;
     </select>
+
+    <!--  자동완성용 단어 조회  -->
+    <select id="getAutoCompList" resultMap="wordListResultMap">
+        select word_id, word_name_en, word_name_kr
+        from words
+        order by word_name_en, word_name_kr;
+    </select>
+
 
 </mapper>
