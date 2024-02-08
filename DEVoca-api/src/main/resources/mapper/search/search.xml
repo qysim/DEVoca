@@ -150,7 +150,7 @@
     </select>
 
     <!--  자동완성용 단어 조회  -->
-    <select id="getAutoCompList" resultMap="wordListResultMap">
+    <select id="getAutoCompList" resultMap="wordAutoDTOResultMap">
         select word_id, word_name_en, word_name_kr
         from words
         order by word_name_en, word_name_kr;
