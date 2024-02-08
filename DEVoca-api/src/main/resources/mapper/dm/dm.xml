@@ -47,7 +47,7 @@
           and dp.dp_user_idx != #{loginUserIdx}
           and dm.dm_send_date in (select max(dm_send_date)
                                   from dm_messages
-								  group by fk_dm_dr_idx)
+                                  group by fk_dm_dr_idx)
         group by dr.dr_idx, dr.dr_uuid, u.user_id, u.user_nickname, u.user_img, dm.dm_content, dm.dm_send_date, unread_message
         order by dm.dm_send_date desc;
     </select>
@@ -59,16 +59,16 @@
             on dm.fk_dm_user_idx = u.user_idx
         where fk_dm_dr_idx = (select dr_idx from dm_rooms where dr_uuid = #{roomUuid})
         order by dm_send_date desc
-            limit #{scroll}, 10;
+        limit #{scroll}, 10;
     </select>
 
     <!-- 해당 유저가 채팅방 참여자인지 확인 -->
     <select id="getParticipantsYN" resultType="Boolean">
         select #{loginUserIdx} in (select dp_user_idx
-                     from dm_participants
-                     where dp_dr_idx = (select dr_idx
-                                        from dm_rooms
-                                        where dr_uuid = #{roomUuid})) participants_YN;
+                                   from dm_participants
+                                   where dp_dr_idx = (select dr_idx
+                                                      from dm_rooms
+                                                      where dr_uuid = #{roomUuid})) participants_YN;
     </select>
 
     <!-- getRoomUuid 쿼리 -->
@@ -76,7 +76,7 @@
         select dr_uuid
         from dm_rooms
         where dr_idx = (select dm1.dp_dr_idx from dm_participants dm1
-                                                      join dm_participants dm2 on dm1.dp_dr_idx = dm2.dp_dr_idx
+                        join dm_participants dm2 on dm1.dp_dr_idx = dm2.dp_dr_idx
                         where dm1.dp_user_idx = #{loginUserIdx} and dm2.dp_user_idx = #{chatUserIdx});
     </select>
 
