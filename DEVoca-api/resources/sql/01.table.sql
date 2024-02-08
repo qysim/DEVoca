@@ -198,7 +198,7 @@ CREATE TABLE `quiz_participants` (
     `fk_qp_user_idx`	int	NOT NULL,
     `qp_participate_date`	datetime	NOT NULL	DEFAULT now(),
     `qp_score`	int	NOT NULL,
-    CONSTRAINT `PK_QUIZ_PARTICIPANTS` PRIMARY KEY (`qp_quiz_id`)
+    CONSTRAINT `PK_QUIZ_PARTICIPANTS` PRIMARY KEY (`qp_quiz_id`, `fk_qp_user_idx`)
 )default character set utf8mb4;
 
 CREATE TABLE `quiz_answers` (

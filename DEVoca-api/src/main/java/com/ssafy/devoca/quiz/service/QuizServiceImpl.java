@@ -1,6 +1,7 @@
 package com.ssafy.devoca.quiz.service;
 
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import com.ssafy.devoca.quiz.model.mapper.QuizMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class QuizServiceImpl implements QuizService{
     private final QuizMapper quizMapper;
 
     @Override
-    public void createQuiz() throws Exception {
+    public int createQuiz() throws Exception {
         log.info("createQuizId 호출 : 퀴즈 아이디 새로 생성");
         quizMapper.createQuizId(0);
 
@@ -30,6 +31,8 @@ public class QuizServiceImpl implements QuizService{
 
         log.info("saveQuizWord 호출 : 퀴즈 아이디에 단어로 다시 저장");
         quizMapper.saveQuizWord(quizList, quizId);
+
+        return quizId;
     }
 
     @Override
@@ -42,6 +45,12 @@ public class QuizServiceImpl implements QuizService{
         log.info(Arrays.toString(quizList.toArray()));
 
         return quizList;
+    }
+
+    @Override
+    public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
+        quizMapper.saveQuizResult(quizResultDTO);
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
     }
 
 
