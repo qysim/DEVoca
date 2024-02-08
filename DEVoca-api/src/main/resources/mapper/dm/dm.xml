@@ -12,7 +12,7 @@
         <result property="userNickName" column="user_nickname"/>
         <result property="lastMessage" column="dm_content"/>
         <result property="lastSendDate" column="dm_send_date"/>
-        <result property="unReadCnt" column="unread_cnt"/>
+        <result property="unReadCnt" column="unread_message"/>
     </resultMap>
 
     <!-- getDmList 결과 매핑 -->
@@ -30,26 +30,25 @@
 
     <!-- getDmRoomList 쿼리 -->
     <select id="getDmRoomList" parameterType="int" resultMap="DmRoomResultMap">
-        select dr.dr_idx, dr.dr_uuid, u.user_id, u.user_nickname, u.user_img, dm.dm_content, dm.dm_send_date, unread_cnt
+        select dr.dr_idx, dr.dr_uuid, u.user_id, u.user_nickname, u.user_img, dm.dm_content, dm.dm_send_date, unread_message
         from dm_participants dp
             join dm_rooms dr on dp.dp_dr_idx = dr.dr_idx
             join users u on dp.dp_user_idx = u.user_idx
             join dm_messages dm on dm.fk_dm_dr_idx = dr.dr_idx
-            join (select dm.fk_dm_dr_idx, count(*) unread_cnt
-                  from dm_participants dp join dm_messages dm
-                      on dp.dp_dr_idx = dm.fk_dm_dr_idx
-                      and dp.dp_user_idx = dm.fk_dm_user_idx
-                  where dp.dp_dr_idx in (<include refid="getRoomIdxByLoginUser"/>)
-                      and dm.fk_dm_user_idx != #{loginUserIdx}
-                      and dm.dm_send_date > all (select dp_last_date
-                                                 from dm_participants
-                                                 where dp_user_idx = #{loginUserIdx})
-                  group by dm.fk_dm_dr_idx, dm.fk_dm_user_idx) um on um.fk_dm_dr_idx = dr.dr_idx
-        where dp.dp_dr_idx in (<include refid="getRoomIdxByLoginUser"/>)
+            left join (select dm.fk_dm_dr_idx, dm.fk_dm_user_idx, count(*) unread_message
+                       from (<include refid="getRoomIdxByLoginUser"></include>) idx
+                           join (select dp_dr_idx, dp_last_date from dm_participants where dp_user_idx = #{loginUserIdx}) dp
+                               on idx.dp_dr_idx = dp.dp_dr_idx
+                           join dm_messages dm
+                               on idx.dp_dr_idx = dm.fk_dm_dr_idx
+                       where dm.dm_send_date > dp.dp_last_date
+                       group by fk_dm_dr_idx, fk_dm_user_idx) um on um.fk_dm_dr_idx = dr.dr_idx
+        where dp.dp_dr_idx in (<include refid="getRoomIdxByLoginUser"></include>)
           and dp.dp_user_idx != #{loginUserIdx}
-        and dm.dm_send_date in ( select max(dm_send_date)
-								 from dm_messages
-								 group by fk_dm_dr_idx)
+          and dm.dm_send_date in (select max(dm_send_date)
+                                  from dm_messages
+								  group by fk_dm_dr_idx)
+        group by dr.dr_idx, dr.dr_uuid, u.user_id, u.user_nickname, u.user_img, dm.dm_content, dm.dm_send_date, unread_message
         order by dm.dm_send_date desc;
     </select>
 
