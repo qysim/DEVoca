@@ -90,6 +90,12 @@ public class WordController {
 
     }
 
+    /**
+     * 단어 상세 페이지에서 카드 조회
+     * @param wordId 단어 아이디
+     * @param scroll 몇 번째 스크롤인지
+     * @return 카드 리스트
+     */
     @GetMapping("/detail/{wordId}/{scroll}")
     public ResponseEntity<List<CardDTO>> getCardListByWord(@PathVariable("wordId") int wordId, @PathVariable("scroll") int scroll) {
         log.info("getCardListByWord 호출 : {} {}", wordId, scroll);
@@ -103,6 +109,25 @@ public class WordController {
             return ResponseEntity.status(HttpStatus.OK).body(wordCardList);
         } catch (Exception e) {
             log.error("getCardListByWord 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 자동완성에서 선택된 단어 정보 조회
+     *
+     * @param wordId 선택된 단어
+     * @return 단어 데이터
+     */
+    @GetMapping("/select/{wordId}")
+    public ResponseEntity<WordDTO> getWordInCard(@PathVariable("wordId") int wordId) {
+        log.info("getWordInCard 호출 : {}", wordId);
+
+        try {
+            WordDTO wordInCard = wordService.getWordInCard(wordId);
+            return ResponseEntity.status(HttpStatus.OK).body(wordInCard);
+        } catch (Exception e) {
+            log.error("getWordInCard 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
