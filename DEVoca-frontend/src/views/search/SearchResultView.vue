@@ -2,17 +2,28 @@
   <div class="m-2 h-full flex flex-col">
     <SearchBarComponent />
 
-    <div role="tablist" class="tabs tabs-bordered tabs-lg">
-      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="단어" />
-      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="글" />
-    </div>
+    <div role="tablist" class="tabs tabs-bordered tabs-lg [&_input]:!w-32">
+      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="단어" checked />
+      <div role="tabpanel" class="tab-content p-2 pb-16">
+        <div v-show="hasWordResults" class="flex flex-col">
+          <WordComponent v-for="word of searchResultWords" :key="word.id" :word="word" />
+        </div>
+        <div v-show="!hasWordResults" class="flex flex-col items-center justify-center mt-12">
+          <p>아직 등록되지 않은 단어입니다.</p>
+          <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
+        </div>
+      </div>
 
-    <div v-show="!hasResult" class="flex flex-col items-center justify-center flex-grow">
-      <p>아직 등록되지 않은 단어입니다.</p>
-      <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
-    </div>
-    <div v-show="hasResult" class="flex flex-col justify-center p-2 pb-16">
-      <WordComponent v-for="word of searchResultWords" :key="word.id" :word="word" />
+      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="글" />
+      <div role="tabpanel" class="tab-content p-2 pb-16">
+        <div v-show="hasCardResults" class="flex flex-col">
+          <CardComponent v-for="card of searchResultCards" :key="card.id" :card="card" />
+        </div>
+        <div v-show="!hasCardResults" class="flex flex-col items-center justify-center mt-12">
+          <p>아직 등록되지 않은 단어입니다.</p>
+          <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,9 +35,11 @@ import { getSearchResultWords, getSearchResultCards } from '@/api/word'
 
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue";
+import CardComponent from "@/components/feed/CardComponent.vue";
 
-const hasResult = ref(true)
+const hasWordResults = ref(false)
 const searchResultWords = ref([])
+const hasCardResults = ref(false)
 const searchResultCards = ref([])
 
 const route = useRoute()
@@ -36,10 +49,10 @@ const getSearchResults = () => {
   if (param.value !== undefined) {
     getSearchResultWords(param.value,
       (data) => {
-        hasResult.value = data.data.length > 0
+        hasWordResults.value = data.data.length > 0
 
         // 검색 결과 없는 경우
-        if (!hasResult.value) return
+        if (hasWordResults.value === false) return
 
         searchResultWords.value = data.data
       }, (error) => {
@@ -49,10 +62,10 @@ const getSearchResults = () => {
 
     getSearchResultCards(param.value,
       (data) => {
-        hasResult.value = data.data.length > 0
+        hasCardResults.value = data.data.length > 0
 
         // 검색 결과 없는 경우
-        if (!hasResult.value) return
+        if (hasCardResults.value === false) return
 
         searchResultCards.value = data.data
       }, (error) => {
@@ -61,6 +74,8 @@ const getSearchResults = () => {
     )
   }
 }
+
+getSearchResults()
 
 onBeforeRouteUpdate((to,) => {
   param.value = to.query.q
