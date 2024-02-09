@@ -12,7 +12,7 @@
       <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
     </div>
     <div v-show="!isResult" class="flex flex-col justify-center p-2 pb-16">
-      <WordComponent v-for="word of searchResults" :key="word.id" :word="word" />
+      <WordComponent v-for="word of searchResultWords" :key="word.id" :word="word" />
     </div>
   </div>
 </template>
@@ -20,25 +20,46 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { getSearchResults } from '@/api/word'
+import { getSearchResultWords, getSearchResultCards } from '@/api/word'
 
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue";
 
 const isResult = ref(true)
-const searchResults = ref([])
+const searchResultWords = ref([])
+const searchResultCards = ref([])
 
 const route = useRoute()
 const param = ref(route.query.q)
 
 if (param.value !== undefined) {
-  getSearchResults(param.value,
+  getSearchResultWords(param.value,
     (data) => {
-      // 검색 결과 없는 경우 early exit
-      if (data.data.length === 0) return
+      console.log(data.data.length)
+      // 검색 결과 없는 경우
+      if (data.data.length === 0) {
+        isResult.value = true
+        return
+      }
 
       isResult.value = false
-      searchResults.value = data.data
+      searchResultWords.value = data.data
+    }, (error) => {
+      console.log(error)
+    }
+  )
+
+  getSearchResultCards(param.value,
+    (data) => {
+      console.log(data.data.length)
+      // 검색 결과 없는 경우
+      if (data.data.length === 0) {
+        isResult.value = true
+        return
+      }
+
+      isResult.value = false
+      searchResultCards.value = data.data
     }, (error) => {
       console.log(error)
     }
