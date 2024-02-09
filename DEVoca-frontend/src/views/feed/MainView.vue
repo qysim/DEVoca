@@ -1,5 +1,5 @@
 <template>
-  <div class="py-16 h-full">
+  <div class="py-16">
     <TopNavbarComponent/>
     <RouterView />
     <BottomNavbarComponent />
