@@ -19,7 +19,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { getSearchResultWords, getSearchResultCards } from '@/api/word'
 
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
@@ -32,38 +32,45 @@ const searchResultCards = ref([])
 const route = useRoute()
 const param = ref(route.query.q)
 
-if (param.value !== undefined) {
-  getSearchResultWords(param.value,
-    (data) => {
-      console.log(data.data.length)
-      // 검색 결과 없는 경우
-      if (data.data.length === 0) {
-        isResult.value = true
-        return
+const getSearchResults = () => {
+  if (param.value !== undefined) {
+    getSearchResultWords(param.value,
+      (data) => {
+        console.log(data.data.length)
+        // 검색 결과 없는 경우
+        if (data.data.length === 0) {
+          isResult.value = true
+          return
+        }
+
+        isResult.value = false
+        searchResultWords.value = data.data
+      }, (error) => {
+        console.log(error)
       }
+    )
 
-      isResult.value = false
-      searchResultWords.value = data.data
-    }, (error) => {
-      console.log(error)
-    }
-  )
+    getSearchResultCards(param.value,
+      (data) => {
+        console.log(data.data.length)
+        // 검색 결과 없는 경우
+        if (data.data.length === 0) {
+          isResult.value = true
+          return
+        }
 
-  getSearchResultCards(param.value,
-    (data) => {
-      console.log(data.data.length)
-      // 검색 결과 없는 경우
-      if (data.data.length === 0) {
-        isResult.value = true
-        return
+        isResult.value = false
+        searchResultCards.value = data.data
+      }, (error) => {
+        console.log(error)
       }
-
-      isResult.value = false
-      searchResultCards.value = data.data
-    }, (error) => {
-      console.log(error)
-    }
-  )
+    )
+  }
 }
+
+onBeforeRouteUpdate((to,) => {
+  param.value = to.query.q
+  getSearchResults()
+})
 
 </script>
