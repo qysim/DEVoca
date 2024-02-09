@@ -1,22 +1,26 @@
-import { localAxios } from "@/util/http-commons"
+import { localAxios } from '@/util/http-commons'
 
-const local = localAxios()   //axios instance 호출
+const local = localAxios()
 
-function getWordList(param, success, fail) {
+export function getWordList(param, success, fail) {
   local.get(`/dictionary/${param}`).then(success).catch(fail)
 }
 
-async function getWordDetail(param, success, fail) {
+export async function getWordDetail(param, success, fail) {
   await local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
 }
 
-function getCardListByWord(param, success, fail) {
+export function getCardListByWord(param, success, fail) {
   // param = {wordId}/{scroll}
   local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
 }
 
-export {
-  getWordList,
-  getWordDetail,
-  getCardListByWord
+// author: cheesecat47 <cheesecat47@gmail.com>
+export function getSearchResultWords(param, success, fail) {
+  local.get(`/search/word/${param}/0`).then(success).catch(fail)
+}
+
+// author: cheesecat47 <cheesecat47@gmail.com>
+export function getSearchResultCards(param, success, fail) {
+  local.get(`/search/card/${param}/0`).then(success).catch(fail)
 }
