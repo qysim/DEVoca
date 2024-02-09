@@ -10,7 +10,7 @@
       </div>
 
       <!-- 체크박스 그룹 1 -->
-      <div class="flex mt-3 justify-center mt-8">
+      <div class="flex justify-center mt-8">
         <div class="checkbox-container mr-4">
           <label class="swap swap-flip text-3xl">
             <input type="checkbox" class="" />

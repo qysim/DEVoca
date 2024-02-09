@@ -1,6 +1,7 @@
 package com.ssafy.devoca.search.service;
 
 import com.ssafy.devoca.card.model.CardDTO;
+import com.ssafy.devoca.search.model.WordAutoDTO;
 import com.ssafy.devoca.search.model.mapper.SearchMapper;
 import com.ssafy.devoca.word.model.WordDTO;
 import com.ssafy.devoca.word.model.WordRecoDTO;
@@ -43,5 +44,10 @@ public class SearchServiceImpl implements SearchService{
     @Override
     public List<String> getRecentKeyword(int loginUserIdx) throws Exception {
         return searchMapper.getRecentKeyword(loginUserIdx);
+    }
+
+    @Override
+    public List<WordAutoDTO> getAutoCompList() throws Exception {
+        return searchMapper.getAutoCompList();
     }
 }

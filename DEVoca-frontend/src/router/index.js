@@ -2,18 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
-import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
-import MypageView from '@/views/Mypage/MypageView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
 import FollowerView from '@/views/Mypage/FollowerView.vue'
+import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
+import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
+import DMMessageView from '@/views/DM/DMMessageView.vue'
+import MainView from '@/views/feed/MainView.vue'
+import DMListView from '@/views/DM/DMListView.vue'
+import MypageView from '@/views/Mypage/MypageView.vue'
+import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
-import MainView from '@/views/feed/MainView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
-import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
-import DMMessageView from '@/views/DM/DMMessageView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
@@ -21,9 +24,9 @@ import WordDetailView from '@/views/word/WordDetailView.vue'
 import SearchView from '@/views/search/SearchView.vue'
 import SearchResultView from '@/views/search/SearchResultView.vue'
 import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
+import ArticleView from '@/views/article/ArticleView.vue'
+import ArticleDetailView from '@/views/article/ArticleDetailView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
-import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
-import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 
@@ -56,6 +59,11 @@ const router = createRouter({
       name : 'FollowerView',
       component : FollowerView
     },
+    {
+      path : '/followrecommendation',
+      name : 'FollowRecommendationView',
+      component : FollowRecommendationView
+    },
     //DM
     {
       path : '/otherusesrprofile',
@@ -72,8 +80,14 @@ const router = createRouter({
       path: '/',
       name: 'MainView',
       component: MainView,
-      redirect: '/main',
+      redirect: {name: 'FeedListView'},
       children: [
+        //DM
+        {
+          path : '/dmlist',
+          name : 'DMListView',
+          component : DMListView
+        },
         //mypage
         {
           path : '/mypage',
@@ -133,9 +147,10 @@ const router = createRouter({
           component: WordListView,
         },
         {
-          path: '/word/detail',
+          path: '/word/detail/:id',
           name: 'WordDetailView',
           component: WordDetailView,
+          props: true,
         },
         //search
         {
@@ -153,6 +168,16 @@ const router = createRouter({
           path: '/article/create',
           name: 'ArticleCreateView',
           component: ArticleCreateView,
+        },
+        {
+          path : '/article/view',
+          name : 'ArticleView',
+          component : ArticleView
+        },
+        {
+          path : '/article/detail',
+          name : 'ArticleDetailView',
+          component : ArticleDetailView
         },
         // vocalist
         {

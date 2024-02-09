@@ -10,6 +10,8 @@ touch .env
   echo "HTTP_PORT=${HTTP_PORT}";
   echo "NGINX_PORT=${NGINX_PORT}";
   echo "";
+  echo "ALLOWED_ORIGINS=${ALLOWED_ORIGINS}";
+  echo "";
   echo "KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}";
   echo "KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}";
   echo "KAKAO_REDIRECT_URL=${KAKAO_REDIRECT_URL}";
@@ -25,8 +27,5 @@ touch .env
   echo "REDIS_PORT=${REDIS_PORT}";
   echo "REDIS_USER=${REDIS_USER}";
   echo "REDIS_PASSWORD=${REDIS_PASSWORD}";
-  echo "";
-  echo "VITE_SERVER_URL=${VITE_SERVER_URL}";
-  echo "VITE_CLIENT_ID=${VITE_CLIENT_ID}";
   echo "";
 } > .env
