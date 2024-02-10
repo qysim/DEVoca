@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.comment.model.mapper.CommentMapper">
+
+    <!-- getCommentList 결과 매핑 -->
+    <resultMap id="commentResultMap" type="commentDTO">
+        <id property="commentId" column="comment_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userImg" column="user_img"/>
+        <result property="commentContent" column="comment_content"/>
+        <result property="commentRegistDate" column="comment_regist_date"/>
+    </resultMap>
+
+    <!-- flag에 따른 Card or Board ID -->
+    <sql id="CardOrBoard">
+        <if test="flag == 'card'">
+            and c.comment_card_id = #{cardBoardId}
+        </if>
+
+        <if test="flag == 'board'">
+            and c.comment_board_id = #{cardBoardId}
+        </if>
+    </sql>
+
+    <!-- getCommentList 쿼리 -->
+    <select id="getCommentList" resultMap="commentResultMap">
+        select c.comment_id, u.user_id, u.user_img, c.comment_content, c.comment_regist_date
+        from comments c join users u
+        on c.fk_comment_user_idx = u.user_idx
+        <where>
+            <include refid="CardOrBoard"></include>
+        </where>
+    </select>
+
+</mapper>
