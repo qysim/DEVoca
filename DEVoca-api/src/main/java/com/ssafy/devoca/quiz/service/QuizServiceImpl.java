@@ -1,6 +1,7 @@
 package com.ssafy.devoca.quiz.service;
 
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizListDTO;
 import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import com.ssafy.devoca.quiz.model.mapper.QuizMapper;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,21 @@ public class QuizServiceImpl implements QuizService{
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
         quizMapper.saveQuizResult(quizResultDTO);
         quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+    }
+
+    @Override
+    public int getQuizCnt(int loginUserIdx) throws Exception {
+        return quizMapper.getQuizCnt(loginUserIdx);
+    }
+
+    @Override
+    public List<QuizListDTO> getQuizResultList(int loginUserIdx) throws Exception {
+        return quizMapper.getQuizResultList(loginUserIdx);
+    }
+
+    @Override
+    public List<QuizResultDTO> getQuizResultDetail(int loginUserIdx, int quizId) throws Exception {
+        return quizMapper.getQuizResultDetail(loginUserIdx, quizId);
     }
 
 

@@ -12,6 +12,58 @@
         <result property="wordSumm" column="word_summ"/>
     </resultMap>
 
+    <!--  QuizListDTO 매핑  -->
+    <resultMap id="QuizListDTOMap" type="QuizListDTO">
+        <result property="quizId" column="quiz_id"/>
+        <result property="battleId" column="battle_id"/>
+        <result property="participateDate" column="participate_date"/>
+        <result property="rank" column="rank"/>
+        <result property="battleUserNickname" column="battle_user_nickname"/>
+        <result property="battleWinYN" column="battle_win_yn"/>
+    </resultMap>
+
+    <!--  QuizResultDTO 매핑  -->
+    <resultMap id="QuizResultDTOMap" type="QuizResultDTO">
+        <result property="quizId" column="quiz_id"/>
+        <result property="userIdx" column="user_idx"/>
+        <result property="score" column="score"/>
+        <collection property="quizAnswerDTOList" javaType="List" ofType="QuizAnswerDTO">
+            <result property="quizWordId" column="quiz_word_id"/>
+            <result property="quizAnswer" column="quiz_answer"/>
+            <result property="quizYn" column="quiz_yn"/>
+        </collection>
+    </resultMap>
+
+    <!--  sql: 순위 가져오기  -->
+    <sql id="loadRank">
+        select count(*) from quiz_participants
+        where qp_quiz_id = quiz_id
+          and qp_score >= (select qp_score from quiz_participants
+                           where fk_qp_user_idx = #{loginUserIdx}
+                             and qp_quiz_id = quiz_id)
+        -- group by qp_score
+        order by qp_score desc
+    </sql>
+
+    <!--  sql: 대결 상대 idx 가져오기  -->
+    <sql id="loadBattleUserIdx">
+        select case
+                   when fk_battle_from_user_idx = #{loginUserIdx} then fk_battle_to_user_idx
+                   else fk_battle_from_user_idx
+        end as battle_user_idx
+    </sql>
+
+    <!--  sql: 대결 이겼는지 여부 가져오기  -->
+    <sql id="loadBattleWinYN">
+        select case
+                   when fk_battle_from_user_idx = #{loginUserIdx} then
+                       if(battle_from_score = battle_to_score, 2,
+                          if(battle_from_score > battle_to_score, 1, 0))
+                   else if(battle_to_score = battle_from_score, 2,
+                           if(battle_to_score > battle_from_score, 1, 0))
+        end as battle_win_yn
+    </sql>
+
     <!--  퀴즈 생성 : 게릴라-0, 대결-1  -->
     <insert id="createQuizId">
         insert into quizzes (quiz_type)
@@ -23,7 +75,7 @@
         select quiz_id from quizzes
         where quiz_type = #{type}
         order by quiz_create_date desc
-            limit 1;
+        limit 1;
     </select>
 
     <!--  게릴라 퀴즈 문제 생성  -->
@@ -31,14 +83,14 @@
         select word_id, word_name_kr, word_name_en, word_summ
         from words
         order by RAND()
-            limit 10;
+        limit 10;
     </select>
 
     <!--  생성한 퀴즈 문제 저장  -->
     <insert id="saveQuizWord" parameterType="map">
         insert into quiz_words (qw_word_id, qw_quiz_id)
         values
-            <foreach collection="quizList" item="quiz" separator=",">
+        <foreach collection="quizList" item="quiz" separator=",">
                 (#{quiz.wordId}, #{quizId})
             </foreach>;
     </insert>
@@ -47,7 +99,7 @@
     <select id="getQuizWordList" parameterType="int" resultMap="QuizDTOMap">
         select word_id, word_name_kr, word_name_en, word_summ
         from words w join quiz_words qw
-            on w.word_id = qw.qw_word_id
+        on w.word_id = qw.qw_word_id
         where qw_quiz_id = #{quizId};
     </select>
 
@@ -60,10 +112,45 @@
     <!--  퀴즈 답 저장하기  -->
     <insert id="saveQuizAnswerList" parameterType="map">
         insert into quiz_answers (qw_id, qa_user_idx, qa_answer, qa_yn)
-            values
+        values
         <foreach collection="list" item="item" separator=",">
-                ((select qw_id from quiz_words where qw_word_id = #{item.quizWordId}), #{userIdx}, #{item.quizAnswer}, #{item.quizYn})
+            ((select qw_id from quiz_words where qw_word_id = #{item.quizWordId}), #{userIdx}, #{item.quizAnswer}, #{item.quizYn})
         </foreach>
     </insert>
+
+    <!--  푼 퀴즈 수 가져오기  -->
+    <select id="getQuizCnt" parameterType="int" resultType="int">
+        select count(*)
+        from quiz_participants
+        where fk_qp_user_idx = #{loginUserIdx};
+    </select>
+
+
+    <!--  푼 퀴즈 목록 가져오기  -->
+    <select id="getQuizResultList" parameterType="int" resultMap="QuizListDTOMap">
+        select qp_quiz_id as quiz_id, qp_participate_date as participate_date,
+               (<include refid="loadRank"></include>) as 'rank',
+                bt. battle_id as battle_id,
+               (<include refid="loadBattleUserIdx"></include>) as battle_user_idx,
+               (select user_nickname from users
+                where user_idx = battle_user_idx) as battle_user_nickname,
+               (<include refid="loadBattleWinYN"></include>) as battle_win_yn
+        from quiz_participants qp left join battles bt
+            on qp.qp_quiz_id = bt.fk_battle_quiz_id
+        where fk_qp_user_idx = #{loginUserIdx};
+    </select>
+
+    <!--  퀴즈 상세내역 가져오기  -->
+    <select id="getQuizResultDetail" parameterType="map" resultMap="QuizResultDTOMap">
+        select qw.qw_quiz_id as quiz_id, qa_user_idx as user_idx,
+               (select qp_score from quiz_participants
+                where qp_quiz_id = #{quizId} and fk_qp_user_idx = #{loginUserIdx}) as score,
+               qw_word_id as quiz_word_id,
+               qa_answer as quiz_answer,
+               qa_yn as quiz_yn
+        from quiz_answers qa left join quiz_words qw
+               on qa.qw_id = qw.qw_id
+        where qw.qw_quiz_id = #{quizId};
+    </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.ssafy.devoca.quiz.controller;
 
 import com.ssafy.devoca.notify.service.NotifyService;
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizListDTO;
 import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import com.ssafy.devoca.quiz.service.QuizService;
 import com.ssafy.devoca.user.service.UserService;
@@ -25,7 +26,7 @@ public class QuizController {
     private final UserService userService;
 
     // 스케줄러 설정 : 월~금 오전 8시 35분에 퀴즈 생성 및 저장 메서드 실행
-    @Scheduled(cron = "0 52 15 ? * MON-FRI", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 35 8 ? * MON-FRI", zone = "Asia/Seoul")
     @PostMapping("")
     public ResponseEntity<String> createQuiz(){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
@@ -69,6 +70,51 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
             log.error("퀴즈 결과 저장 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/cnt")
+    public ResponseEntity<Integer> getQuizCnt(){
+        log.info("getQuizCnt 호출 : 참여한 퀴즈 수 조회 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int cnt = quizService.getQuizCnt(loginUserIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(cnt);
+        }catch (Exception e){
+            log.error("퀴즈 결과 저장 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/result")
+    public ResponseEntity<List<QuizListDTO>> getQuizResultList(){
+        log.info("getQuizResultList 호출 : 참여한 퀴즈 목록 조회 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            List<QuizListDTO> quizList = quizService.getQuizResultList(loginUserIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(quizList);
+        }catch (Exception e){
+            log.error("퀴즈 목록 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/result/{quizId}")
+    public ResponseEntity<List<QuizResultDTO>> getQuizResultDetail(@PathVariable("quizId") int quizId){
+        log.info("getQuizResultList 호출 : 참여한 퀴즈 상세 조회 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            List<QuizResultDTO> quizDetailList = quizService.getQuizResultDetail(loginUserIdx, quizId);
+            return ResponseEntity.status(HttpStatus.OK).body(quizDetailList);
+        }catch (Exception e){
+            log.error("퀴즈 상세 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
