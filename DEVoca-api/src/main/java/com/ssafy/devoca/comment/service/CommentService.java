@@ -8,4 +8,6 @@ import java.util.Map;
 public interface CommentService {
     public List<CommentDTO> getCommentList(String flag, int cardBoardId) throws Exception;
     public void registComment(Map<String, Object> map) throws Exception;
+    public int getUserIdxByCommentId(int commentId) throws Exception;
+    public void deleteComment(int commentId) throws Exception;
 }

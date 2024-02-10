@@ -22,4 +22,14 @@ public class CommentServiceImpl implements CommentService {
     public void registComment(Map<String, Object> map) throws Exception {
         commentMapper.registComment(map);
     }
+
+    @Override
+    public int getUserIdxByCommentId(int commentId) throws Exception {
+        return commentMapper.getUserIdxByCommentId(commentId);
+    }
+
+    @Override
+    public void deleteComment(int commentId) throws Exception {
+        commentMapper.deleteComment(commentId);
+    }
 }

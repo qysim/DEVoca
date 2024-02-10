@@ -10,6 +10,7 @@
         <result property="userId" column="user_id"/>
         <result property="userImg" column="user_img"/>
         <result property="commentContent" column="comment_content"/>
+        <result property="commentPicked" column="comment_picked"/>
         <result property="commentRegistDate" column="comment_regist_date"/>
     </resultMap>
 
@@ -26,12 +27,14 @@
 
     <!-- getCommentList 쿼리 -->
     <select id="getCommentList" resultMap="commentResultMap">
-        select c.comment_id, u.user_id, u.user_img, c.comment_content, c.comment_regist_date
+        select c.comment_id, u.user_id, u.user_img, c.comment_content, c.comment_picked, c.comment_regist_date
         from comments c join users u
         on c.fk_comment_user_idx = u.user_idx
         <where>
             <include refid="getCardOrBoard"></include>
         </where>
+        and c.comment_delete_date is null
+        order by c.comment_regist_date
     </select>
 
     <!-- comment 등록 시 flag에 따른 Card or Board ID -->
@@ -50,4 +53,18 @@
         insert into comments (<include refid="registCardOrBoard"></include>)
         values (#{userIdx}, #{cardBoardId}, #{commentContent}, now())
     </insert>
+
+    <!-- 댓글 작성자와 동일인인지 확인을 위한 댓글 작성자 idx 가져오기 -->
+    <select id="getUserIdxByCommentId" parameterType="int">
+        select fk_comment_user_idx
+        from comments
+        where comment_id = #{commentId}
+    </select>
+
+    <!-- deleteComment 쿼리 -->
+    <update id="deleteComment" parameterType="int">
+        update comments
+        set comment_delete_date = now()
+        where comment_id = #{commentId}
+    </update>
 </mapper>
