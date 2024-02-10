@@ -321,7 +321,7 @@
     "word_link": "https://en.wikipedia.org/wiki/Class_(computer_science)",
     "wordCategory": [
       "DataType",
-      "ObjectOrientedProgramming"
+      "OOP"
     ]
   },
   {
@@ -430,7 +430,7 @@
     "word_def": "산술 및 비산술 단계를 모두 포함하며 알고리즘과 같이 잘 정의된 모델을 따르는 모든 유형의 계산. 계산에 대한 연구는 컴퓨터 과학 분야에서 가장 중요합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Computation",
     "wordCategory": [
-      "ComputationalThinking"
+      "Computing"
     ]
   },
   {
@@ -440,15 +440,6 @@
     "word_link": "https://en.wikipedia.org/wiki/Computational_biology",
     "wordCategory": [
       "Bioinformatics"
-    ]
-  },
-  {
-    "word_name_kr": "계산 화학",
-    "word_name_en": "computational chemistry",
-    "word_def": "화학 문제 해결을 돕기 위해 컴퓨터 시뮬레이션을 사용하는 화학의 한 분야. 효율적인 컴퓨터 프로그램에 통합된 이론 화학의 방법을 사용하여 분자와 고체의 구조와 특성을 계산합니다.",
-    "word_link": "https://en.wikipedia.org/wiki/Computational_chemistry",
-    "wordCategory": [
-      "ComputationalChemistry"
     ]
   },
   {
@@ -468,25 +459,6 @@
     "word_link": "https://en.wikipedia.org/wiki/Computational_model",
     "wordCategory": [
       "Modeling"
-    ]
-  },
-  {
-    "word_name_kr": "계산 물리학",
-    "word_name_en": "computational physics",
-    "word_def": "정량적 이론이 이미 존재하는 물리학의 문제를 해결하기 위해 수치 해석을 연구하고 구현하는 학문입니다. 역사적으로 계산 물리학은 현대 컴퓨터를 과학에 최초로 적용한 분야로, 현재는 계산 과학의 하위 분야입니다.",
-    "word_link": "https://en.wikipedia.org/wiki/Computational_physics",
-    "wordCategory": [
-      "ComputationalPhysics"
-    ]
-  },
-  {
-    "word_name_kr": "컴퓨터 스티어링",
-    "word_name_en": "computational steering",
-    "word_def": "자율적인 계산 프로세스에 수동으로 개입하여 결과를 변경하는 행위입니다.",
-    "word_link": "https://en.wikipedia.org/wiki/Computational_steering",
-    "wordCategory": [
-      "ComputationalSteering",
-      "Simulation"
     ]
   },
   {
@@ -621,15 +593,6 @@
     ]
   },
   {
-    "word_name_kr": "CSV",
-    "word_name_en": "CSV",
-    "word_def": "쉼표로 구분된 값을 참조하세요.",
-    "word_link": "https://en.wikipedia.org/wiki/Comma-separated_values",
-    "wordCategory": [
-      "DataFormat"
-    ]
-  },
-  {
     "word_name_kr": "사이버 공간",
     "word_name_en": "cyberspace",
     "word_def": "광범위하고 상호 연결된 디지털 기술.",
@@ -732,7 +695,7 @@
     "word_def": "분산 시스템을 연구하는 컴퓨터 과학의 한 분야. 분산 시스템은 네트워크로 연결된 서로 다른 컴퓨터에 있는 구성 요소가 서로 메시지를 전달하여 통신하고 동작을 조정하는 시스템입니다. 구성 요소는 공통의 목표를 달성하기 위해 서로 상호 작용합니다. 분산 시스템의 세 가지 중요한 특징은 구성 요소의 동시성, 글로벌 시계의 부재, 구성 요소의 독립적인 장애입니다. 분산 시스템의 예는 SOA 기반 시스템부터 대규모 멀티플레이어 온라인 게임, P2P 애플리케이션에 이르기까지 다양합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Distributed_computing",
     "wordCategory": [
-      "DistributedComputing",
+      "Computing",
       "Network"
     ]
   },
@@ -742,19 +705,7 @@
     "word_def": "다중 분기 재귀에 기반한 알고리즘 설계 패러다임. 분할 및 정복 알고리즘은 하나의 문제를 직접 해결할 수 있을 만큼 단순해질 때까지 동일하거나 관련된 유형의 두 개 이상의 하위 문제로 재귀적으로 분해하는 방식으로 작동합니다. 그런 다음 하위 문제에 대한 해결책을 결합하여 원래 문제에 대한 해결책을 제시합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm",
     "wordCategory": [
-      "DivideAndConquer",
       "Algorithm"
-    ]
-  },
-  {
-    "word_name_kr": "도메인 이름 시스템",
-    "word_name_en": "DNS",
-    "word_def": "도메인 이름 시스템을 참조하세요.",
-    "word_link": "https://en.wikipedia.org/wiki/Domain_Name_System",
-    "wordCategory": [
-      "DNS",
-      "Network",
-      "Web"
     ]
   },
   {
@@ -763,8 +714,7 @@
     "word_def": "컴퓨터 소프트웨어와 함께 제공되거나 소스 코드에 포함된 서면 텍스트 또는 그림. 소프트웨어의 작동 방식이나 사용 방법을 설명하며, 역할에 따라 다른 의미를 가질 수 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Software_documentation",
     "wordCategory": [
-      "Documentation",
-      "Information"
+      "Documentation"
     ]
   },
   {
@@ -773,8 +723,17 @@
     "word_def": "컴퓨터 프로그램의 대상 주제 영역입니다. 소프트웨어 공학에서 사용되는 용어입니다. 공식적으로는 좁게 정의하든 넓게 정의하든 특정 프로그래밍 프로젝트의 목표 주제를 나타냅니다.",
     "word_link": "https://en.wikipedia.org/wiki/Domain_(software_engineering)",
     "wordCategory": [
+      "Network"
+    ]
+  },
+  {
+    "word_name_kr": "도메인 이름 시스템 (DNS)",
+    "word_name_en": "Domain Name System (DNS)",
+    "word_def": "브라우저가 인터넷 자원을 로드할 수 있도록 사람이 읽기 편한 도메인 이름을 웹 브라우저가 필요한 IP 주소로 변환해주는 서버입니다.",
+    "word_link": "https://www.cloudflare.com/ko-kr/learning/dns/what-is-dns/",
+    "wordCategory": [
       "Domain",
-      "Internet"
+      "Network"
     ]
   },
   {
@@ -783,8 +742,7 @@
     "word_def": "컴퓨터 숫자 형식. 부동 소수점을 사용하여 넓은 동적 범위의 숫자 값을 나타냅니다.",
     "word_link": "https://en.wikipedia.org/wiki/Double-precision_floating-point_format",
     "wordCategory": [
-      "FloatingPoint",
-      "DataRepresentation"
+      "DataType"
     ]
   },
   {
@@ -793,8 +751,7 @@
     "word_def": "컴퓨터 네트워크에서 원격 시스템(일반적으로 웹 서버, FTP 서버, 이메일 서버 또는 기타 유사한 시스템과 같은 서버)에서 데이터를 수신하는 것을 말합니다. 이는 데이터를 원격 서버로 전송하는 업로드와 대조됩니다. 다운로드는 다운로드할 수 있도록 제공되거나 다운로드된 파일 또는 그러한 파일을 수신하는 프로세스입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Download",
     "wordCategory": [
-      "Download",
-      "DataTransfer"
+      "Network"
     ]
   },
   {
@@ -803,7 +760,6 @@
     "word_def": "기업 또는 서비스 제공업체의 코어 네트워크에 대한 진입점을 제공하는 장치. 라우터, 라우팅 스위치, IAD(통합 액세스 장치), 멀티플렉서, 다양한 MAN(메트로폴리탄 지역 네트워크) 및 WAN(광역 네트워크) 액세스 장치를 예로 들 수 있습니다.  엣지 디바이스는 통신사 및 서비스 제공업체 네트워크에 대한 연결도 제공합니다. 로컬 영역 네트워크를 고속 스위치 또는 백본(예: ATM 스위치)에 연결하는 엣지 디바이스를 엣지 집중 장치라고 할 수 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Edge_device",
     "wordCategory": [
-      "EdgeDevice",
       "IoT"
     ]
   },
@@ -813,7 +769,6 @@
     "word_def": "암호화에서 암호화는 정보를 인코딩하는 과정입니다. 이 프로세스는 일반 텍스트라고 하는 정보의 원래 표현을 암호 텍스트라고 하는 대체 형식으로 변환합니다. 이상적으로는 권한이 있는 당사자만 암호 텍스트를 다시 일반 텍스트로 해독하여 원본 정보에 액세스할 수 있습니다. 암호화는 그 자체로 간섭을 방지하는 것이 아니라 가로채려는 사람이 이해할 수 있는 콘텐츠를 거부합니다. 기술적인 이유로 암호화 체계는 일반적으로 알고리즘에 의해 생성된 의사 무작위 암호화 키를 사용합니다. 키를 가지고 있지 않아도 메시지를 해독할 수 있지만, 잘 설계된 암호화 체계의 경우 상당한 컴퓨팅 리소스와 기술이 필요합니다. 권한이 있는 수신자는 발신자가 수신자에게 제공한 키로 메시지를 쉽게 해독할 수 있지만 권한이 없는 사용자에게는 해독할 수 없습니다. 역사적으로 다양한 형태의 암호화가 암호화를 지원하는 데 사용되었습니다. 초기 암호화 기술은 종종 군사 메시징에 활용되었습니다. 그 이후로 새로운 기술이 등장하여 현대 컴퓨팅의 모든 영역에서 보편화되었습니다. 최신 암호화 체계는 공개 키와 대칭 키의 개념을 활용합니다. 최신 암호화 기술은 최신 컴퓨터가 암호화를 해독하는 데 비효율적이기 때문에 보안을 보장합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Encryption",
     "wordCategory": [
-      "Encryption",
       "Security"
     ]
   },
@@ -823,7 +778,6 @@
     "word_def": "소프트웨어가 인식하는 동작 또는 발생으로, 종종 외부 환경에서 비동기적으로 발생하여 소프트웨어가 처리할 수 있습니다. 이벤트는 동작과 동작을 트리거하는 컨텍스트 변수를 캡슐화하는 엔티티이므로 개념을 명확히 하기 위해 \"명명된 트리거를 캡슐화하는 실행 변수\"라는 아크로스틱 니모닉이 자주 사용됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Event_(computing)",
     "wordCategory": [
-      "Event",
       "Programming"
     ]
   },
@@ -833,7 +787,6 @@
     "word_def": "사용자 동작(마우스 클릭, 키 누름), 센서 출력, 다른 프로그램이나 스레드의 메시지와 같은 이벤트에 의해 프로그램의 흐름이 결정되는 프로그래밍 패러다임. 이벤트 중심 프로그래밍은 사용자 입력에 따라 특정 작업을 수행하는 데 중점을 두는 그래픽 사용자 인터페이스 및 기타 애플리케이션(예: JavaScript 웹 애플리케이션)에서 주로 사용되는 패러다임입니다. 이는 장치 드라이버(예: USB 장치 드라이버 스택의 P)를 위한 프로그래밍에도 적용됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Event-driven_programming",
     "wordCategory": [
-      "EventDriven",
       "Programming"
     ]
   },
@@ -843,7 +796,6 @@
     "word_def": "생물학적 진화에서 영감을 얻은 전역 최적화를 위한 알고리즘 계열과 이러한 알고리즘을 연구하는 인공 지능 및 소프트 컴퓨팅의 하위 분야. 기술적으로는 메타 휴리스틱 또는 확률적 최적화 특성을 가진 모집단 기반 시행착오 문제 해결사 계열입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Evolutionary_computing",
     "wordCategory": [
-      "EvolutionaryComputing",
       "Algorithm"
     ]
   },
@@ -853,8 +805,7 @@
     "word_def": "컴퓨터 및 소프트웨어 공학에서 컴퓨터 또는 가상 머신이 컴퓨터 프로그램의 명령을 실행하는 프로세스를 말합니다. 프로그램의 각 명령어는 특정 동작에 대한 설명입니다.\n특정 문제를 해결하기 위해 수행해야 하는 작업; 프로그램의 명령어와 그에 따라 설명하는 작업이 실행 중인 기계에 의해 수행됨에 따라 실행 중인 명령어의 의미에 따라 특정 효과가 생성됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Execution_(computing)",
     "wordCategory": [
-      "Execution",
-      "Computing"
+      "Programming"
     ]
   },
   {
@@ -863,8 +814,7 @@
     "word_def": "계산 중에 예외(특별한 처리가 필요한 비정상적이거나 예외적인 조건)가 발생하여 프로그램 실행의 정상적인 흐름을 방해하는 경우에 대응하는 프로세스입니다. 특수 프로그래밍 언어 구조, 인터럽트와 같은 컴퓨터 하드웨어 메커니즘 또는 신호와 같은 운영 체제 IPC 기능에 의해 제공됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Exception_handling",
     "wordCategory": [
-      "ExceptionHandling",
-      "ErrorHandling"
+      "Error"
     ]
   },
   {
@@ -873,8 +823,7 @@
     "word_def": "파일을 읽기 전에 파일 존재 여부를 확인하면 치명적인 오류를 발견하거나 방지할 수 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Existence_detection",
     "wordCategory": [
-      "ExistenceDetection",
-      "Detection"
+      "Error"
     ]
   },
   {
@@ -883,7 +832,6 @@
     "word_def": "프로그래밍 언어에서 하나 이상의 상수, 변수, 연산자 및 함수의 조합으로, 프로그래밍 언어가 특정 우선순위 및 연관 규칙에 따라 해석하고 계산하여 다른 값을 생성(\"반환\", 상태 저장 환경에서)하는 것을 말합니다. 수학 표현식의 경우 이 과정을 평가라고 합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Expression_(computer_science)",
     "wordCategory": [
-      "Expression",
       "Programming"
     ]
   },
@@ -893,7 +841,7 @@
     "word_def": "내결함성 개념을 중심으로 설계된 시스템. 본질적으로 오류나 고장이 발생하더라도 만족할 만한 수준으로 작업을 계속할 수 있어야 합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Fault-tolerant_computer_system",
     "wordCategory": [
-      "FaultTolerant",
+      "Fault",
       "System"
     ]
   },
@@ -903,7 +851,6 @@
     "word_def": "기존 사업 또는 제안된 벤처의 강점과 약점, 자연 환경에 존재하는 기회와 위협, 사업을 수행하는 데 필요한 자원, 궁극적으로 성공 가능성을 객관적이고 합리적으로 밝혀내는 것을 목표로 하는 조사. 간단히 말해서, 타당성을 판단하는 두 가지 기준은 필요한 비용과 달성할 가치입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Feasibility_study",
     "wordCategory": [
-      "FeasibilityStudy",
       "Analysis"
     ]
   },
@@ -913,8 +860,7 @@
     "word_def": "레코드라고 하는 여러 부분으로 이루어진 데이터는 필드로 나눌 수 있습니다. 관계형 데이터베이스는 데이터를 행이라고 하는 데이터베이스 레코드 집합으로 정렬합니다. 각 레코드는 여러 개의 필드로 구성되며, 모든 레코드의 필드가 열을 형성합니다.\n필드의 예: 이름, 성별, 머리 색깔.",
     "word_link": "https://en.wikipedia.org/wiki/Field_(computer_science)",
     "wordCategory": [
-      "Field",
-      "Data"
+      "DataStructure"
     ]
   },
   {
@@ -923,8 +869,7 @@
     "word_def": "컴퓨터 파일 이름에 접미사로 지정된 식별자입니다. 확장자는 파일 콘텐츠의 특성이나 용도를 나타냅니다.",
     "word_link": "https://en.wikipedia.org/wiki/Filename_extension",
     "wordCategory": [
-      "FileExtension",
-      "FileFormat"
+      "File"
     ]
   },
   {
@@ -933,8 +878,8 @@
     "word_def": "스트림을 처리하여 다른 스트림을 생성하는 컴퓨터 프로그램 또는 서브루틴. 단일 필터를 개별적으로 사용할 수도 있지만, 필터를 서로 연결하여 파이프라인을 형성하는 경우가 많습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Filter_(software)",
     "wordCategory": [
-      "Filter",
-      "Software"
+      "DataAnalysis",
+      "StreamProcessing"
     ]
   },
   {
@@ -943,7 +888,7 @@
     "word_def": "컴퓨팅에서 부동 소수점 연산(FP)은 범위와 정밀도 사이의 절충점을 지원하기 위해 실수를 근사치로 표현하는 수식을 사용하는 산술 연산입니다. 이러한 이유로 부동소수점 연산은 빠른 처리 시간이 필요한 매우 작거나 매우 큰 실수를 포함하는 시스템에서 자주 사용됩니다. 일반적으로 숫자는 대략 고정된 수의 유효 자릿수(실수)로 표현되고 고정된 기저의 지수를 사용하여 스케일링되며, 스케일링의 기저는 일반적으로 2, 10 또는 16입니다. 정확히 표현할 수 있는 숫자는 다음과 같은 형식입니다:\n여기서 지수는 정수, 밑변은 2보다 크거나 같은 정수, 지수는 역시 정수입니다.\n예를 들어",
     "word_link": "https://en.wikipedia.org/wiki/Floating_point_arithmetic",
     "wordCategory": [
-      "FloatingPoint",
+      "DataType",
       "Arithmetic"
     ]
   },
@@ -953,7 +898,6 @@
     "word_def": "소프트웨어 및 하드웨어 시스템의 사양, 개발, 검증을 위한 수학 기반의 일련의 기술. 소프트웨어 및 하드웨어 설계에 공식적인 방법을 사용하는 것은 다른 공학 분야와 마찬가지로 적절한 수학적 분석을 수행하면 설계의 신뢰성과 견고성에 기여할 수 있다는 기대에 따른 것입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Formal_methods",
     "wordCategory": [
-      "FormalMethods",
       "Verification"
     ]
   },
@@ -963,7 +907,6 @@
     "word_def": "수학의 공식적인 방법을 사용하여 특정 공식적인 사양이나 속성과 관련하여 시스템의 기반이 되는 의도된 알고리즘의 정확성을 증명하거나 반증하는 행위.",
     "word_link": "https://en.wikipedia.org/wiki/Formal_verification",
     "wordCategory": [
-      "FormalVerification",
       "Verification"
     ]
   },
@@ -973,8 +916,7 @@
     "word_def": "컴퓨터 프로그램의 구조와 요소를 구축하는 방식인 프로그래밍 패러다임으로, 연산을 수학 함수의 평가로 취급하고 상태 및 변경 가능한 데이터의 변경을 피하는 프로그래밍 방식입니다. 명령문 대신 표현식이나 선언을 사용하여 프로그래밍을 수행한다는 점에서 선언적 프로그래밍 패러다임입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Functional_programming",
     "wordCategory": [
-      "FunctionalProgramming",
-      "ProgrammingParadigm"
+      "Programming"
     ]
   },
   {
@@ -983,8 +925,7 @@
     "word_def": "합리적인 의사 결정자 간의 전략적 상호작용에 대한 수학적 모델을 연구하는 학문. 논리학과 컴퓨터 과학뿐만 아니라 사회과학의 모든 분야에 응용되고 있습니다. 원래는 각 참가자의 이익이나 손실이 다른 참가자의 이익이나 손실과 정확히 균형을 이루는 제로섬 게임을 다루었습니다. 오늘날 게임 이론은 다양한 행동 관계에 적용되며, 인간, 동물, 컴퓨터의 논리적 의사 결정 과학을 포괄하는 용어가 되었습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Game_theory",
     "wordCategory": [
-      "GameTheory",
-      "Mathematics"
+      "Theory"
     ]
   },
   {
@@ -993,18 +934,16 @@
     "word_def": "결함이 있거나 말도 안 되는 입력 데이터는 말도 안 되는 출력 또는 \"쓰레기\"를 생성한다는 개념을 설명하는 데 사용되는 용어입니다. 또한 잘못 작성된 프로그램이 말도 안 되는 동작을 생성할 수 있는 프로그래밍의 용서할 수 없는 특성을 의미하기도 합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Garbage_in,_garbage_out",
     "wordCategory": [
-      "GIGO",
-      "DataQuality"
+      "DataProcessing"
     ]
   },
   {
     "word_name_kr": "기가바이트",
     "word_name_en": "gigabyte",
-    "word_def": "디지털 정보의 단위 바이트의 배수. 접두사 기가(giga)는 국제 단위계(SI)에서 109를 의미합니다. 따라서 1기가바이트는 1000000000바이트입니다.  기가바이트의 단위 기호는 GB입니다.",
+    "word_def": "디지털 정보의 단위 바이트의 배수. 접두사 기가(giga)는 국제 단위계(SI)에서 10^9를 의미합니다. 따라서 1기가바이트는 1000000000바이트입니다.  기가바이트의 단위 기호는 GB입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Gigabyte",
     "wordCategory": [
-      "Gigabyte",
-      "DataSize"
+      "Data"
     ]
   },
   {
@@ -1013,7 +952,6 @@
     "word_def": "컴퓨터 프로그래밍에서 전역 범위를 가진 변수, 즉 섀도잉되지 않는 한 프로그램 전체에서 볼 수 있는(따라서 접근 가능한) 변수입니다. 모든 전역 변수의 집합을 전역 환경 또는 전역 상태라고 합니다. 컴파일된 언어에서 전역 변수는 일반적으로 범위(수명)가 프로그램의 전체 런타임인 정적 변수이지만, 해석된 언어(명령줄 인터프리터 포함)에서는 전역 변수를 미리 알 수 없기 때문에 선언 시 동적으로 할당되는 것이 일반적입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Global_variable",
     "wordCategory": [
-      "GlobalVariable",
       "Programming"
     ]
   },
@@ -1023,8 +961,7 @@
     "word_def": "수학에서는 개체 간의 쌍 관계를 모델링하는 데 사용되는 수학적 구조인 그래프를 연구합니다. 이 맥락에서 그래프는 정점(노드 또는 점이라고도 함)과 가장자리(링크 또는 선이라고도 함)로 연결된 그래프로 구성됩니다. 가장자리가 두 정점을 대칭으로 연결하는 무방향 그래프와 가장자리가 두 정점을 비대칭으로 연결하는 방향 그래프로 구분할 수 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Graph_theory",
     "wordCategory": [
-      "GraphTheory",
-      "Mathematics"
+      "Theory"
     ]
   },
   {
@@ -1033,7 +970,6 @@
     "word_def": "컴퓨터 프로그래밍에서 핸들은 애플리케이션 소프트웨어가 데이터베이스나 운영 체제와 같은 다른 시스템에서 관리하는 메모리 블록이나 객체를 참조할 때 사용되는 리소스에 대한 추상적인 참조입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Handle_(computing)",
     "wordCategory": [
-      "Handle",
       "Reference"
     ]
   },
@@ -1113,8 +1049,7 @@
     "word_def": "통합 개발 환경.",
     "word_link": "https://en.wikipedia.org/wiki/Integrated_development_environment",
     "wordCategory": [
-      "IDE",
-      "DevelopmentEnvironment"
+      "Development"
     ]
   },
   {
@@ -1123,8 +1058,7 @@
     "word_def": "프로그램의 상태를 변경하는 명령문을 사용하는 프로그래밍 패러다임. 자연어에서 명령문이 명령을 표현하는 것과 마찬가지로 명령형 프로그램은 컴퓨터가 수행해야 할 명령으로 구성됩니다. 명령형 프로그래밍은 프로그램의 작동 방식을 설명하는 데 중점을 둡니다.",
     "word_link": "https://en.wikipedia.org/wiki/Imperative_programming",
     "wordCategory": [
-      "ImperativeProgramming",
-      "ProgrammingParadigm"
+      "Programming"
     ]
   },
   {
@@ -1153,8 +1087,7 @@
     "word_def": "객체 지향 프로그래밍에서 객체 또는 클래스를 다른 객체(프로토타입 기반 상속) 또는 클래스(클래스 기반 상속)에 기반하여 유사한 구현을 유지하는 메커니즘. 기존 클래스(수퍼 클래스 또는 베이스 클래스)에서 새로운 클래스(서브 클래스)를 파생하여 클래스의 계층 구조를 형성하는 것으로도 정의됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Inheritance_(computer_science)",
     "wordCategory": [
-      "Inheritance",
-      "ObjectOrientedProgramming"
+      "OOP"
     ]
   },
   {
@@ -1193,8 +1126,7 @@
     "word_def": "인공 지능에서 지능형 에이전트(IA)는 센서와 그에 따른 액추에이터를 통한 관찰을 사용하여 환경에 따라 목표를 달성하기 위해 행동하는(즉, 에이전트) 자율적인 개체를 말합니다(즉, 지능적임). 지능형 에이전트는 목표를 달성하기 위해 지식을 학습하거나 사용할 수도 있습니다. 매우 단순할 수도 있고 매우 복잡할 수도 있습니다. 온도 조절기와 같은 반사 기계는 지능형 에이전트의 예로 간주됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Intelligent_agent",
     "wordCategory": [
-      "IntelligentAgent",
-      "ArtificialIntelligence"
+      "AI"
     ]
   },
   {
@@ -1213,7 +1145,6 @@
     "word_def": "컴퓨터 소프트웨어는 코드의 다양한 부분이 어떻게, 왜 작동하는지에 대한 설명이 소스 코드에 주석으로 포함되어 있으면 내부 문서가 있다고 합니다.  이는 미래의 잠재적 프로그래머가 코드의 작동을 이해할 수 있는 수단을 제공하기 위해 의미 있는 변수 이름과 결합되는 경우가 많습니다. 이는 프로그래머가 메모와 설명을 별도의 문서에 보관하는 외부 문서와 대조적입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Internal_documentation",
     "wordCategory": [
-      "InternalDocumentation",
       "Documentation"
     ]
   },
@@ -1464,7 +1395,7 @@
     "word_link": "https://en.wikipedia.org/wiki/Optical_fiber",
     "wordCategory": [
       "OpticalFiber",
-      "Networking"
+      "Network"
     ]
   },
   {
@@ -1583,8 +1514,7 @@
     "word_def": "컴퓨터 프로그램을 실행하기 위한 시스템입니다. 프로그래밍 언어 구현에는 해석과 컴파일이라는 두 가지 일반적인 접근 방식이 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Programming_language_implementation",
     "wordCategory": [
-      "LanguageImplementation",
-      "SoftwareDevelopment"
+      "ProgrammingLanguage"
     ]
   },
   {
@@ -1593,8 +1523,7 @@
     "word_def": "프로그래밍 언어학(PLT)은 프로그래밍 언어와 그 개별 기능의 설계, 구현, 분석, 특성화 및 분류를 다루는 컴퓨터 과학의 한 분야입니다.  이는 수학, 소프트웨어 공학, 언어학, 심지어 인지 과학에 의존하고 영향을 받는 컴퓨터 과학의 한 분야에 속합니다.  컴퓨터 과학의 한 분야로 잘 알려져 있으며, 일반 컴퓨터 과학 및 공학 출판물뿐만 아니라 수많은 PLT 전용 저널에 연구 결과가 게재되는 등 활발한 연구 분야로 자리 잡았습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Programming_language_theory",
     "wordCategory": [
-      "LanguageTheory",
-      "SoftwareDevelopment"
+      "ProgrammingLanguage"
     ]
   },
   {
@@ -1703,8 +1632,7 @@
     "word_def": "제품의 수명 주기 관리에서 신뢰성을 강조하는 시스템 엔지니어링의 하위 분야입니다. 신뢰성은 시스템 또는 구성 요소가 지정된 조건에서 지정된 기간 동안 작동하는 능력을 나타냅니다. 신뢰성은 가용성과 밀접한 관련이 있으며, 가용성은 일반적으로 구성 요소 또는 시스템이 지정된 순간 또는 시간 간격에 작동하는 능력으로 설명됩니다.",
     "word_link": "https://en.wikipedia.org/wiki/Reliability_engineering",
     "wordCategory": [
-      "ReliabilityEngineering",
-      "Engineering"
+      "SoftwareEngineering"
     ]
   },
   {
@@ -1723,7 +1651,6 @@
     "word_def": "시스템 엔지니어링 및 소프트웨어 엔지니어링에서 요구 사항 분석은 다양한 이해 관계자의 상충될 수 있는 요구 사항을 고려하여 새롭거나 변경된 제품 또는 프로젝트를 충족하기 위한 요구 사항이나 조건을 결정하고 소프트웨어 또는 시스템 요구 사항을 분석, 문서화, 검증 및 관리하는 작업에 중점을 둡니다.",
     "word_link": "https://en.wikipedia.org/wiki/Requirements_analysis",
     "wordCategory": [
-      "RequirementsAnalysis",
       "SoftwareDevelopment"
     ]
   },
@@ -1744,7 +1671,7 @@
     "word_link": "https://en.wikipedia.org/wiki/Router_(computing)",
     "wordCategory": [
       "Router",
-      "Networking"
+      "Network"
     ]
   },
   {
@@ -1754,7 +1681,7 @@
     "word_link": "https://en.wikipedia.org/wiki/Routing_table",
     "wordCategory": [
       "RoutingTable",
-      "Networking"
+      "Network"
     ]
   },
   {
@@ -1893,8 +1820,7 @@
     "word_def": "라틴어 agere(하다)에서 유래한 대리인 관계에서 사용자 또는 다른 프로그램을 대신하여 행동하는 컴퓨터 프로그램으로, 누군가를 대신하여 행동하는 계약을 말합니다. 이러한 '대신 행동'은 어떤 행동이 적절한지 결정할 수 있는 권한을 의미합니다. 에이전트는 구어체로는 로봇에서 유래한 봇으로 알려져 있습니다. 에이전트는 실행이 로봇 본체와 짝을 이루는 경우처럼 구현될 수도 있고, 챗봇과 같은 소프트웨어로 구현될 수도 있습니다.\n전화기(예: Siri) 또는 기타 컴퓨팅 장치에서 실행되는 소프트웨어로 구현될 수 있습니다.  소프트웨어 에이전트는 자율적으로 작동하거나 다른 에이전트 또는 사람과 함께 작동할 수 있습니다.  사람과 상호작용하는 소프트웨어 에이전트(예: 챗봇, 인간-로봇 상호작용 환경)는 자연어 이해 및 말하기, 성격과 같은 인간과 유사한 특성을 갖거나 휴머노이드 형태를 구현할 수 있습니다(Asimo 참조).",
     "word_link": "https://en.wikipedia.org/wiki/Software_agent",
     "wordCategory": [
-      "SoftwareAgent",
-      "ArtificialIntelligence"
+      "AI"
     ]
   },
   {
@@ -1903,7 +1829,6 @@
     "word_def": "소프트웨어 공학 분야입니다. 코딩, 검증, 단위 테스트, 통합 테스트 및 디버깅의 조합을 통해 의미 있는 소프트웨어를 세부적으로 만드는 작업입니다. 다른 모든 소프트웨어 엔지니어링 분야와 연관되어 있으며, 특히 소프트웨어 설계 및 소프트웨어 테스팅과 가장 밀접한 관련이 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Software_construction",
     "wordCategory": [
-      "SoftwareConstruction",
       "SoftwareDevelopment"
     ]
   },
@@ -1943,8 +1868,7 @@
     "word_def": "소프트웨어 엔지니어링에서 소프트웨어 개발 프로세스는 설계, 제품 관리 및 프로젝트 관리를 개선하기 위해 소프트웨어 개발 작업을 여러 단계로 나누는 프로세스입니다.  소프트웨어 개발 수명 주기(SDLC)라고도 합니다.  이 방법론에는 프로젝트 팀이 애플리케이션을 개발하거나 유지 관리하기 위해 생성하고 완성하는 특정 결과물 및 아티팩트의 사전 정의가 포함될 수 있습니다.  대부분의 최신 개발 프로세스는 애자일이라고 모호하게 설명할 수 있습니다. 다른 방법론으로는 워터폴, 프로토타이핑, 반복 및 점진적 개발, 나선형 개발, 신속한 애플리케이션 개발, 익스트림 프로그래밍 등이 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Software_development_process",
     "wordCategory": [
-      "SoftwareDevelopmentProcess",
-      "Process"
+      "SoftwareDevelopment"
     ]
   },
   {
@@ -1983,7 +1907,7 @@
     "word_def": "(SRS)는 개발할 소프트웨어 시스템에 대한 설명입니다. 소프트웨어 요구사항 명세서에는 기능적 요구사항과 비기능적 요구사항이 명시되어 있으며, 완벽한 상호작용을 위해 소프트웨어가 사용자에게 제공해야 하는 사용자 상호작용을 설명하는 일련의 사용 사례가 포함될 수 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Software_requirements_specification",
     "wordCategory": [
-      "SoftwareRequirements",
+      "SoftwareEngineering",
       "Specification"
     ]
   },
@@ -2153,7 +2077,6 @@
     "word_def": "엔지니어링 분야에서는 기술 제품 또는 개발 또는 사용 중인 제품의 취급, 기능 및 아키텍처를 설명하는 모든 유형의 문서를 의미합니다. 제품 기술 문서의 수신 대상은 (능숙한) 최종 사용자뿐만 아니라 관리자/서비스 또는 유지보수 기술자입니다. 단순한 '요리책' 매뉴얼과 달리 기술 문서는 사용자가 현재 사용 중인 제품의 내부 및 외부 종속성을 이해할 수 있도록 충분한 정보를 제공하는 것을 목표로 합니다.",
     "word_link": "https://en.wikipedia.org/wiki/Technical_documentation",
     "wordCategory": [
-      "TechnicalDocumentation",
       "Documentation"
     ]
   },
@@ -2214,7 +2137,7 @@
     "word_link": "https://en.wikipedia.org/wiki/User_agent",
     "wordCategory": [
       "UserAgent",
-      "Networking"
+      "Network"
     ]
   },
   {
@@ -2233,7 +2156,6 @@
     "word_def": "폭포수 모델의 확장으로 간주될 수 있는 소프트웨어 개발 프로세스로, 보다 일반적인 V-모델의 한 예입니다. 프로세스 단계가 선형적인 방식으로 아래로 내려가는 대신 코딩 단계 이후에는 위쪽으로 구부러져 전형적인 V자 모양을 형성합니다. V-모델은 개발 수명 주기의 각 단계와 관련 테스트 단계 간의 관계를 보여줍니다. 가로축과 세로축은 각각 시간 또는 프로젝트 완성도(왼쪽에서 오른쪽으로)와 추상화 수준(가장 세밀한 추상화가 가장 위쪽)을 나타냅니다.",
     "word_link": "https://en.wikipedia.org/wiki/V-Model_(software_development)",
     "wordCategory": [
-      "VModel",
       "SoftwareDevelopment"
     ]
   },
@@ -2243,7 +2165,6 @@
     "word_def": "프로젝트 활동을 선형적인 순차적 단계로 분류하고, 각 단계는 이전 단계의 결과물에 따라 달라지며 작업의 전문화에 해당합니다.  이 접근 방식은 엔지니어링 설계의 특정 영역에서 일반적입니다. 소프트웨어 개발에서는 개념, 시작, 분석, 설계, 구축, 테스트, 배포 및 유지보수 단계를 통해 주로 한 방향(폭포수처럼 \"아래쪽으로\")으로 진행되기 때문에 덜 반복적이고 유연한 접근 방식에 속하는 경향이 있습니다.",
     "word_link": "https://en.wikipedia.org/wiki/Waterfall_model",
     "wordCategory": [
-      "WaterfallModel",
       "SoftwareDevelopment"
     ]
   },
@@ -2253,8 +2174,7 @@
     "word_def": "장치의 로컬 영역 네트워킹 및 인터넷 액세스에 일반적으로 사용되는 IEEE 802.11 표준 제품군을 기반으로 하는 무선 네트워킹 기술 제품군입니다. Wi-Fi는 상호 운용성 인증 테스트를 성공적으로 완료한 제품에 한해 Wi-Fi 인증이라는 용어의 사용을 제한하는 비영리 Wi-Fi Alliance의 상표입니다.",
     "word_link": "https://en.wikipedia.org/wiki/Wi-Fi",
     "wordCategory": [
-      "WiFi",
-      "Networking"
+      "Network"
     ]
   }
 ]
