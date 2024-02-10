@@ -4,8 +4,8 @@
 
 <mapper namespace="com.ssafy.devoca.word.model.mapper.WordMapper">
 
-    <!-- getWordList, getWordDetail 결과 매핑 -->
-    <resultMap id="wordListResultMap" type="WordDTO">
+    <!-- getWordList, getWordDetail, getWordInCard 결과 매핑 -->
+    <resultMap id="wordResultMap" type="WordDTO">
         <id property="wordId" column="word_id"/>
         <result property="wordNameKr" column="word_name_kr"/>
         <result property="wordNameEn" column="word_name_en"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <!-- getWordList 쿼리 -->
-    <select id="getWordList" parameterType="String" resultMap="wordListResultMap">
+    <select id="getWordList" parameterType="String" resultMap="wordResultMap">
         select w.word_id, w.word_name_kr, w.word_name_en, w.word_summ, c.category_name
         from words w join words_categories wc join categories c
         on w.word_id = wc.wc_word_id
@@ -28,12 +28,20 @@
     </select>
 
     <!-- getWordDetail 쿼리 -->
-    <select id="getWordDetail" parameterType="int" resultMap="wordListResultMap">
+    <select id="getWordDetail" parameterType="int" resultMap="wordResultMap">
         select w.word_id, w.word_name_kr, w.word_name_en, w.word_def, w.word_summ, w.word_link, c.category_name
         from words w join words_categories wc join categories c
         on w.word_id = wc.wc_word_id
         and c.category_id = wc.wc_category_id
         where w.word_id = #{wordId}
         order by word_name_en;
+    </select>
+
+    <!-- getWordInCard 쿼리 -->
+    <select id="getWordInCard" resultMap="wordResultMap">
+        select w.word_id, w.word_name_kr, w.word_name_en, w.word_summ, c.category_name
+        from words w join words_categories wc join categories c
+            on w.word_id = wc.wc_word_id and c.category_id = wc.wc_category_id
+        where w.word_id = #{wordId};
     </select>
 </mapper>
