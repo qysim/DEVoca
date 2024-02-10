@@ -68,6 +68,17 @@ public class WordServiceImpl implements WordService{
     }
 
     /**
+     * 자동완성으로 선택한 단어 정보 불러오기
+     * @param wordId 선택한 단어
+     * @return 단어 데이터
+     * @throws Exception
+     */
+    @Override
+    public WordDTO getWordInCard(int wordId) throws Exception {
+        return wordMapper.getWordInCard(wordId);
+    }
+
+    /**
      * 뉴스 api로부터 뉴스 데이터 받아오기
      *
      * @param searchText 한국어 검색어 + " " + 영어 검색어

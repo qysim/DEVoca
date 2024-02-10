@@ -1,16 +1,20 @@
 package com.ssafy.devoca.quiz.service;
 
 import com.ssafy.devoca.quiz.model.QuizDTO;
+import com.ssafy.devoca.quiz.model.QuizListDTO;
+import com.ssafy.devoca.quiz.model.QuizResultDTO;
 import com.ssafy.devoca.quiz.model.mapper.QuizMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 @RequiredArgsConstructor
 public class QuizServiceImpl implements QuizService{
 
@@ -44,6 +48,27 @@ public class QuizServiceImpl implements QuizService{
         log.info(Arrays.toString(quizList.toArray()));
 
         return quizList;
+    }
+
+    @Override
+    public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
+        quizMapper.saveQuizResult(quizResultDTO);
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+    }
+
+    @Override
+    public int getQuizCnt(int loginUserIdx) throws Exception {
+        return quizMapper.getQuizCnt(loginUserIdx);
+    }
+
+    @Override
+    public List<QuizListDTO> getQuizResultList(int loginUserIdx) throws Exception {
+        return quizMapper.getQuizResultList(loginUserIdx);
+    }
+
+    @Override
+    public List<QuizResultDTO> getQuizResultDetail(int loginUserIdx, int quizId) throws Exception {
+        return quizMapper.getQuizResultDetail(loginUserIdx, quizId);
     }
 
 

@@ -41,6 +41,10 @@ dependencies {
 	// WebSocket, STOMP, Redis 의존성 추가
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	//Spring docs 의존성 추가
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
 }
 
 tasks.named('test') {
