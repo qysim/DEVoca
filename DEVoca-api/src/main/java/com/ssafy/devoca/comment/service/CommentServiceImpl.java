@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -15,5 +16,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> getCommentList(String flag, int cardBoardId) throws Exception {
         return commentMapper.getCommentList(flag, cardBoardId);
+    }
+
+    @Override
+    public void registComment(Map<String, Object> map) throws Exception {
+        commentMapper.registComment(map);
     }
 }
