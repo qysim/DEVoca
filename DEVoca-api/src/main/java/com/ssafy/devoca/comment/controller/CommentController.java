@@ -59,7 +59,7 @@ public class CommentController {
 
         try {
             // 작성자 id 가져오기
-            String userId = "aabbc";
+            String userId = "aabcc";
             int userIdx = userService.loadUserIdx(userId);
 
             map.put("userIdx", userIdx);
@@ -68,6 +68,36 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             log.error("registComment 댓글 등록 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 댓글 삭제
+     *
+     * @param commentId 삭제할 댓글 아이디
+     * @return HttpStatus.OK
+     */
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<String> deleteComment(@PathVariable("commentId") int commentId) {
+        log.info("deleteComment 호출 : {}", commentId);
+
+        try {
+            String userId = "aabcc";
+            int userIdx = userService.loadUserIdx(userId);
+
+            int registerIdx = commentService.getUserIdxByCommentId(commentId);
+
+            // 로그인 한 유저와 댓글 작성자가 동일인이 아니면 BAD_REQUEST
+            if(userIdx != registerIdx) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+
+            commentService.deleteComment(commentId);
+            log.info("commentId 삭제 완료 : {}", commentId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            log.error("deleteComment 댓글 삭제 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

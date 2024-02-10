@@ -12,5 +12,6 @@ public class CommentDTO {
     private String userImg;
 
     private String commentContent;
+    private Boolean commentPicked;
     private Timestamp commentRegistDate;
 }

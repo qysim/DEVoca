@@ -12,4 +12,6 @@ import java.util.Map;
 public interface CommentMapper {
     public List<CommentDTO> getCommentList(@Param("flag") String flag, @Param("cardBoardId") int cardBoardId) throws SQLException;
     public void registComment(Map<String, Object> map) throws SQLException;
+    public int getUserIdxByCommentId(int commentId) throws SQLException;
+    public void deleteComment(int commentId) throws SQLException;
 }
