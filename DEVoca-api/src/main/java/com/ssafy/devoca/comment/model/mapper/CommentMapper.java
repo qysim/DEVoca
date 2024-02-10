@@ -14,4 +14,6 @@ public interface CommentMapper {
     public void registComment(Map<String, Object> map) throws SQLException;
     public int getUserIdxByCommentId(int commentId) throws SQLException;
     public void deleteComment(int commentId) throws SQLException;
+    public int getBoardUserIdx(int boardId) throws SQLException;
+    public void pickComment(int commentId) throws SQLException;
 }
