@@ -10,4 +10,6 @@ public interface CommentService {
     public void registComment(Map<String, Object> map) throws Exception;
     public int getUserIdxByCommentId(int commentId) throws Exception;
     public void deleteComment(int commentId) throws Exception;
+    public int getBoardUserIdx(int boardId) throws Exception;
+    public void pickComment(int commentId) throws Exception;
 }

@@ -67,4 +67,18 @@
         set comment_delete_date = now()
         where comment_id = #{commentId}
     </update>
+
+    <!-- 채택하려는 사용자와 글 작성자가 동일한지 확인을 위한 글 작성자 idx 가져오기 -->
+    <select id="getBoardUserIdx" parameterType="int">
+        select fk_board_user_idx
+        from boards
+        where board_id = #{boardId}
+    </select>
+
+    <!-- pickComment 쿼리 -->
+    <update id="pickComment" parameterType="int">
+        update comments
+        set comment_picked = true
+        where comment_id = #{commentId} and comment_delete_date is null;
+    </update>
 </mapper>

@@ -32,4 +32,14 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(int commentId) throws Exception {
         commentMapper.deleteComment(commentId);
     }
+
+    @Override
+    public int getBoardUserIdx(int boardId) throws Exception {
+        return commentMapper.getBoardUserIdx(boardId);
+    }
+
+    @Override
+    public void pickComment(int commentId) throws Exception {
+        commentMapper.pickComment(commentId);
+    }
 }

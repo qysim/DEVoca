@@ -59,7 +59,7 @@ public class CommentController {
 
         try {
             // 작성자 id 가져오기
-            String userId = "aabcc";
+            String userId = "aabbc";
             int userIdx = userService.loadUserIdx(userId);
 
             map.put("userIdx", userIdx);
@@ -98,6 +98,39 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             log.error("deleteComment 댓글 삭제 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 댓글 채택
+     *
+     * @param boardId 해당 글 아이디
+     * @param commentId 댓글 아이디
+     * @return
+     */
+    @PutMapping("/{boardId}/{commentId}")
+    public ResponseEntity<String> pickComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId) {
+        log.info("pickComment 호출 : {}", commentId);
+
+        try {
+            String userId = "aabcc";
+            int userIdx = userService.loadUserIdx(userId);
+
+            int boardUserIdx = commentService.getBoardUserIdx(boardId);
+            int commentUserIdx = commentService.getUserIdxByCommentId(commentId);
+
+            // 로그인 한 유저와 글 작성자가 동일인이 아니면 BAD_REQUEST
+            // 댓글 작성자와 채택 하려는 유저가 동일인이면 BAD_REQUEST
+            if(userIdx != boardUserIdx || userIdx == commentUserIdx) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+
+            commentService.pickComment(commentId);
+            log.info("commentId 채택 완료 : {}", commentId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            log.error("pickComment 댓글 채택 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
