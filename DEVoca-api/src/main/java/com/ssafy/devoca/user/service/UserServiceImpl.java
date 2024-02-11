@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public int loadUserIdxById(String userId) throws Exception {
+        return userMapper.loadUserIdx(userId);
+    }
+
+    @Override
     @Transactional
     public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);

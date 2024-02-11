@@ -41,8 +41,9 @@ public class DmController {
         log.info("getDmRoomList 호출");
         try {
             // 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+//            String userId = "aabbc";
+//            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = 2;
 
             List<DmRoomDTO> dmRoomList = dmService.getDmRoomList(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(dmRoomList);
@@ -66,8 +67,9 @@ public class DmController {
         log.info("getDmList 호출 : {} {}", roomUuid, scroll);
         try {
             // 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+//            String userId = "aabbc";
+//            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = 2;
 
             // 해당 유저가 채팅방 참여자가 아닐 경우 BAD_REQUEST 반환
             if(!dmService.getParticipantsYN(roomUuid, loginUserIdx)) {
@@ -98,11 +100,13 @@ public class DmController {
 
         try {
             // 로그인 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+//            String userId = "aabbc";
+//            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = 2;
 
             // 채팅 유저 idx 가져오기
-            int chatUserIdx = userService.loadUserIdx(chatUserId);
+//            int chatUserIdx = userService.loadUserIdx(chatUserId);
+            int chatUserIdx = 4;
 
             String roomUuid = dmService.getRoomUuid(loginUserIdx, chatUserIdx);
 

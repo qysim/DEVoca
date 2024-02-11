@@ -11,6 +11,7 @@ import java.util.Map;
 public interface UserService {
 
     int loadUserIdx(String userId) throws Exception;
+    int loadUserIdxById(String userId) throws Exception;
     String joinUser(UserDTO userDTO) throws Exception;
     UserDTO getUserInfo(int userIdx) throws Exception;
     void updateUserInfo(UserDTO userDTO) throws Exception;
