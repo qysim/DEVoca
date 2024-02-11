@@ -20,10 +20,19 @@ async function getRoomUuid(chatUserId, success, fail){
     headers: {
       token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }}).then(success).catch(fail);
+  }
+async function getDmUser(roomUuid, scroll, success, fail) {
+    await local.get(`/dm/` + `${roomUuid}` + `/user`, {
+        headers: {
+          token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+        }}).then(success).catch(fail);
 }
+
+
 
 export {
     getDmRoomList,
     getDmList,
     getRoomUuid,
+    getDmUser,
 };

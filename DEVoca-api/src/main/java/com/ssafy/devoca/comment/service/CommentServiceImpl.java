@@ -42,4 +42,9 @@ public class CommentServiceImpl implements CommentService {
     public void pickComment(int commentId) throws Exception {
         commentMapper.pickComment(commentId);
     }
+
+    @Override
+    public List<CommentDTO> getMycommentList(int userIdx) throws Exception {
+        return commentMapper.getMycommentList(userIdx);
+    }
 }

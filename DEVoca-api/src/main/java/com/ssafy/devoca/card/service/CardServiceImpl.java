@@ -86,4 +86,9 @@ public class CardServiceImpl implements CardService{
         cardMapper.repostCard(cardDTO);
         cardMapper.repostCntUpdate(cardDTO.getOriginCardId());
     }
+
+    @Override
+    public List<CardDTO> getMyCard(int userIdx, int scroll) throws Exception {
+        return cardMapper.getMyCard(userIdx, scroll);
+    }
 }

@@ -4,6 +4,7 @@
       <p class="text-xl ml-5 mr-3 mt-5">DM</p>
     </div>
   </div>
+  <div v-if="roomList.value == null" class="text-center">참여한 채팅방이 없어요.</div>
   <div>
     <div v-for="room in roomList" :key="room" @click="message(room.roomUuid)">
       <div class="card card-side bg-base-100 items-center">
@@ -39,9 +40,8 @@ import router from "@/router";
 const message = (roomUuid) => {
   // room을 사용하여 원하는 작업 수행
   // 예를 들어, 다음 화면으로 이동하고자 할 경우
-  router.push({ name: 'DMMessageView', params: { roomId:roomUuid } });
+  router.push({ name: 'DMMessageView', params: { roomUuid: roomUuid } });
 };
-
 
 const roomList = ref([]);
 
