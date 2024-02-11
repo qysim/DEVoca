@@ -52,20 +52,13 @@ const newsList = ref(null)
 const cardList = ref(null)
 const scrollNo = ref(0)
 
-// TODO: 토큰 제거 필요
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MDc2NDE0NzQsInVzZXJJZCI6IjMzMzIwMDQwMDEifQ.FsJA1AHoAQ6tDzCjV8Sps5aPYn2H3FGzQ21_Qau7-lI'
-
 onBeforeMount(async () => {
   try {
-    await getWordDetail(props.id, {
-      headers: { token: token }
-    }, (res) => {
+    await getWordDetail(props.id, (res) => {
       word.value = res.data.wordDTO
       newsList.value = res.data.newsList
 
-      getCardListByWord(`${word.value.wordId}/${scrollNo.value}`, {
-        headers: { token: token }
-      }, (res) => {
+      getCardListByWord(`${word.value.wordId}/${scrollNo.value}`, (res) => {
         cardList.value = res.data
       }, (err) => {
         console.log(err)
