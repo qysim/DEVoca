@@ -182,7 +182,7 @@ CREATE TABLE `dms` (
     `fk_dm_user_idx`	int	NOT NULL,
     `dm_content`	varchar(300)	NOT NULL,
     `dm_send_date`	datetime	NOT NULL	DEFAULT now(),
-    `dm_battle_YN`	boolean	NOT NULL	DEFAULT false	COMMENT 'true : 도전 메시지',
+    `dm_battle_quiz_id`	int	NOT NULL	DEFAULT 0,
     CONSTRAINT `PK_DM_MESSAGES` PRIMARY KEY (`dm_id`)
 )default character set utf8mb4;
 

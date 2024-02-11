@@ -4,6 +4,7 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
+import com.ssafy.devoca.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,24 +23,34 @@ public class UserController {
 
     private final UserService userService;
 
+    /*
+     * 회원 가입 api
+     * @author Ryu jiyun
+     * @Github https://github.com/Ryujy
+     * */
     @PostMapping("")
     public ResponseEntity<String> joinUser(@RequestBody UserDTO userDTO) {
         log.info("user 회원가입 호출");
         try{
-            userService.joinUser(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            String accessToken = userService.joinUser(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(accessToken);
         } catch (Exception e) {
             log.error("회원가입 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // token 구현 전이므로 http 요청 헤더에 token 대신 userIdx 가 담겨 있다고 가정. token 유효성 검사도 추후 구현 예정.
+    /*
+     * 회원 정보 조회 api
+     * @author Ryu jiyun
+     * @Github https://github.com/Ryujy
+     * */
     @GetMapping("")
-    public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("userId") String userId){
-        log.info("user 정보 조회 호출");
+    public ResponseEntity<UserDTO> getUserInfo(@RequestHeader("access-token") String token){
+        log.info("회원 정보 조회 호출 : {}", token);
         try{
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
+            log.info("userIdx : {}", userIdx);
             UserDTO userInfo = userService.getUserInfo(userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(userInfo);
         } catch (Exception e) {
@@ -71,7 +82,8 @@ public class UserController {
                                                  @RequestBody List<Integer> favList){
         log.info("user 관심 분야 설정 호출");
         try{
-            int userIdx = userService.loadUserIdx(userId);
+//            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = 9;
             Map<String, Object> params = new HashMap<>();
             params.put("userIdx", userIdx);
             params.put("favList", favList);
