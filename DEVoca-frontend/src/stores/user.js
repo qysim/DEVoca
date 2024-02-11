@@ -3,10 +3,8 @@ import { defineStore } from "pinia"
 
 export const useUserStore = defineStore("user", () => {
   const isLogin = ref(false)
+  const kakaoUserInfo = ref(null)
   const userInfo = ref({
-    id: null,
-    token: null,
-    userYn: null,
     userId: null,
     userName: null,
     userEmail: null,
@@ -16,6 +14,7 @@ export const useUserStore = defineStore("user", () => {
 
   return {
     isLogin,
-    userInfo,
+    kakaoUserInfo,
+    userInfo
   }
 },{persist:true})
