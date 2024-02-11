@@ -1,7 +1,7 @@
 import axios from "axios"
 import { httpStatusCode } from "./http-status"
 
-const urlApi = 'http://localhost:5173/devoca'
+const urlApi = 'https://i10d112.p.ssafy.io/devoca'
 // console.log(`urlApi : ${urlApi}`)
 
 // local vue api axios instance
@@ -18,7 +18,6 @@ function localAxios() {
   instance.defaults.headers.common['token'] = ''
   instance.defaults.headers.post["Content-Type"] = "application/json"
   instance.defaults.headers.put["Content-Type"] = "application/json"
-  instance.defaults.headers.common["Access-Control-Allow-Origin"] = '*'
 
   // Request, Response 시 설정한 내용을 적용.
   instance.interceptors.request.use((config) => {

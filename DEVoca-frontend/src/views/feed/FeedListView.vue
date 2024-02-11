@@ -3,7 +3,7 @@
     <div v-for="card in cardList">
       <CardComponent :card="card" />
     </div>
-    <WriteButtonComponent @click="bottom_modal.showModal()"/>
+    <WriteButtonComponent onclick="bottom_modal.showModal()"/>
     <BottomModalComponent />
   </div>
 </template>
@@ -21,7 +21,7 @@ const scrollNum = ref(0)
 onMounted(() => {
   getCardList(scrollNum.value, (res) => {
     cardList.value = res.data
-    console.log(res)
+    console.log(res.data)
   }, (err) => {
     console.log(err)
   })
