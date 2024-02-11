@@ -15,7 +15,7 @@ function localAxios() {
   });
   
   // Request 발생 시 적용할 내용.
-  instance.defaults.headers.common["Authorization"] = "";
+  instance.defaults.headers.common["token"] = "";
   instance.defaults.headers.post["Content-Type"] = "application/json";
   instance.defaults.headers.put["Content-Type"] = "application/json";
 
