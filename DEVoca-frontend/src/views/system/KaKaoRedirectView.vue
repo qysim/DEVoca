@@ -22,15 +22,13 @@ onMounted (() => {
   // console.log('Code parameter:', codeParam)
 
   getKaKaoToken(codeParam, (res) => {
-    console.log(res.data)
     userStore.kakaoUserInfo = res.data
-    userStore.userInfo['userId'] = res.data.id
-    console.log(res.data.id)
-    console.log(userStore.userInfo['userId'])
-    
+    userStore.isLogin = true
+
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
     } else if (res.data.userYn === false) {
+      userStore.userInfo['userId'] = res.data.id
       router.push({name : 'SignupView'})
     }
   }, (err) => {
