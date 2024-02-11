@@ -2,6 +2,7 @@ package com.ssafy.devoca.dm.controller;
 
 import com.ssafy.devoca.dm.model.DmDTO;
 import com.ssafy.devoca.dm.model.DmRoomDTO;
+import com.ssafy.devoca.dm.model.DmUserDTO;
 import com.ssafy.devoca.dm.service.DmService;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,27 @@ public class DmController {
             return ResponseEntity.status(HttpStatus.OK).body(dmRoomList);
         } catch (Exception e) {
             log.error("getDmRoomList 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * dm 상세 페이지에서 조회되는 채팅 상대 유저 정보
+     *
+     * @param token 로그인 유저 토큰
+     * @param roomUuid 방 랜덤 아이디
+     * @return 채팅 상대 유저 정보
+     */
+    @GetMapping("/{roomUuid}/user")
+    public ResponseEntity<DmUserDTO> getDmUser (@RequestHeader("token") String token, @PathVariable("roomUuid") String roomUuid) {
+        log.info("getDmUser 호출 : {} {}", token, roomUuid);
+
+        try {
+            int userIdx = userService.loadUserIdx(token);
+            DmUserDTO dmUserDTO = dmService.getChatUser(roomUuid, userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(dmUserDTO);
+        } catch (Exception e) {
+            log.error("getDmUser 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
