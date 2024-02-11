@@ -196,4 +196,18 @@
         values(#{fromUserIdx}, #{toUserIdx}, #{vocaListId}, #{wordCnt}, #{quizId});
     </insert>
 
+    <!--  대결 완료시 정보 업데이트  -->
+    <update id="saveBattleResult" parameterType="map">
+        update battles
+        set battle_to_date = case when fk_battle_to_user_idx = #{userIdx}
+                                      then now() else battle_to_date end,
+            battle_to_score = case when fk_battle_to_user_idx = #{userIdx}
+                                       then #{score} else battle_to_score end,
+            battle_from_date = case when fk_battle_from_user_idx = #{userIdx}
+                                        then now() else battle_from_date end,
+            battle_from_score = case when fk_battle_from_user_idx = #{userIdx}
+                                         then #{score} else battle_from_score end
+        where fk_battle_quiz_id = #{quizId};
+    </update>
+
 </mapper>
