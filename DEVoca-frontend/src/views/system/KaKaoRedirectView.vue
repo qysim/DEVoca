@@ -7,13 +7,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getKaKaoToken } from '@/api/user.js'
-import { useMemberStore } from '@/stores/member'
+import { getKaKaoToken } from '@/api/user'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
-const memberStore = useMemberStore()
+const userStore = useUserStore()
 
 onMounted (() => {
   const queryString = window.location.search
@@ -22,8 +22,7 @@ onMounted (() => {
   // console.log('Code parameter:', codeParam)
 
   getKaKaoToken(codeParam, (res) => {
-    memberStore.userInfo = { ...memberStore.userInfo.value, ...response.data }
-    console.log(memberStore.userInfo)
+    userStore.userInfo = { ...userStore.userInfo, ...res.data }
 
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
@@ -36,7 +35,3 @@ onMounted (() => {
 })
 
 </script>
-
-<style scoped>
-
-</style>
