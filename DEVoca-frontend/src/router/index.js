@@ -145,14 +145,6 @@ const router = createRouter({
           path: '/word/list',
           name: 'WordListView',
           component: WordListView,
-          redirect: '/word/list/A',
-          children: [
-            {
-              path: ':alphabet',
-              name: 'AlphabetWordListView',
-              component: WordListView,
-            }
-          ]
         },
         {
           path: '/word/detail/:id',
