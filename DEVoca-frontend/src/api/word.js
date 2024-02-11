@@ -7,12 +7,19 @@ export function getWordList(param, success, fail) {
 }
 
 export async function getWordDetail(param, success, fail) {
-  await local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
+  await local.get(`/dictionary/detail/${param}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }
 
 export function getCardListByWord(param, success, fail) {
-  // param = {wordId}/{scroll}
-  local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
+  local.get(`/dictionary/detail/${param}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }
 
 // author: cheesecat47 <cheesecat47@gmail.com>

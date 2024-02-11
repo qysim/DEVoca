@@ -17,4 +17,5 @@ public interface DmService {
     public String getRoomUuidByRoomIdx(int roomIdx) throws Exception;
     public void saveMessages(List<DmDTO> dmDTOList) throws Exception;
     public void updateLastDate(LastDateDTO lastDateDTO) throws Exception;
+    public int getChatUserIdx(String roomUuid, int userIdx) throws Exception;
 }

@@ -1,6 +1,8 @@
 package com.ssafy.devoca.dm.service;
 
 import com.ssafy.devoca.dm.model.DmDTO;
+import com.ssafy.devoca.notify.service.NotifyService;
+import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +20,9 @@ import java.util.List;
 @Slf4j
 public class RedisService {
     private final RedisTemplate<String, Object> redisTemplate;
+    private final UserService userService;
+    private final DmService dmService;
+    private final NotifyService notifyService;
 
     public void redisEnterUser(String roomUuid, String userId) {
         log.info("enter 호출 : {} {}", roomUuid, userId);
@@ -42,8 +47,8 @@ public class RedisService {
         return redisTemplate.opsForList().range(key, 0, -1);
     }
 
-    public void deletRedisMessage(String roomUuid, String userId) {
-        log.info("deletRedisMessage 호출 : {} {}", roomUuid, userId);
+    public void deleteRedisMessage(String roomUuid, String userId) {
+        log.info("deleteRedisMessage 호출 : {} {}", roomUuid, userId);
         String key = roomUuid + userId;
         redisTemplate.delete(key);
         log.info("redisMessage 삭제 완료 : {} {}", roomUuid, userId);
@@ -57,7 +62,15 @@ public class RedisService {
         Long userCnt = redisTemplate.opsForList().size(roomUuid);
         if(userCnt == 0) {
             // push 알림 보내기
-            log.info("push 알림 보내장");
+            try {
+                int userIdx = userService.loadUserIdxById(userId);
+                int pushUserIdx = dmService.getChatUserIdx(roomUuid, userIdx);
+                int roomIdx = dmService.getRoomIdxByRoomUuid(roomUuid);
+                notifyService.send(pushUserIdx, 4, roomIdx);
+                log.info("push 알림 보내기 성공 : {}", pushUserIdx);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -67,15 +67,17 @@ public class DmRedisController {
         log.info("dms : {}", dms.toString());
 
         try {
-            dmService.saveMessages(dms);
-            log.info("DB에 메시지 저장 완료 {}", dms);
+            if(dms != null) {
+                dmService.saveMessages(dms);
+                log.info("DB에 메시지 저장 완료 {}", dms);
+            }
         } catch (Exception e) {
             log.error("DB 메시지 저장 실패 : {}", e);
             throw new RuntimeException(e);
         }
         
         // redis 저장소 삭제
-        redisService.deletRedisMessage(roomUuid, lastDateDTO.getUserId());
+        redisService.deleteRedisMessage(roomUuid, lastDateDTO.getUserId());
         redisService.redisUserExit(roomUuid, lastDateDTO.getUserId());
 
         // 마지막 조회 시간 업데이트

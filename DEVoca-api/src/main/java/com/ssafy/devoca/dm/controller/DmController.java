@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -37,12 +34,11 @@ public class DmController {
      *         (상대 유저 이미지, 상대 유저 닉네임, 마지막 메시지, 메시지 작성 시간, 안읽은 메시지 수)
      */
     @GetMapping("")
-    public ResponseEntity<List<DmRoomDTO>> getDmRoomList() {
+    public ResponseEntity<List<DmRoomDTO>> getDmRoomList(@RequestHeader("token") String token){
         log.info("getDmRoomList 호출");
         try {
             // 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = userService.loadUserIdx(token);
 
             List<DmRoomDTO> dmRoomList = dmService.getDmRoomList(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(dmRoomList);
@@ -61,13 +57,12 @@ public class DmController {
      * @return DmDTO의 리스트
      */
     @GetMapping("/{roomUuid}/{scroll}")
-    public ResponseEntity<List<DmDTO>> getDmList(@PathVariable("roomUuid") String roomUuid, @PathVariable("scroll") int scroll) {
+    public ResponseEntity<List<DmDTO>> getDmList(@RequestHeader("token") String token, @PathVariable("roomUuid") String roomUuid, @PathVariable("scroll") int scroll) {
 
         log.info("getDmList 호출 : {} {}", roomUuid, scroll);
         try {
             // 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = userService.loadUserIdx(token);
 
             // 해당 유저가 채팅방 참여자가 아닐 경우 BAD_REQUEST 반환
             if(!dmService.getParticipantsYN(roomUuid, loginUserIdx)) {
@@ -93,16 +88,15 @@ public class DmController {
      * @return
      */
     @GetMapping("/{chatUserId}")
-    public ResponseEntity<String> getRoomUuid(@PathVariable("chatUserId") String chatUserId) {
+    public ResponseEntity<String> getRoomUuid(@RequestHeader("token") String token, @PathVariable("chatUserId") String chatUserId) {
         log.info("getRoomUuid 호출 : {}", chatUserId);
 
         try {
             // 로그인 유저 idx 가져오기
-            String userId = "aabbc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = userService.loadUserIdx(token);
 
             // 채팅 유저 idx 가져오기
-            int chatUserIdx = userService.loadUserIdx(chatUserId);
+            int chatUserIdx = userService.loadUserIdxById(chatUserId);
 
             String roomUuid = dmService.getRoomUuid(loginUserIdx, chatUserIdx);
 
