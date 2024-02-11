@@ -11,5 +11,7 @@ public class BoardDTO {
     private Integer boardType;
     private Timestamp boardRegistDate;
     private Timestamp boardUpdateDate;
-    private String boardAuthor;
+    private String userNickname;
+    private String userId;
+    private Integer userIdx;
 }
