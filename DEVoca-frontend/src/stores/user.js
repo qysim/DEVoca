@@ -8,7 +8,6 @@ export const useUserStore = defineStore("user", () => {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE3MDc2NDE0NzQsInVzZXJJZCI6IjMzMzIwMDQwMDEifQ.FsJA1AHoAQ6tDzCjV8Sps5aPYn2H3FGzQ21_Qau7-lI',
     userYn: true
   })
-  // const kakaoUserInfo = ref(null)
   const userInfo = ref({
     userId: null,
     userName: null,
