@@ -59,7 +59,7 @@
     <!-- 다른 회원 정보 조회 -->
     <select id="getOtherUserInfo" parameterType="map" resultMap="getUserDTO">
         select user_id, user_name, user_nickname, user_img
-             , user_birth, user_email, user_intro, user_exp
+             , user_intro, user_exp
              , (select count(follow_from) from follows where follow_from = #{otherIdx}) as userFollowingCnt
              , (select count(follow_to) from follows where follow_to = #{otherIdx}) as userFollowerCnt
              , (select count(ub_badge_id) from user_badges where ub_user_idx = #{otherIdx}) as userBgCnt
