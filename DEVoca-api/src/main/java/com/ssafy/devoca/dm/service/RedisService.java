@@ -47,8 +47,8 @@ public class RedisService {
         return redisTemplate.opsForList().range(key, 0, -1);
     }
 
-    public void deletRedisMessage(String roomUuid, String userId) {
-        log.info("deletRedisMessage 호출 : {} {}", roomUuid, userId);
+    public void deleteRedisMessage(String roomUuid, String userId) {
+        log.info("deleteRedisMessage 호출 : {} {}", roomUuid, userId);
         String key = roomUuid + userId;
         redisTemplate.delete(key);
         log.info("redisMessage 삭제 완료 : {} {}", roomUuid, userId);
@@ -63,8 +63,7 @@ public class RedisService {
         if(userCnt == 0) {
             // push 알림 보내기
             try {
-//                int userIdx = userService.loadUserIdx(userId);
-                int userIdx = 2;
+                int userIdx = userService.loadUserIdxById(userId);
                 int pushUserIdx = dmService.getChatUserIdx(roomUuid, userIdx);
                 int roomIdx = dmService.getRoomIdxByRoomUuid(roomUuid);
                 notifyService.send(pushUserIdx, 4, roomIdx);
