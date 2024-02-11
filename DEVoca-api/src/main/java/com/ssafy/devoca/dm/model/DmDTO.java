@@ -13,5 +13,5 @@ public class DmDTO implements Serializable {
     private String sendUserId;
     private String dmContent;
     private Timestamp dmSendDate;
-    private Boolean dmBattleYN;
+    private int dmBattleQuizId;
 }
