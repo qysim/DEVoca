@@ -13,7 +13,3 @@ import BottomNavbarComponent from '@/components/navbar/BottomNavbarComponent.vue
 import NotificationComponent from "@/components/common/NotificationComponent.vue";
 
 </script>
-
-<style scoped>
-
-</style>

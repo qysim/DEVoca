@@ -18,7 +18,6 @@ public class UserDTO {
     private Timestamp userJoinDate;
     private Timestamp userUpdateDate;
     private Timestamp userRevokeDate;
-    private String userRefreshToken;
 
     // only response
     private Integer userFollowingCnt;

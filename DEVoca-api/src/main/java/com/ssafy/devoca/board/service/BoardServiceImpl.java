@@ -36,5 +36,10 @@ public class BoardServiceImpl implements BoardService{
         return boardMapper.getBoardDetail(boardId);
     }
 
+    @Override
+    public List<BoardDTO> getMyboard(Integer userIdx) throws Exception {
+        return boardMapper.getMyboard(userIdx);
+    }
+
 
 }
