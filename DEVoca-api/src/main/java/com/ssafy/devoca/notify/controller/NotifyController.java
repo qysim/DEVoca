@@ -22,12 +22,11 @@ public class NotifyController {
     private final UserService userService;
 
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter connect(@RequestParam("Last-Event-ID") String lastEventId){
+    public SseEmitter connect(@RequestHeader("token") String token
+                                ,@RequestParam("Last-Event-ID") String lastEventId){
         log.info("connect 호출 : SseEmitter connect 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             return notifyService.connect(loginUserIdx, lastEventId);
         }catch (Exception e){
             log.error("connect 실패", e);
@@ -36,12 +35,11 @@ public class NotifyController {
     }
 
     @GetMapping("/{scroll}")
-    public ResponseEntity<List<NotifyDTO>> getNotification(@PathVariable("scroll") int scroll){
+    public ResponseEntity<List<NotifyDTO>> getNotification(@RequestHeader("token") String token
+                                                            ,@PathVariable("scroll") int scroll){
         log.info("getNotification 호출 : 알림창 조회");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<NotifyDTO> notifyDTOList = notifyService.getNotification(scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(notifyDTOList);
         }catch (Exception e){

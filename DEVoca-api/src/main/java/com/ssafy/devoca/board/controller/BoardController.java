@@ -41,8 +41,7 @@ public class BoardController {
                                                 ,@PathVariable("boardId") Integer boardId){
         log.info("게시판 글 삭제 api 호출 : {}", boardId);
         try{
-//            int userIdx = userService.loadUserIdx(token);
-            int userIdx = 9;
+            int userIdx = userService.loadUserIdx(token);
             boardService.deleteBoard(boardId, userIdx);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){

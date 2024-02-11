@@ -54,13 +54,12 @@ public class CommentController {
      * @return HttpStatus.CREATED
      */
     @PostMapping("")
-    public ResponseEntity<String> registComment(@RequestBody Map<String, Object> map) {
+    public ResponseEntity<String> registComment(@RequestHeader("token") String token
+                                                ,@RequestBody Map<String, Object> map) {
         log.info("registComment 호출 : {}", map);
 
         try {
-            // 작성자 id 가져오기
-            String userId = "aabbc";
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
 
             map.put("userIdx", userIdx);
 
@@ -79,12 +78,12 @@ public class CommentController {
      * @return HttpStatus.OK
      */
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable("commentId") int commentId) {
+    public ResponseEntity<String> deleteComment(@RequestHeader("token") String token
+                                                ,@PathVariable("commentId") int commentId) {
         log.info("deleteComment 호출 : {}", commentId);
 
         try {
-            String userId = "aabcc";
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
 
             int registerIdx = commentService.getUserIdxByCommentId(commentId);
 
@@ -110,12 +109,12 @@ public class CommentController {
      * @return
      */
     @PutMapping("/{boardId}/{commentId}")
-    public ResponseEntity<String> pickComment(@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId) {
+    public ResponseEntity<String> pickComment(@RequestHeader("token") String token
+                                                ,@PathVariable("boardId") int boardId, @PathVariable("commentId") int commentId) {
         log.info("pickComment 호출 : {}", commentId);
 
         try {
-            String userId = "aabcc";
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
 
             int boardUserIdx = commentService.getBoardUserIdx(boardId);
             int commentUserIdx = commentService.getUserIdxByCommentId(commentId);
