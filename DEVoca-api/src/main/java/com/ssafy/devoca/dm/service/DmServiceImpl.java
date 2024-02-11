@@ -2,6 +2,7 @@ package com.ssafy.devoca.dm.service;
 
 import com.ssafy.devoca.dm.model.DmDTO;
 import com.ssafy.devoca.dm.model.DmRoomDTO;
+import com.ssafy.devoca.dm.model.DmUserDTO;
 import com.ssafy.devoca.dm.model.LastDateDTO;
 import com.ssafy.devoca.dm.model.mapper.DmMapper;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +77,10 @@ public class DmServiceImpl implements DmService {
     @Override
     public int getChatUserIdx(String roomUuid, int userIdx) throws Exception {
         return dmMapper.getChatUserIdx(roomUuid, userIdx);
+    }
+
+    @Override
+    public DmUserDTO getChatUser(String roomUuid, int userIdx) throws Exception {
+        return dmMapper.getChatUser(roomUuid, userIdx);
     }
 }

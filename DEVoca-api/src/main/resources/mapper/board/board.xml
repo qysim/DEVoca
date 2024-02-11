@@ -5,17 +5,18 @@
 <mapper namespace="com.ssafy.devoca.board.model.mapper.BoardMapper">
     <!-- BoardDTO 매핑 -->
     <resultMap id="getBoardDTO" type="BoardDTO">
-        <result property="boardAuthor" column="user_nickname"/>
+        <result property="userNickname" column="user_nickname"/>
+        <result property="userId" column="user_id"/>
+        <result property="boardId" column="board_id"/>
         <result property="boardTitle" column="board_title"/>
         <result property="boardContent" column="board_content"/>
         <result property="boardType" column="board_type"/>
-        <result property="boardRegistDate" column="board_regist_date"/>
-        <result property="boardUpdateDate" column="board_update_date"/>
+        <result property="boardDate" column="board_date"/>
     </resultMap>
 
     <select id="getBoardList" parameterType="Integer" resultMap="getBoardDTO">
-        select u.user_nickname, b.board_title, b.board_content
-             ,b.board_type, b.board_regist_date, b.board_update_date
+        select u.user_id, u.user_nickname, b.board_title, b.board_content,b.board_type
+                ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
         from boards b
                  join users u on b.fk_board_user_idx = u.user_idx
         where board_type = #{boardType} and board_delete_date is null
@@ -32,4 +33,23 @@
         values ( #{userIdx}, #{boardTitle}, #{boardContent}, #{boardType});
     </insert>
 
+    <!-- 게시판 상세 조회 -->
+    <select id="getBoardDetail" parameterType="Integer" resultMap="getBoardDTO">
+        select u.user_id, u.user_nickname
+             ,board_id, board_title, board_content, board_type
+             ,if (board_update_date is not null, "Y", "N") as updateYN
+             ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
+        from boards b
+                 join users u on b.fk_board_user_idx = u.user_idx
+        where board_id = #{boardId}
+    </select>
+
+    <!-- 마이페이지의 내 글 조회 -->
+    <select id="getMyboard" parameterType="Integer" resultMap="getBoardDTO">
+        select u.user_id, u.user_nickname, b.board_title, b.board_content,b.board_type
+             ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
+        from boards b
+                 join users u on b.fk_board_user_idx = u.user_idx
+        where u.user_idx = #{userIdx} and board_delete_date is null
+    </select>
 </mapper>

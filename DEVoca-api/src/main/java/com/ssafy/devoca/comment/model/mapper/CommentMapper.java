@@ -16,4 +16,5 @@ public interface CommentMapper {
     public void deleteComment(int commentId) throws SQLException;
     public int getBoardUserIdx(int boardId) throws SQLException;
     public void pickComment(int commentId) throws SQLException;
+    public List<CommentDTO> getMycommentList(int userIdx);
 }

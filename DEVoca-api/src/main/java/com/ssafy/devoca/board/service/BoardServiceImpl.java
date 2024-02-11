@@ -23,8 +23,23 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public void deleteBoard(Integer boardId, Integer userIdx) throws Exception {
-        log.info("service impl");
         boardMapper.deleteBoard(boardId, userIdx);
-        log.info("delete");
     }
+
+    @Override
+    public void createBoard(BoardDTO boardDTO) throws Exception {
+        boardMapper.createBoard(boardDTO);
+    }
+
+    @Override
+    public BoardDTO getBoardDetail(Integer boardId) throws Exception {
+        return boardMapper.getBoardDetail(boardId);
+    }
+
+    @Override
+    public List<BoardDTO> getMyboard(Integer userIdx) throws Exception {
+        return boardMapper.getMyboard(userIdx);
+    }
+
+
 }

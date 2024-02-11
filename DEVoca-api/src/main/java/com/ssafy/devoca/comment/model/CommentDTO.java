@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 @Data
 public class CommentDTO {
+    private int boardId;
     private int commentId;
 
     private String userId;

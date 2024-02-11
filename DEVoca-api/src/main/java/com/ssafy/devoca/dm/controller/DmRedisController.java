@@ -77,7 +77,7 @@ public class DmRedisController {
         }
         
         // redis 저장소 삭제
-        redisService.deletRedisMessage(roomUuid, lastDateDTO.getUserId());
+        redisService.deleteRedisMessage(roomUuid, lastDateDTO.getUserId());
         redisService.redisUserExit(roomUuid, lastDateDTO.getUserId());
 
         // 마지막 조회 시간 업데이트
