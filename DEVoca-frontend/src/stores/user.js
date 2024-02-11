@@ -3,11 +3,7 @@ import { defineStore } from "pinia"
 
 export const useUserStore = defineStore("user", () => {
   const isLogin = ref(false)
-  const kakaoUserInfo = ref({
-    id: null,
-    token: null,
-    userYn: null
-  })
+  const kakaoUserInfo = ref(null)
   const userInfo = ref({
     userId: null,
     userName: null,
