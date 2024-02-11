@@ -9,7 +9,7 @@
     </div>
     <div>
       <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
+        <RouterLink :to="{ name: 'FeedListView' }">
           <div class="flex justify-between">
             <div>
               <p>나의 피드</p>
@@ -29,7 +29,7 @@
         </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
+        <RouterLink :to="{ name: 'VocalistListView' }">
           <div class="flex justify-between">
             <div>
               <p>단어장</p>

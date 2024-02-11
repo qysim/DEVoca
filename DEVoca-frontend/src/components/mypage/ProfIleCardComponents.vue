@@ -8,7 +8,7 @@
     <div class="card-body">
       <div class="flex flex-row justify-between">
         <h2 class="card-title mt-6">{{ userInfo.userNickname }}</h2>
-        <div class="flex justify-start">
+        <div class="flex justify-start gap-2">
           <router-link :to="{ name: 'ProfileChangeView', params: { id: userId } }">
             <PenIcon />
           </router-link>
@@ -19,8 +19,8 @@
       </div>
       <p class="text-sm">{{ userInfo.userIntro }}
       <div class="flex-row">
-        <a href="" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</a>
-        <a href="" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</a>
+        <router-link :to="{ name: 'FollowView' }" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</router-link>
+        <router-link :to="{ name: 'FollowerView' }" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</router-link>
       </div>
       </p>
     </div>
