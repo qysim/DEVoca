@@ -7,6 +7,6 @@ const local = localAxios()
 // }
 
 export function getCardList(param, success, fail) {
-  local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken")
+  // local.defaults.headers["Authorization"] = sessionStorage.getItem("accessToken")
   local.get(`/card/list/${param}`).then(success).catch(fail)
 }
