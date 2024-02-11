@@ -82,7 +82,8 @@ public class UserController {
                                                  @RequestBody List<Integer> favList){
         log.info("user 관심 분야 설정 호출");
         try{
-            int userIdx = userService.loadUserIdx(userId);
+//            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = 9;
             Map<String, Object> params = new HashMap<>();
             params.put("userIdx", userIdx);
             params.put("favList", favList);

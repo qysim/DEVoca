@@ -40,8 +40,8 @@ public class JwtUtil {
 
     private String create(String userId, String subject, long expireTime){
         Claims claims = Jwts.claims()
-                .setSubject(subject).setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime));
+                .setSubject(subject).setIssuedAt(new Date());
+//                .setExpiration(new Date(System.currentTimeMillis() + expireTime)); // 만료기간 제외
         claims.put("userId", userId);
 
         String jwt = Jwts.builder()

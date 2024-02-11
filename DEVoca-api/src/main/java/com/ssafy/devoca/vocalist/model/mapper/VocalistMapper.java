@@ -2,6 +2,7 @@ package com.ssafy.devoca.vocalist.model.mapper;
 
 import com.ssafy.devoca.vocalist.model.VldetailDTO;
 import com.ssafy.devoca.vocalist.model.VocalistDTO;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,5 +18,6 @@ public interface VocalistMapper {
     void storeVocalist(VocalistDTO vocalistDTO) throws SQLException;
     void deleteVocalist(Map<String, Integer> params) throws SQLException;
     List<VldetailDTO> getVocalistDetail(@Param("vocaListId") Integer vocaListId, @Param("userIdx") Integer userIdx) throws SQLException;
-
+    List<VocalistDTO> checkVocalist(@Param("cardId") Integer cardId, @Param("userIdx") Integer userIdx) throws SQLException;
+    void cancelVocalist(@Param("vlId") Integer vlId, @Param("cardId") Integer cardId) throws SQLException;
 }

@@ -65,11 +65,10 @@
         values (#{vocalistId}, #{cardId}, #{vlWordCard})
     </insert>
 
-    <update id="deleteVocalist" parameterType="java.util.Map">
-        update voca_lists
-        set vl_delete_date = now()
-        where vl_id = #{vlId} and fk_vl_user_idx = #{userIdx}
-    </update>
+    <delete id="deleteVocalist" parameterType="java.util.Map">
+        delete from voca_lists
+               where vl_id = #{vlId} and fk_vl_user_idx = #{userIdx};
+    </delete>
     
     <!-- 단어장 상세 목록 -->
     <select id="getVocalistDetail" parameterType="map" resultMap="getVocalistDetail">
@@ -85,11 +84,25 @@
             left join (<include refid="loadOriginCardInfo"></include>) rp
                         on c.card_origin_card_id = rp.card_id
             left join likes l on c.card_id = l.like_to
-            join (select vl.vl_id, vl.vl_name, vlc.vlc_wc_id
+            join (select vl.vl_id, vl.vl_name, vlc.vlc_wc_id, vlc.vlc_store_date
                     from voca_lists vl join voca_list_cards vlc on vl.vl_id = vlc.vlc_sl_id
-                    where vl.vl_id = #{vocaListId} and vl.fk_vl_user_idx = #{userIdx}
-                    and vlc.svc_delete_date is null) vl on vl.vlc_wc_id = c.card_id
+                    where vl.vl_id = #{vocaListId} and vl.fk_vl_user_idx = #{userIdx}) vl on vl.vlc_wc_id = c.card_id
             join words w on c.card_word_id = w.word_id
-            join users u on u.user_idx = c.fk_card_user_idx and c.card_delete_date is null
+            join users u on u.user_idx = c.fk_card_user_idx
+            order by vl.vlc_store_date
     </select>
+
+    <!-- 특정 카드에 대한 목록 조회 -->
+    <select id="checkVocalist" parameterType="map" resultMap="getVocalistDTO">
+        select vl.vl_id, vl.vl_name
+             ,if (vlc.vlc_id is null, "N", "Y") as includeYN
+        from voca_lists vl
+            left join (select * from voca_list_cards where vlc_wc_id = #{cardId}) vlc on vl.vl_id = vlc.vlc_sl_id
+        where vl.fk_vl_user_idx = #{userIdx}
+        order by vl.vl_create_date
+    </select>
+    
+    <delete id="cancelVocalist" parameterType="map">
+        delete from voca_list_cards where vlc_sl_id = #{vlId} and vlc_wc_id = #{cardId}
+    </delete>
 </mapper>
