@@ -1,9 +1,7 @@
 package com.ssafy.devoca.quiz.controller;
 
 import com.ssafy.devoca.notify.service.NotifyService;
-import com.ssafy.devoca.quiz.model.QuizDTO;
-import com.ssafy.devoca.quiz.model.QuizListDTO;
-import com.ssafy.devoca.quiz.model.QuizResultDTO;
+import com.ssafy.devoca.quiz.model.*;
 import com.ssafy.devoca.quiz.service.QuizService;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -115,6 +113,57 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.OK).body(quizDetailList);
         }catch (Exception e){
             log.error("퀴즈 상세 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/battle/vocalist")
+    public ResponseEntity<List<QuizVocaDTO>> getBattleVocaList(@RequestParam("oppoUserId") String oppoUserId){
+        log.info("getBattleVocaList 호출 : 사용자와 상대방의 단어장 목록 조회 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int oppoUserIdx = userService.loadUserIdx(oppoUserId);
+            List<QuizVocaDTO> battleVocaList = quizService.getBattleVocaList(loginUserIdx, oppoUserIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(battleVocaList);
+        }catch (Exception e){
+            log.error("사용자와 상대방의 단어장 목록 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/battle")
+    public ResponseEntity<String> createBattle(@RequestBody BattleRequestDTO battleRequestDTO){
+        log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            battleRequestDTO.setFromUserId(loginUserId);
+
+            int fromUserIdx = userService.loadUserIdx(battleRequestDTO.getFromUserId());
+            int toUserIdx = userService.loadUserIdx(battleRequestDTO.getToUserId());
+            battleRequestDTO.setFromUserIdx(fromUserIdx);
+            battleRequestDTO.setToUserIdx(toUserIdx);
+            int quizId = quizService.createBattle(battleRequestDTO);
+
+            //기능 미구현 :: quizId 포함 dm 전송 -> dm db boolean 값 quizId int로 변경 필요
+
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }catch (Exception e){
+            log.error("퀴즈 생성 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/battle/{quizId}")
+    public ResponseEntity<List<QuizDTO>> getBattleQuiz(@PathVariable("quizId") int quizId){
+        log.info("getBattleQuiz 호출 : 대결 퀴즈 조회 요청");
+        try{
+            List<QuizDTO> quizList = quizService.getBattleQuiz(quizId);
+            return ResponseEntity.status(HttpStatus.OK).body(quizList);
+        }catch (Exception e){
+            log.error("대결 퀴즈 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
