@@ -168,4 +168,20 @@ public class QuizController {
         }
     }
 
+    @PostMapping("/battle/save")
+    public ResponseEntity<String> saveBattleResult(@RequestBody QuizResultDTO quizResultDTO){
+        log.info("saveBattleResult 호출 : 대결 퀴즈 결과 저장 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+            String loginUserId = "aabbccc";
+            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            quizResultDTO.setUserIdx(loginUserIdx);
+            quizService.saveBattleResult(quizResultDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("퀴즈 결과 저장 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

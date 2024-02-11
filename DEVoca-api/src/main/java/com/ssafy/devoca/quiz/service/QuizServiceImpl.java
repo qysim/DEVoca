@@ -112,5 +112,13 @@ public class QuizServiceImpl implements QuizService{
         return quizList;
     }
 
+    @Transactional
+    @Override
+    public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception {
+        quizMapper.saveQuizResult(quizResultDTO);
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        quizMapper.saveBattleResult(quizResultDTO.getQuizId(), quizResultDTO.getUserIdx(), quizResultDTO.getScore());
+    }
+
 
 }
