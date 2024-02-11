@@ -10,6 +10,13 @@ export function getKaKaoToken(param, success, fail) {
   local.get(`/kakao/callback?code=${param}`).then(success).catch(fail)
 }
 
+export function getUserInfo(success, fail) {
+  local.get(`/user`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
 
 // async function userConfirm(param, success, fail) {
 //   console.log("param", param);

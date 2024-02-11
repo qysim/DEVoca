@@ -2,12 +2,12 @@
   <div class="card card-side bg-devoca_skyblue">
     <div class="avatar">
       <div class="w-24 h-24 rounded-full my-10 ml-5">
-        <img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" />
+        <img :src="userInfo.userImg" />
       </div>
     </div>
     <div class="card-body">
       <div class="flex flex-row justify-between">
-        <h2 class="card-title mt-6">닉네임 위치</h2>
+        <h2 class="card-title mt-6">{{ userInfo.userNickname }}</h2>
         <div class="flex justify-start">
           <router-link :to="{ name: 'ProfileChangeView', params: { id: userId } }">
             <PenIcon />
@@ -17,10 +17,10 @@
           </router-link>
         </div>
       </div>
-      <p class="text-sm">한 줄 소개자리
+      <p class="text-sm">{{ userInfo.userIntro }}
       <div class="flex-row">
-        <a href="" class="mr-5 text-sm">팔로우11</a>
-        <a href="" class="text-sm">팔로워11</a>
+        <a href="" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</a>
+        <a href="" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</a>
       </div>
       </p>
     </div>
@@ -28,16 +28,23 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { getUserInfo } from '@/api/user.js'
+
 import PenIcon from '@/components/icon/PenIcon.vue'
 import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
-// 예시로 userId를 설정하는 함수
-const setUserId = (newUserId) => {
-  userId.value = newUserId;
-};
+const userInfo = ref({})
+const userId = ref(0);
 
-const router = useRouter();
+// TODO: 로그인 시 이 로직이 포함되어야 함. 로그인 완료되면 이렇게 직접 호출하는게 아니라 userStore에서 가져다 사용.
+onMounted(() => {
+  getUserInfo((res) => {
+    userInfo.value = res.data
+    userId.value = Number(userInfo.value.userId)
+  }, (err) => {
+    console.err(err)
+  })
+})
+
 </script>
-
-
-<style scoped></style>
