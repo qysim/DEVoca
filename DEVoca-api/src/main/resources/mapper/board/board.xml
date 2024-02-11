@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.devoca.board.model.mapper.BoardMapper">
+    <!-- BoardDTO 매핑 -->
+    <resultMap id="getBoardDTO" type="BoardDTO">
+        <result property="boardAuthor" column="user_nickname"/>
+        <result property="boardTitle" column="board_title"/>
+        <result property="boardContent" column="board_content"/>
+        <result property="boardType" column="board_type"/>
+        <result property="boardRegistDate" column="board_regist_date"/>
+        <result property="boardUpdateDate" column="board_update_date"/>
+    </resultMap>
+
+    <select id="getBoardList" parameterType="Integer" resultMap="getBoardDTO">
+        select u.user_nickname, b.board_title, b.board_content
+             ,b.board_type, b.board_regist_date, b.board_update_date
+        from boards b
+                 join users u on b.fk_board_user_idx = u.user_idx
+        where board_type = #{boardType} and board_delete_date is null
+    </select>
+
+    <update id="deleteBoard" parameterType="map">
+        update boards
+        set board_delete_date = now()
+        where board_id = #{boardId} and fk_board_user_idx = #{userIdx}
+    </update>
+
+</mapper>
