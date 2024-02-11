@@ -44,7 +44,7 @@
         on u.user_idx = f.follow_to
         where f.follow_from = #{loginUserIdx}
         union
-        #{loginUserIdx}
+        select #{loginUserIdx} as user_idx
     </sql>
 
     <!--  재게시 원본 카드 작성자 정보 불러오기  -->
