@@ -12,4 +12,5 @@ public interface CommentService {
     public void deleteComment(int commentId) throws Exception;
     public int getBoardUserIdx(int boardId) throws Exception;
     public void pickComment(int commentId) throws Exception;
+    public List<CommentDTO> getMycommentList(int userIdx) throws Exception;
 }
