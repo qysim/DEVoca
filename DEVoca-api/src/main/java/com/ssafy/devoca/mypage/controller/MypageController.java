@@ -2,6 +2,8 @@ package com.ssafy.devoca.mypage.controller;
 
 import com.ssafy.devoca.board.model.BoardDTO;
 import com.ssafy.devoca.board.service.BoardService;
+import com.ssafy.devoca.card.model.CardDTO;
+import com.ssafy.devoca.card.service.CardService;
 import com.ssafy.devoca.comment.model.CommentDTO;
 import com.ssafy.devoca.comment.service.CommentService;
 import com.ssafy.devoca.mypage.service.MypageService;
@@ -29,6 +31,7 @@ public class MypageController {
     private final UserService userService;
     private final BoardService boardService;
     private final CommentService commentService;
+    private final CardService cardService;
 
     @GetMapping("/badge")
     public ResponseEntity<List<BadgeDTO>> getUserBadges(@RequestHeader("token") String token) {
@@ -151,6 +154,24 @@ public class MypageController {
             return ResponseEntity.status(HttpStatus.OK).body(getCommentList);
         } catch (Exception e){
             log.info("마이페이지 나의 댓글 조회 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 나의 피드 조회 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/mycard/{scroll}")
+    public ResponseEntity<List<CardDTO>> getMyCard(@RequestHeader("token") String token
+                                                    ,@PathVariable("scroll") int scroll){
+        log.info("마이페이지 나의 피드 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            List<CardDTO> getCommentList = cardService.getMyCard(userIdx, scroll);
+            return ResponseEntity.status(HttpStatus.OK).body(getCommentList);
+        } catch (Exception e){
+            log.info("마이페이지 나의 피드 조회 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
