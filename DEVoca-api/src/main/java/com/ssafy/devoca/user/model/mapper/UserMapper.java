@@ -18,6 +18,7 @@ public interface UserMapper {
     int checkUser(long id) throws SQLException;
     void joinUser(UserDTO userDTO) throws SQLException;
     UserDTO getUserInfo(int userIdx) throws SQLException;
+    UserDTO getOtherUserInfo(@Param("otherIdx") int otherIdx, @Param("userIdx") int userIdx) throws SQLException;
     void updateUserInfo(UserDTO userDTO) throws SQLException;
     void delFavCategory(int userIdx) throws SQLException;
     void setFavCategory(Map<String, Object> params) throws SQLException;

@@ -17,7 +17,6 @@
         <result property="userJoinDate" column="user_join_date"/>
         <result property="userUpdateDate" column="user_update_date"/>
         <result property="userRevokeDate" column="user_revoke_date"/>
-        <result property="userRefreshToken" column="user_refresh_token"/>
     </resultMap>
 
     <resultMap id="getBadgeDTO" type="BadgeDTO">
@@ -57,6 +56,18 @@
         where user_idx = #{userIdx}
     </select>
 
+    <!-- 다른 회원 정보 조회 -->
+    <select id="getOtherUserInfo" parameterType="map" resultMap="getUserDTO">
+        select user_id, user_name, user_nickname, user_img
+             , user_birth, user_email, user_intro, user_exp
+             , (select count(follow_from) from follows where follow_from = #{otherIdx}) as userFollowingCnt
+             , (select count(follow_to) from follows where follow_to = #{otherIdx}) as userFollowerCnt
+             , (select count(ub_badge_id) from user_badges where ub_user_idx = #{otherIdx}) as userBgCnt
+             , ifnull((select "Y" from follows where follow_from = #{userIdx} and follow_to = #{otherIdx}), "N") as followingYN
+        from users
+        where user_idx = #{otherIdx}
+    </select>
+
     <update id="updateUserInfo" parameterType="UserDTO">
         update users
         <set>
@@ -88,5 +99,6 @@
         from categories c
             left join (select uf_category_id from users_favorite_categories where uf_user_idx = #{userIdx}) u on c.category_id = u.uf_category_id
     </select>
+
 
 </mapper>

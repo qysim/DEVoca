@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService{
         return userMapper.getFavCategory(userIdx);
     }
 
+    @Override
+    public UserDTO getOtherUserInfo(int otherIdx, int userIdx) throws Exception {
+        return userMapper.getOtherUserInfo(otherIdx, userIdx);
+    }
+
 }
