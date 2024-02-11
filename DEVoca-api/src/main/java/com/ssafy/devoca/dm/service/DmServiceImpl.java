@@ -72,4 +72,9 @@ public class DmServiceImpl implements DmService {
     public void updateLastDate(LastDateDTO lastDateDTO) throws Exception {
         dmMapper.updateLastDate(lastDateDTO);
     }
+
+    @Override
+    public int getChatUserIdx(String roomUuid, int userIdx) throws Exception {
+        return dmMapper.getChatUserIdx(roomUuid, userIdx);
+    }
 }
