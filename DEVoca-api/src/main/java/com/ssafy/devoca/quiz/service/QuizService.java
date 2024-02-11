@@ -8,6 +8,7 @@ public interface QuizService {
     public int createQuiz() throws Exception;
 
     public List<QuizDTO> getQuiz() throws Exception;
+
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception;
 
     public int getQuizCnt(int loginUserIdx) throws Exception;
@@ -21,5 +22,7 @@ public interface QuizService {
     public int createBattle(BattleRequestDTO battleRequestDTO) throws Exception;
 
     public List<QuizDTO> getBattleQuiz(int quizId) throws Exception;
+
+    public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception;
 
 }
