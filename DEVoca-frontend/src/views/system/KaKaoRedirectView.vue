@@ -19,11 +19,9 @@ onMounted (() => {
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
   const codeParam = urlParams.get('code')
-  // console.log('Code parameter:', codeParam)
 
   getKaKaoToken(codeParam, (res) => {
     userStore.kakaoUserInfo = res.data
-    userStore.isLogin = true
 
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
