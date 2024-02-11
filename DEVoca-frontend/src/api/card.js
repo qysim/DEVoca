@@ -8,13 +8,8 @@ const local = localAxios()
 
 export function getCardList(param, success, fail) {
   const localUserInfo = JSON.parse(localStorage.getItem('user'))
-  const accessToken = null
-
-  if (localUserInfo && localUserInfo.kakaoUserInfo) {
-    const accessToken = localUserInfo.kakaoUserInfo.token;
-    console.log('accessToken:', accessToken);
-  }
-
+  const accessToken = localUserInfo.kakaoUserInfo.token
+  console.log(accessToken)
   local.defaults.headers["Authorization"] = accessToken
   local.get(`/card/list/${param}`).then(success).catch(fail)
 }

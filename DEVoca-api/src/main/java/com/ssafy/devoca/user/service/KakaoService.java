@@ -121,7 +121,6 @@ public class KakaoService {
         log.info("id : " + id);
         if (result > 0) {
             log.info("기존 회원");
-            
             return KakaoDTO.builder()
                     .id(0)
                     .token(accessToken)
