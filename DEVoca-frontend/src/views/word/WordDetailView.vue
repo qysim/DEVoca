@@ -76,7 +76,3 @@ const changeDateFormat = function (string) {
 }
 
 </script>
-
-<style scoped>
-
-</style>

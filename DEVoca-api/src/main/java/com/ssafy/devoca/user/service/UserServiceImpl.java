@@ -4,6 +4,7 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.model.mapper.UserMapper;
+import com.ssafy.devoca.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,32 @@ import java.util.Map;
 public class UserServiceImpl implements UserService{
 
     private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
 
     @Override
-    public int loadUserIdx(String userId) throws Exception {
+    public int loadUserIdx(String token) throws Exception {
+        String userId = "";
+        if (jwtUtil.checkToken(token)){
+            userId = jwtUtil.getUserId(token);
+            log.info("userId : {}", userId);
+        } else {
+            throw new Exception("Loading userId Fail");
+        }
         return userMapper.loadUserIdx(userId);
     }
 
     @Override
-    public void joinUser(UserDTO userDTO) throws Exception {
+    public int loadUserIdxById(String userId) throws Exception {
+        return userMapper.loadUserIdx(userId);
+    }
+
+    @Override
+    @Transactional
+    public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
+        String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
+        log.info("accessToken : {}", accessToken);
+        return accessToken;
     }
 
     @Override

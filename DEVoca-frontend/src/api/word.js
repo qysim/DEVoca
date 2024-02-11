@@ -10,9 +10,8 @@ export async function getWordDetail(param, success, fail) {
   await local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
 }
 
-export function getCardListByWord(param, success, fail) {
-  // param = {wordId}/{scroll}
-  local.get(`/dictionary/detail/${param}`).then(success).catch(fail)
+export function getCardListByWord(wordId, scroll, success, fail) {
+  local.get(`/dictionary/detail/${wordId}/${scroll}`).then(success).catch(fail)
 }
 
 // author: cheesecat47 <cheesecat47@gmail.com>
