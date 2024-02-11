@@ -64,6 +64,39 @@
 
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { getDmList, getDmUser } from '@/api/dm'
+
+const props = defineProps({
+  roomUuid: String
+})
+
+const dmUser = ref({});
+const messageList = ref([]);
+
+onMounted(()=> {
+  getDmUser(
+    props.roomUuid,
+    ({ data }) => {
+      dmUser.value = data;
+      console.log("상대 유저 정보 : ", dmUser);
+    },
+    (error) => {
+      console.log(error);
+    });
+  getDmList(
+  props.roomUuid, 0,
+  ({data}) => {
+    console.log(data);
+    data.forEach(element => {
+      messageList.value.push(element)
+    });
+  },
+  (error) => {
+    console.log(error);
+  });
+})
+
 </script>
 
 <style scoped></style>
