@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bg-neutral-100 pt-2">
-      <WordComponent v-if="word" :word="word"/>
+      <WordDetailComponent v-if="word" :word="word" />
       <div v-else class="flex justify-center">
         <span class="loading loading-dots loading-lg"></span>
       </div>
@@ -20,10 +20,10 @@
     </div>
 
     <div class="collapse collapse-arrow bg-base-100 shadow-xl w-auto">
-      <input type="checkbox" /> 
+      <input type="checkbox" />
       <div class="collapse-title text-xl font-medium font-jalnan">관련 카드</div>
-      <div v-for="card in cardList" class="collapse-content p-0"> 
-        <CardComponent :card="card"/>
+      <div v-for="card in cardList" class="collapse-content p-0">
+        <CardComponent :card="card" />
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import WordComponent from '@/components/word/WordComponent.vue'
+import WordDetailComponent from '@/components/word/WordDetailComponent.vue'
 import CardComponent from '@/components/feed/CardComponent.vue'
 import { getWordDetail, getCardListByWord } from '@/api/word.js'
 
@@ -44,29 +44,29 @@ const newsList = ref(null)
 const cardList = ref(null)
 const scrollNo = ref(0)
 
-onBeforeMount(async() => {
+onBeforeMount(async () => {
   try {
-    await 
-    getWordDetail(props.id, (res) => {
-    word.value = res.data.wordDTO
-    newsList.value = res.data.newsList
-  }, (err) => {
-    console.log(err)
-  })
+    await
+      getWordDetail(props.id, (res) => {
+        word.value = res.data.wordDTO
+        newsList.value = res.data.newsList
+      }, (err) => {
+        console.log(err)
+      })
 
-  getCardListByWord(`${word.value.wordId}/${scrollNo.value}`, (res) => {
-    cardList.value = res.data
-    scrollNo.value++
-  }, (err) => {
-    console.log(err)
-  })
+    getCardListByWord(`${word.value.wordId}/${scrollNo.value}`, (res) => {
+      cardList.value = res.data
+      scrollNo.value++
+    }, (err) => {
+      console.log(err)
+    })
   } catch (err) {
     console.log(err)
   }
 })
 
 const goNews = function (link) {
-  location.href=link
+  location.href = link
 }
 
 const changeDateFormat = function (string) {
