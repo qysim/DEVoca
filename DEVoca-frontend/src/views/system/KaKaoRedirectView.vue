@@ -9,7 +9,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getKaKaoToken, getUserInfo } from '@/api/user'
+import { getKaKaoToken } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
