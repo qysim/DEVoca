@@ -2,6 +2,7 @@ package com.ssafy.devoca.user.service;
 
 import com.ssafy.devoca.user.model.KakaoDTO;
 import com.ssafy.devoca.user.model.mapper.UserMapper;
+import com.ssafy.devoca.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import org.json.simple.parser.JSONParser;
 public class KakaoService {
 
     private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
 
     @Value("${kakao.client.id}")
     private String KAKAO_CLIENT_ID;
@@ -115,6 +117,7 @@ public class KakaoService {
 
         // 회원/비회원 확인
         int result = userMapper.checkUser(id);
+        accessToken = jwtUtil.createAccessToken(String.valueOf(id));
         log.info("id : " + id);
         if (result > 0) {
             log.info("기존 회원");
