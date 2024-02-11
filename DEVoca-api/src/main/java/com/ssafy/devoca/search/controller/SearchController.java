@@ -24,12 +24,11 @@ public class SearchController {
     private final UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<String> saveSearchKeyword(@RequestParam("keyword") String keyword){
+    public ResponseEntity<String> saveSearchKeyword(@RequestHeader("token") String token
+                                                    ,@RequestParam("keyword") String keyword){
         log.info("saveSearchKeyword 호출 : 검색 키워드 저장 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             searchService.saveSearchKeyword(keyword, loginUserIdx);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
@@ -63,12 +62,11 @@ public class SearchController {
     }
 
     @GetMapping("/card/{keyword}/{scroll}")
-    public ResponseEntity<List<CardDTO>> searchCard(@PathVariable("keyword") String keyword, @PathVariable("scroll") int scroll){
+    public ResponseEntity<List<CardDTO>> searchCard(@RequestHeader("token") String token
+                                ,@PathVariable("keyword") String keyword, @PathVariable("scroll") int scroll){
         log.info("searchCard 호출 : 카드 검색 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<CardDTO> cardList = searchService.searchCard(keyword, scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
@@ -90,12 +88,10 @@ public class SearchController {
     }
 
     @GetMapping("/reco/keyword")
-    public ResponseEntity<List<String>> getRecentKeyword(){
+    public ResponseEntity<List<String>> getRecentKeyword(@RequestHeader("token") String token){
         log.info("getRecentKeyword 호출 : 최근 검색어 조회");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<String> keywordList = searchService.getRecentKeyword(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(keywordList);
         }catch (Exception e){

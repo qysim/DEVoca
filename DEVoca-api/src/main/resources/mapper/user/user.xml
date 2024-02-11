@@ -96,10 +96,17 @@
             left join (select ub_badge_id from user_badges where ub_user_idx = #{userIdx}) s on b.badge_id = s.ub_badge_id;
     </select>
 
+    <!-- 팔로우 하기 -->
     <insert id="followUser" parameterType="map">
         insert into follows (follow_from, follow_to)
         values (#{userIdx}, #{followIdx})
     </insert>
+
+    <!-- 언팔로우 하기 -->
+    <delete id="unfollowUser" parameterType="map">
+        delete from follows
+        where follow_from = #{userIdx} and follow_to = #{followIdx}
+    </delete>
 
     <select id="getFollowerList" parameterType="Integer" resultMap="getUserDTO">
         select u.user_id, u.user_name, u.user_intro, u.user_img

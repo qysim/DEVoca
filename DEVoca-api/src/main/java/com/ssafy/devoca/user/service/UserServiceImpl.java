@@ -26,10 +26,10 @@ public class UserServiceImpl implements UserService{
         String userId = "";
         if (jwtUtil.checkToken(token)){
             userId = jwtUtil.getUserId(token);
-            log.info("userId : {}", userId);
         } else {
             throw new Exception("Loading userId Fail");
         }
+        log.info("userId : {}", userId);
         return userMapper.loadUserIdx(userId);
     }
 
@@ -85,6 +85,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<BadgeDTO> getUserBadges(int userIdx) throws Exception {
         return userMapper.getUserBadges(userIdx);
+    }
+
+    @Override
+    public void followUser(int userIdx, int followIdx) throws Exception {
+        userMapper.followUser(userIdx, followIdx);
+    }
+
+    @Override
+    public void unfollowUser(int userIdx, int followIdx) throws Exception {
+        userMapper.unfollowUser(userIdx, followIdx);
     }
 
     @Override
