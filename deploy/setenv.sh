@@ -9,6 +9,7 @@ touch .env
   echo "";
   echo "HTTP_PORT=${HTTP_PORT}";
   echo "NGINX_PORT=${NGINX_PORT}";
+  echo "JWT_SALT=${JWT_SALT}";
   echo "";
   echo "ALLOWED_ORIGINS=${ALLOWED_ORIGINS}";
   echo "";
