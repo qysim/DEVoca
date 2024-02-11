@@ -84,7 +84,7 @@ const router = createRouter({
       children: [
         //DM
         {
-          path : '/dmlist',
+          path : '/dmlist/:id',
           name : 'DMListView',
           component : DMListView
         },
@@ -100,12 +100,12 @@ const router = createRouter({
           component : MyBadgeView
         },
         {
-          path : '/profilechange',
+          path : '/profilechange/:id',
           name : 'ProfileChangeView',
           component : ProfileChangeView
         },
         {
-          path : '/mypagesetting',
+          path : '/mypagesetting/:id',
           name : 'MypageSettingView',
           component : MypageSettingView
         },
@@ -120,7 +120,7 @@ const router = createRouter({
           component : PasswordChangeView
         },
         {
-          path : '/alarmpage',
+          path : '/alarm/:id',
           name : 'AlarmPageView',
           component : AlarmPageView
         },
