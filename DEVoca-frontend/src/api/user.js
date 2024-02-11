@@ -18,6 +18,14 @@ export function getUserInfo(success, fail) {
   }).then(success).catch(fail)
 }
 
+export function getUserBadge(success, fail) {
+  local.get(`/mypage/badge`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+
 // async function userConfirm(param, success, fail) {
 //   console.log("param", param);
 //   await local.post(`/user/login`, param).then(success).catch(fail);

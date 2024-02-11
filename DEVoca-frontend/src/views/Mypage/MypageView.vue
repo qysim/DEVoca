@@ -5,7 +5,7 @@
     </div>
     <div class="flex flex-row mt-3 ">
       <img src="@/assets/images/badge.png" alt="" class="ml-4">
-      <RouterLink to="/mybadge" class="ml-1">획득한 배지 00개></RouterLink>
+      <RouterLink to="/mybadge" class="ml-1">획득한 배지 {{ userBadge.length }}개></RouterLink>
     </div>
     <div class="mt-2 flex justify-end mr-14">
       <p>등급</p>
@@ -84,9 +84,17 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { getUserBadge } from '@/api/user.js'
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue';
 
+const userBadge = ref([]);
 
+onMounted(() => {
+  getUserBadge((res) => {
+    userBadge.value = res.data
+  }, (err) => {
+    console.err(err)
+  })
+})
 </script>
-
-<style scoped></style>
