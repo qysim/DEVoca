@@ -133,4 +133,19 @@
         from dm_participants
         where dp_dr_idx = (<include refid="getRoomIdx"></include>) and dp_user_idx != #{userIdx}
     </select>
+
+    <resultMap id="DmUserResultMap" type="DmUserDTO">
+        <result property="userId" column="user_id"/>
+        <result property="userNickName" column="user_nickname"/>
+        <result property="userImg" column="user_img"/>
+        <result property="userIntro" column="user_intro"/>
+    </resultMap>
+
+    <!-- 채팅 유저 정보 가져오기 -->
+    <select id="getChatUser" resultMap="DmUserResultMap">
+        select u.user_id, u.user_nickname, u.user_img, u.user_intro
+        from dm_participants dp join users u
+        on dp.dp_user_idx = u.user_idx
+        where dp_dr_idx = (<include refid="getRoomIdx"></include>) and dp_user_idx != #{userIdx}
+    </select>
 </mapper>
