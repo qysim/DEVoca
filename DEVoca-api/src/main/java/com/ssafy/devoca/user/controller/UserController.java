@@ -59,6 +59,27 @@ public class UserController {
         }
     }
 
+    /*
+     * 다른 회원 정보 조회 api
+     * @author Ryu jiyun
+     * @Github https://github.com/Ryujy
+     * */
+    @GetMapping("/{otherId}")
+    public ResponseEntity<UserDTO> getOtherUserInfo(@RequestHeader("token") String token
+                                                    ,@PathVariable("otherId") String otherId){
+        log.info("다른 회원 정보 조회 호출 : {}", otherId);
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            int otherIdx = userService.loadUserIdxById(otherId);
+            log.info("userIdx : {}", userIdx);
+            UserDTO userInfo = userService.getOtherUserInfo(otherIdx, userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(userInfo);
+        } catch (Exception e) {
+            log.error("다른 회원 정보 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PatchMapping("")
     public ResponseEntity<UserDTO> updateUserInfo(@RequestHeader("token") String token,
                                                   @RequestBody UserDTO userDTO){

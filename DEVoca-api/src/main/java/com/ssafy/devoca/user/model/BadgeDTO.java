@@ -9,4 +9,6 @@ public class BadgeDTO {
     private String badgeName;
     private String badgeInfo;
     private String badgeImgName;
+    private String badgeHaveYn;
+
 }
