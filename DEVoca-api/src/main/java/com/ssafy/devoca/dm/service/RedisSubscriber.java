@@ -2,6 +2,7 @@ package com.ssafy.devoca.dm.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.devoca.dm.model.DmDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
@@ -24,15 +25,21 @@ public class RedisSubscriber implements MessageListener {
     private final ObjectMapper objectMapper;
     private final SimpMessageSendingOperations messagingTemplate;
 
+    private final DmService dmService;
+
     @Override
     public void onMessage(Message message, byte[] pattern) {
         log.info("onMessage : {}", message);
         String publishMessage = (String) redisTemplate.getStringSerializer().deserialize(message.getBody());
 
         try {
-            String chatMessage = objectMapper.readValue(publishMessage, String.class);
-            messagingTemplate.convertAndSend("/sub/chat", chatMessage);
+            DmDTO dmDTO = objectMapper.readValue(publishMessage, DmDTO.class);
+            String roomUuid = dmService.getRoomUuidByRoomIdx(dmDTO.getRoomIdx());
+            dmDTO.setRoomIdx(0);
+            messagingTemplate.convertAndSend("/sub/chat/" + roomUuid, dmDTO);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

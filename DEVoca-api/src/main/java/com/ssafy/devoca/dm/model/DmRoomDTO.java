@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 @Data
 public class DmRoomDTO {
 
-    private int roomIdx;
     private String roomUuid;
 
     private String userImg;

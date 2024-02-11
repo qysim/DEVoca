@@ -5,7 +5,7 @@
     </div>
     <div class="pl-12">
       <SearchBarComponent/>
-      <div v-for="word in wordList" :key="word.wordId">
+      <div v-for="word in wordStore.wordList[selectedAlphabet]" :key="word.wordId">
         <WordComponent :word="word" @click="goWordDetail(word.wordId)"/>
       </div>
     </div>
@@ -23,16 +23,13 @@ import { useWordStore } from '@/stores/word'
 const router = useRouter()
 const wordStore = useWordStore()
 const alphabets = ref('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))
-const wordList = ref(null)
+const selectedAlphabet = ref('A')
 
 onMounted(() => {
-  if ('A' in wordStore.wordList) {
-    wordList.value = wordStore.wordList['A']
-  } else {
-    getWordList('A', (res) => {
-      wordList.value = res.data
+  if (!('A' in wordStore.wordList)) {
+    getWordList('A', 
+    (res) => {
       wordStore.wordList['A'] = res.data
-      console.log(wordStore.wordList)
     }, (err) => {
       console.log(err)
     })
@@ -40,17 +37,18 @@ onMounted(() => {
 })
 
 const getAlphabetWord = function (alphabet) {
-  if (alphabet in wordStore.wordList) {
-    wordList.value = wordStore.wordList[alphabet]
-  } else {
-    getWordList(alphabet, (res) => {
-      wordList.value = res.data
+  if (!(alphabet in wordStore.wordList)) {
+    getWordList(alphabet, 
+    (res) => {
+      console.log(res.data)
       wordStore.wordList[alphabet] = res.data
-      console.log(wordStore.wordList)
+      console.log(wordStore.wordList[alphabet])
     }, (err) => {
       console.log(err)
     })
   }
+  selectedAlphabet.value = alphabet
+  router.push({name: 'AlphabetWordListView', params: {alphabet: alphabet}})
 }
 
 const goWordDetail = function (wordId) {
