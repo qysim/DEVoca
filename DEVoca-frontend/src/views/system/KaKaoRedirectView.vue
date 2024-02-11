@@ -9,7 +9,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getKaKaoToken } from '@/api/user'
+import { getKaKaoToken, getUserInfo } from '@/api/user'
 import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
@@ -26,7 +26,6 @@ onMounted (() => {
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
     } else if (res.data.userYn === false) {
-      userStore.userInfo['userId'] = res.data.id
       router.push({name : 'SignupView'})
     }
   }, (err) => {

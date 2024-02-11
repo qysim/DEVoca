@@ -9,25 +9,25 @@
           <label class="label">
             <span class="label-text">이메일</span>
           </label>
-          <input type="email" placeholder="example@naver.com" class="input input-bordered" required v-model.trm="userStore.userInfo.userEmail" />
+          <input type="email" placeholder="example@naver.com" class="input input-bordered" required v-model.trim="userInfo.userEmail" />
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">이름</span>
           </label>
-          <input type="text" placeholder="이름" class="input input-bordered" required v-model.trm="userStore.userInfo.userName" />
+          <input type="text" placeholder="이름" class="input input-bordered" required v-model.trim="userInfo.userName" />
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">닉네임</span>
           </label>
-          <input type="text" placeholder="닉네임" class="input input-bordered" required v-model.trm="userStore.userInfo.userNickname" />
+          <input type="text" placeholder="닉네임" class="input input-bordered" required v-model.trim="userInfo.userNickname" />
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-tex">생년월일</span>
           </label>
-          <input ref="datepicker" class="input input-bordered w-full" type="text" placeholder="날짜를 선택해 주세요" v-model.trm="userStore.userInfo.userBirth" >
+          <input ref="datepicker" class="input input-bordered w-full" type="text" placeholder="날짜를 선택해 주세요" v-model.trim="userInfo.userBirth" >
         </div>
 
         <div class="form-control mt-6">
@@ -49,11 +49,18 @@ import { useUserStore } from '@/stores/user'
 const router = useRouter()
 const userStore = useUserStore()
 const datepicker = ref(null)
+const userInfo = ref({
+  userId: userStore.kakaoUserInfo['id'],
+  userEmail: null,
+  userName: null,
+  userNickname: null,
+  userBirth: null
+})
 
 const submitUserInfo = function () {
-  joinUser(userStore.userInfo, (res) => {
+  joinUser(userInfo.value, (res) => {
     console.log(`joinUser.res : ${res}`)
-    router.push({name: 'SelectInterestsView'})
+    router.push({name: 'MainView'})
   }, (err) => {
     console.log(err)
   })
