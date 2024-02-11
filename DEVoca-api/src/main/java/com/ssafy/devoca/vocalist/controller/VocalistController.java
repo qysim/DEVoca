@@ -29,12 +29,11 @@ public class VocalistController {
      * @author Ryu jiyun
      * */
     @PostMapping("")
-    public ResponseEntity<String> createVocalist(@RequestHeader("userId") String userId
+    public ResponseEntity<String> createVocalist(@RequestHeader("token") String token
                                                  , @RequestBody VocalistDTO vocalistDTO){
         log.info("단어장 생성 api 호출");
         try{
-//            int userIdx = userService.loadUserIdx(userId);
-            int userIdx = 9;
+            int userIdx = userService.loadUserIdx(token);
             vocalistDTO.setUserIdx(userIdx);
             vocalistDTO.setVlWordCard(1);
             vocalistService.createVocalist(vocalistDTO);
@@ -50,11 +49,11 @@ public class VocalistController {
     * @author Ryu jiyun
     * */
     @PostMapping("/store")
-    public ResponseEntity<String> storeVocalist(@RequestHeader("userId") String userId
+    public ResponseEntity<String> storeVocalist(@RequestHeader("token") String token
                                                 , @RequestBody VocalistDTO vocalistDTO){
         log.info("단어장 저장 api 호출");
         try{
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
             vocalistDTO.setUserIdx(userIdx);
             vocalistDTO.setVlWordCard(1);
             vocalistService.storeVocalist(vocalistDTO);
@@ -70,10 +69,10 @@ public class VocalistController {
      * @author Ryu jiyun
      * */
     @GetMapping("")
-    public ResponseEntity<List<VocalistDTO>> getVocalist(@RequestHeader("userId") String userId){
+    public ResponseEntity<List<VocalistDTO>> getVocalist(@RequestHeader("token") String token){
         log.info("단어장 목록 api 호출");
         try{
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdx(token);
             List<VocalistDTO> vocaList = vocalistService.getVocalist(userIdx);
             log.info("vocaList : {}", vocaList);
             return ResponseEntity.status(HttpStatus.OK).body(vocaList);
@@ -92,8 +91,7 @@ public class VocalistController {
                                                 , @PathVariable("vlId") Integer vlId){
         log.info("단어장 삭제 api 호출 : {}", vlId);
         try{
-//            int userIdx = userService.loadUserIdx(token);
-            int userIdx = 9;
+            int userIdx = userService.loadUserIdx(token);
             Map<String, Integer> params = new HashMap<>();
             params.put("vlId", vlId);
             params.put("userIdx", userIdx);
@@ -110,12 +108,11 @@ public class VocalistController {
      * @author Ryu jiyun
      * */
     @GetMapping("detail/{vocaListId}")
-    public ResponseEntity<List<VldetailDTO>> getVocalistDetail(@RequestHeader("userId") String userId
+    public ResponseEntity<List<VldetailDTO>> getVocalistDetail(@RequestHeader("token") String token
                                                                 ,@PathVariable("vocaListId") Integer vocaListId){
         log.info("단어장 상세 목록 조회 api 호출 : {}", vocaListId);
         try{
-//            int userIdx = userService.loadUserIdx(userId);
-            int userIdx = 9;
+            int userIdx = userService.loadUserIdx(token);
             List<VldetailDTO> vldetailDTOList = vocalistService.getVocalistDetail(vocaListId, userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(vldetailDTOList);
         } catch (Exception e){
@@ -130,12 +127,11 @@ public class VocalistController {
      * @author Ryu jiyun
      * */
     @GetMapping("/{cardId}")
-    public ResponseEntity<List<VocalistDTO>>checkVocalist(@RequestHeader("userId") String userId
+    public ResponseEntity<List<VocalistDTO>>checkVocalist(@RequestHeader("token") String token
                                                             ,@PathVariable("cardId") Integer cardId){
         log.info("특정 카드의 단어장 저장 여부를 포함한 목록 api 호출 : {}", cardId);
         try{
-//            int userIdx = userService.loadUserIdx(userId);
-            int userIdx = 9;
+            int userIdx = userService.loadUserIdx(token);
             List<VocalistDTO> vocalist = vocalistService.checkVocalist(cardId, userIdx);
             return ResponseEntity.status(HttpStatus.OK).body(vocalist);
         } catch (Exception e){
@@ -149,11 +145,11 @@ public class VocalistController {
      * @author Ryu jiyun
      * */
     @DeleteMapping("/{vlId}/{cardId}")
-    public ResponseEntity<String> cancelVocalist(@RequestHeader("access-token") String token
+    public ResponseEntity<String> cancelVocalist(@RequestHeader("token") String token
                                                 , @PathVariable("vlId") Integer vlId, @PathVariable("cardId") Integer cardId){
         log.info("의견 카드 단어장 저장 취소 api 호출 : {}, {}", vlId, cardId);
         try{
-//            int userIdx = userService.loadUserIdx(token);
+            int userIdx = userService.loadUserIdx(token);
             vocalistService.cancelVocalist(vlId, cardId);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){

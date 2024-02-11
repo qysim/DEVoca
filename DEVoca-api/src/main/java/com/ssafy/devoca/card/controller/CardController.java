@@ -58,12 +58,11 @@ public class CardController {
     }
 
     @GetMapping("/{cardId}")
-    public ResponseEntity<CardDTO> getCardDetail(@PathVariable("cardId") int cardId){
+    public ResponseEntity<CardDTO> getCardDetail(@RequestHeader("token") String token
+                                                    ,@PathVariable("cardId") int cardId){
         log.info("getCardDetail 호출 : 카드 상세정보 요청");
         try {
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             CardDTO cardDetail = cardService.getCardDetail(cardId, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardDetail);
         }catch(Exception e){
@@ -73,12 +72,11 @@ public class CardController {
     }
 
     @GetMapping("/list/{scroll}")
-    public ResponseEntity<List<CardDTO>> getCardList(@PathVariable("scroll") int scroll){
+    public ResponseEntity<List<CardDTO>> getCardList(@RequestHeader("token") String token
+                                                    ,@PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<CardDTO> cardList = cardService.getCardList(scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
@@ -88,12 +86,11 @@ public class CardController {
     }
 
     @GetMapping("/list/{userId}/{scroll}")
-    public ResponseEntity<List<CardDTO>> getCardListByUserId(@PathVariable("userId") String userId, @PathVariable("scroll") int scroll){
+    public ResponseEntity<List<CardDTO>> getCardListByUserId(@RequestHeader("token") String token
+                                                            ,@PathVariable("userId") String userId, @PathVariable("scroll") int scroll){
         log.info("getCardListByUserId 호출 : " + userId + "의 카드 목록 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<CardDTO> cardList = cardService.getCardListByUserId(userId, scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){

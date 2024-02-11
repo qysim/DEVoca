@@ -120,6 +120,19 @@ public class UserController {
         }
     }
 
+    @GetMapping("/follow/{followId}")
+    public ResponseEntity<String> followUser(@RequestHeader("token") String token
+                                            ,@PathVariable("followId") String followId){
+        log.info("팔로우 api 호출 : {}", followId);
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            int followIdx = userService.loadUserIdxById(followId);
+
+        } catch (Exception e){
+
+        }
+    }
+
     @GetMapping("/follower")
     public ResponseEntity<List<UserDTO>> getFollowList(@RequestHeader("token") String token){
         log.info("회원의 팔로워 목록 조회 호출 : 나를 팔로우하는 사람들");
