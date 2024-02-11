@@ -4,7 +4,7 @@
       <p class="text-xl ml-5 mr-3 mt-5">DM</p>
     </div>
   </div>
-  <div v-if="roomList.value == null" class="text-center">참여한 채팅방이 없어요.</div>
+  <div v-if="roomList == null" class="text-center">참여한 채팅방이 없어요.</div>
   <div>
     <div v-for="room in roomList" :key="room" @click="message(room.roomUuid)">
       <div class="card card-side bg-base-100 items-center">

@@ -9,7 +9,7 @@ async function getDmRoomList(success, fail) {
         }}).then(success).catch(fail);
 }
 
-async function getDmUser(roomUuid, scroll, success, fail) {
+async function getDmUser(roomUuid, success, fail) {
     await local.get(`/dm/` + `${roomUuid}` + `/user`, {
         headers: {
           token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
