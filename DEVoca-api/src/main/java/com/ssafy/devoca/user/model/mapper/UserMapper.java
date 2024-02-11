@@ -24,6 +24,7 @@ public interface UserMapper {
     List<FavCategoryDTO> getFavCategory(int userIdx) throws SQLException;
     List<BadgeDTO> getUserBadges(int userIdx) throws SQLException;
     void followUser(@Param("userIdx") int userIdx, @Param("followIdx") int followIdx) throws SQLException;
+    void unfollowUser(@Param("userIdx") int userIdx, @Param("followIdx") int followIdx) throws SQLException;
     List<UserDTO> getFollowList(int userIdx) throws SQLException;
     List<UserDTO> getFollowingList(int userIdx) throws SQLException;
     List<UserDTO> recommendFollow(int userIdx) throws SQLException;
