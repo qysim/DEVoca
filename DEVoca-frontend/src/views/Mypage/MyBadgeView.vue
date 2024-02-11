@@ -10,15 +10,15 @@
       </div>
 
       <div class="flex justify-center mt-8">
-        <template v-for="badge in userBadge" :key="badge.id">
+        <template v-for="(badge, index) in userBadge" :key="index">
           <div class="checkbox-container mr-4">
             <label class="swap swap-flip text-3xl">
               <input type="checkbox" />
-              <div class="swap-on">
-                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn == '0' ? 1 : 0)">
+              <div class="swap-on" @click="selectBadgeHandler(index, false)">
+                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn)">
               </div>
-              <div class="swap-off">
-                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn == '1' ? 1 : 0)">
+              <div class="swap-off" @click="selectBadgeHandler(index, true)">
+                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn)">
               </div>
             </label>
           </div>
@@ -26,13 +26,24 @@
       </div>
     </div>
   </form>
+
+  <div v-show="toggleBadgeDescription" class="card w-96 bg-base-100 shadow-xl mx-auto">
+    <div class="card-body">
+      <h2 class="card-title">{{ selectedBadge.badgeName }}</h2>
+      <p>{{ selectedBadge.badgeInfo }}</p>
+      <div class="card-actions justify-end">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { getUserBadge } from '@/api/user.js'
 
-const userBadge = ref([]);
+const userBadge = ref([])
+const selectedBadge = ref({})
+const toggleBadgeDescription = ref(false)
 
 onMounted(() => {
   getUserBadge((res) => {
@@ -44,5 +55,10 @@ onMounted(() => {
 
 const getImgUrl = (badgeImgName, badgeHaveYn) => {
   return new URL(`/src/assets/images/badge/${badgeImgName}_${badgeHaveYn}.png`, import.meta.url).href
+}
+
+const selectBadgeHandler = (idx, toggle) => {
+  toggleBadgeDescription.value = toggle
+  selectedBadge.value = userBadge.value[idx]
 }
 </script>
