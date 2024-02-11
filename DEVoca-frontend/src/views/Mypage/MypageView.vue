@@ -14,10 +14,7 @@
             <div>
               <p>나의 피드</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -27,10 +24,7 @@
             <div>
               <p>참여한 퀴즈</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -40,10 +34,7 @@
             <div>
               <p>단어장</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -53,10 +44,7 @@
             <div>
               <p>나의 글</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -66,10 +54,7 @@
             <div>
               <p>나의 댓글</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -81,6 +66,7 @@
 import { ref, onMounted } from 'vue'
 import { getUserBadge } from '@/api/user.js'
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue';
+import RightArrowIcon from '@/components/icon/RightArrowIcon.vue'
 
 const userBadge = ref([]);
 
