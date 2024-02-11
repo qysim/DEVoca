@@ -72,11 +72,13 @@ public class CardController {
     }
 
     @GetMapping("/list/{scroll}")
-    public ResponseEntity<List<CardDTO>> getCardList(@RequestHeader("token") String token
-                                                    ,@PathVariable("scroll") int scroll){
+    public ResponseEntity<List<CardDTO>> getCardList(
+//            @RequestHeader("token") String token,
+                                                    @PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
-            int loginUserIdx = userService.loadUserIdx(token);
+//            int loginUserIdx = userService.loadUserIdx(token);
+            int loginUserIdx = 8;
             List<CardDTO> cardList = cardService.getCardList(scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
