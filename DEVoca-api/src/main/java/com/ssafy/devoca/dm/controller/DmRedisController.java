@@ -67,8 +67,10 @@ public class DmRedisController {
         log.info("dms : {}", dms.toString());
 
         try {
-            dmService.saveMessages(dms);
-            log.info("DB에 메시지 저장 완료 {}", dms);
+            if(dms != null) {
+                dmService.saveMessages(dms);
+                log.info("DB에 메시지 저장 완료 {}", dms);
+            }
         } catch (Exception e) {
             log.error("DB 메시지 저장 실패 : {}", e);
             throw new RuntimeException(e);
