@@ -10,10 +10,10 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getKaKaoToken } from '@/api/user.js'
+import { useMemberStore } from '@/stores/member'
 
 const router = useRouter()
-
-const tokenInfo = ref(null)
+const memberStore = useMemberStore()
 
 onMounted (() => {
   const queryString = window.location.search
@@ -22,7 +22,8 @@ onMounted (() => {
   // console.log('Code parameter:', codeParam)
 
   getKaKaoToken(codeParam, (res) => {
-    tokenInfo.value = res.data
+    memberStore.userInfo = { ...memberStore.userInfo.value, ...response.data }
+    console.log(memberStore.userInfo)
 
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
