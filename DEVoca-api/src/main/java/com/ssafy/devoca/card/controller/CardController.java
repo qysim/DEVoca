@@ -76,8 +76,7 @@ public class CardController {
                                                     ,@PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
-//            int loginUserIdx = userService.loadUserIdx(token);
-            int loginUserIdx = 8;
+            int loginUserIdx = userService.loadUserIdx(token);
             List<CardDTO> cardList = cardService.getCardList(scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cardList);
         }catch (Exception e){
