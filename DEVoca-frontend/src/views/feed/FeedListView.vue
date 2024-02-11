@@ -15,11 +15,12 @@ import BottomModalComponent from '@/components/common/BottomModalComponent.vue'
 import { getCardList } from '@/api/card'
 import { ref, onMounted } from 'vue'
 
-const cardList = ref([])
+const cardList = ref(null)
 const scrollNum = ref(0)
 
 onMounted(() => {
   getCardList(scrollNum.value, (res) => {
+    cardList.value = res.data
     console.log(res)
   }, (err) => {
     console.log(err)
