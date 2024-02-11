@@ -89,7 +89,7 @@ public class UserController {
             userService.updateFavCategory(params);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
-            log.error("user 관심 분야 호출 실패 : {}", e);
+            log.error("user 관심 분야 설정 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -107,94 +107,4 @@ public class UserController {
         }
     }
 
-    @GetMapping("/badge")
-    public ResponseEntity<List<BadgeDTO>> getUserBadges(@RequestHeader("token") String token) {
-        log.info("회원의 배지 목록 조회 호출");
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            List<BadgeDTO> badgeList = userService.getUserBadges(userIdx);
-            return ResponseEntity.status(HttpStatus.OK).body(badgeList);
-        } catch (Exception e){
-            log.error("회원의 배지 목록 조회 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    /*
-     * 팔로우 하기 api
-     * @author Ryu jiyun
-     * */
-    @GetMapping("/follow/{followId}")
-    public ResponseEntity<String> followUser(@RequestHeader("token") String token
-                                            ,@PathVariable("followId") String followId){
-        log.info("팔로우 api 호출 : {}", followId);
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            int followIdx = userService.loadUserIdxById(followId);
-            log.info("userIdx : {}, followIdx : {}", userIdx, followIdx);
-            userService.followUser(userIdx, followIdx);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e){
-            log.debug("팔로우 api 호출 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    /*
-     * 팔로우 취소 api
-     * @author Ryu jiyun
-     * */
-    @DeleteMapping("/unfollow/{followId}")
-    public ResponseEntity<String> unfollowUser(@RequestHeader("token") String token
-                                                ,@PathVariable("followId") String followId){
-        log.info("팔로우 취소 api 호출 : {}", followId);
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            int followIdx = userService.loadUserIdxById(followId);
-            userService.unfollowUser(userIdx, followIdx);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e){
-            log.debug("언팔로우 api 호출 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @GetMapping("/follower")
-    public ResponseEntity<List<UserDTO>> getFollowList(@RequestHeader("token") String token){
-        log.info("회원의 팔로워 목록 조회 호출 : 나를 팔로우하는 사람들");
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            List<UserDTO> followerList = userService.getFollowList(userIdx);
-            return ResponseEntity.status(HttpStatus.OK).body(followerList);
-        } catch (Exception e){
-            log.error("회원의 팔로워 목록 조회 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @GetMapping("/following")
-    public ResponseEntity<List<UserDTO>> getFollowingList(@RequestHeader("token") String token){
-        log.info("회원의 팔로잉 목록 조회 호출 : 내가 팔로우 하는 사람들");
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            List<UserDTO> followingList = userService.getFollowingList(userIdx);
-            return ResponseEntity.status(HttpStatus.OK).body(followingList);
-        } catch (Exception e){
-            log.error("회원의 팔로잉 목록 조회 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @GetMapping("/recommend")
-    public ResponseEntity<List<UserDTO>> recommendFollow(@RequestHeader("token") String token){
-        log.info("팔로우 추천 호출");
-        try{
-            int userIdx = userService.loadUserIdx(token);
-            List<UserDTO> recommendList = userService.recommendFollow(userIdx);
-            return ResponseEntity.status(HttpStatus.OK).body(recommendList);
-        } catch(Exception e){
-            log.error("팔로우 추천 호출 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
 }

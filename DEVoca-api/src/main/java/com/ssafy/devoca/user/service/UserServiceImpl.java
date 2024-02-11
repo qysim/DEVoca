@@ -82,36 +82,4 @@ public class UserServiceImpl implements UserService{
         return userMapper.getFavCategory(userIdx);
     }
 
-    @Override
-    public List<BadgeDTO> getUserBadges(int userIdx) throws Exception {
-        return userMapper.getUserBadges(userIdx);
-    }
-
-    @Override
-    public void followUser(int userIdx, int followIdx) throws Exception {
-        userMapper.followUser(userIdx, followIdx);
-    }
-
-    @Override
-    public void unfollowUser(int userIdx, int followIdx) throws Exception {
-        userMapper.unfollowUser(userIdx, followIdx);
-    }
-
-    @Override
-    public List<UserDTO> getFollowList(int userIdx) throws Exception {
-        return userMapper.getFollowList(userIdx);
-    }
-
-    @Override
-    public List<UserDTO> getFollowingList(int userIdx) throws Exception {
-        return userMapper.getFollowingList(userIdx);
-    }
-
-    @Override
-    public List<UserDTO> recommendFollow(int userIdx) throws Exception {
-        return userMapper.recommendFollow(userIdx);
-    }
-
-
-
 }
