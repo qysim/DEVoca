@@ -18,9 +18,7 @@
       <div class="form-control mt-6">
         <button class="btn bg-devoca">완료</button>
       </div>
-      <div class="text-center mt-5">
-        <a href="">나중에 하기</a>
-      </div>
+      <RouterLink :to="{name: 'MainView'}" class="text-center underline mt-5">나중에 하기</RouterLink>
     </div>
   </div>
 </template>
@@ -28,7 +26,4 @@
 <script setup>
 import FollowCardComponent from '@/components/common/FollowCardComponent.vue';
 
-
 </script>
-
-<style lang="scss" scoped></style>
