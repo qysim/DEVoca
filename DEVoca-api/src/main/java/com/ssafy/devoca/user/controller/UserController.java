@@ -120,6 +120,10 @@ public class UserController {
         }
     }
 
+    /*
+     * 팔로우 하기 api
+     * @author Ryu jiyun
+     * */
     @GetMapping("/follow/{followId}")
     public ResponseEntity<String> followUser(@RequestHeader("token") String token
                                             ,@PathVariable("followId") String followId){
@@ -132,6 +136,25 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.debug("팔로우 api 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 팔로우 취소 api
+     * @author Ryu jiyun
+     * */
+    @DeleteMapping("/unfollow/{followId}")
+    public ResponseEntity<String> unfollowUser(@RequestHeader("token") String token
+                                                ,@PathVariable("followId") String followId){
+        log.info("팔로우 취소 api 호출 : {}", followId);
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            int followIdx = userService.loadUserIdxById(followId);
+            userService.unfollowUser(userIdx, followIdx);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e){
+            log.debug("언팔로우 api 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

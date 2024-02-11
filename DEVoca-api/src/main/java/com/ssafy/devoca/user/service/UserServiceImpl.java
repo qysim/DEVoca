@@ -93,6 +93,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void unfollowUser(int userIdx, int followIdx) throws Exception {
+        userMapper.unfollowUser(userIdx, followIdx);
+    }
+
+    @Override
     public List<UserDTO> getFollowList(int userIdx) throws Exception {
         return userMapper.getFollowList(userIdx);
     }
