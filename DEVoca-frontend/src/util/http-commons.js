@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import { httpStatusCode } from "./http-status"
 
 const urlApi = 'https://i10d112.p.ssafy.io/devoca'
