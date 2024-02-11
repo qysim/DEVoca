@@ -153,4 +153,47 @@
         where qw.qw_quiz_id = #{quizId};
     </select>
 
+
+<!--  이하 대결 api  -->
+    <!--  QuizVocaDTO 매핑  -->
+    <resultMap id="QuizVocaDTOMap" type="QuizVocaDTO">
+        <result property="userId" column="user_id"/>
+        <result property="vocalistId" column="vl_id"/>
+        <result property="vocalistName" column="vl_name"/>
+        <result property="vocaCnt" column="voca_cnt"/>
+    </resultMap>
+
+    <!--  대결용 단어장 목록 가져오기  -->
+    <select id="getBattleVocaList" parameterType="int" resultMap="QuizVocaDTOMap">
+        select user_id, vl_id, vl_name,
+               (select count(*) from voca_list_cards
+                where vlc_sl_id = vl_id) as voca_cnt
+        from voca_lists vl left join users
+             on vl.fk_vl_user_idx = users.user_idx
+        where fk_vl_user_idx = #{userIdx};
+    </select>
+
+    <!--  대결 퀴즈 문제 가져오기  -->
+    <select id="createBattleWordList" parameterType="map" resultMap="QuizDTOMap">
+        select ifnull(w.word_id, w2.word_id) as word_id,
+               ifnull(w.word_name_kr, w2.word_name_kr) as word_name_kr,
+               ifnull(w.word_name_en, w2.word_name_en) as word_name_en,
+               ifnull(w.word_summ, w2.word_summ) as word_summ
+        from voca_list_cards vlc
+            -- vlc_wc_select 값이 1일 때 word 테이블과 조인
+             left join words w on vlc_wc_id = w.word_id and vlc_wc_select = 1
+            -- vlc_wc_select 값이 2일 때 card 테이블과 word 테이블을 조인
+             left join cards c on vlc_wc_id = c.card_word_id and vlc_wc_select = 2
+             left join words w2 on c.card_word_id = w2.word_id and vlc_wc_select = 2
+        where vlc_sl_id = #{vocaListId}
+        limit #{wordCnt};
+    </select>
+
+    <!--  대결 정보 저장  -->
+    <insert id="saveBattle" parameterType="BattleRequestDTO">
+        insert into battles
+        (fk_battle_from_user_idx, fk_battle_to_user_idx, fk_battle_sl_id, battle_word_cnt, fk_battle_quiz_id)
+        values(#{fromUserIdx}, #{toUserIdx}, #{vocaListId}, #{wordCnt}, #{quizId});
+    </insert>
+
 </mapper>
