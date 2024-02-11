@@ -36,6 +36,10 @@ public class BoardController {
         }
     }
 
+    /*
+     * 게시판 글 삭제 api
+     * @author Ryu jiyun
+     * */
     @PatchMapping("/{boardId}")
     public ResponseEntity<String> deleteBoard(@RequestHeader("token") String token
                                                 ,@PathVariable("boardId") Integer boardId){
@@ -46,6 +50,25 @@ public class BoardController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.debug("게시판 글 삭제 api 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 게시판 글 작성 api
+     * @author Ryu jiyun
+     * */
+    @PostMapping("")
+    public ResponseEntity<String> createBoard(@RequestHeader("token") String token
+                                        ,@RequestBody BoardDTO boardDTO){
+        log.info("게시판 글 작성 api 호출");
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            boardDTO.setUserIdx(userIdx);
+            boardService.createBoard(boardDTO);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e){
+            log.debug("게시판 글 작성 api 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

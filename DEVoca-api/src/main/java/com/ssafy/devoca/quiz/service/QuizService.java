@@ -25,4 +25,6 @@ public interface QuizService {
 
     public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception;
 
+    public List<BattleResultDTO> getBattleResultDetail(int loginUserIdx, int quizId) throws Exception;
+
 }

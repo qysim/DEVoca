@@ -184,4 +184,19 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/battle/result/{quizId}")
+    public ResponseEntity<List<BattleResultDTO>> getBattleResultDetail(@PathVariable("quizId") int quizId){
+        log.info("getQuizResultList 호출 : 참여한 대결 퀴즈 상세 조회 요청");
+        try{
+            //향후 session에서 loginUserId 뽑아 같이 보내기
+//            String loginUserId = "aabbccc";
+//            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = 8;
+            List<BattleResultDTO> quizDetailList = quizService.getBattleResultDetail(loginUserIdx, quizId);
+            return ResponseEntity.status(HttpStatus.OK).body(quizDetailList);
+        }catch (Exception e){
+            log.error("퀴즈 상세 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
