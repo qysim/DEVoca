@@ -115,9 +115,17 @@ public class QuizServiceImpl implements QuizService{
     @Transactional
     @Override
     public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception {
+        log.info("saveQuizResult 호출 : 대결 퀴즈 결과 저장");
         quizMapper.saveQuizResult(quizResultDTO);
+        log.info("saveQuizAnswerList 호출 : 대결 퀴즈 답안 저장");
         quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        log.info("saveBattleResult 호출 : 대결 정보 업데이트");
         quizMapper.saveBattleResult(quizResultDTO.getQuizId(), quizResultDTO.getUserIdx(), quizResultDTO.getScore());
+    }
+
+    @Override
+    public List<BattleResultDTO> getBattleResultDetail(int loginUserIdx, int quizId) throws Exception {
+        return quizMapper.getBattleResultDetail(loginUserIdx, quizId);
     }
 
 
