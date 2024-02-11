@@ -113,7 +113,7 @@ public class KakaoService {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj    = (JSONObject) jsonParser.parse(response.getBody());
 
-        int id = (Integer) jsonObj.get("id");
+        long id = (long) jsonObj.get("id");
 
         // 회원/비회원 확인
         int result = userMapper.checkUser(id);
