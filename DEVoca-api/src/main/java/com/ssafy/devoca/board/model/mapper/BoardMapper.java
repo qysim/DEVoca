@@ -18,4 +18,5 @@ public interface BoardMapper {
     void createBoard(BoardDTO boardDTO) throws SQLException;
 
     BoardDTO getBoardDetail(Integer boardId) throws SQLException;
+    List<BoardDTO> getMyboard(Integer userIdx) throws SQLException;
 }
