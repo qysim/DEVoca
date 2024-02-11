@@ -11,6 +11,7 @@ import java.util.Map;
 public interface UserService {
 
     int loadUserIdx(String userId) throws Exception;
+    int loadUserIdxById(String userId) throws Exception;
     String joinUser(UserDTO userDTO) throws Exception;
     UserDTO getUserInfo(int userIdx) throws Exception;
     void updateUserInfo(UserDTO userDTO) throws Exception;
@@ -19,6 +20,8 @@ public interface UserService {
     void setFavCategory(Map<String, Object> params) throws Exception;
     List<FavCategoryDTO> getFavCategory(int userIdx) throws Exception;
     List<BadgeDTO> getUserBadges(int userIdx) throws Exception;
+    void followUser(int userIdx, int followIdx) throws Exception;
+    void unfollowUser(int userIdx, int followIdx) throws Exception;
     List<UserDTO> getFollowList(int userIdx) throws Exception;
     List<UserDTO> getFollowingList(int userIdx) throws Exception;
     List<UserDTO> recommendFollow(int userIdx) throws Exception;

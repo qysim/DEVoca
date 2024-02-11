@@ -150,7 +150,8 @@
                qa_yn as quiz_yn
         from quiz_answers qa left join quiz_words qw
                on qa.qw_id = qw.qw_id
-        where qw.qw_quiz_id = #{quizId};
+        where qw.qw_quiz_id = #{quizId}
+        and qa_user_idx = #{loginUserIdx};
     </select>
 
 
@@ -161,6 +162,22 @@
         <result property="vocalistId" column="vl_id"/>
         <result property="vocalistName" column="vl_name"/>
         <result property="vocaCnt" column="voca_cnt"/>
+    </resultMap>
+
+    <!--  BattleResultDTO 매핑  -->
+    <resultMap id="BattleResultDTOMap" type="BattleResultDTO">
+        <result property="quizId" column="quiz_id"/>
+        <result property="userIdx" column="user_idx"/>
+        <result property="score" column="score"/>
+        <result property="battleUserNickname" column="battle_user_nickname"/>
+        <result property="battleUserId" column="battle_user_id"/>
+        <result property="battleUserScore" column="battle_user_score"/>
+        <result property="battleWinYn" column="battle_win_yn"/>
+        <collection property="quizAnswerDTOList" javaType="List" ofType="QuizAnswerDTO">
+            <result property="quizWordId" column="quiz_word_id"/>
+            <result property="quizAnswer" column="quiz_answer"/>
+            <result property="quizYn" column="quiz_yn"/>
+        </collection>
     </resultMap>
 
     <!--  대결용 단어장 목록 가져오기  -->
@@ -195,5 +212,45 @@
         (fk_battle_from_user_idx, fk_battle_to_user_idx, fk_battle_sl_id, battle_word_cnt, fk_battle_quiz_id)
         values(#{fromUserIdx}, #{toUserIdx}, #{vocaListId}, #{wordCnt}, #{quizId});
     </insert>
+
+    <!--  대결 완료시 정보 업데이트  -->
+    <update id="saveBattleResult" parameterType="map">
+        update battles
+        set battle_to_date = case when fk_battle_to_user_idx = #{userIdx}
+                                      then now() else battle_to_date end,
+            battle_to_score = case when fk_battle_to_user_idx = #{userIdx}
+                                       then #{score} else battle_to_score end,
+            battle_from_date = case when fk_battle_from_user_idx = #{userIdx}
+                                        then now() else battle_from_date end,
+            battle_from_score = case when fk_battle_from_user_idx = #{userIdx}
+                                         then #{score} else battle_from_score end
+        where fk_battle_quiz_id = #{quizId};
+    </update>
+
+    <!--  대결 퀴즈 상세내역 가져오기  -->
+    <select id="getBattleResultDetail" parameterType="map" resultMap="BattleResultDTOMap">
+        select qw.qw_quiz_id as quiz_id, qa_user_idx as user_idx,
+               (select qp_score from quiz_participants
+                where qp_quiz_id = #{quizId} and fk_qp_user_idx = #{loginUserIdx}) as score,
+               (<include refid="loadBattleUserIdx"></include>) as battle_user_idx,
+               (select user_nickname from users
+                where user_idx = battle_user_idx) as battle_user_nickname,
+               (select user_id from users
+                where user_idx = battle_user_idx) as battle_user_id,
+               (select qp_score from quiz_participants
+                where fk_qp_user_idx = battle_user_idx
+                  and qp_quiz_id = quiz_id) as battle_user_score,
+               (<include refid="loadBattleWinYN"></include>) as battle_win_yn,
+               qw_word_id as quiz_word_id,
+               qa_answer as quiz_answer,
+               qa_yn as quiz_yn
+        from quiz_answers qa
+            left join quiz_words qw
+            on qa.qw_id = qw.qw_id
+            left join battles bt
+            on qw.qw_quiz_id = bt.fk_battle_quiz_id
+        where qw.qw_quiz_id = #{quizId}
+          and qa_user_idx = #{loginUserIdx};
+    </select>
 
 </mapper>

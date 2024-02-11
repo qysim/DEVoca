@@ -31,11 +31,17 @@ public interface QuizMapper {
 
     public List<QuizResultDTO> getQuizResultDetail(@Param("loginUserIdx") int loginUserIdx, @Param("quizId") int quizId)
             throws SQLException;
-
     public List<QuizVocaDTO> getBattleVocaList(int userIdx) throws SQLException;
 
     public List<QuizDTO> createBattleWordList(@Param("vocaListId") int vocaListId, @Param("wordCnt") int wordCnt)
         throws SQLException;
 
     public void saveBattle(BattleRequestDTO battleRequestDTO) throws SQLException;
+
+    public void saveBattleResult(@Param("quizId") int quizId, @Param("userIdx") int userIdx, @Param("score") int score)
+            throws SQLException;
+
+    public List<BattleResultDTO> getBattleResultDetail(@Param("loginUserIdx") int loginUserIdx, @Param("quizId") int quizId)
+        throws SQLException;
+
 }
