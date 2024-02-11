@@ -38,4 +38,7 @@ public interface QuizMapper {
         throws SQLException;
 
     public void saveBattle(BattleRequestDTO battleRequestDTO) throws SQLException;
+
+    public void saveBattleResult(@Param("quizId") int quizId, @Param("userIdx") int userIdx, @Param("score") int score)
+            throws SQLException;
 }
