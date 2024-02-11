@@ -27,4 +27,9 @@
         where board_id = #{boardId} and fk_board_user_idx = #{userIdx}
     </update>
 
+    <insert id="createBoard" parameterType="BoardDTO">
+        insert into boards (fk_board_user_idx, board_title, board_content, board_type)
+        values ( #{userIdx}, #{boardTitle}, #{boardContent}, #{boardType});
+    </insert>
+
 </mapper>
