@@ -72,9 +72,8 @@ public class CardController {
     }
 
     @GetMapping("/list/{scroll}")
-    public ResponseEntity<List<CardDTO>> getCardList(
-//            @RequestHeader("token") String token,
-                                                    @PathVariable("scroll") int scroll){
+    public ResponseEntity<List<CardDTO>> getCardList(@RequestHeader("token") String token
+                                                    ,@PathVariable("scroll") int scroll){
         log.info("getCardList 호출 : 카드 목록 요청");
         try{
 //            int loginUserIdx = userService.loadUserIdx(token);
