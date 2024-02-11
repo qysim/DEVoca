@@ -8,18 +8,17 @@
       <div v-if="word.wordCategory !== undefined" class="flex justify-start gap-1 mt-2 text-xs">
         <span v-for="category in word.wordCategory" :key="category.id">#{{ category }}</span>
       </div>
-      <div class="text-wrap mt-2">
-        <ul class="text-sm list-inside list-disc">참고 링크
-          <li>
-            <a :href="word.wordLink" class="text-xs text-blue-600">{{ word.wordLink }}</a>
-          </li>
-        </ul>
+      <div class="mt-2">
+        <p>참고 링크</p>
+        <a :href="word.wordLink" class="text-xs text-wrap break-words text-blue-600">{{ word.wordLink }} <LinkIcon class="inline"/></a>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import LinkIcon from "../icon/LinkIcon.vue";
+
 defineProps({
   word: Object
 })
