@@ -38,26 +38,6 @@
           </div>
         </RouterLink>
       </div>
-      <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 글</p>
-            </div>
-            <RightArrowIcon />
-          </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 댓글</p>
-            </div>
-            <RightArrowIcon />
-          </div>
-        </RouterLink>
-      </div>
     </div>
   </div>
 </template>
