@@ -22,6 +22,7 @@ onMounted (() => {
   // console.log('Code parameter:', codeParam)
 
   getKaKaoToken(codeParam, (res) => {
+    console.log(res.data)
     userStore.userInfo = { ...userStore.userInfo, ...res.data }
 
     if (res.data.userYn === true) {
