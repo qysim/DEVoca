@@ -11,7 +11,3 @@ import TopNavbarComponent from '@/components/navbar/TopNavbarComponent.vue'
 import BottomNavbarComponent from '@/components/navbar/BottomNavbarComponent.vue'
 
 </script>
-
-<style scoped>
-
-</style>
