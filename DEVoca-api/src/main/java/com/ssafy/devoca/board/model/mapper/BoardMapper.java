@@ -12,6 +12,10 @@ import java.util.List;
 public interface BoardMapper {
 
     List<BoardDTO> getBoardList(Integer boardType) throws SQLException;
+
     void deleteBoard(@Param("boardId") Integer boardId, @Param("userIdx") Integer userIdx) throws SQLException;
+
     void createBoard(BoardDTO boardDTO) throws SQLException;
+
+    BoardDTO getBoardDetail(Integer boardId) throws SQLException;
 }

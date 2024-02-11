@@ -30,4 +30,11 @@ public class BoardServiceImpl implements BoardService{
     public void createBoard(BoardDTO boardDTO) throws Exception {
         boardMapper.createBoard(boardDTO);
     }
+
+    @Override
+    public BoardDTO getBoardDetail(Integer boardId) throws Exception {
+        return boardMapper.getBoardDetail(boardId);
+    }
+
+
 }
