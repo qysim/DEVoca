@@ -52,6 +52,7 @@ const datepicker = ref(null)
 
 const submitUserInfo = function () {
   joinUser(userStore.userInfo, (res) => {
+    console.log(`joinUser.res : ${res}`)
     router.push({name: 'SelectInterestsView'})
   }, (err) => {
     console.log(err)

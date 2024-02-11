@@ -1,16 +1,8 @@
 <template>
   <div>
-    <!-- 테스트용 코드 추후 변경 예정 -->
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
-    <CardComponent />
+    <div v-for="card in cardList">
+      <CardComponent :card="card" />
+    </div>
     <WriteButtonComponent onclick="bottom_modal.showModal()"/>
     <BottomModalComponent />
   </div>
@@ -20,6 +12,20 @@
 import CardComponent from '@/components/feed/CardComponent.vue'
 import WriteButtonComponent from '@/components/feed/WriteButtonComponent.vue'
 import BottomModalComponent from '@/components/common/BottomModalComponent.vue'
+import { getCardList } from '@/api/card'
+import { ref, onMounted } from 'vue'
+
+const cardList = ref(null)
+const scrollNum = ref(0)
+
+onMounted(() => {
+  getCardList(scrollNum.value, (res) => {
+    cardList.value = res.data
+    console.log(res.data)
+  }, (err) => {
+    console.log(err)
+  })
+})
 
 </script>
 

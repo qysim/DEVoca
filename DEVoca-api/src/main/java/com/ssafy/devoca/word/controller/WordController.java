@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -97,13 +94,12 @@ public class WordController {
      * @return 카드 리스트
      */
     @GetMapping("/detail/{wordId}/{scroll}")
-    public ResponseEntity<List<CardDTO>> getCardListByWord(@PathVariable("wordId") int wordId, @PathVariable("scroll") int scroll) {
+    public ResponseEntity<List<CardDTO>> getCardListByWord(@RequestHeader("token") String token
+                            ,@PathVariable("wordId") int wordId, @PathVariable("scroll") int scroll) {
         log.info("getCardListByWord 호출 : {} {}", wordId, scroll);
 
         try {
-            // 로그인 유저 idx 가져오기
-            String userId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(userId);
+            int loginUserIdx = userService.loadUserIdx(token);
 
             List<CardDTO> wordCardList = cardService.getCardListByWord(wordId, scroll, loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(wordCardList);
