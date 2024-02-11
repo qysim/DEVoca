@@ -6,42 +6,43 @@
         <p class="text-3xl">배지 획득 현황</p>
       </div>
       <div class="flex justify-center mt-3">
-        배지 00개 중 0개 보유
+        배지 {{ userBadge.length }}개 중 {{ userBadge.filter(b => b.badgeHaveYn === '1').length }}개 보유
       </div>
 
-      <!-- 체크박스 그룹 1 -->
       <div class="flex justify-center mt-8">
-        <div class="checkbox-container mr-4">
-          <label class="swap swap-flip text-3xl">
-            <input type="checkbox" class="" />
-            <div class="swap-on"><img src="@/assets/images/badge/calendar_0.png" alt="" class="badge-img"></div>
-            <div class="swap-off"><img src="@/assets/images/badge/calendar_1.png" alt="" class="badge-img"></div>
-          </label>
-        </div>
-
-        <div class="checkbox-container mr-4">
-          <label class="swap swap-flip text-3xl">
-            <input type="checkbox" class="" />
-            <div class="swap-on"><img src="@/assets/images/badge/first_0.png" alt="" class="badge-img"></div>
-            <div class="swap-off"><img src="@/assets/images/badge/first_1.png" alt="" class="badge-img"></div>
-          </label>
-        </div>
-
-        <div class="checkbox-container">
-          <label class="swap swap-flip text-3xl">
-            <input type="checkbox" class="" />
-            <div class="swap-on"><img src="@/assets/images/badge/good_0.png" alt="" class="badge-img"></div>
-            <div class="swap-off"><img src="@/assets/images/badge/good_1.png" alt="" class="badge-img"></div>
-          </label>
-        </div>
+        <template v-for="badge in userBadge" :key="badge.id">
+          <div class="checkbox-container mr-4">
+            <label class="swap swap-flip text-3xl">
+              <input type="checkbox" />
+              <div class="swap-on">
+                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn == '0' ? 1 : 0)">
+              </div>
+              <div class="swap-off">
+                <img :src="getImgUrl(badge.badgeImgName, badge.badgeHaveYn == '1' ? 1 : 0)">
+              </div>
+            </label>
+          </div>
+        </template>
       </div>
     </div>
-
   </form>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { getUserBadge } from '@/api/user.js'
 
+const userBadge = ref([]);
+
+onMounted(() => {
+  getUserBadge((res) => {
+    userBadge.value = res.data
+  }, (err) => {
+    console.err(err)
+  })
+})
+
+const getImgUrl = (badgeImgName, badgeHaveYn) => {
+  return new URL(`/src/assets/images/badge/${badgeImgName}_${badgeHaveYn}.png`, import.meta.url).href
+}
 </script>
-
-<style scoped></style>
