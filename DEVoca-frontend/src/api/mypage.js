@@ -17,3 +17,11 @@ export function getMyBoard(success, fail) {
         }
     }).then(success).catch(fail)
 }
+
+export function getMyComment(success, fail) {
+    local.get(`/mypage/mycomment`, {
+        headers: {
+            token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+        }
+    }).then(success).catch(fail)
+}
