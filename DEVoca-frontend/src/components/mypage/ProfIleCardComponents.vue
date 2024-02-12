@@ -33,12 +33,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserInfo } from '@/api/user.js'
-
+import { useUserStore } from '@/stores/user'
 import PenIcon from '@/components/icon/PenIcon.vue'
 import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
+const userStore = useUserStore()
 const userInfo = ref({})
-const userId = ref(0);
+const userId = ref(0)
 
 // TODO: 로그인 시 이 로직이 포함되어야 함. 로그인 완료되면 이렇게 직접 호출하는게 아니라 userStore에서 가져다 사용.
 onMounted(() => {

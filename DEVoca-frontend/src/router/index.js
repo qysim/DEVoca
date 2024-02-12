@@ -12,6 +12,7 @@ import MypageView from '@/views/Mypage/MypageView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 import MyBoardView from '@/views/Mypage/MyBoardView.vue'
 import MyCardView from '@/views/Mypage/MyCardView.vue'
+import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
@@ -60,7 +61,7 @@ const router = createRouter({
     },
     //DM
     {
-      path : '/otherusesrprofile',
+      path : '/profile/:id',
       name : 'OtherUserProfileView',
       component : OtherUserProfileView
     },
@@ -110,6 +111,11 @@ const router = createRouter({
           component : FollowView
         },
         {
+          path : '/mycomment',
+          name : 'MyCommentView',
+          component : MyCommentView
+        },
+        {
           path : '/profilechange/:id',
           name : 'ProfileChangeView',
           component : ProfileChangeView
@@ -146,9 +152,10 @@ const router = createRouter({
           component: CardCreateView,
         },
         {
-          path: '/card/detail',
+          path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
+          props: true
         },
         // word
         {

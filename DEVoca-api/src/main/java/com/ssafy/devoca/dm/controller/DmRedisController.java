@@ -44,9 +44,15 @@ public class DmRedisController {
             int roomIdx = dmService.getRoomIdxByRoomUuid(roomUuid);
             dmDTO.setRoomIdx(roomIdx);
             redisPublisher.publish(channelTopic, dmDTO);
-            redisService.redisSaveMessage(roomUuid, dmDTO);
         } catch (Exception e) {
             log.error("roomUuid로 roomIdx 가져오기 에러 : {}", e);
+            throw new RuntimeException(e);
+        }
+
+        try {
+            dmService.saveMessage(dmDTO);
+        } catch (Exception e) {
+            log.error("메시지 DB 저장 에러 : {}", e);
             throw new RuntimeException(e);
         }
     }
@@ -55,29 +61,7 @@ public class DmRedisController {
     public void userExit(@DestinationVariable("roomUuid") String roomUuid, LastDateDTO lastDateDTO) {
         log.info("userExit : {} {}", roomUuid, lastDateDTO);
 
-        List<Object> redisMessages = redisService.getRedisMessage(roomUuid, lastDateDTO.getUserId());
-        List<DmDTO> dms = new ArrayList<>();
-
-        for(Object messages : redisMessages){
-            if(messages instanceof DmDTO) {
-                dms.add((DmDTO) messages);
-            }
-        }
-
-        log.info("dms : {}", dms.toString());
-
-        try {
-            if(dms != null) {
-                dmService.saveMessages(dms);
-                log.info("DB에 메시지 저장 완료 {}", dms);
-            }
-        } catch (Exception e) {
-            log.error("DB 메시지 저장 실패 : {}", e);
-            throw new RuntimeException(e);
-        }
-        
         // redis 저장소 삭제
-        redisService.deleteRedisMessage(roomUuid, lastDateDTO.getUserId());
         redisService.redisUserExit(roomUuid, lastDateDTO.getUserId());
 
         // 마지막 조회 시간 업데이트
