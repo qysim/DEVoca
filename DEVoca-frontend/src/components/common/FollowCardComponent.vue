@@ -12,14 +12,30 @@
       </div>
     </div>
     <div class="flex flex-col basis-1/4 text-right">
-      <button v-if="userInfo.followingYn === 'Y'" class="btn bg-devoca text-white">팔로우</button>
-      <button v-else class="btn bg-devoca text-white">팔로잉</button>
+      <button v-if="userInfo.followingYn === 'N'" class="btn bg-devoca text-white"
+        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+      <button v-else class="btn border-devoca text-devoca"
+        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
     </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
-  userInfo: Object
+import { followUser, unfollowUser } from "@/api/mypage";
+
+const props = defineProps({
+  userInfo: Object,
+  option: String
 })
+
+console.table(props.userInfo)
+
+const followHandler = (option, id) => {
+  if (option === 'N') {
+    followUser(id)
+  } else {
+    unfollowUser(id)
+  }
+}
+
 </script>
