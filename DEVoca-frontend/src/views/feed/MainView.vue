@@ -16,5 +16,10 @@
 <script setup>
 import TopNavbarComponent from '@/components/navbar/TopNavbarComponent.vue'
 import BottomNavbarComponent from '@/components/navbar/BottomNavbarComponent.vue'
+import { ref } from "vue";
+const popup = ref(false);
+const isPopupClicked = function () {
+  popup.value = !popup.value;
+}
 
 </script>
