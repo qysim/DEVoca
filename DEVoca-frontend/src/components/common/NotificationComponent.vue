@@ -1,9 +1,9 @@
 <template>
 <div onclick="">
-    <div role="alert" class="alert" style="display: flex; flex-direction: row;">
+    <div role="alert" class="alert flex flex-row">
         <img src="@/assets/images/DEVoca_logo_initial.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-12 h-11" alt="devoca_logo">
-        <div style="display: flex; flex-direction: column; align-items: start;">
-            <h1 style="font-weight:bolder; font-size: larger;">DEVoca</h1>
+        <div class="flex flex-col items-start">
+            <h1 class="font-bold text-lg">DEVoca</h1>
             <h3>{{ notification }}</h3>
         </div>
     </div>
