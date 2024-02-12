@@ -27,8 +27,10 @@ import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import ArticleView from '@/views/article/ArticleView.vue'
 import ArticleDetailView from '@/views/article/ArticleDetailView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
-import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import QuizListView from '@/views/Quiz/QuizListView.vue'
+import QuizDetailView from '@/views/Quiz/QuizDetailView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
+import RouterErrorView from '@/views/system/RouterErrorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -185,6 +187,17 @@ const router = createRouter({
           path: '/vocalist',
           name: 'VocalistListView',
           component: VocalistListView,
+        },
+        //quiz
+        {
+          path : '/quizlist',
+          name : 'QuizListView',
+          component : QuizListView,
+        },
+        {
+          path : '/quizdetail',
+          name : 'QuizDetailView',
+          component : QuizDetailView
         },
       ]
     },
