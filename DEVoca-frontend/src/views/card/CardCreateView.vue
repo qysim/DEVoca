@@ -1,5 +1,5 @@
 <template>
-  <div class="container p-3">
+  <div class="p-3">
     <h2 class="font-jalnan text-lg px-2">단어 선택</h2>
     <AutoCompleteSearchComponent @selected-word="(id)=>{inputData.wordId = id}"/>
     <form @submit.prevent="submitCard">
