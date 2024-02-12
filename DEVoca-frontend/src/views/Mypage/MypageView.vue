@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue';
+import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
 
 
 </script>

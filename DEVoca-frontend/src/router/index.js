@@ -66,7 +66,7 @@ const router = createRouter({
     },
     //DM
     {
-      path : '/otherusesrprofile',
+      path : '/profile/:id',
       name : 'OtherUserProfileView',
       component : OtherUserProfileView
     },
@@ -136,9 +136,10 @@ const router = createRouter({
           component: CardCreateView,
         },
         {
-          path: '/card/detail',
+          path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
+          props: true
         },
         // word
         {

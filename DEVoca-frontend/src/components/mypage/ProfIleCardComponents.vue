@@ -35,17 +35,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref } from 'vue'
+import { useUserStore } from '@/stores/user'
 
-const userId = ref('');
+const userStore = useUserStore()
+const userId = userStore.kakaoUserInfo['id']
 
-// 예시로 userId를 설정하는 함수
-const setUserId = (newUserId) => {
-  userId.value = newUserId;
-};
-
-const router = useRouter();
 </script>
 
 
