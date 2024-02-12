@@ -10,6 +10,15 @@
         <WordComponent :word="word" />
           
         <div class="m-2">{{ card.cardContent }}</div>
+        
+        <div v-if="card.cardRelatedKeywordList" class="flex justify-start gap-1 mt-2 text-xs">
+          <span v-for="keyword in card.cardRelatedKeywordList" :key="keyword.id">#{{ keyword }}</span>
+        </div>
+        <hr>
+        <div class="mt-2">
+          <p>참고 링크</p>
+          <a :href="card.cardLink" class="text-xs text-wrap break-words text-blue-600">{{ card.cardLink }} <LinkIcon class="inline"/></a>
+        </div>
 
         <div class="flex justify-between p-2">
           <div class="flex gap-2">
@@ -47,12 +56,14 @@ import LikeIcon from "@/components/icon/LikeIcon.vue"
 import RepostIcon from "@/components/icon/RepostIcon.vue"
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+import LinkIcon from "@/components/icon/LinkIcon.vue"
 
 const userStore = useUserStore()
 const router = useRouter()
 const props = defineProps({
   card: Object
 })
+console.log(props.card)
 
 const userInfo = ref({
   userId: props.card.userId,
@@ -77,7 +88,7 @@ const originCard = ref({
 })
 
 const goProfile = function (userId) {
-  if (userId === userStore.kakaoUserInfo['id']) {
+  if (userId === userStore.kakaoUserInfo['id'].toString()) {
     router.push({name: 'MypageView'})
   } else {
     router.push({name: 'OtherUserProfileView', params: {id: userId}})
@@ -87,4 +98,5 @@ const goProfile = function (userId) {
 const goCardDetail = function (cardId) {
   router.push({name: 'CardDetailView', params: {id: cardId}})
 }
+
 </script>
