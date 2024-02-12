@@ -11,7 +11,7 @@
             <h1 class="m-3 self-center">제한시간이 없는 퀴즈입니다.</h1>
         </div>
         <div class="w-60 mt-5 flex flex-row justify-evenly">
-            <button class="btn bg-black text-white w-20">참여</button>
+            <button class="btn bg-black text-white w-20" @click="goQuizPage">참여</button>
             <button class="btn bg-black text-white w-20">닫기</button>
         </div>
 
@@ -20,7 +20,13 @@
   </template>
   
   <script setup>
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
+
   const quiz_type = ["게릴라", "대결"];
+  const goQuizPage = function (quizId) {
+  router.push({name: 'QuizPageView', params: {id: quizId}})
+  }
   </script>
   
   <style scoped></style>
