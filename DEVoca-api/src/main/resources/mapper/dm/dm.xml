@@ -57,7 +57,7 @@
         from dm_messages dm join users u
             on dm.fk_dm_user_idx = u.user_idx
         where fk_dm_dr_idx = (select dr_idx from dm_rooms where dr_uuid = #{roomUuid})
-        order by dm_send_date
+        order by dm_send_date desc
         limit #{scroll}, 10;
     </select>
 
