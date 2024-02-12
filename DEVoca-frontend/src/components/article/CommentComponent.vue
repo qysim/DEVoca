@@ -1,29 +1,35 @@
 <template>
-  <div class="card bg-base-100 m-2">
-    <div class="card card-side bg-base-100 items-center">
-      <div class="avatar basis-1/6">
-        <div class="rounded-full m-3">
-          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+  <div class="flex justify-center m-2">
+    <!-- TODO: 클릭 시 해당 글로 이동 -->
+    <div class="card h-fit w-full bg-base-100 shadow-xl">
+      <AvartarComponent :userInfo="userInfo" />
+
+      <div class="card-body p-6">
+        <div class="flex justify-between">
+          <p class="ml-3">{{ comment.commentContent }}</p>
+          <div class="flex justify-end">
+            <button class="btn btn-sm text-white text-lg" :class="{ 'bg-devoca': comment.commentPicked }">채택</button>
+          </div>
         </div>
-      </div>
-      <div class="card-body flex-row p-3">
-        <div>
-          <h2 class="card-title font-jalnan text-base">닉네임</h2>
-        </div>
-        <p class="text-right">시간</p>
-      </div>
-    </div>
-    <div class="flex justify-between">
-      <p class="ml-3">댓글 내용</p>
-      <div class="flex justify-end">
-        <button class="btn btn-sm bg-devoca text-white text-lg">채택</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+import AvartarComponent from '@/components/common/AvatarComponent.vue'
 
+const props = defineProps({
+  comment: Object
+})
+
+console.table(props.comment)
+const userInfo = ref({
+  userId: props.comment.userId,
+  userImg: props.comment.userImg,
+  userIntro: props.comment.userIntro,
+  userNickName: props.comment.userNickname,
+  cardRegistDate: props.comment.commentRegistDate
+})
 </script>
-
-<style scoped></style>
