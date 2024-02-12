@@ -9,10 +9,20 @@
     </div>
     <div>
       <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'FeedListView' }">
+        <RouterLink :to="{ name: 'MyCardView' }">
           <div class="flex justify-between">
             <div>
               <p>나의 피드</p>
+            </div>
+            <RightArrowIcon />
+          </div>
+        </RouterLink>
+      </div>
+      <div class="ml-10 mt-8">
+        <RouterLink :to="{ name: 'MyBoardView' }">
+          <div class="flex justify-between">
+            <div>
+              <p>나의 글</p>
             </div>
             <RightArrowIcon />
           </div>

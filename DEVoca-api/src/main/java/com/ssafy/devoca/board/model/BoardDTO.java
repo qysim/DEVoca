@@ -9,6 +9,7 @@ public class BoardDTO {
     private String userNickname;
     private String userId;
     private Integer userIdx;
+    private String userImg;
     private Integer boardId;
     private String boardTitle;
     private String boardContent;

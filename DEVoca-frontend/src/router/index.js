@@ -11,6 +11,8 @@ import MainView from '@/views/feed/MainView.vue'
 import DMListView from '@/views/DM/DMListView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import MyBoardView from '@/views/Mypage/MyBoardView.vue'
+import MyCardView from '@/views/Mypage/MyCardView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
@@ -27,9 +29,11 @@ import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import ArticleView from '@/views/article/ArticleView.vue'
 import ArticleDetailView from '@/views/article/ArticleDetailView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
-import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import QuizListView from '@/views/Quiz/QuizListView.vue'
+import QuizDetailView from '@/views/Quiz/QuizDetailView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 import QuizPageView from '@/views/Quiz/QuizPageView.vue'
+import RouterErrorView from '@/views/system/RouterErrorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,9 +76,10 @@ const router = createRouter({
       component : OtherUserProfileView
     },
     {
-      path : '/dmmessage',
+      path : '/dmmessage/:roomUuid',
       name : 'DMMessageView',
-      component : DMMessageView
+      component : DMMessageView,
+      props: true
     },
     // 상하단바
     {
@@ -99,6 +104,16 @@ const router = createRouter({
           path : '/mybadge',
           name : 'MyBadgeView',
           component : MyBadgeView
+        },
+        {
+          path : '/mycard',
+          name : 'MyCardView',
+          component : MyCardView
+        },
+        {
+          path : '/myboard',
+          name : 'MyBoardView',
+          component : MyBoardView
         },
         {
           path : '/profilechange/:id',
@@ -200,6 +215,16 @@ const router = createRouter({
               props: true,
             },
           ]
+        },
+        {
+          path : '/quizlist',
+          name : 'QuizListView',
+          component : QuizListView,
+        },
+        {
+          path : '/quizdetail',
+          name : 'QuizDetailView',
+          component : QuizDetailView,
         },
       ]
     },
