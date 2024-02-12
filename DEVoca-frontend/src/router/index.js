@@ -29,6 +29,7 @@ import ArticleDetailView from '@/views/article/ArticleDetailView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
+import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -184,6 +185,21 @@ const router = createRouter({
           path: '/vocalist',
           name: 'VocalistListView',
           component: VocalistListView,
+        },
+        // quiz
+        {
+          path: '/quiz/quizpage',
+          name: 'QuizPageView',
+          component: QuizPageView,
+          redirect: '/quiz/quizpage/page/0',
+          children: [
+            {
+              path: "page/:index",
+              name: "QuizPageComponent",
+              component: () => import("@/components/quiz/QuizPageComponent.vue"),
+              props: true,
+            },
+          ]
         },
       ]
     },
