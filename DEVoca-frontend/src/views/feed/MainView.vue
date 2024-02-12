@@ -1,8 +1,6 @@
 <template>
   <div class="py-16">
     <TopNavbarComponent/>
-    <NotificationComponent v-show="false"/>
-    <QuizPopupComponent/>
     <RouterView/>
     <BottomNavbarComponent />
   </div>

@@ -47,7 +47,7 @@
           Anakin
           <time class="text-xs opacity-50">12:46</time>
         </div>
-        <div class="chat-bubble">I hate you!</div>
+        <div class="chat-bubble bg-devoca_sky">I hate you!</div>
         <div class="chat-footer opacity-50">
           Seen at 12:46
         </div>
