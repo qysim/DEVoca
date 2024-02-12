@@ -2,6 +2,7 @@ package com.ssafy.devoca.dm.model.mapper;
 
 import com.ssafy.devoca.dm.model.DmDTO;
 import com.ssafy.devoca.dm.model.DmRoomDTO;
+import com.ssafy.devoca.dm.model.DmUserDTO;
 import com.ssafy.devoca.dm.model.LastDateDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,7 +25,8 @@ public interface DmMapper {
     public void insertParticipants(@Param("roomUuid") String roomUuid, @Param("loginUserIdx") int loginUserIdx, @Param("chatUserIdx") int chatUserIdx) throws SQLException;
     public int getRoomIdxByRoomUuid(String roomUuid) throws SQLException;
     public String getRoomUuidByRoomIdx(int roomIdx) throws SQLException;
-    public void saveMessages(List<DmDTO> dmDTOList) throws SQLException;
+    public void saveMessage(DmDTO dmDTO) throws SQLException;
     public void updateLastDate(LastDateDTO lastDateDTO) throws SQLException;
     public int getChatUserIdx(@Param("roomUuid") String roomUuid, @Param("userIdx") int userIdx) throws SQLException;
+    public DmUserDTO getChatUser(@Param("roomUuid") String roomUuid, @Param("userIdx") int userIdx) throws SQLException;
 }

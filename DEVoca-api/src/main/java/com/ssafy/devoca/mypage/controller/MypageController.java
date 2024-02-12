@@ -1,16 +1,25 @@
 package com.ssafy.devoca.mypage.controller;
 
+import com.ssafy.devoca.board.model.BoardDTO;
+import com.ssafy.devoca.board.service.BoardService;
+import com.ssafy.devoca.card.model.CardDTO;
+import com.ssafy.devoca.card.service.CardService;
+import com.ssafy.devoca.comment.model.CommentDTO;
+import com.ssafy.devoca.comment.service.CommentService;
 import com.ssafy.devoca.mypage.service.MypageService;
 import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
+import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +32,9 @@ public class MypageController {
 
     private final MypageService mypageService;
     private final UserService userService;
-
+    private final BoardService boardService;
+    private final CommentService commentService;
+    private final CardService cardService;
 
     @GetMapping("/badge")
     public ResponseEntity<List<BadgeDTO>> getUserBadges(@RequestHeader("token") String token) {
@@ -113,6 +124,80 @@ public class MypageController {
         } catch(Exception e){
             log.error("팔로우 추천 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 나의 글 조회 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/myboard")
+    public ResponseEntity<List<BoardDTO>> getMyboard(@RequestHeader("token") String token){
+        log.info("마이페이지 나의 글 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            List<BoardDTO> getMyboardList = boardService.getMyboard(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(getMyboardList);
+        } catch (Exception e){
+            log.info("마이페이지 나의 글 조회 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 나의 댓글 조회 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/mycomment")
+    public ResponseEntity<List<CommentDTO>> getMycomment(@RequestHeader("token") String token){
+        log.info("마이페이지 나의 댓글 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            List<CommentDTO> getCommentList = commentService.getMycommentList(userIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(getCommentList);
+        } catch (Exception e){
+            log.info("마이페이지 나의 댓글 조회 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 나의 피드 조회 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/mycard/{scroll}")
+    public ResponseEntity<List<CardDTO>> getMyCard(@RequestHeader("token") String token
+                                                    ,@PathVariable("scroll") int scroll){
+        log.info("마이페이지 나의 피드 조회 호출");
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            List<CardDTO> getCommentList = cardService.getMyCard(userIdx, scroll);
+            return ResponseEntity.status(HttpStatus.OK).body(getCommentList);
+        } catch (Exception e){
+            log.info("마이페이지 나의 피드 조회 호출 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 프로필 사진 업로드 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/profile/{imgname}")
+    public ResponseEntity<String> uploadProfileImg(@RequestHeader("token") String token
+                                                ,@PathVariable("imgname") String imgname){
+        try{
+            log.info("사용자 프로필 사진 업로드 api 호출");
+            InputStream stream = new InputStream() {
+                @Override
+                public int read() throws IOException {
+                    return 0;
+                }
+            };
+            mypageService.uploadProfileImg(imgname, stream);
+            return null;
+        } catch (Exception e){
+            return null;
         }
     }
 }

@@ -2,32 +2,25 @@
   <div class="card card-side bg-devoca_skyblue">
     <div class="avatar">
       <div class="w-24 h-24 rounded-full my-10 ml-5">
-        <img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg" />
+        <img :src="userInfo.userImg" />
       </div>
     </div>
     <div class="card-body">
       <div class="flex flex-row justify-between">
-        <h2 class="card-title mt-6">닉네임 위치</h2>
-        <div class="flex justify-start">
+        <h2 class="card-title mt-6">{{ userInfo.userNickname }}</h2>
+        <div class="flex justify-start gap-2">
           <router-link :to="{ name: 'ProfileChangeView', params: { id: userId } }">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-              <path
-                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
-            </svg>
+            <PenIcon />
           </router-link>
           <router-link :to="{ name: 'MypageSettingView', params: { id: userId } }">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-              <path fill-rule="evenodd"
-                d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 0 0-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 0 0-2.282.819l-.922 1.597a1.875 1.875 0 0 0 .432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 0 0 0 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 0 0-.432 2.385l.922 1.597a1.875 1.875 0 0 0 2.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 0 0 2.28-.819l.923-1.597a1.875 1.875 0 0 0-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 0 0 0-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 0 0-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 0 0-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 0 0-1.85-1.567h-1.843ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"
-                clip-rule="evenodd" />
-            </svg>
+            <ConfigIcon />
           </router-link>
         </div>
       </div>
-      <p class="text-sm">한 줄 소개자리
+      <p class="text-sm">{{ userInfo.userIntro }}
       <div class="flex-row">
-        <a href="" class="mr-5 text-sm">팔로우11</a>
-        <a href="" class="text-sm">팔로워11</a>
+        <router-link :to="{ name: 'FollowView' }" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</router-link>
+        <router-link :to="{ name: 'FollowerView' }" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</router-link>
       </div>
       </p>
     </div>
@@ -35,13 +28,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
+import { getUserInfo } from '@/api/user.js'
 import { useUserStore } from '@/stores/user'
+import PenIcon from '@/components/icon/PenIcon.vue'
+import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
 const userStore = useUserStore()
-const userId = userStore.kakaoUserInfo['id']
+const userInfo = ref({})
+const userId = ref(null)
+
+// TODO: 로그인 시 이 로직이 포함되어야 함. 로그인 완료되면 이렇게 직접 호출하는게 아니라 userStore에서 가져다 사용.
+onMounted(() => {
+  getUserInfo((res) => {
+    userInfo.value = res.data
+    userId.value = userStore.kakaoUserInfo['id']
+  }, (err) => {
+    console.err(err)
+  })
+})
 
 </script>
-
-
-<style scoped></style>

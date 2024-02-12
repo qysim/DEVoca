@@ -7,6 +7,7 @@
     <resultMap id="getBoardDTO" type="BoardDTO">
         <result property="userNickname" column="user_nickname"/>
         <result property="userId" column="user_id"/>
+        <result property="userImg" column="user_img"/>
         <result property="boardId" column="board_id"/>
         <result property="boardTitle" column="board_title"/>
         <result property="boardContent" column="board_content"/>
@@ -44,4 +45,13 @@
         where board_id = #{boardId}
     </select>
 
+    <!-- 마이페이지의 내 글 조회 -->
+    <select id="getMyboard" parameterType="Integer" resultMap="getBoardDTO">
+        select u.user_id, u.user_nickname, u.user_img, b.board_title, b.board_content, b.board_type
+
+             ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
+        from boards b
+                 join users u on b.fk_board_user_idx = u.user_idx
+        where u.user_idx = #{userIdx} and board_delete_date is null
+    </select>
 </mapper>

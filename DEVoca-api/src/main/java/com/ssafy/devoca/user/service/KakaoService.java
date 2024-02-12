@@ -122,7 +122,7 @@ public class KakaoService {
         if (result > 0) {
             log.info("기존 회원");
             return KakaoDTO.builder()
-                    .id(0)
+                    .id(id)
                     .token(accessToken)
                     .userYn(true).build();
         } else {

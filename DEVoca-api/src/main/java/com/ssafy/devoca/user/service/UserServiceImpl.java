@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
+        userMapper.getBadge(userDTO.getUserIdx(), 3);
         String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
         log.info("accessToken : {}", accessToken);
         return accessToken;
@@ -80,6 +81,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<FavCategoryDTO> getFavCategory(int userIdx) throws Exception {
         return userMapper.getFavCategory(userIdx);
+    }
+
+    @Override
+    public UserDTO getOtherUserInfo(int otherIdx, int userIdx) throws Exception {
+        return userMapper.getOtherUserInfo(otherIdx, userIdx);
     }
 
 }

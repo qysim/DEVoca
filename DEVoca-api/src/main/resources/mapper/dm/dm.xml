@@ -111,13 +111,14 @@
         where dr_idx = #{roomIdx}
     </select>
 
-    <!-- saveMessages 쿼리 -->
-    <insert id="saveMessages" parameterType="java.util.List">
+    <!-- saveMessage 쿼리 -->
+    <insert id="saveMessage" parameterType="DmDTO">
         insert into dm_messages (fk_dm_dr_idx, fk_dm_user_idx, dm_content, dm_send_date, dm_battle_quiz_id)
-        values
-            <foreach collection="list" item="message" separator="," >
-                (#{message.roomIdx}, (select user_idx from users where user_id = #{message.sendUserId}), #{message.dmContent}, #{message.dmSendDate}, #{message.dmBattleQuizId})
-            </foreach>
+        values (#{roomIdx},
+                (select user_idx from users where user_id = #{sendUserId}),
+                #{dmContent},
+                #{dmSendDate},
+                #{dmBattleQuizId})
     </insert>
 
     <!-- 마지막 조회 시간 갱신 -->
@@ -131,6 +132,22 @@
     <select id="getChatUserIdx" resultType="int">
         select dp_user_idx
         from dm_participants
+        where dp_dr_idx = (<include refid="getRoomIdx"></include>) and dp_user_idx != #{userIdx}
+    </select>
+
+    <!-- getChatUser 결과 매핑 -->
+    <resultMap id="DmUserResultMap" type="DmUserDTO">
+        <result property="userId" column="user_id"/>
+        <result property="userNickName" column="user_nickname"/>
+        <result property="userImg" column="user_img"/>
+        <result property="userIntro" column="user_intro"/>
+    </resultMap>
+
+    <!-- 채팅 유저 정보 가져오기 -->
+    <select id="getChatUser" resultMap="DmUserResultMap">
+        select u.user_id, u.user_nickname, u.user_img, u.user_intro
+        from dm_participants dp join users u
+        on dp.dp_user_idx = u.user_idx
         where dp_dr_idx = (<include refid="getRoomIdx"></include>) and dp_user_idx != #{userIdx}
     </select>
 </mapper>
