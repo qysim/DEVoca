@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
+        userMapper.getBadge(userDTO.getUserIdx(), 3);
         String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
         log.info("accessToken : {}", accessToken);
         return accessToken;
