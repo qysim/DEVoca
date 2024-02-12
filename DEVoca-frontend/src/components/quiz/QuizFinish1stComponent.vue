@@ -9,7 +9,7 @@
       <div>
         <p class="text-xl mt-3">00문제 중 00 문제 정답!!</p>
         <p class="mt-3">오늘 유저닉네임 님의 등수는??</p>
-        <img src="@/assets/images/quiz/1stimage.png" class="mt-4">
+        <img src="@/assets/images/quiz/grade_1.png" class="mt-4">
         <p class="text-2xl text-center mt-4">10초 후 종료</p>
       </div>
     </div>
