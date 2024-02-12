@@ -6,6 +6,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   theme: {
     extend: {
@@ -20,7 +21,7 @@ export default {
       }
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("tw-elements/dist/plugin.cjs")],
   daisyui: {
     themes: ["cupcake"]
   }

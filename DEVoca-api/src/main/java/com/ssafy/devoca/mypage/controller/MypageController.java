@@ -11,12 +11,15 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
+import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +176,28 @@ public class MypageController {
         } catch (Exception e){
             log.info("마이페이지 나의 피드 조회 호출 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /*
+     * 프로필 사진 업로드 api
+     * @author Ryu jiyun
+     * */
+    @GetMapping("/profile/{imgname}")
+    public ResponseEntity<String> uploadProfileImg(@RequestHeader("token") String token
+                                                ,@PathVariable("imgname") String imgname){
+        try{
+            log.info("사용자 프로필 사진 업로드 api 호출");
+            InputStream stream = new InputStream() {
+                @Override
+                public int read() throws IOException {
+                    return 0;
+                }
+            };
+            mypageService.uploadProfileImg(imgname, stream);
+            return null;
+        } catch (Exception e){
+            return null;
         }
     }
 }
