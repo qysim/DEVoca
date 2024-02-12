@@ -49,7 +49,6 @@ onMounted(() => {
   getDmRoomList(
     ({ data }) => {
       roomList.value = data
-      console.log(roomList.value)
     },
     (error) => {
       console.log(error);

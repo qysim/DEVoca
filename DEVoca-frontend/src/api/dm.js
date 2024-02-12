@@ -10,14 +10,14 @@ async function getDmRoomList(success, fail) {
 }
 
 async function getDmUser(roomUuid, success, fail) {
-    await local.get(`/dm/` + `${roomUuid}` + `/user`, {
+    await local.get(`/dm/${roomUuid}/user`, {
         headers: {
           token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
         }}).then(success).catch(fail);
 }
 
 async function getDmList(roomUuid, scroll, success, fail) {
-    await local.get(`/dm/` + `${roomUuid}` + `/` + `${scroll}`, {
+    await local.get(`/dm/${roomUuid}/${scroll}`, {
         headers: {
           token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
         }}).then(success).catch(fail);

@@ -25,16 +25,13 @@
             {{chat.dmContent}}
           </div>
           <div class="chat-footer">
-            <time class="text-s opacity-50">{{formatDate(chat.dmSendDate)}}</time>
-            <br/>
-            <time class="text-s opacity-50">{{formatTime(chat.dmSendDate)}}</time>
+            <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
           </div>
         </div>
         <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5">
           <div class="chat-bubble break-words">{{chat.dmContent}}</div>
           <div class="chat-footer">
-            <time class="text-s opacity-50">{{formatDate(chat.dmSendDate)}}</time>
-            <time class="text-s opacity-50">{{formatTime(chat.dmSendDate)}}</time>
+            <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
           </div>
         </div>
       </div>
@@ -65,7 +62,6 @@ onMounted(()=> {
     props.roomUuid,
     ({ data }) => {
       dmUser.value = data;
-      console.log("상대 유저 정보 : ", dmUser.value);
     },
     (error) => {
       console.log(error);
@@ -76,7 +72,6 @@ onMounted(()=> {
     data.forEach(element => {
       messageList.value.push(element)
     });
-    console.log("메시지 리스트 : ", messageList.value);
   },
   (error) => {
     console.log(error);
@@ -90,14 +85,9 @@ const options = {
   minute: "2-digit"
 };
 
-const formatDate = (date) => {
+const formatDateTime = (date) => {
   const dateTime = new Date(date);
-  return `${dateTime.toLocaleDateString(locale)}`;
-}
-
-const formatTime = (date) => {
-  const dateTime = new Date(date);
-  return `${dateTime.toLocaleTimeString(locale, options)}`;
+  return `${dateTime.toLocaleDateString(locale, options)}`;
 }
 
 </script>
