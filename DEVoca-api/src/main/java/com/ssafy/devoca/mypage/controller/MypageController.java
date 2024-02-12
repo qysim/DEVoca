@@ -17,9 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -183,18 +187,15 @@ public class MypageController {
      * 프로필 사진 업로드 api
      * @author Ryu jiyun
      * */
-    @GetMapping("/profile/{imgname}")
+    @PostMapping("/profile")
     public ResponseEntity<String> uploadProfileImg(@RequestHeader("token") String token
-                                                ,@PathVariable("imgname") String imgname){
+                                                ,@RequestParam("image") MultipartFile image){
         try{
-            log.info("사용자 프로필 사진 업로드 api 호출");
-            InputStream stream = new InputStream() {
-                @Override
-                public int read() throws IOException {
-                    return 0;
-                }
-            };
-            mypageService.uploadProfileImg(imgname, stream);
+            log.info("사용자 프로필 사진 업로드 api 호출: {}", image);
+            if (!image.isEmpty()) {
+                String url = mypageService.uploadProfileImg(image);
+            }
+            log.info("url");
             return null;
         } catch (Exception e){
             return null;
