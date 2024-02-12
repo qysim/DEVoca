@@ -25,7 +25,7 @@
 
   const quiz_type = ["게릴라", "대결"];
   const goQuizPage = function (quizId) {
-  router.push({name: 'QuizPageView', params: {id: quizId}})
+    router.push({name: 'QuizPageView', params: {id: quizId}})
   }
   </script>
   

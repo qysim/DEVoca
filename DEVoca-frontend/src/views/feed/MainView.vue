@@ -4,7 +4,7 @@
     <div v-if="false" @click="isPopupClicked">
       <NotificationComponent />
     </div>
-    <div class="flex justify-center" v-if="popup">
+    <div class="flex justify-center" v-if="popup" @click="isPopupClicked">
       <QuizPopupComponent/>
     </div>
     <RouterView/>
