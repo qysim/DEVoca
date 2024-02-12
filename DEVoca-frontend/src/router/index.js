@@ -74,9 +74,10 @@ const router = createRouter({
       component : OtherUserProfileView
     },
     {
-      path : '/dmmessage',
+      path : '/dmmessage/:roomUuid',
       name : 'DMMessageView',
-      component : DMMessageView
+      component : DMMessageView,
+      props: true
     },
     // 상하단바
     {
