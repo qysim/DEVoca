@@ -1,9 +1,9 @@
 <template>
 <div onclick="">
-    <div role="alert" class="alert" style="display: flex; flex-direction: row;">
+    <div role="alert" class="alert flex flex-row">
         <img src="@/assets/images/DEVoca_logo_initial.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-12 h-11" alt="devoca_logo">
-        <div style="display: flex; flex-direction: column; align-items: start;">
-            <h1 style="font-weight:bolder; font-size: larger;">DEVoca</h1>
+        <div class="flex flex-col items-start">
+            <h1 class="font-bold text-lg">DEVoca</h1>
             <h3>{{ notification }}</h3>
         </div>
     </div>
@@ -19,9 +19,9 @@ const routeto = ref({});
 let lastEventId = null;
 const notificationString = ["내 게시글에 댓글이 달렸어요.", "내 댓글이 채택되었어요.",
     "내 카드가 좋아요를 받았어요.", "내 카드가 재게시되었어요.",
-    "새로운 DM이 도착했어요.", "좋은아침입니다! 오늘의 퀴즈가 도착했어요."];
+    "새로운 DM이 도착했어요.", "좋은 아침입니다! 오늘의 퀴즈가 도착했어요."];
 
-const notificationType = ref(0);
+const notificationType = ref(5);
 const notification = computed(() => notificationString[notificationType.value]);
 
 onMounted(() => {

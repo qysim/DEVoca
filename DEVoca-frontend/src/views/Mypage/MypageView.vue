@@ -5,14 +5,34 @@
     </div>
     <div class="flex flex-row mx-4 mt-4 mb-8">
       <img src="@/assets/images/badge.png" alt="" class="ml-4">
-      <RouterLink to="/mybadge" class="ml-1">획득한 배지 {{ userBadge.length }}개></RouterLink>
+      <RouterLink :to="{ name: 'MyBadgeView' }" class="ml-1">획득한 배지 {{ userBadge.filter(b => b.badgeHaveYn === '1').length }}개></RouterLink>
     </div>
     <div>
       <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'FeedListView' }">
+        <RouterLink :to="{ name: 'MyCardView' }">
           <div class="flex justify-between">
             <div>
               <p>나의 피드</p>
+            </div>
+            <RightArrowIcon />
+          </div>
+        </RouterLink>
+      </div>
+      <div class="ml-10 mt-8">
+        <RouterLink :to="{ name: 'MyBoardView' }">
+          <div class="flex justify-between">
+            <div>
+              <p>나의 글</p>
+            </div>
+            <RightArrowIcon />
+          </div>
+        </RouterLink>
+      </div>
+      <div class="ml-10 mt-8">
+        <RouterLink :to="{ name: 'MyCommentView' }">
+          <div class="flex justify-between">
+            <div>
+              <p>나의 댓글</p>
             </div>
             <RightArrowIcon />
           </div>

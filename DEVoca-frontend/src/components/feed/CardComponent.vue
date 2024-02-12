@@ -2,11 +2,13 @@
   <div class="flex justify-center m-2">
     <div class="card h-fit bg-base-100 shadow-xl">
       <!-- 유저 -->
-      <AvartarComponent :userInfo="userInfo" />
+      <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
       <!-- 본문 -->
-      <div class="card-body p-4">
+      <div class="card-body p-4" @click="goCardDetail(card.cardId)">
+        <!-- originCard용 컴포넌트 만들기 -->
+        <!-- <CardComponent :card="originCard" v-if="props.card.originCardId" /> -->
         <WordComponent :word="word" />
-
+          
         <div class="m-2">{{ card.cardContent }}</div>
 
         <div class="flex justify-between p-2">
@@ -38,15 +40,19 @@
 import { ref } from 'vue'
 import AvartarComponent from '@/components/common/AvatarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue"
+import CardComponent from '@/components/feed/CardComponent.vue'
 import ShareIcon from "@/components/icon/ShareIcon.vue"
 import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
 import LikeIcon from "@/components/icon/LikeIcon.vue"
 import RepostIcon from "@/components/icon/RepostIcon.vue"
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
+const userStore = useUserStore()
+const router = useRouter()
 const props = defineProps({
   card: Object
 })
-console.log(props.card)
 
 const userInfo = ref({
   userId: props.card.userId,
@@ -62,4 +68,23 @@ const word = ref({
   wordNameKr: props.card.wordNameKr,
   wordSumm: props.card.wordSumm,
 })
+
+const originCard = ref({
+  originCardId: props.card.originCardId,
+  originUserNickName: props.card.originUserNickName,
+  originUserImg: props.card.originUserImg,
+  originCardContent : props.card.originCardContent
+})
+
+const goProfile = function (userId) {
+  if (userId === userStore.kakaoUserInfo['id']) {
+    router.push({name: 'MypageView'})
+  } else {
+    router.push({name: 'OtherUserProfileView', params: {id: userId}})
+  }
+}
+
+const goCardDetail = function (cardId) {
+  router.push({name: 'CardDetailView', params: {id: cardId}})
+}
 </script>
