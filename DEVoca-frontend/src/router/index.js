@@ -55,16 +55,6 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path: '/Follow',
-      name : 'FollowView',
-      component : FollowView
-    },
-    {
-      path : '/Follower',
-      name : 'FollowerView',
-      component : FollowerView
-    },
-    {
       path : '/followrecommendation',
       name : 'FollowRecommendationView',
       component : FollowRecommendationView
@@ -114,6 +104,16 @@ const router = createRouter({
           path : '/myboard',
           name : 'MyBoardView',
           component : MyBoardView
+        },
+        {
+          path: '/Follow',
+          name : 'FollowView',
+          component : FollowView
+        },
+        {
+          path : '/Follower',
+          name : 'FollowerView',
+          component : FollowerView
         },
         {
           path : '/profilechange/:id',
