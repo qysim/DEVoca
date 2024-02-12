@@ -19,7 +19,7 @@
   </template>
   
   <script setup>
-  import { defineProps, defineEmits, ref } from "vue";
+  import { ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
 
   const props = defineProps({
@@ -49,7 +49,7 @@
   let Question = props.quizList[index].wordSumm;
   Question = Question.replaceAll(props.quizList[index].wordNameKr, " [ ? ] ");
 
-  const answer = ref();
+  const answer = ref(null);
   const quizYn = ref(0);
   const score = ref(0);
   

@@ -1,18 +1,17 @@
 <template>
-  <div class="bg-devoca_skyblue w-full h-screen pt-6 pb-6 flex justify-center items-center">
+  <div class="bg-devoca_skyblue w-full h-[85dvh] pt-6 pb-6 flex justify-center items-center">
       <router-view :quizList="quizList" :quizId="quizId" :userId="userId"
       :answerList="answerList" @add-answer="addAnswer" :key="$route.fullPath"></router-view>
   </div>
 </template>
   
 <script setup>
-import { defineProps, ref } from "vue";
+import {  ref } from "vue";
 
   // const props = defineProps({
 // });
 const quizId = 0;
 const userId = "aabbccc";
-const score = ref(0);
 const answerList = ref([]);
 const addAnswer = (quizAnswer) => {
   answerList.value.push(quizAnswer);
