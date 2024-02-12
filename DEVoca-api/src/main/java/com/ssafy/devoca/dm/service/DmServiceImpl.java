@@ -65,8 +65,8 @@ public class DmServiceImpl implements DmService {
 
     // 메시지 저장
     @Override
-    public void saveMessages(List<DmDTO> dmDTOList) throws Exception {
-        dmMapper.saveMessages(dmDTOList);
+    public void saveMessage(DmDTO dmDTO) throws Exception {
+        dmMapper.saveMessage(dmDTO);
     }
 
     @Override
