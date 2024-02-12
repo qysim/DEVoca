@@ -9,6 +9,7 @@
         <id property="commentId" column="comment_id"/>
         <result property="boardId" column="board_id"/>
         <result property="userId" column="user_id"/>
+        <result property="userNickname" column="user_nickname"/>
         <result property="userImg" column="user_img"/>
         <result property="commentContent" column="comment_content"/>
         <result property="commentPicked" column="comment_picked"/>
@@ -85,7 +86,7 @@
 
     <!-- mypage 내 댓글 목록 쿼리 -->
     <select id="getMycommentList" resultMap="commentResultMap">
-        select c.comment_id, c.comment_content, c.comment_picked, c.comment_regist_date
+        select u.user_id, u.user_nickname, u.user_img, c.comment_id, c.comment_content, c.comment_picked, c.comment_regist_date
              ,if(comment_board_id is null, comment_card_id, comment_board_id) as board_id
         from comments c
                  join users u on c.fk_comment_user_idx = u.user_idx
