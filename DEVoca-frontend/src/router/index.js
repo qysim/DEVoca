@@ -11,11 +11,12 @@ import MainView from '@/views/feed/MainView.vue'
 import DMListView from '@/views/DM/DMListView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import MyBoardView from '@/views/Mypage/MyBoardView.vue'
+import MyCardView from '@/views/Mypage/MyCardView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
-import MyCardView from '@/views/Mypage/MyCardView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
@@ -107,6 +108,11 @@ const router = createRouter({
           path : '/mycard',
           name : 'MyCardView',
           component : MyCardView
+        },
+        {
+          path : '/myboard',
+          name : 'MyBoardView',
+          component : MyBoardView
         },
         {
           path : '/profilechange/:id',
