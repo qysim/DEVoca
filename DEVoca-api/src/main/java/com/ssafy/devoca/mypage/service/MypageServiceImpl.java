@@ -83,7 +83,7 @@ public class MypageServiceImpl implements MypageService {
         String saveFileName = getSaveFileName(extName);
         InputStream stream = image.getInputStream();
         // minio로 업로드
-        putObjectMinio("devoce", saveFileName, stream);
+        putObjectMinio("devoca", saveFileName, stream);
         log.info("minio로 업로드 saveFileName : {}", saveFileName);
         url += saveFileName;
         return url;
@@ -106,7 +106,7 @@ public class MypageServiceImpl implements MypageService {
     }
 
     private void putObjectMinio(String bucket, String objectName, InputStream stream){
-        log.info("minio putObjectMinio ::: {}", bucket);
+        log.info("minio putObjectMinio ::: {}", stream);
         try{
             MinioClient minioClient =
                     MinioClient.builder()
@@ -124,7 +124,7 @@ public class MypageServiceImpl implements MypageService {
 
             log.info("uploading image");
             minioClient.putObject(
-                    PutObjectArgs.builder().bucket("devoca").object(objectName)
+                    PutObjectArgs.builder().bucket(bucket).object(objectName)
                             .stream(stream, -1, 10485760)
                             .contentType("image/jpeg").build()
             );
