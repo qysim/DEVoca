@@ -2,6 +2,7 @@
   <div class="py-16">
     <TopNavbarComponent/>
     <NotificationComponent v-show="false"/>
+    <QuizPopupComponent/>
     <RouterView/>
     <BottomNavbarComponent />
   </div>
@@ -11,5 +12,5 @@
 import TopNavbarComponent from '@/components/navbar/TopNavbarComponent.vue'
 import BottomNavbarComponent from '@/components/navbar/BottomNavbarComponent.vue'
 import NotificationComponent from "@/components/common/NotificationComponent.vue";
-
+import QuizPopupComponent from "@/components/quiz/QuizPopupComponent.vue";
 </script>
