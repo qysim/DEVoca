@@ -3,7 +3,6 @@ import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
-import FollowerView from '@/views/Mypage/FollowerView.vue'
 import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
 import DMMessageView from '@/views/DM/DMMessageView.vue'
@@ -106,14 +105,9 @@ const router = createRouter({
           component : MyBoardView
         },
         {
-          path: '/Follow',
+          path: '/follow/:option',
           name : 'FollowView',
           component : FollowView
-        },
-        {
-          path : '/Follower',
-          name : 'FollowerView',
-          component : FollowerView
         },
         {
           path : '/profilechange/:id',
