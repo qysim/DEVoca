@@ -11,6 +11,7 @@ import MainView from '@/views/feed/MainView.vue'
 import DMListView from '@/views/DM/DMListView.vue'
 import MypageView from '@/views/Mypage/MypageView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
+import MyBoardView from '@/views/Mypage/MyBoardView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
@@ -100,6 +101,11 @@ const router = createRouter({
           path : '/mybadge',
           name : 'MyBadgeView',
           component : MyBadgeView
+        },
+        {
+          path : '/myboard',
+          name : 'MyBoardView',
+          component : MyBoardView
         },
         {
           path : '/profilechange/:id',
