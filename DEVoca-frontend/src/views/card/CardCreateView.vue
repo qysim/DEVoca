@@ -8,9 +8,9 @@
       
       <label class="form-control w-full mb-4">
         <div class="label">
-          <span class="label-text font-jalnan text-lg px-2">참 고</span>
+          <span class="label-text font-jalnan text-lg px-2">참고 링크</span>
         </div>
-        <input type="text" placeholder="참고 링크를 추가할 수 있어요" class="input input-bordered w-full" 
+        <input type="text" placeholder="www.example.com" class="input input-bordered w-full" 
         v-model="inputData.cardLink"/>
       </label>
 
@@ -49,7 +49,8 @@ const inputData = ref({
 
 const submitCard = function () {
   if (inputData.value.cardRelatedKeywordList) {
-    inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.split(',').map(item => item.trim())
+    inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
+      split(',').map(item => item.trim()).filter(item => item !== '')
   }
   registCard(inputData.value, (res) => {
     router.push({name: 'MainView'})

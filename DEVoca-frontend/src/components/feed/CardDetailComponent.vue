@@ -4,10 +4,12 @@
       <!-- 유저 -->
       <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
       <!-- 본문 -->
-      <div class="card-body p-4" @click="goCardDetail(card.cardId)">
+      <div class="card-body p-4">
         <!-- originCard용 컴포넌트 만들기 -->
         <!-- <CardComponent :card="originCard" v-if="props.card.originCardId" /> -->
-        <WordComponent :word="word" />
+
+        <WordComponent :word="word" @click="goWordDetail(word.wordId)"/>
+
           
         <div class="m-2">{{ card.cardContent }}</div>
         
@@ -88,15 +90,15 @@ const originCard = ref({
 })
 
 const goProfile = function (userId) {
-  if (userId === userStore.kakaoUserInfo['id'].toString()) {
+  if (userId === userStore.kakaoUserInfo['id']) {
     router.push({name: 'MypageView'})
   } else {
     router.push({name: 'OtherUserProfileView', params: {id: userId}})
   }
 }
 
-const goCardDetail = function (cardId) {
-  router.push({name: 'CardDetailView', params: {id: cardId}})
+const goWordDetail = function (wordId) {
+  router.push({name: 'WordDetailView', params: {id: wordId}})
 }
 
 </script>

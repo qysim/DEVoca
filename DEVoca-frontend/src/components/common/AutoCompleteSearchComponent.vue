@@ -1,10 +1,11 @@
 <template>
   <div class="flex justify-start items-center p-2 relative" id="autocomplete" 
-    data-te-input-wrapper-init >
+    data-te-input-wrapper-init>
     <input
       class="input input-bordered w-full px-6"
       type="text"
       placeholder="단어를 선택하세요"
+      v-model="inputDiv"
     />
     <svg
       class="absolute right-6 z-10 cursor-pointer"
@@ -31,8 +32,8 @@
     </svg>
   </div>
 
-  <div v-if="isWordSelected" class="indicator w-fit mt-2">
-    <button class="btn btn-square btn-sm btn-ghost indicator-item" @click="cancelWord">
+  <div v-if="isWordSelected" class="relative">
+    <button class="btn btn-ghost absolute right-0 z-10" @click="cancelWord">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
     <WordComponent :word="selectedWord" />
@@ -53,6 +54,7 @@ const emit = defineEmits(['selectedWord'])
 const wordList = ref(null)
 const isWordSelected = ref(false)
 const selectedWord = ref(null)
+const inputDiv = ref(null)
 
 const dataFilter = (value) => {
   return wordList.value.filter((item) => {
@@ -61,11 +63,12 @@ const dataFilter = (value) => {
   })
 }
 
-const showSelectWord = (wordId) => {
+const showSelectWord = async (wordId) => {
   getWordInCard(wordId, (res) => {
     selectedWord.value = res.data
     isWordSelected.value = true
     emit('selectedWord', selectedWord.value.wordId)
+    inputDiv.value = ''
   }, (err) => {
     console.log(err)
   })

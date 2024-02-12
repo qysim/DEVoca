@@ -40,15 +40,14 @@ const getAlphabetWord = function (alphabet) {
   if (!(alphabet in wordStore.wordList)) {
     getWordList(alphabet, 
     (res) => {
-      console.log(res.data)
+      // console.log(res.data)
       wordStore.wordList[alphabet] = res.data
-      console.log(wordStore.wordList[alphabet])
+      // console.log(wordStore.wordList[alphabet])
     }, (err) => {
       console.log(err)
     })
   }
   selectedAlphabet.value = alphabet
-  router.push({name: 'AlphabetWordListView', params: {alphabet: alphabet}})
 }
 
 const goWordDetail = function (wordId) {

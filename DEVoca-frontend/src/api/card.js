@@ -14,10 +14,6 @@ export function getCardList(scroll, success, fail) {
   }).then(success).catch(fail)
 }
 
-export function getCardListByUserId(userid, scroll, success, fail) {
-  local.get(`/card/list/${userid}/${scroll}`).then(success).catch(fail)
-}
-
 export function getCardDetail(cardId, success, fail) {
   local.get(`/card/${cardId}`, {
     headers: {
@@ -36,4 +32,16 @@ export function deleteCard(cardId, success, fail) {
 
 export function repostCard(data, success, fail) {
   local.post('/card/repost', data).then(success).catch(fail)
+}
+
+export function registComment(data, success, fail) {
+  local.post('/comment', data).then(success).catch(fail)
+}
+
+export function getCommentList(param, success, fail) {
+  local.post(`/comment/0/${param}`).then(success).catch(fail)
+}
+
+export function deleteComment(param, success, fail) {
+  local.delete(`/comment/${param}`).then(success).catch(fail)
 }
