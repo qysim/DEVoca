@@ -15,6 +15,7 @@ import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
+import MyCardView from '@/views/Mypage/MyCardView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
@@ -101,6 +102,11 @@ const router = createRouter({
           path : '/mybadge',
           name : 'MyBadgeView',
           component : MyBadgeView
+        },
+        {
+          path : '/mycard',
+          name : 'MyCardView',
+          component : MyCardView
         },
         {
           path : '/profilechange/:id',
