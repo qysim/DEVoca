@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div v-for="(chat, index) in messageList" :key="index">
+      <div v-for="(chat, index) in messageList " :key="index">
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5">
           <div class="chat-bubble break-words">
             {{chat.dmContent}}
@@ -99,7 +99,7 @@ const dm = ref({
 // websocket 연결
 const connect = (uuid) => {
   if(stompClient.value && stompClient.value.connected) {
-    stompClient.value.disconnect();
+    if(socket.value.connected) stompClient.value.disconnect();
   }
 
   socket.value = new WebSocket('wss://i10d112.p.ssafy.io/devoca/chat');
@@ -115,10 +115,15 @@ const connect = (uuid) => {
 
     //메시지 수신
     stompClient.value.subscribe('/sub/chat/' + uuid, (message) => {
-      console.log(message.body);
       displayMessage(JSON.parse(message.body));
     });
   });
+
+  // websocket 재연결
+  socket.value.onclose = function() {
+    console.log("WebSocket 연결 해제. 재연결 시도 중..");
+    setTimeout(connect(uuid), 1000);
+  }
 };
 
 // 화면에 메시지 표시
