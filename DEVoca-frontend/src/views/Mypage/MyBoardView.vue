@@ -14,12 +14,9 @@ const boardList = ref([])
 
 onMounted(() => {
   getMyBoard((res) => {
-    console.log(res.data)
     hasBoardResults.value = res.data.length > 0
     if (!hasBoardResults.value) return
     boardList.value = res.data
-  }, (err) => {
-    console.log(err)
-  })
+  }, null)
 })
 </script>
