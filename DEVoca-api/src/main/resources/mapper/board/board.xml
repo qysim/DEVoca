@@ -47,7 +47,8 @@
 
     <!-- 마이페이지의 내 글 조회 -->
     <select id="getMyboard" parameterType="Integer" resultMap="getBoardDTO">
-        select u.user_id, u.user_nickname, u.user_img, b.board_title, b.board_content,b.board_type
+        select u.user_id, u.user_nickname, u.user_img, b.board_title, b.board_content, b.board_type
+
              ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
         from boards b
                  join users u on b.fk_board_user_idx = u.user_idx

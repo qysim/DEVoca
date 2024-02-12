@@ -26,32 +26,14 @@ public class RedisService {
 
     public void redisEnterUser(String roomUuid, String userId) {
         log.info("enter 호출 : {} {}", roomUuid, userId);
-        redisTemplate.opsForList().rightPush(roomUuid, userId);
-        log.info("redis user 저장 완료");
-    }
 
-    public void redisSaveMessage(String roomUuid, DmDTO dmDTO) {
-        log.info("redisSaveMessage 호출 : {} {}", roomUuid, dmDTO);
+        // 이미 저장되어 있는지 확인
+        Boolean alreadyExistsUser = redisTemplate.opsForList().range(roomUuid, 0, -1).contains(userId);
 
-        String key = roomUuid + dmDTO.getSendUserId();
-
-        redisTemplate.opsForList().rightPush(key, dmDTO);
-        log.info("redis message 저장 완료");
-    }
-
-    public List<Object> getRedisMessage(String roomUuid, String userId) {
-        log.info("getRedisMessage 호출 : {} {}", roomUuid, userId);
-
-        String key = roomUuid + userId;
-
-        return redisTemplate.opsForList().range(key, 0, -1);
-    }
-
-    public void deleteRedisMessage(String roomUuid, String userId) {
-        log.info("deleteRedisMessage 호출 : {} {}", roomUuid, userId);
-        String key = roomUuid + userId;
-        redisTemplate.delete(key);
-        log.info("redisMessage 삭제 완료 : {} {}", roomUuid, userId);
+        if(!alreadyExistsUser) {
+            redisTemplate.opsForList().rightPush(roomUuid, userId);
+            log.info("redis user 저장 완료");
+        }
     }
 
     public void redisUserExit(String roomUuid, String userId) {
