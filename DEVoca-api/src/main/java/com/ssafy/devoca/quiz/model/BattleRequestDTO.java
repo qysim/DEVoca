@@ -10,5 +10,5 @@ public class BattleRequestDTO {
     int toUserIdx;
     int quizId;
     int vocaListId;
-    int WordCnt;
+    int wordCnt;
 }
