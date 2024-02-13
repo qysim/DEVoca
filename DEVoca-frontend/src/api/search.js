@@ -10,7 +10,11 @@ export function getSearchResultWords(param, success, fail) {
 
 // author: cheesecat47 <cheesecat47@gmail.com>
 export function getSearchResultCards(param, success, fail) {
-  local.get(`/search/card/${param}/0`).then(success).catch(fail)
+  local.get(`/search/card/${param}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }
 
 export async function getAutoCompList(success, fail) {
