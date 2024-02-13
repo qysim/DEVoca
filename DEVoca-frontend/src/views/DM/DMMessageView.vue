@@ -132,7 +132,7 @@ const connect = (uuid) => {
     console.log('Connected to WebSocket : ' + uuid);
     dm.value.sendUserId = userStore.kakaoUserInfo['id'];  
 
-    stompClient.value.send(`/pub/chat/${uuid}/enter`, {}, dm.value.sendUserId); // 유저 입장
+    stompClient.value.send(`/pub/chat/${uuid}/enter`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date()})); // 유저 입장
 
     //메시지 수신
     stompClient.value.subscribe(`/sub/chat/${uuid}`, (message) => {
