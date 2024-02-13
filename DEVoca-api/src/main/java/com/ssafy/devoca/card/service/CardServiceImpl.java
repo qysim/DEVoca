@@ -3,11 +3,13 @@ package com.ssafy.devoca.card.service;
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.card.model.mapper.CardMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CardServiceImpl implements CardService{
@@ -91,4 +93,17 @@ public class CardServiceImpl implements CardService{
     public List<CardDTO> getMyCard(int userIdx, int scroll) throws Exception {
         return cardMapper.getMyCard(userIdx, scroll);
     }
+
+    @Override
+    public void likeCard(int loginUserIdx, int cardId, boolean cardLikeYn) throws Exception {
+        if(cardLikeYn) {
+            // 좋아요 되어있다면 기존 테이블에서 삭제
+            cardMapper.deleteLike(loginUserIdx, cardId);
+        }else{
+            // 안되어있다면 테이블 추가
+            cardMapper.addLike(loginUserIdx, cardId);
+        }
+    }
+
+
 }
