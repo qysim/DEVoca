@@ -25,22 +25,15 @@
 <script setup>
 import axios from 'axios';
 import { onMounted } from 'vue';
+import { uploadImage } from '@/api/mypage'
+import { getUserInfo } from '@/api/user';
 
 const token = JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
 
 onMounted(() => {
-  axios.get(`https://i10d112.p.ssafy.io/devoca/user`, {
-    headers: {
-      token: token
-    }
-  })
-  .then((response) => {
-    console.log(response.data)
-    const imageUrl = response.data.userImg;
+  getUserInfo((res) => {
+    const imageUrl = res.data.userImg;
     document.getElementById('image').src = imageUrl;
-  })
-  .catch((error)=> {
-    console.log(error)
   })
 })
 
@@ -51,19 +44,24 @@ const handleFileUpload = function(e) {
   const formData = new FormData();
   formData.append('image', imgname);
 
-  axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
-    headers: {
-      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
-    }
-  })
-  .then((response) => {
-    const imageUrl = response.data;
-    console.log(imageUrl)
+  uploadImage(formData, (res) => {
+    const imageUrl = res.data;
     document.getElementById('image').src = imageUrl;
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+  }, null)
+
+  // axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
+  //   headers: {
+  //     token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+  //   }
+  // })
+  // .then((response) => {
+  //   const imageUrl = response.data;
+  //   console.log(imageUrl)
+  //   document.getElementById('image').src = imageUrl;
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // })
 }
 </script>
 

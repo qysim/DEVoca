@@ -57,3 +57,11 @@ export function unfollowUser(userId, success, fail) {
         }
     }).then(success).catch(fail)
 }
+
+export function uploadImage(formData, success, fail){
+    local.post(`/mypage/profile`, formData, {
+        headers: {
+            token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+        }
+    }).then(success).catch(fail)
+}
