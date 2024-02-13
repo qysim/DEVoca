@@ -36,7 +36,7 @@ const userInfo = ref({
   userId: props.board.userId,
   userImg: props.board.userImg,
   userIntro: props.board.userIntro,
-  userNickName: props.board.userNickname,
-  cardRegistDate: props.board.boardDate
+  userNickName: props.board.userNickName,
+  cardRegistDate: props.board.boardRegistDate
 })
 </script>
