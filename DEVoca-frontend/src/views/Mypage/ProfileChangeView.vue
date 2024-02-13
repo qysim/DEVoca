@@ -1,9 +1,11 @@
 <template>
   <form class="card-body" @submit.prevent="modifyInfo">
     <img id="image" src="@/assets/images/profile.png" alt="" class="mt-5 m-auto w-40 h-40 rounded-full">
-    <div class="upload" @click="triggerFileUpload">프로필 사진 선택하기
-    <input type="file" ref="profileUpload" @change="handleFileUpload">
-  </div>
+    <div class="flex justify-center">
+      <a class="upload" @click="triggerFileUpload">프로필 사진 선택하기</a>
+      <input type="file" id="profileUpload" @change="handleFileUpload" style="display:none">
+    </div>
+
     <div class="form-control">
       <label class="label">
         <span class="label-text">닉네임</span>
@@ -42,6 +44,11 @@ onMounted(() => {
     document.getElementById('image').src = imageUrl;
   })
 })
+
+const triggerFileUpload = function() {
+  console.log("triggerFileUpload")
+  document.getElementById('profileUpload').click();
+}
 
 const handleFileUpload = function(e) {
   const imgname = e.target.files[0]
