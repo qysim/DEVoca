@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -107,6 +108,23 @@ public class CardController {
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
             log.error("카드 재게시 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/like/{cardId}")
+    public ResponseEntity<String> likeCard (@RequestHeader("token") String token
+                                            , @PathVariable("cardId") int cardId,
+                                            @RequestBody Map<String, Boolean> requestBody){
+        log.info("likeCard 호출 : 카드 좋아요 토글");
+        try{
+            boolean cardLikeYn = requestBody.get("cardLikeYn");
+            int loginUserIdx = userService.loadUserIdx(token);
+            log.info("cardLikeYn : "+cardLikeYn);
+            cardService.likeCard(loginUserIdx, cardId, cardLikeYn);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (Exception e){
+            log.error("카드 좋아요 토글 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

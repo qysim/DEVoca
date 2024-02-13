@@ -234,4 +234,17 @@
             limit #{scroll}, 10
     </select>
 
+    <!--  좋아요 삭제  -->
+    <delete id="deleteLike" parameterType="map">
+        delete from likes
+        where like_from = #{loginUserIdx}
+          and like_to = #{cardId};
+    </delete>
+
+    <!--  좋아요 추가  -->
+    <insert id="addLike" parameterType="map">
+        insert into likes(like_from, like_to)
+        values (#{loginUserIdx}, #{cardId});
+    </insert>
+
 </mapper>
