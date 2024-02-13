@@ -61,7 +61,7 @@ public class QuizController {
         log.info("saveQuizResult 호출 : 퀴즈 결과 저장 요청");
         try{
             String userId = quizResultDTO.getUserId();
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdxById(userId);
             quizResultDTO.setUserIdx(userIdx);
             quizService.saveQuizResult(quizResultDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -160,7 +160,7 @@ public class QuizController {
         log.info("saveBattleResult 호출 : 대결 퀴즈 결과 저장 요청");
         try{
             String userId = quizResultDTO.getUserId();
-            int userIdx = userService.loadUserIdx(userId);
+            int userIdx = userService.loadUserIdxById(userId);
             quizResultDTO.setUserIdx(userIdx);
             quizService.saveBattleResult(quizResultDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
