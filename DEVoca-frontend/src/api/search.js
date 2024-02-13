@@ -16,3 +16,11 @@ export function getSearchResultCards(param, success, fail) {
 export async function getAutoCompList(success, fail) {
   await local.get('/search/autocomplete').then(success).catch(fail)
 }
+
+export async function getRecentKeyword(success, fail) {
+  await local.get('/search/reco/keyword', {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
