@@ -45,5 +45,15 @@ public class VocalistServiceImpl implements VocalistService{
         return vocalistMapper.getVocalistDetail(vocaListId, userIdx);
     }
 
+    @Override
+    public List<VocalistDTO> checkVocalist(Integer cardId, Integer userIdx) throws Exception {
+        return vocalistMapper.checkVocalist(cardId, userIdx);
+    }
+
+    @Override
+    public void cancelVocalist(Integer vlId, Integer cardId) throws Exception {
+        vocalistMapper.cancelVocalist(vlId, cardId);
+    }
+
 
 }

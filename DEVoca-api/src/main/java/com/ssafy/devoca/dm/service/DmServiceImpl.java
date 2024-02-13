@@ -2,6 +2,8 @@ package com.ssafy.devoca.dm.service;
 
 import com.ssafy.devoca.dm.model.DmDTO;
 import com.ssafy.devoca.dm.model.DmRoomDTO;
+import com.ssafy.devoca.dm.model.DmUserDTO;
+import com.ssafy.devoca.dm.model.LastDateDTO;
 import com.ssafy.devoca.dm.model.mapper.DmMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,13 +40,47 @@ public class DmServiceImpl implements DmService {
         return dmMapper.getRoomUuid(loginUserIdx, chatUserIdx);
     }
 
+    // 방 생성
     @Override
-    public int createRoom(String roomUuid) throws Exception {
-        return dmMapper.createRoom(roomUuid);
+    public void createRoom(String roomUuid) throws Exception {
+        dmMapper.createRoom(roomUuid);
     }
 
+    // 참여자 테이블에 참여자 저장
     @Override
     public void insertParticipants(String roomUuid, int loginUserIdx, int chatUserIdx) throws Exception {
         dmMapper.insertParticipants(roomUuid, loginUserIdx, chatUserIdx);
+    }
+
+    // 방 랜덤 아이디로 idx 가져오기
+    @Override
+    public int getRoomIdxByRoomUuid(String roomUuid) throws Exception {
+        return dmMapper.getRoomIdxByRoomUuid(roomUuid);
+    }
+
+    @Override
+    public String getRoomUuidByRoomIdx(int roomIdx) throws Exception {
+        return dmMapper.getRoomUuidByRoomIdx(roomIdx);
+    }
+
+    // 메시지 저장
+    @Override
+    public void saveMessage(DmDTO dmDTO) throws Exception {
+        dmMapper.saveMessage(dmDTO);
+    }
+
+    @Override
+    public void updateLastDate(LastDateDTO lastDateDTO) throws Exception {
+        dmMapper.updateLastDate(lastDateDTO);
+    }
+
+    @Override
+    public int getChatUserIdx(String roomUuid, int userIdx) throws Exception {
+        return dmMapper.getChatUserIdx(roomUuid, userIdx);
+    }
+
+    @Override
+    public DmUserDTO getChatUser(String roomUuid, int userIdx) throws Exception {
+        return dmMapper.getChatUser(roomUuid, userIdx);
     }
 }

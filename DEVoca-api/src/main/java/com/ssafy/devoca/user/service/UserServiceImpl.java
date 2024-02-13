@@ -4,6 +4,7 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.model.mapper.UserMapper;
+import com.ssafy.devoca.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,33 @@ import java.util.Map;
 public class UserServiceImpl implements UserService{
 
     private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
 
     @Override
-    public int loadUserIdx(String userId) throws Exception {
+    public int loadUserIdx(String token) throws Exception {
+        String userId = "";
+        if (jwtUtil.checkToken(token)){
+            userId = jwtUtil.getUserId(token);
+        } else {
+            throw new Exception("Loading userId Fail");
+        }
+        log.info("userId : {}", userId);
         return userMapper.loadUserIdx(userId);
     }
 
     @Override
-    public void joinUser(UserDTO userDTO) throws Exception {
+    public int loadUserIdxById(String userId) throws Exception {
+        return userMapper.loadUserIdx(userId);
+    }
+
+    @Override
+    @Transactional
+    public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
+        userMapper.getBadge(userDTO.getUserIdx(), 3);
+        String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
+        log.info("accessToken : {}", accessToken);
+        return accessToken;
     }
 
     @Override
@@ -65,25 +84,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<BadgeDTO> getUserBadges(int userIdx) throws Exception {
-        return userMapper.getUserBadges(userIdx);
+    public UserDTO getOtherUserInfo(int otherIdx, int userIdx) throws Exception {
+        return userMapper.getOtherUserInfo(otherIdx, userIdx);
     }
-
-    @Override
-    public List<UserDTO> getFollowList(int userIdx) throws Exception {
-        return userMapper.getFollowList(userIdx);
-    }
-
-    @Override
-    public List<UserDTO> getFollowingList(int userIdx) throws Exception {
-        return userMapper.getFollowingList(userIdx);
-    }
-
-    @Override
-    public List<UserDTO> recommendFollow(int userIdx) throws Exception {
-        return userMapper.recommendFollow(userIdx);
-    }
-
-
 
 }

@@ -18,9 +18,8 @@
 </template>
   
 <script setup>
-
 const clientId = 'f9cb962075484b28551d411e7d63c0eb'
-const redirectURI = "https://i10d112.p.ssafy.io/kakao/callback"
+const redirectURI = 'https://i10d112.p.ssafy.io/kakao/callback'
 const kakaoURI = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectURI}&response_type=code`
 
 </script>

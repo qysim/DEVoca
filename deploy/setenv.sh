@@ -9,6 +9,7 @@ touch .env
   echo "";
   echo "HTTP_PORT=${HTTP_PORT}";
   echo "NGINX_PORT=${NGINX_PORT}";
+  echo "JWT_SALT=${JWT_SALT}";
   echo "";
   echo "ALLOWED_ORIGINS=${ALLOWED_ORIGINS}";
   echo "";
@@ -27,5 +28,9 @@ touch .env
   echo "REDIS_PORT=${REDIS_PORT}";
   echo "REDIS_USER=${REDIS_USER}";
   echo "REDIS_PASSWORD=${REDIS_PASSWORD}";
+  echo "";
+  echo "MINIO_HOST=${MINIO_HOST}";
+  echo "MINIO_USER=${MINIO_USER}";
+  echo "MINIO_USER_PASSWORD=${MINIO_USER_PASSWORD}";
   echo "";
 } > .env

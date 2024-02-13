@@ -30,5 +30,7 @@ public interface CardMapper {
 
     public void repostCard(CardDTO cardDTO) throws SQLException;
     public void repostCntUpdate(int originCardId) throws SQLException;
+    public List<CardDTO> getMyCard
+            (@Param("userIdx") int userIdx, @Param("scroll") int scroll) throws SQLException;
 
 }

@@ -3,27 +3,38 @@
     <div>
       <ProfIleCardComponents />
     </div>
-    <div class="flex flex-row mt-3 ">
+    <div class="flex flex-row mx-4 mt-4 mb-8">
       <img src="@/assets/images/badge.png" alt="" class="ml-4">
-      <RouterLink to="/mybadge" class="ml-1">획득한 배지 00개></RouterLink>
-    </div>
-    <div class="mt-2 flex justify-end mr-14">
-      <p>등급</p>
-    </div>
-    <div class="flex justify-center mt-5">
-      <progress class="progress progress-info w-80" value="42" max="100"></progress>
+      <RouterLink :to="{ name: 'MyBadgeView' }" class="ml-1">획득한 배지 {{ userBadge.filter(b => b.badgeHaveYn === '1').length }}개></RouterLink>
     </div>
     <div>
       <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
+        <RouterLink :to="{ name: 'MyCardView' }">
           <div class="flex justify-between">
             <div>
               <p>나의 피드</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
+          </div>
+        </RouterLink>
+      </div>
+      <div class="ml-10 mt-8">
+        <RouterLink :to="{ name: 'MyBoardView' }">
+          <div class="flex justify-between">
+            <div>
+              <p>나의 글</p>
+            </div>
+            <RightArrowIcon />
+          </div>
+        </RouterLink>
+      </div>
+      <div class="ml-10 mt-8">
+        <RouterLink :to="{ name: 'MyCommentView' }">
+          <div class="flex justify-between">
+            <div>
+              <p>나의 댓글</p>
+            </div>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -33,49 +44,17 @@
             <div>
               <p>참여한 퀴즈</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
+        <RouterLink :to="{ name: 'VocalistListView' }">
           <div class="flex justify-between">
             <div>
               <p>단어장</p>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 글</p>
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 댓글</p>
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-8 h-8 ml-20 mr-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
+            <RightArrowIcon />
           </div>
         </RouterLink>
       </div>
@@ -84,9 +63,18 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { getUserBadge } from '@/api/user.js'
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue';
+import RightArrowIcon from '@/components/icon/RightArrowIcon.vue'
 
+const userBadge = ref([]);
 
+onMounted(() => {
+  getUserBadge((res) => {
+    userBadge.value = res.data
+  }, (err) => {
+    console.err(err)
+  })
+})
 </script>
-
-<style scoped></style>

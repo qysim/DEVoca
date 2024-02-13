@@ -7,7 +7,7 @@ CREATE TABLE `users` (
     `user_nickname`	varchar(20)	NOT NULL	COMMENT 'null 시 user_name으로',
     `user_intro`	varchar(100)	NULL,
     `user_exp`	int	NOT NULL	DEFAULT 0,
-    `user_img`	varchar(2000)	NOT NULL	DEFAULT '기본 이미지 경로',
+    `user_img`	varchar(2000)	NOT NULL	DEFAULT '/src/assets/images/profile.png',
     `user_join_date`	datetime	NOT NULL	DEFAULT now(),
     `user_update_date`	datetime	NULL,
     `user_revoke_date`	datetime	NULL,
@@ -182,7 +182,7 @@ CREATE TABLE `dms` (
     `fk_dm_user_idx`	int	NOT NULL,
     `dm_content`	varchar(300)	NOT NULL,
     `dm_send_date`	datetime	NOT NULL	DEFAULT now(),
-    `dm_battle_YN`	boolean	NOT NULL	DEFAULT false	COMMENT 'true : 도전 메시지',
+    `dm_battle_quiz_id`	int	NOT NULL	DEFAULT 0,
     CONSTRAINT `PK_DM_MESSAGES` PRIMARY KEY (`dm_id`)
 )default character set utf8mb4;
 
@@ -198,7 +198,7 @@ CREATE TABLE `quiz_participants` (
     `fk_qp_user_idx`	int	NOT NULL,
     `qp_participate_date`	datetime	NOT NULL	DEFAULT now(),
     `qp_score`	int	NOT NULL,
-    CONSTRAINT `PK_QUIZ_PARTICIPANTS` PRIMARY KEY (`qp_quiz_id`)
+    CONSTRAINT `PK_QUIZ_PARTICIPANTS` PRIMARY KEY (`qp_quiz_id`, `fk_qp_user_idx`)
 )default character set utf8mb4;
 
 CREATE TABLE `quiz_answers` (

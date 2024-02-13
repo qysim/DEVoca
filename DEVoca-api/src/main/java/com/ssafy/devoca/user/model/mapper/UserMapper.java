@@ -4,6 +4,8 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,12 +18,10 @@ public interface UserMapper {
     int checkUser(long id) throws SQLException;
     void joinUser(UserDTO userDTO) throws SQLException;
     UserDTO getUserInfo(int userIdx) throws SQLException;
+    UserDTO getOtherUserInfo(@Param("otherIdx") int otherIdx, @Param("userIdx") int userIdx) throws SQLException;
     void updateUserInfo(UserDTO userDTO) throws SQLException;
     void delFavCategory(int userIdx) throws SQLException;
     void setFavCategory(Map<String, Object> params) throws SQLException;
     List<FavCategoryDTO> getFavCategory(int userIdx) throws SQLException;
-    List<BadgeDTO> getUserBadges(int userIdx) throws SQLException;
-    List<UserDTO> getFollowList(int userIdx) throws SQLException;
-    List<UserDTO> getFollowingList(int userIdx) throws SQLException;
-    List<UserDTO> recommendFollow(int userIdx) throws SQLException;
+    void getBadge(@Param("userIdx") int userIdx, @Param("badgeId") int badgeId) throws SQLException;
 }

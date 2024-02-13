@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from "axios"
 import { httpStatusCode } from "./http-status"
 
 const urlApi = 'https://i10d112.p.ssafy.io/devoca'
-console.log(`urlApi : ${urlApi}`)
+// console.log(`urlApi : ${urlApi}`)
 
 // local vue api axios instance
 function localAxios() {
@@ -15,7 +15,7 @@ function localAxios() {
   });
   
   // Request 발생 시 적용할 내용.
-  instance.defaults.headers.common["Authorization"] = "";
+  instance.defaults.headers.common["token"] = "";
   instance.defaults.headers.post["Content-Type"] = "application/json";
   instance.defaults.headers.put["Content-Type"] = "application/json";
 

@@ -1,54 +1,61 @@
 <template>
-  <div class="container p-3">
-    <form>
-      <h2 class="font-jalnan text-lg px-2">단어 선택</h2>
-      <SearchBarComponent />
-      
-      <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"></textarea>
+  <div class="p-3">
+    <h2 class="font-jalnan text-lg px-2">단어 선택</h2>
+    <AutoCompleteSearchComponent @selected-word="(id)=>{inputData.wordId = id}"/>
+    <form @submit.prevent="submitCard">
+      <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"
+      v-model="inputData.cardContent"></textarea>
       
       <label class="form-control w-full mb-4">
         <div class="label">
           <span class="label-text font-jalnan text-lg px-2">참 고</span>
         </div>
-        <input type="text" placeholder="참고 링크를 추가할 수 있어요" class="input input-bordered w-full" />
+        <input type="text" placeholder="참고 링크를 추가할 수 있어요" class="input input-bordered w-full" 
+        v-model="inputData.cardLink"/>
       </label>
 
       <label class="form-control w-full mb-4">
         <div class="label">
           <span class="label-text font-jalnan text-lg px-2">연관 개념</span>
         </div>
-        <input type="text" placeholder="연관 개념을 추가할 수 있어요" class="input input-bordered w-full" />
+        <input type="text" placeholder="연관 개념을 , (쉼표) 로 구분해 입력해주세요" class="input input-bordered w-full" 
+        v-model="inputData.cardRelatedKeywordList"/>
       </label>
       
       <div class="flex justify-end">
-        <RouterLink to="/main">
-          <button class="btn btn-md bg-devoca text-white text-lg">게시</button>
-        </RouterLink>
+        <button class="btn btn-md bg-devoca text-white text-lg">게시</button>
       </div>
     </form>
   </div>
 </template>
 
 <script setup>
-import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
+import { ref } from 'vue'
+import AutoCompleteSearchComponent from '@/components/common/AutoCompleteSearchComponent.vue'
+import { registCard } from '@/api/card'
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
-// autocomplete https://tw-elements.com/docs/standard/forms/autocomplete/
-// const data = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+const router = useRouter()
+const userStore = useUserStore()
 
-// const dataFilter = (value) => {
-//   return data.filter((item) => {
-//     return item.toLowerCase().startsWith(value.toLowerCase());
-//   });
-// };
+const inputData = ref({
+  userId: userStore.kakaoUserInfo['id'],
+  wordId: null,
+  cardContent: null,
+  cardLink: null,
+  cardRelatedKeywordList: null
+})
 
-// const basicAutocomplete = document.querySelector('#basic');
-
-// new Autocomplete(basicAutocomplete, {
-//   filter: dataFilter,
-// });
+const submitCard = function () {
+  if (inputData.value.cardRelatedKeywordList) {
+    inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.split(',').map(item => item.trim())
+  }
+  registCard(inputData.value, (res) => {
+    router.push({name: 'MainView'})
+  }, (err) => {
+    console.log(`err : ${err}`)
+  })
+}
 
 </script>
-
-<style scoped>
-
-</style>

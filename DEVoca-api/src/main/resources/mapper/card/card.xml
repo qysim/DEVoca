@@ -44,7 +44,7 @@
         on u.user_idx = f.follow_to
         where f.follow_from = #{loginUserIdx}
         union
-        #{loginUserIdx}
+        select #{loginUserIdx} as user_idx
     </sql>
 
     <!--  재게시 원본 카드 작성자 정보 불러오기  -->
@@ -205,5 +205,33 @@
         set card_repost_cnt = card_repost_cnt + 1
         where card_id = #{originCardId};
     </update>
+
+    <!-- 마이페이지 내 피드 목록 조회 -->
+    <select id="getMyCard" parameterType="map" resultMap="CardDTOResultMap">
+        select user_id, user_nickname, user_intro, user_img,
+               word_id, word_name_kr, word_name_en, word_summ,
+               card_origin_card_id, card_origin_card_id as oci,
+               u.user_img, u.user_nickname,
+               (select card_content
+                from cards
+                where card_id = oci) as card_origin_card_content,
+               card_id, card_content,
+               ifnull((select 'Y' from likes
+                       where like_from = #{userIdx}
+                         and like_to = card_id), 'N') as card_like_yn,
+               (select count(*) from likes where like_to = card_id) as card_like_cnt,
+               card_repost_cnt, card_regist_date, card_update_date
+        from users u
+                 right join cards c on u.user_idx = c.fk_card_user_idx
+                 left join words w on c.card_word_id = word_id
+        where u.user_idx = #{userIdx}
+          and card_delete_date is null
+        ORDER BY
+            CASE
+                WHEN card_update_date IS NOT NULL AND card_update_date >= card_regist_date THEN card_update_date
+                ELSE card_regist_date
+                END DESC
+            limit #{scroll}, 10
+    </select>
 
 </mapper>

@@ -20,4 +20,5 @@ public interface CardService {
     public List<CardDTO> getCardListByUserId(String userId, int scroll, int loginUserIdx) throws Exception;
 
     public void repostCard(CardDTO cardDTO) throws Exception;
+    public List<CardDTO> getMyCard(int userIdx, int scroll) throws Exception;
 }
