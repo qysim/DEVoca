@@ -123,5 +123,10 @@ public class QuizServiceImpl implements QuizService{
         return quizMapper.getBattleResultDetail(loginUserIdx, quizId);
     }
 
+    @Override
+    public int getBattleUserIdx(int loginUserIdx, int quizId) throws Exception {
+        return quizMapper.getBattleUserIdx(loginUserIdx, quizId);
+    }
+
 
 }

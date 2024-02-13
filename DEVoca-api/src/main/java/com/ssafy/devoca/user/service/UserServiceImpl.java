@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService{
         return userMapper.getOtherUserInfo(otherIdx, userIdx);
     }
 
+    @Override
+    public String getUserNickName(int userIdx) throws Exception {
+        return userMapper.getUserNickName(userIdx);
+    }
+
 }
