@@ -39,8 +39,7 @@
     <select id="getBoardDetail" parameterType="Integer" resultMap="getBoardDTO">
         select u.user_id, u.user_nickname
              ,board_id, board_title, board_content, board_type
-             ,if (board_update_date is not null, "Y", "N") as updateYN
-             ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
+            ,board_update_date, board_regist_date
         from boards b
                  join users u on b.fk_board_user_idx = u.user_idx
         where board_id = #{boardId}
@@ -49,8 +48,7 @@
     <!-- 마이페이지의 내 글 조회 -->
     <select id="getMyboard" parameterType="Integer" resultMap="getBoardDTO">
         select u.user_id, u.user_nickname, u.user_img, b.board_title, b.board_content, b.board_type
-
-             ,if (board_update_date is not null, board_update_date, board_regist_date) as board_date
+            ,board_update_date, board_regist_date
         from boards b
                  join users u on b.fk_board_user_idx = u.user_idx
         where u.user_idx = #{userIdx} and board_delete_date is null
