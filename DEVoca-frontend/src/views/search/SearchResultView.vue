@@ -31,7 +31,7 @@
 <script setup>
 import { ref } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
-import { getSearchResultWords, getSearchResultCards } from '@/api/word'
+import { getSearchResultWords, getSearchResultCards } from '@/api/search'
 
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue";
