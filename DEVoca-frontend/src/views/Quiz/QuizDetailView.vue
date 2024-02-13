@@ -5,9 +5,6 @@
   <div>
     <FightChallengeComponent/>
   </div>
-  <div>
-    <QuizFinishComponent/>
-  </div>
   <div class="m-12 flex flex-col">
     <div class="w-full h-20 rounded-lg">
       <p class="text-xl text-center">날짜</p>
@@ -39,7 +36,6 @@
 <script setup>
 import FightPopupComponent from '@/components/quiz/FightPopupComponent.vue';
 import FightChallengeComponent from '@/components/quiz/FightChallengeComponent.vue';
-import QuizFinishComponent from '@/components/quiz/QuizFinishComponent.vue';
 </script>
 
 <style scoped></style>
