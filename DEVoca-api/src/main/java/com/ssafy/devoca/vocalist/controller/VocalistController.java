@@ -45,7 +45,7 @@ public class VocalistController {
     }
 
     /*
-    * 단어장 저장 api
+    * 단어장에 의견카드 저장 api
     * @author Ryu jiyun
     * */
     @PostMapping("/store")
