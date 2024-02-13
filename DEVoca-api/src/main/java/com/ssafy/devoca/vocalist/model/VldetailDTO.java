@@ -6,16 +6,18 @@ import java.sql.Timestamp;
 @Data
 public class VldetailDTO {
     private Integer vocaListId;
-    private String vlName;
+    private String vocalistName;
 
-    private String userNickname;
+    private String userId;
+    private String userNickName;
     private String userIntro;
     private String userImg;
 
     private Integer cardId;
     private String cardContent;
     private Integer cardRepostCnt;
-    private Timestamp cardDate;
+    private Timestamp cardRegistDate;
+    private Timestamp cardUpdateDate;
     private String cardLikeYN;
     private String cardLikeCnt;
 
