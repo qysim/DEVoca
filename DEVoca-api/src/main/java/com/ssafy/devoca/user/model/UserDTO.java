@@ -11,7 +11,7 @@ public class UserDTO {
     private String userName;
     private String userBirth;
     private String userEmail;
-    private String userNickname;
+    private String userNickName;
     private String userIntro;
     private Integer userExp;
     private String userImg;

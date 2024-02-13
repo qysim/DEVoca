@@ -8,15 +8,19 @@ import com.ssafy.devoca.user.model.mapper.UserMapper;
 import com.ssafy.devoca.user.service.UserService;
 import com.ssafy.devoca.util.JwtUtil;
 import io.minio.BucketExistsArgs;
+import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -67,27 +71,105 @@ public class MypageServiceImpl implements MypageService {
     }
 
     @Override
-    public void uploadProfileImg(String imgname, InputStream stream) throws Exception {
-        MinioClient minioClient =
-                MinioClient.builder()
-                        .endpoint(MINIO_HOST)
-                        .credentials(MINIO_USER, MINIO_USER_PASSWORD)
-                        .build();
-        // bucket 있는지 확인
-        boolean checkBucket = minioClient.bucketExists(BucketExistsArgs.builder().bucket("devoca").build());
-        if(checkBucket){
-            log.info("devoca exists");
-        } else {
-            log.info("devoca does not exists");
-        }
+    @Transactional
+    public String uploadProfileImg(MultipartFile image) throws Exception {
 
-        // 이미지 업로드
-        minioClient.putObject(
-                PutObjectArgs.builder().bucket("devoca").object(imgname)
-                        .stream(stream, -1, 10485760)
-                        .contentType("image/jpeg").build()
-        );
+        // 파일 정보
+        String originFileName = image.getOriginalFilename();
+        String extName
+                = originFileName.substring(originFileName.lastIndexOf("."), originFileName.length());
+        Long size = image.getSize();
+        String type = image.getContentType();
+        log.info("type : {}" , type);
+
+        // 저장할 이름
+        String saveFileName = getSaveFileName(extName);
+        InputStream stream = image.getInputStream();
+
+        // minio로 업로드
+        String url = putObjectMinio("devoca", saveFileName, stream, size, type);
+        log.info("minio로 업로드 saveFileName : {}", url);
+        return url;
     }
 
+    @Override
+    public InputStreamResource getProfileImg(String objectName) throws Exception {
+        log.info("minio getObject 호출 ::: {}", objectName);
+        String bucket = "devoca";
+        try{
+            MinioClient minioClient =
+                    MinioClient.builder()
+                            .endpoint(MINIO_HOST)
+                            .credentials(MINIO_USER, MINIO_USER_PASSWORD)
+                            .build();
 
+            log.info("checking bucket");
+            boolean checkBucket = minioClient.bucketExists(
+                    BucketExistsArgs.builder().bucket(bucket).build());
+            if(checkBucket){
+                log.info("devoca exists");
+            } else {
+                log.info("devoca does not exists");
+            }
+
+            log.info("getting image");
+            InputStream inputStream = minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(bucket).object(objectName).build()
+            );
+            log.info("inputStream : {}", inputStream);
+            return new InputStreamResource(inputStream);
+        } catch (Exception e){
+            log.info("putObject error ::: {}", e);
+            return null;
+        }
+    }
+
+    private String getSaveFileName(String extName) {
+        String filename = "";
+
+        Calendar calendar = Calendar.getInstance();
+        filename += calendar.get(Calendar.YEAR);
+        filename += calendar.get(Calendar.MONTH);
+        filename += calendar.get(Calendar.DATE);
+        filename += calendar.get(Calendar.HOUR);
+        filename += calendar.get(Calendar.MINUTE);
+        filename += calendar.get(Calendar.SECOND);
+        filename += calendar.get(Calendar.MILLISECOND);
+        filename += extName;
+
+        return filename;
+    }
+
+    private String putObjectMinio(String bucket, String objectName, InputStream stream, long size, String type){
+        log.info("minio putObjectMinio ::: {}", stream);
+        try{
+            MinioClient minioClient =
+                    MinioClient.builder()
+                            .endpoint(MINIO_HOST)
+                            .credentials(MINIO_USER, MINIO_USER_PASSWORD)
+                            .build();
+
+            log.info("checking bucket");
+            boolean checkBucket = minioClient.bucketExists(
+                    BucketExistsArgs.builder().bucket(bucket).build());
+            if(checkBucket){
+                log.info("devoca exists");
+            } else {
+                log.info("devoca does not exists");
+            }
+
+            log.info("uploading image");
+            minioClient.putObject(
+                    PutObjectArgs.builder().bucket(bucket).object(objectName)
+                            .stream(stream, size, -1)
+                            .contentType(type).build()
+            );
+            String url = MINIO_HOST+"/"+bucket+"/"+objectName;
+            return url;
+        } catch (Exception e){
+            log.info("putObject error ::: {}", e);
+            return null;
+        }
+    }
 }

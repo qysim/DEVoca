@@ -14,15 +14,25 @@ import com.ssafy.devoca.user.service.UserService;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -183,21 +193,49 @@ public class MypageController {
      * 프로필 사진 업로드 api
      * @author Ryu jiyun
      * */
-    @GetMapping("/profile/{imgname}")
+    @PostMapping("/profile")
     public ResponseEntity<String> uploadProfileImg(@RequestHeader("token") String token
-                                                ,@PathVariable("imgname") String imgname){
+                                                ,@RequestParam("image") MultipartFile image){
         try{
-            log.info("사용자 프로필 사진 업로드 api 호출");
-            InputStream stream = new InputStream() {
-                @Override
-                public int read() throws IOException {
-                    return 0;
-                }
-            };
-            mypageService.uploadProfileImg(imgname, stream);
-            return null;
+            log.info("사용자 프로필 사진 업로드 api 호출: {}", image);
+            String url = null;
+            if (!image.isEmpty()) {
+                url = mypageService.uploadProfileImg(image);
+            }
+            log.info("url");
+            return ResponseEntity.status(HttpStatus.CREATED).body(url);
         } catch (Exception e){
-            return null;
+            log.info("프로필 이미지 업로드 실패: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/getProfile")
+    public ResponseEntity<InputStreamResource> getProfileImg(){ // token header에서, objectName DB에서
+        log.info("사용자 프로필 가져오기 api 호출");
+        try{
+            String objectName = "202411211543113.jpg";
+            Map<String, Object> map = new HashMap<>();
+            InputStreamResource inputStreamResource = mypageService.getProfileImg(objectName);
+
+//            File tempFile = File.createTempFile(String.valueOf(inputStream.hashCode()),".tmp");
+//            tempFile.deleteOnExit();
+//
+//            copyInputStreamToFile(inputStream, tempFile);
+
+//            map.put("file", tempFile);
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + objectName + "\"")
+                    .body(inputStreamResource);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+;        }
+    }
+
+    private static void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
+
+        FileUtils.copyInputStreamToFile(inputStream, file);
     }
 }
