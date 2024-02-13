@@ -76,6 +76,7 @@
   }
 
   const goNext = function () {
+    // 채점하고 결과에 따라 모달 띄우기
     grading();
     showModal.value = true;
     if (quizYn.value == 0) {
@@ -89,15 +90,19 @@
   }
 
   const timeout = function () {
+    // 마지막 문제 아니면 다음 문제로 넘기기
     if (pageIndex != props.quizList.length) {
       router.push({ name: "QuizPageComponent", params: { index: pageIndex } });
     } else {
+      // 마지막 문제면 score 계산 후 saveQuizResult api에 전부 담아 보내기
       score.value = props.answerList.reduce((total, item) => {
         return total + item.quizYn;
       }, 0);
       score.value = score.value / props.quizList.length * 10;
       // saveQuizResult api에 전부 담아서 보내기
-      
+
+      // 결과 페이지
+
     }
   }
   </script>
