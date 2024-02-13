@@ -53,6 +53,13 @@
         end as battle_user_idx
     </sql>
 
+    <!-- getBattleUserIdx 쿼리 -->
+    <select id="getBattleUserIdx">
+        <include refid="loadBattleUserIdx"></include>
+        from battles
+        where fk_battle_quiz_id= #{quizId}
+    </select>
+
     <!--  sql: 대결 이겼는지 여부 가져오기  -->
     <sql id="loadBattleWinYN">
         select case
