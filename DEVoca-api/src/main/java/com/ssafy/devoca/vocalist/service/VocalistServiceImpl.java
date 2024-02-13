@@ -22,7 +22,9 @@ public class VocalistServiceImpl implements VocalistService{
     @Transactional
     public void createVocalist(VocalistDTO vocalistDTO) throws Exception {
         vocalistMapper.createVocaList(vocalistDTO);
-        storeVocalist(vocalistDTO);
+        if (vocalistDTO.getCardId() != null){
+            storeVocalist(vocalistDTO);
+        }
     }
 
     @Override

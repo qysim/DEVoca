@@ -33,11 +33,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserInfo } from '@/api/user.js'
-import { useUserStore } from '@/stores/user'
 import PenIcon from '@/components/icon/PenIcon.vue'
 import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
-const userStore = useUserStore()
 const userInfo = ref({})
 const userId = ref(0)
 

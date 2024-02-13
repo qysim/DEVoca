@@ -8,11 +8,8 @@
       <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
       <!-- 본문 -->
       <div class="card-body p-4">
-        <!-- originCard용 컴포넌트 만들기 -->
-        <!-- <CardComponent :card="originCard" v-if="props.card.originCardId" /> -->
-
-        <WordComponent :word="word" @click="goWordDetail(word.wordId)"/>
-
+        <WordComponent :word="word" v-if="card.originCardId === 0" @click="goWordDetail(word.wordId)"/>
+        <OriginCardComponent :card="card" v-else />
           
         <div class="m-2">{{ card.cardContent }}</div>
         
@@ -25,26 +22,7 @@
           <a :href="card.cardLink" class="text-xs text-wrap break-words text-blue-600">{{ card.cardLink }} <LinkIcon class="inline"/></a>
         </div>
 
-        <div class="flex justify-between p-2">
-          <div class="flex gap-2">
-            <button @click="bottom_modal.showModal">
-              <ShareIcon />
-            </button>
-            <button>
-              <BookmarkIcon />
-            </button>
-          </div>
-          <div class="flex gap-4">
-            <div class="flex gap-2">
-              <LikeIcon />
-              <p>{{ card.cardLikeCnt }}</p>
-            </div>
-            <div class="flex gap-2">
-              <RepostIcon />
-              <p>{{ card.cardRepostCnt }}</p>
-            </div>
-          </div>
-        </div>
+        <CardIconComponent :card="card"/>
       </div>
     </div>
   </div>
@@ -54,15 +32,12 @@
 import { ref } from 'vue'
 import AvartarComponent from '@/components/common/AvatarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue"
-import CardComponent from '@/components/feed/CardComponent.vue'
-import ShareIcon from "@/components/icon/ShareIcon.vue"
-import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
-import LikeIcon from "@/components/icon/LikeIcon.vue"
-import RepostIcon from "@/components/icon/RepostIcon.vue"
+import CardIconComponent from "@/components/feed/CardIconComponent.vue"
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import LinkIcon from "@/components/icon/LinkIcon.vue"
 import { deleteCard } from '@/api/card'
+import OriginCardComponent from '@/components/feed/OriginCardComponent.vue'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -86,13 +61,6 @@ const word = ref({
   wordSumm: props.card.wordSumm,
 })
 
-const originCard = ref({
-  originCardId: props.card.originCardId,
-  originUserNickName: props.card.originUserNickName,
-  originUserImg: props.card.originUserImg,
-  originCardContent : props.card.originCardContent
-})
-
 const goProfile = function (userId) {
   if (userId === userStore.kakaoUserInfo['id'].toString()) {
     router.push({name: 'MypageView'})
@@ -114,7 +82,6 @@ const deleteCards = (cardId) => {
     }, (err) => {
       console.log(err)
     })
-
   } else {
     return
   }

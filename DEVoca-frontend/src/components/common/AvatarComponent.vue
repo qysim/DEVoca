@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="flex flex-col basis-1/3 text-xs text-right">
-      <span class="">{{ dateString }}</span>
-      <span class="">{{ timeString }}</span>
+      <span v-if="dateString != 'Invalid Date'">{{ dateString }}</span>
+      <span v-if="timeString != 'Invalid Date'">{{ timeString }}</span>
     </div>
   </div>
 </template>

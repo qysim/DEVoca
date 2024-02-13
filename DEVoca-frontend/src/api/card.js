@@ -35,7 +35,11 @@ export function repostCard(data, success, fail) {
 }
 
 export function likeCard(cardId, data, success, fail) {
-  local.post(`/card/like/${cardId}`, data).then(success).catch(fail)
+  local.post(`/card/like/${cardId}`, data, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }
 
 export function registComment(comment, success, fail) {

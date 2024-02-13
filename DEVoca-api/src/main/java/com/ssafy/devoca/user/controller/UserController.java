@@ -83,7 +83,7 @@ public class UserController {
     @PatchMapping("")
     public ResponseEntity<UserDTO> updateUserInfo(@RequestHeader("token") String token,
                                                   @RequestBody UserDTO userDTO){
-        log.info("user 정보 수정 호출");
+        log.info("user 정보 수정 호출 : {}", userDTO);
         try{
             int userIdx = userService.loadUserIdx(token);
             userDTO.setUserIdx(userIdx);
