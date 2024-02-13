@@ -18,6 +18,7 @@ public interface MypageService {
     List<UserDTO> getFollowList(int userIdx) throws Exception;
     List<UserDTO> getFollowingList(int userIdx) throws Exception;
     List<UserDTO> recommendFollow(int userIdx) throws Exception;
-    String uploadProfileImg(MultipartFile image) throws Exception;
-    InputStreamResource getProfileImg(String objectName) throws Exception;
+    String uploadProfileImg(MultipartFile image, int userIdx) throws Exception;
+    String getImageUrl(String objectName, String bucket, int userIdx) throws Exception;
+    String getObjectName(int userIdx) throws Exception;
 }
