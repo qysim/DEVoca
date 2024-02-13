@@ -10,7 +10,7 @@
         <result property="userName" column="user_name"/>
         <result property="userBirth" column="user_birth"/>
         <result property="userEmail" column="user_email"/>
-        <result property="userNickname" column="user_nickname"/>
+        <result property="userNickName" column="user_nickname"/>
         <result property="userIntro" column="user_intro"/>
         <result property="userExp" column="user_exp"/>
         <result property="userImg" column="user_img"/>
