@@ -104,15 +104,6 @@ public class QuizServiceImpl implements QuizService{
         return quizId;
     }
 
-    @Override
-    public List<QuizDTO> getBattleQuiz(int quizId) throws Exception {
-        log.info("getQuizWordList 호출 : 대결 퀴즈 단어 가져오기");
-        List<QuizDTO> quizList = quizMapper.getQuizWordList(quizId);
-        log.info(Arrays.toString(quizList.toArray()));
-
-        return quizList;
-    }
-
     @Transactional
     @Override
     public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception {
