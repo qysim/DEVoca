@@ -7,26 +7,19 @@
             <p class="text-center text-sm">{{ props.quiz.participateDate }}</p>
           </div>
           <div>
-            <list_1 v-if="imgRank[0]"/>
-            <list_2 v-if="imgRank[1]"/>
-            <list_3 v-if="imgRank[2]"/>
-            <list_4 v-if="imgRank[3]"/>
-            <list_win v-if="imgRank[4]"/>
-            <list_lose v-if="imgRank[5]"/>
-            <list_draw v-if="imgRank[6]"/>
+            <img src='@/assets/images/quiz/list_1.png' class='w-12 h-12' v-if="imgRank[0]"/>
+            <img src='@/assets/images/quiz/list_2.png' class='w-12 h-12' v-if="imgRank[1]"/>
+            <img src='@/assets/images/quiz/list_3.png' class='w-12 h-12' v-if="imgRank[2]"/>
+            <img src='@/assets/images/quiz/list_4.png' class='w-12 h-12' v-if="imgRank[3]"/>
+            <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[4]"/>
+            <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[5]"/>
+            <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[6]"/>
           </div>
         </div>
     </button>
 </template>
   
 <script setup>
-import list_1 from '@/components/quiz/quizImg/list_1.vue';
-import list_2 from '@/components/quiz/quizImg/list_2.vue';
-import list_3 from '@/components/quiz/quizImg/list_3.vue';
-import list_4 from '@/components/quiz/quizImg/list_4.vue';
-import list_win from '@/components/quiz/quizImg/list_win.vue';
-import list_lose from '@/components/quiz/quizImg/list_lose.vue';
-import list_draw from '@/components/quiz/quizImg/list_draw.vue';
 import { ref, onMounted } from "vue";
 const type = ref(0);
 const imgRank = ref([false, false, false, false, false, false, false]);
