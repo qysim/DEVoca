@@ -1,5 +1,9 @@
 <template>
-    <div class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
+    <QuizResultComponent0 v-if="showModal0"
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    <QuizResultComponent1 v-if="showModal1"
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    <div v-if="!showModal" class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
       <img src="@/assets/images/quiz/quiz_page_logo.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-60 h-32" alt="devoca_logo">
       <div>
         <div class="text-slate-400 flex justify-end">{{ pageIndex }} / {{ quizList.length }}</div>
@@ -19,6 +23,8 @@
   </template>
   
   <script setup>
+  import QuizResultComponent0 from "./QuizResultComponent0.vue";
+  import QuizResultComponent1 from "./QuizResultComponent1.vue";
   import { ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
 
@@ -52,6 +58,9 @@
   const answer = ref(null);
   const quizYn = ref(0);
   const score = ref(0);
+  const showModal = ref(false);
+  const showModal0 = ref(false);  // 오답일 경우
+  const showModal1 = ref(false);  // 정답일 경우
   
   const grading = function () {
     if (answer.value == props.quizList[index].wordNameKr
@@ -68,6 +77,18 @@
 
   const goNext = function () {
     grading();
+    showModal.value = true;
+    if (quizYn.value == 0) {
+      showModal0.value = true;
+    } else if(quizYn.value == 1) { 
+      showModal1.value = true;
+    }
+    setTimeout(() => {
+      timeout();
+    }, 10000);
+  }
+
+  const timeout = function () {
     if (pageIndex != props.quizList.length) {
       router.push({ name: "QuizPageComponent", params: { index: pageIndex } });
     } else {
@@ -76,7 +97,7 @@
       }, 0);
       score.value = score.value / props.quizList.length * 10;
       // saveQuizResult api에 전부 담아서 보내기
-      // 결과 모달 띄우기
+      
     }
   }
   </script>
