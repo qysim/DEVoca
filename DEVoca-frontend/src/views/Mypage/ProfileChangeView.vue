@@ -1,6 +1,6 @@
 <template>
-  <form class="card-body">
-    <img id="image" src="@/assets/images/profile.png" alt="" class="mt-5 m-auto">
+  <form class="card-body" @submit.prevent="modifyInfo">
+    <img id="image" src="@/assets/images/profile.png" alt="" class="mt-5 m-auto w-40 h-40 rounded-full">
     <div class="upload" @click="triggerFileUpload">프로필 사진 선택하기
     <input type="file" ref="profileUpload" @change="handleFileUpload">
   </div>
@@ -8,31 +8,37 @@
       <label class="label">
         <span class="label-text">닉네임</span>
       </label>
-      <input type="text" placeholder="닉네임자리" class="input input-bordered" required />
+      <input type="text" id="user-nickname" placeholder="닉네임자리" class="input input-bordered" required 
+      v-model="inputData.userNickName"/>
     </div>
     <div class="form-control">
       <label class="label">
         <span class="label-text">한 줄 소개</span>
       </label>
-      <input type="text" placeholder="한줄소개" class="input input-bordered" required />
+      <input type="text" id="user-intro" placeholder="한줄소개" class="input input-bordered" required 
+      v-model="inputData.userIntro"/>
     </div>
     <div class="flex justify-end">
-      <button type="button" onclick="location.href='/mypage'" class="btn btn-sm w-24 bg-devoca text-white ">변경하기</button>
+      <button class="btn btn-sm w-24 bg-devoca text-white ">정보 수정</button>
     </div>
   </form>
 </template>
 
 <script setup>
-import axios from 'axios';
-import { onMounted } from 'vue';
-import { uploadImage } from '@/api/mypage'
+import { ref, onMounted } from 'vue';
+import { updateUserInfo, uploadImage } from '@/api/mypage'
 import { getUserInfo } from '@/api/user';
 
-const token = JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+const inputData = ref({
+  userNickName: null,
+  userIntro: null
+})
 
 onMounted(() => {
   getUserInfo((res) => {
     const imageUrl = res.data.userImg;
+    inputData.value.userNickName = res.data.userNickName;
+    inputData.value.userIntro = res.data.userIntro;
     document.getElementById('image').src = imageUrl;
   })
 })
@@ -48,6 +54,12 @@ const handleFileUpload = function(e) {
     const imageUrl = res.data;
     document.getElementById('image').src = imageUrl;
   }, null)
+}
+
+const modifyInfo = function() {
+  updateUserInfo(inputData.value, (res) => {
+    console.log(inputData.value)
+  })
 }
 </script>
 

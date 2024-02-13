@@ -66,3 +66,11 @@ export function uploadImage(formData, success, fail){
         }
     }).then(success).catch(fail)
 }
+
+export function updateUserInfo(data, success, fail){
+    local.patch(`/user`, data, {
+        headers: {
+            token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+        }
+    }).then(success).catch(fail)
+}
