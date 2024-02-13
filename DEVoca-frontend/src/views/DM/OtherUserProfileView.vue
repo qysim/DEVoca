@@ -9,7 +9,7 @@
         @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
     </div>
     <div>
-      <button class="btn btn-sm w-24 bg-devoca text-white">DM</button>
+      <button class="btn btn-sm w-24 bg-devoca text-white" @click="dmHandler(userInfo.userId)">DM</button>
     </div>
     <div>
       <button class="btn btn-sm w-24 mr-5 bg-devoca text-white">VS</button>
@@ -19,12 +19,14 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getOtherUserInfo } from '@/api/user.js'
+import { getRoomUuid } from '@/api/dm'
 import { followUser, unfollowUser } from "@/api/mypage"
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
 
 const route = useRoute()
+const router = useRouter()
 
 const userId = ref(route.params.id)
 const userInfo = ref({})
@@ -43,5 +45,14 @@ const followHandler = (option, id) => {
     unfollowUser(id)
     userInfo.value.followingYn = 'N'
   }
+}
+
+const dmHandler = (id) => {
+  getRoomUuid(id, (res) => {
+    router.push({
+      name: 'DMMessageView',
+      params: { roomUuid: res.data }
+    })
+  }, null)
 }
 </script>
