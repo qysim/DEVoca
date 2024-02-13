@@ -31,9 +31,25 @@ public class DmRedisController {
     private final DmService dmService;
 
     @MessageMapping("/chat/{roomUuid}/enter")
-    public void userEnter(@DestinationVariable("roomUuid") String roomUuid, String userId) {
-        log.info("userEnter : {} {}", roomUuid, userId);
-        redisService.redisEnterUser(roomUuid, userId);
+    public void userEnter(@DestinationVariable("roomUuid") String roomUuid, LastDateDTO lastDateDTO) {
+        log.info("userEnter : {} {}", roomUuid, lastDateDTO);
+        redisService.redisEnterUser(roomUuid, lastDateDTO.getUserId());
+
+        // 마지막 조회 시간 업데이트
+        try {
+            int roomIdx = dmService.getRoomIdxByRoomUuid(roomUuid);
+            lastDateDTO.setRoomIdx(roomIdx);
+        } catch (Exception e) {
+            log.error("roomUuid로 roomIdx 가져오기 에러 : {}", e);
+            throw new RuntimeException(e);
+        }
+
+        try {
+            dmService.updateLastDate(lastDateDTO);
+        } catch (Exception e) {
+            log.error("updateLastDate 마지막 조회 시간 갱신 에러 : {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @MessageMapping("/chat/{roomUuid}")
@@ -55,6 +71,13 @@ public class DmRedisController {
             log.error("메시지 DB 저장 에러 : {}", e);
             throw new RuntimeException(e);
         }
+
+        try {
+            dmService.updateLastDateSendDate(dmDTO);
+        } catch (Exception e) {
+            log.error("updateLastDateSendDate 마지막 조회 시간 = 메시지 전송 시간으로 저장 에러 : {}", e);
+            throw new RuntimeException(e);
+        }
     }
 
     @MessageMapping("/chat/{roomUuid}/exit")
@@ -68,9 +91,15 @@ public class DmRedisController {
         try {
             int roomIdx = dmService.getRoomIdxByRoomUuid(roomUuid);
             lastDateDTO.setRoomIdx(roomIdx);
-            dmService.updateLastDate(lastDateDTO);
         } catch (Exception e) {
             log.error("roomUuid로 roomIdx 가져오기 에러 : {}", e);
+            throw new RuntimeException(e);
+        }
+
+        try {
+            dmService.updateLastDate(lastDateDTO);
+        } catch (Exception e) {
+            log.error("updateLastDate 마지막 조회 시간 갱신 에러 : {}", e);
             throw new RuntimeException(e);
         }
     }
