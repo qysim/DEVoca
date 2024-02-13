@@ -192,13 +192,15 @@ public class MypageController {
                                                 ,@RequestParam("image") MultipartFile image){
         try{
             log.info("사용자 프로필 사진 업로드 api 호출: {}", image);
+            String url = null;
             if (!image.isEmpty()) {
-                String url = mypageService.uploadProfileImg(image);
+                url = mypageService.uploadProfileImg(image);
             }
             log.info("url");
-            return null;
+            return ResponseEntity.status(HttpStatus.CREATED).body(url);
         } catch (Exception e){
-            return null;
+            log.info("프로필 이미지 업로드 실패: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
