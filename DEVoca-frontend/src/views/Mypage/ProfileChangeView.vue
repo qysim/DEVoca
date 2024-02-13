@@ -1,6 +1,6 @@
 <template>
   <form class="card-body">
-    <img src="@/assets/images/profile.png" alt="" class="mt-5 m-auto">
+    <img id="image" src="@/assets/images/profile.png" alt="" class="mt-5 m-auto">
     <div class="upload" @click="triggerFileUpload">프로필 사진 선택하기
     <input type="file" ref="profileUpload" @change="handleFileUpload">
   </div>
@@ -24,6 +24,25 @@
 
 <script setup>
 import axios from 'axios';
+import { onMounted } from 'vue';
+
+const token = JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+
+onMounted(() => {
+  axios.get(`https://i10d112.p.ssafy.io/devoca/user`, {
+    headers: {
+      token: token
+    }
+  })
+  .then((response) => {
+    console.log(response.data)
+    const imageUrl = response.data.userImg;
+    document.getElementById('image').src = imageUrl;
+  })
+  .catch((error)=> {
+    console.log(error)
+  })
+})
 
 const handleFileUpload = function(e) {
   const imgname = e.target.files[0]
@@ -32,14 +51,15 @@ const handleFileUpload = function(e) {
   const formData = new FormData();
   formData.append('image', imgname);
 
-  axios.post(`http://localhost/devoca/mypage/profile`, formData, {
+  axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
     headers: {
-      // 'Content-Type' : 'multipart/form-data',
       token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }
   })
   .then((response) => {
-    console.log(response)
+    const imageUrl = response.data;
+    console.log(imageUrl)
+    document.getElementById('image').src = imageUrl;
   })
   .catch((error) => {
     console.log(error)
