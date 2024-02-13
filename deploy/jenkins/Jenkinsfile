@@ -71,7 +71,7 @@ pipeline {
                 dir('deploy') {
                     sh 'echo "Build and deploy FE server"'
                     sh 'docker-compose build --no-cache frontend'
-                    sh 'docker compose up -d frontend && docker compose stop frontend && docker compose rm -f frontend'
+                    sh 'docker-compose up -d frontend && docker-compose stop frontend && docker-compose rm -f frontend'
                 }
                 sh 'sleep 10'
                 script {
