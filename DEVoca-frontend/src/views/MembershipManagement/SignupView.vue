@@ -21,7 +21,7 @@
           <label class="label">
             <span class="label-text">닉네임</span>
           </label>
-          <input type="text" placeholder="닉네임" class="input input-bordered" required v-model.trim="userInfo.userNickname" />
+          <input type="text" placeholder="닉네임" class="input input-bordered" required v-model.trim="userInfo.userNickName" />
         </div>
         <div class="form-control">
           <label class="label">
@@ -53,7 +53,7 @@ const userInfo = ref({
   userId: userStore.kakaoUserInfo['id'],
   userEmail: null,
   userName: null,
-  userNickname: null,
+  userNickName: null,
   userBirth: null
 })
 

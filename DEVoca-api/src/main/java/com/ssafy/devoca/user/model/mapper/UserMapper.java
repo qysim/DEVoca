@@ -24,4 +24,5 @@ public interface UserMapper {
     void setFavCategory(Map<String, Object> params) throws SQLException;
     List<FavCategoryDTO> getFavCategory(int userIdx) throws SQLException;
     void getBadge(@Param("userIdx") int userIdx, @Param("badgeId") int badgeId) throws SQLException;
+    String getUserNickName(int userIdx) throws SQLException;
 }
