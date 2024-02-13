@@ -1,64 +1,98 @@
 <template>
   <div class="flex flex-col justify-between h-full">
-      <div class="card card-side bg-base-100 h-24 w-full z-10 overflow-hidden shrink-0">
-        <div class="flex items-center">
-          <div class="ml-5">
-            <svg @click="goDmList" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 0 1 0 1.06l-2.47 2.47H21a.75.75 0 0 1 0 1.5H4.81l2.47 2.47a.75.75 0 1 1-1.06 1.06l-3.75-3.75a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" /></svg>
-          </div>
-          <div class="avatar ml-5">
-            <div class="w-14 h-14 rounded-full">
-              <img :src="dmUser.userImg" />
-            </div>
-          </div>
-          <div class="card-body pl-5">
-            <div>
-              <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
-              <p class="text-sm">{{dmUser.userIntro}}</p>
-            </div>
+    <div class="card card-side bg-base-100 h-24 w-full z-10 overflow-hidden shrink-0">
+      <div class="flex items-center">
+        <div class="ml-5">
+          <svg @click="goDmList" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            class="w-8 h-8">
+            <path fill-rule="evenodd"
+              d="M7.28 7.72a.75.75 0 0 1 0 1.06l-2.47 2.47H21a.75.75 0 0 1 0 1.5H4.81l2.47 2.47a.75.75 0 1 1-1.06 1.06l-3.75-3.75a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0Z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="avatar ml-5">
+          <div class="w-14 h-14 rounded-full">
+            <img :src="dmUser.userImg" />
           </div>
         </div>
-      </div>
-      <div id="chat" class="overflow-y-scroll grow-0">
-        <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
-          <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
-            <div class="chat-bubble break-words bg-devoca_sky text-black">
-              {{chat.dmContent}}
-            </div>
-            <div class="chat-footer">
-              <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
-            </div>
-          </div>
-          <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
-            <div class="chat-bubble break-words bg-devoca text-white">{{chat.dmContent}}</div>
-            <div class="chat-footer">
-              <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
-            </div>
+        <div class="card-body pl-5">
+          <div>
+            <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
+            <p class="text-sm">{{ dmUser.userIntro }}</p>
           </div>
         </div>
-        <div v-for="(chat, index) in messages" :key="index">
-          <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
-            <div class="chat-bubble break-words bg-devoca_sky text-black">
-              {{chat.dmContent}}
-            </div>
-            <div class="chat-footer">
-              <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
-            </div>
-          </div>
-          <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
-            <div class="chat-bubble break-words bg-devoca text-white">{{chat.dmContent}}</div>
-            <div class="chat-footer">
-              <time class="text-xs opacity-50">{{formatDateTime(chat.dmSendDate)}}</time>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="input-container  bg-base-100 w-full flex pl-3 py-3 bottom-0">
-        <input type="text" placeholder="메시지 입력" class="input input-bordered w-full" v-model="message" @keyup.enter="sendMessage"/>
-        <button @click="sendMessage" class="btn bg-devoca text-white mx-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" /></svg>
-        </button>
       </div>
     </div>
+    <div id="chat" class="overflow-y-scroll grow-0">
+      <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
+        <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
+          <div class="chat-bubble break-words bg-devoca_sky text-black">
+            <div>{{ chat.dmContent }}</div>
+            <div class="flex justify-end">
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" onclick="FightChallengeModal.showModal()">확인</button>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
+          </div>
+        </div>
+        <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
+          <div class="chat-bubble break-words bg-devoca text-white">
+            <div>{{ chat.dmContent }}</div>
+            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
+          </div>
+        </div>
+        <!-- <dialog id="FightChallengeModal" class="modal sm:modal-middle">
+          <FightChallengeComponent :userNickName="dmUser.userNickName" :dmBattleQuizId="chat.dmBattleQuizId"/>
+        </dialog> -->
+      </div>
+      <div v-for="(chat, index) in messages" :key="index">
+        <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
+          <div class="chat-bubble break-words bg-devoca_sky text-black">
+            <div>{{ chat.dmContent }}</div>
+            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
+          </div>
+        </div>
+        <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
+          <div class="chat-bubble break-words bg-devoca text-white">
+            <div>{{ chat.dmContent }}</div>
+            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
+          </div>
+        </div>
+        <!-- <dialog id="FightChallengeModalCur" class="modal sm:modal-middle">
+          <FightChallengeComponent :userNickName="dmUser.userNickName" :dmBattleQuizId="chat.dmBattleQuizId"/>
+        </dialog> -->
+      </div>
+    </div>
+    <div class="input-container  bg-base-100 w-full flex pl-3 py-3 bottom-0">
+      <input type="text" placeholder="메시지 입력" class="input input-bordered w-full" v-model="message"
+        @keyup.enter="sendMessage" />
+      <button @click="sendMessage" class="btn bg-devoca text-white mx-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+          <path
+            d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <dialog id="FightChallengeModal" class="modal sm:modal-middle">
+    <FightChallengeComponent :userNickName="dmUser.userNickName"/>
+  </dialog>
 </template>
 
 
@@ -68,6 +102,7 @@ import { getDmList, getDmUser } from '@/api/dm'
 import { useUserStore } from '@/stores/user';
 import router from '@/router';
 import Stomp from 'stompjs';
+import FightChallengeComponent from '@/components/quiz/FightChallengeComponent.vue';
 
 const props = defineProps({
   roomUuid: String
@@ -79,7 +114,7 @@ const dmUser = ref({});
 const messageList = ref([]);
 const messages = ref([]);
 
-onMounted(()=> {
+onMounted(() => {
   getDmUser(
     props.roomUuid,
     ({ data }) => {
@@ -89,19 +124,19 @@ onMounted(()=> {
       console.log(error);
     });
   getDmList(
-  props.roomUuid, 0,
-  ({data}) => {
-    data.forEach(element => {
-      messageList.value.push(element)
+    props.roomUuid, 0,
+    ({ data }) => {
+      data.forEach(element => {
+        messageList.value.push(element)
+      });
+      nextTick(() => {
+        const chat = document.getElementById('chat');
+        chat.scrollTop = chat.scrollHeight;
+      })
+    },
+    (error) => {
+      console.log(error);
     });
-    nextTick(()=>{
-    const chat = document.getElementById('chat');
-    chat.scrollTop = chat.scrollHeight;
-  })
-  },
-  (error) => {
-    console.log(error);
-  });
   connect(props.roomUuid);
 })
 
@@ -120,8 +155,8 @@ const dm = ref({
 
 // websocket 연결
 const connect = (uuid) => {
-  if(stompClient.value && stompClient.value.connected) {
-    if(socket.value.connected) stompClient.value.disconnect();
+  if (stompClient.value && stompClient.value.connected) {
+    if (socket.value.connected) stompClient.value.disconnect();
   }
 
   socket.value = new WebSocket('wss://i10d112.p.ssafy.io/devoca/chat');
@@ -130,9 +165,9 @@ const connect = (uuid) => {
 
   stompClient.value.connect({}, () => {
     console.log('Connected to WebSocket : ' + uuid);
-    dm.value.sendUserId = userStore.kakaoUserInfo['id'];  
+    dm.value.sendUserId = userStore.kakaoUserInfo['id'];
 
-    stompClient.value.send(`/pub/chat/${uuid}/enter`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date()})); // 유저 입장
+    stompClient.value.send(`/pub/chat/${uuid}/enter`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date() })); // 유저 입장
 
     //메시지 수신
     stompClient.value.subscribe(`/sub/chat/${uuid}`, (message) => {
@@ -141,7 +176,7 @@ const connect = (uuid) => {
   });
 
   // websocket 재연결
-  socket.value.onclose = function() {
+  socket.value.onclose = function () {
     console.log("WebSocket 연결 해제. 재연결 시도 중..");
     setTimeout(connect(uuid), 1000);
   }
@@ -150,7 +185,7 @@ const connect = (uuid) => {
 // 화면에 메시지 표시
 const displayMessage = (message) => {
   messages.value.push(message);
-  nextTick(()=>{
+  nextTick(() => {
     const chat = document.getElementById('chat');
     chat.scrollTop = chat.scrollHeight;
   })
@@ -158,11 +193,11 @@ const displayMessage = (message) => {
 
 // 메시지 전송
 const sendMessage = () => {
-  dm.value.sendUserId = userStore.kakaoUserInfo['id']; 
+  dm.value.sendUserId = userStore.kakaoUserInfo['id'];
   dm.value.dmContent = message.value;
   dm.value.dmSendDate = new Date();
 
-  if(dm.value.dmContent.trim() !== '') {
+  if (dm.value.dmContent.trim() !== '') {
     stompClient.value.send(`/pub/chat/${props.roomUuid}`, {}, JSON.stringify(dm.value));
     message.value = '';
   }
@@ -170,14 +205,14 @@ const sendMessage = () => {
 
 // 유저 퇴장
 const exitChat = () => {
-  stompClient.value.send(`/pub/chat/${props.roomUuid}/exit`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date()}));
+  stompClient.value.send(`/pub/chat/${props.roomUuid}/exit`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date() }));
 
   stompClient.value.disconnect();
   console.log("웹소켓 연결 해제");
 }
 
 const goDmList = () => {
-  router.push({name : 'DMListView', params: {id: userStore.kakaoUserInfo['id']}});
+  router.push({ name: 'DMListView', params: { id: userStore.kakaoUserInfo['id'] } });
 }
 
 onUnmounted(() => {
