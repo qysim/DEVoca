@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-between h-full">
-      <div class=" card card-side bg-base-100 h-24 w-full z-10 overflow-hidden">
+      <div class="card card-side bg-base-100 h-24 w-full z-10 overflow-hidden shrink-0">
         <div class="flex items-center">
           <div class="ml-5">
             <svg @click="goDmList" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8"><path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 0 1 0 1.06l-2.47 2.47H21a.75.75 0 0 1 0 1.5H4.81l2.47 2.47a.75.75 0 1 1-1.06 1.06l-3.75-3.75a.75.75 0 0 1 0-1.06l3.75-3.75a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" /></svg>
@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div id="chat" class="overflow-y-scroll grow">
+      <div id="chat" class="overflow-y-scroll grow-0">
         <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
           <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
             <div class="chat-bubble break-words bg-devoca_sky text-black">
@@ -132,10 +132,10 @@ const connect = (uuid) => {
     console.log('Connected to WebSocket : ' + uuid);
     dm.value.sendUserId = userStore.kakaoUserInfo['id'];  
 
-    stompClient.value.send('/pub/chat/' + uuid + '/enter', {}, dm.value.sendUserId); // 유저 입장
+    stompClient.value.send(`/pub/chat/${uuid}/enter`, {}, dm.value.sendUserId); // 유저 입장
 
     //메시지 수신
-    stompClient.value.subscribe('/sub/chat/' + uuid, (message) => {
+    stompClient.value.subscribe(`/sub/chat/${uuid}`, (message) => {
       displayMessage(JSON.parse(message.body));
     });
   });
@@ -163,14 +163,14 @@ const sendMessage = () => {
   dm.value.dmSendDate = new Date();
 
   if(dm.value.dmContent.trim() !== '') {
-    stompClient.value.send('/pub/chat/' + props.roomUuid, {}, JSON.stringify(dm.value));
+    stompClient.value.send(`/pub/chat/${props.roomUuid}`, {}, JSON.stringify(dm.value));
     message.value = '';
   }
 }
 
 // 유저 퇴장
 const exitChat = () => {
-  stompClient.value.send('/pub/chat/' + props.roomUuid + '/exit', {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date()}));
+  stompClient.value.send(`/pub/chat/${props.roomUuid}/exit`, {}, JSON.stringify({ userId: dm.value.sendUserId, lastDate: new Date()}));
 
   stompClient.value.disconnect();
   console.log("웹소켓 연결 해제");
