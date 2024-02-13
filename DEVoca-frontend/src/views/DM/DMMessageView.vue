@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div id="chat" class="overflow-y-scroll grow-0">
+      <div id="chat" class="overflow-y-scroll h-full grow-0">
         <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
           <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
             <div class="chat-bubble break-words bg-devoca_sky text-black">
