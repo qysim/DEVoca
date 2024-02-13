@@ -95,8 +95,8 @@ public class MypageServiceImpl implements MypageService {
     public String getImageUrl(String objectName, String bucket, int userIdx) throws Exception {
         MinioClient minioClient =
                 MinioClient.builder()
-                        .endpoint("http://i10d112.p.ssafy.io:19000")
-                        .credentials("QwFwVKMDdzVIJqwfVV0s", "SjCqIeKHNebf4U0I0fQpuJJyRZKq7hXKLRLlC5Gn")
+                        .endpoint(MINIO_HOST)
+                        .credentials(MINIO_USER, MINIO_USER_PASSWORD)
                         .build();
 
         String url = minioClient.getPresignedObjectUrl(
