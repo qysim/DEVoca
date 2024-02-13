@@ -204,13 +204,13 @@ const router = createRouter({
         },
         // quiz
         {
-          path: '/quiz/quizpage',
+          path: '/quizpage',
           name: 'QuizPageView',
           component: QuizPageView,
-          redirect: '/quiz/quizpage/page/0',
+          redirect: '/quizpage/0',
           children: [
             {
-              path: "page/:index",
+              path: ":index",
               name: "QuizPageComponent",
               component: () => import("@/components/quiz/QuizPageComponent.vue"),
               props: true,

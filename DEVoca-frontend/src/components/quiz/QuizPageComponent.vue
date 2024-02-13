@@ -3,6 +3,8 @@
     :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
     <QuizResultComponent1 v-if="showModal1"
     :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    <QuizFinishComponent v-if="showModal2"
+    :Qnum="props.quizList.length" :Anum="score/10*props.quizList.length" :score="score" />
     <div v-if="!showModal" class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
       <img src="@/assets/images/quiz/quiz_page_logo.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-60 h-32" alt="devoca_logo">
       <div>
@@ -25,6 +27,7 @@
   <script setup>
   import QuizResultComponent0 from "./QuizResultComponent0.vue";
   import QuizResultComponent1 from "./QuizResultComponent1.vue";
+  import QuizFinishComponent from "./QuizFinishComponent.vue";
   import { ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
 
@@ -59,8 +62,9 @@
   const quizYn = ref(0);
   const score = ref(0);
   const showModal = ref(false);
-  const showModal0 = ref(false);  // 오답일 경우
-  const showModal1 = ref(false);  // 정답일 경우
+  const showModal0 = ref(false);  // 결과 : 오답일 경우
+  const showModal1 = ref(false);  // 결과 : 정답일 경우
+  const showModal2 = ref(false);  // 종료
   
   const grading = function () {
     if (answer.value == props.quizList[index].wordNameKr
@@ -86,7 +90,7 @@
     }
     setTimeout(() => {
       timeout();
-    }, 10000);
+    }, 5000);
   }
 
   const timeout = function () {
@@ -99,11 +103,16 @@
         return total + item.quizYn;
       }, 0);
       score.value = score.value / props.quizList.length * 10;
-      // saveQuizResult api에 전부 담아서 보내기
-
-      // 결과 페이지
-
+      finish();
     }
+  }
+  const finish = function () {
+    // saveQuizResult api에 전부 담아서 보내기
+
+    // 종료 페이지
+    showModal0.value = false;
+    showModal1.value = false;
+    showModal2.value = true;
   }
   </script>
   

@@ -7,7 +7,7 @@ import java.util.List;
 public interface QuizService {
     public int createQuiz() throws Exception;
 
-    public List<QuizDTO> getQuiz() throws Exception;
+    public List<QuizDTO> getQuiz(int quizId) throws Exception;
 
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception;
 
