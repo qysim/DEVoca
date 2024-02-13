@@ -16,13 +16,21 @@ export function saveBattleResult(data, success, fail) {
   local.post(`/quiz/battle/save`, data).then(success).catch(fail)
 }
 
-// export function updateCard(cardId, data, success, fail) {
-//   local.patch(`/card/${cardId}`, data).then(success).catch(fail)
-// }
+export function getQuizCnt(success, fail) {
+  local.get(`/quiz/cnt`, {
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
 
-// export function deleteCard(cardId, success, fail) {
-//   local.delete(`/card/${cardId}`).then(success).catch(fail)
-// }
+export function getQuizResultList(success, fail) {
+  local.get(`/quiz/result`, {
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
 
 // export function repostCard(data, success, fail) {
 //   local.post('/card/repost', data).then(success).catch(fail)
