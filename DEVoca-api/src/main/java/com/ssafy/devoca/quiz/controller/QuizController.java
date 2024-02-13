@@ -44,11 +44,11 @@ public class QuizController {
         }
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<QuizDTO>> getQuiz(){
+    @GetMapping("/{quizId}")
+    public ResponseEntity<List<QuizDTO>> getQuiz(@PathVariable("quizId") int quizId){
         log.info("getQuiz 호출 : 퀴즈 조회 요청");
         try{
-            List<QuizDTO> quizList = quizService.getQuiz();
+            List<QuizDTO> quizList = quizService.getQuiz(quizId);
             return ResponseEntity.status(HttpStatus.OK).body(quizList);
         }catch (Exception e){
             log.error("퀴즈 조회 실패 : {}", e);

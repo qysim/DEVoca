@@ -24,12 +24,12 @@
   <script setup>
   import { useRouter } from 'vue-router'
   const router = useRouter()
+  const quizId = 19;
 
   const quiz_type = ["게릴라", "대결"];
-  const goQuizPage = function (quizId) {
-    router.push({name: 'QuizPageView', params: {id: quizId}})
+  const goQuizPage = function () {
+      router.push({ name: 'QuizPageView', query: {quizId:quizId} })
   }
   </script>
->>>>>>> origin/develop
   
 <style scoped></style>

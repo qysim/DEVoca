@@ -29,6 +29,7 @@ public class RedisService {
 
         // 이미 저장되어 있는지 확인
         Boolean alreadyExistsUser = redisTemplate.opsForList().range(roomUuid, 0, -1).contains(userId);
+        log.info("alreadyExistsUser : {}" , alreadyExistsUser);
 
         if(!alreadyExistsUser) {
             redisTemplate.opsForList().rightPush(roomUuid, userId);

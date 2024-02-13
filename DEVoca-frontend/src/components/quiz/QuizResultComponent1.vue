@@ -13,7 +13,7 @@
         <p class="text-devoca text-2xl font-jalnan mt-4 text-end">A. {{ props.wordNameKr }}</p>
       </div>
     </div>
-    <div class="mt-2">10 초 후 종료됩니다...</div>
+    <div class="mt-2">5 초 후 종료됩니다...</div>
   </div>
 </template>
 

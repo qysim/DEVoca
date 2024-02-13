@@ -37,10 +37,11 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public List<QuizDTO> getQuiz() throws Exception {
-        log.info("getQuizId 호출 : 생성한 퀴즈 아이디 가져오기");
-        int quizId = quizMapper.getQuizId(0);
-
+    public List<QuizDTO> getQuiz(int quizId) throws Exception {
+        if(quizId == 0) {
+            log.info("getQuizId 호출 : 생성한 퀴즈 아이디 가져오기");
+            quizId = quizMapper.getQuizId(0);
+        }
         log.info("getQuizWordList 호출 : 퀴즈 단어 가져오기");
         List<QuizDTO> quizList = quizMapper.getQuizWordList(quizId);
         log.info(Arrays.toString(quizList.toArray()));
