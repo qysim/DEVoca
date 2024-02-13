@@ -24,3 +24,7 @@ export async function getRecentKeyword(success, fail) {
     }
   }).then(success).catch(fail)
 }
+
+export async function getRecommendWord(success, fail) {
+  await local.get('/search/reco/word').then(success).catch(fail)
+}
