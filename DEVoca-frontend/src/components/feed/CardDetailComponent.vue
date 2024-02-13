@@ -1,6 +1,9 @@
 <template>
-  <div class="flex justify-center m-2">
-    <div class="card h-fit bg-base-100 shadow-xl">
+  <div class="flex justify-center m-2 relative">
+    <button class="btn btn-ghost absolute top-0 right-0 z-10" @click="deleteCards(card.cardId)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <div class="card h-fit bg-base-100 shadow-xl pt-3">
       <!-- 유저 -->
       <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
       <!-- 본문 -->
@@ -59,6 +62,7 @@ import RepostIcon from "@/components/icon/RepostIcon.vue"
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import LinkIcon from "@/components/icon/LinkIcon.vue"
+import { deleteCard } from '@/api/card'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -90,7 +94,7 @@ const originCard = ref({
 })
 
 const goProfile = function (userId) {
-  if (userId === userStore.kakaoUserInfo['id']) {
+  if (userId === userStore.kakaoUserInfo['id'].toString()) {
     router.push({name: 'MypageView'})
   } else {
     router.push({name: 'OtherUserProfileView', params: {id: userId}})
@@ -101,4 +105,18 @@ const goWordDetail = function (wordId) {
   router.push({name: 'WordDetailView', params: {id: wordId}})
 }
 
+const deleteCards = (cardId) => {
+  const confirmResult = confirm("글을 삭제하시겠어요?")
+  if (confirmResult) {
+    deleteCard(cardId, (res) => {
+      console.log(res.data)
+      router.push({name: 'MainView'})
+    }, (err) => {
+      console.log(err)
+    })
+
+  } else {
+    return
+  }
+}
 </script>

@@ -3,61 +3,55 @@
     <div>
       <ProfIleCardComponents />
     </div>
-    <div class="flex flex-row mx-4 mt-4 mb-8">
-      <img src="@/assets/images/badge.png" alt="" class="ml-4">
-      <RouterLink :to="{ name: 'MyBadgeView' }" class="ml-1">획득한 배지 {{ userBadge.filter(b => b.badgeHaveYn === '1').length }}개></RouterLink>
-    </div>
-    <div>
-      <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'MyCardView' }">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 피드</p>
-            </div>
-            <RightArrowIcon />
+    <div class="flex flex-col m-10">
+      <RouterLink :to="{ name: 'MyBadgeView' }">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>나의 배지</p>
           </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'MyBoardView' }">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 글</p>
-            </div>
-            <RightArrowIcon />
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'MyCardView' }">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>나의 피드</p>
           </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'MyCommentView' }">
-          <div class="flex justify-between">
-            <div>
-              <p>나의 댓글</p>
-            </div>
-            <RightArrowIcon />
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'MyBoardView' }">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>나의 글</p>
           </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
-          <div class="flex justify-between">
-            <div>
-              <p>참여한 퀴즈</p>
-            </div>
-            <RightArrowIcon />
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'MyCommentView' }">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>나의 댓글</p>
           </div>
-        </RouterLink>
-      </div>
-      <div class="ml-10 mt-8">
-        <RouterLink :to="{ name: 'VocalistListView' }">
-          <div class="flex justify-between">
-            <div>
-              <p>단어장</p>
-            </div>
-            <RightArrowIcon />
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
+      <RouterLink to="/vocalist">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>참여한 퀴즈</p>
           </div>
-        </RouterLink>
-      </div>
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
+      <RouterLink :to="{ name: 'VocalistListView' }">
+        <div class="flex justify-between py-4">
+          <div>
+            <p>단어장</p>
+          </div>
+          <RightArrowIcon />
+        </div>
+      </RouterLink>
     </div>
   </div>
 </template>

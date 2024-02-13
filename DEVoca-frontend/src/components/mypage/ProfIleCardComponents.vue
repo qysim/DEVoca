@@ -1,14 +1,14 @@
 <template>
-  <div class="card card-side bg-devoca_skyblue">
+  <div class="card card-side bg-devoca_skyblue bg-opacity-60">
     <div class="avatar">
-      <div class="w-24 h-24 rounded-full my-10 ml-5">
+      <div class="w-24 h-24 rounded-full my-auto ml-5">
         <img :src="userInfo.userImg" />
       </div>
     </div>
     <div class="card-body">
       <div class="flex flex-row justify-between">
-        <h2 class="card-title mt-6">{{ userInfo.userNickname }}</h2>
-        <div class="flex justify-start gap-2">
+        <h2 class="card-title mt-6 font-jalnan">{{ userInfo.userNickName }}</h2>
+        <div class="flex justify-start gap-3">
           <router-link :to="{ name: 'ProfileChangeView', params: { id: userId } }">
             <PenIcon />
           </router-link>
@@ -18,7 +18,7 @@
         </div>
       </div>
       <p class="text-sm">{{ userInfo.userIntro }}
-      <div class="flex-row">
+      <div class="flex-row mt-2">
         <router-link :to="{ name: 'FollowView' }" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</router-link>
         <router-link :to="{ name: 'FollowerView' }" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</router-link>
       </div>
@@ -44,6 +44,7 @@ onMounted(() => {
     userInfo.value = res.data
     userId.value = Number(userInfo.value.userId)
     // userId.value = userStore.kakaoUserInfo['id']
+    console.log(res.data)
   }, (err) => {
     console.err(err)
   })

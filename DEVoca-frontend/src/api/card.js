@@ -34,14 +34,26 @@ export function repostCard(data, success, fail) {
   local.post('/card/repost', data).then(success).catch(fail)
 }
 
-export function registComment(data, success, fail) {
-  local.post('/comment', data).then(success).catch(fail)
+export function likeCard(cardId, data, success, fail) {
+  local.post(`/card/like/${cardId}`, data).then(success).catch(fail)
 }
 
-export function getCommentList(param, success, fail) {
-  local.post(`/comment/0/${param}`).then(success).catch(fail)
+export function registComment(comment, success, fail) {
+  local.post('/comment', comment, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }
 
-export function deleteComment(param, success, fail) {
-  local.delete(`/comment/${param}`).then(success).catch(fail)
+export function getCommentList(cardId, success, fail) {
+  local.get(`/comment/card/${cardId}`).then(success).catch(fail)
+}
+
+export function deleteComment(commentId, success, fail) {
+  local.delete(`/comment/${commentId}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
 }

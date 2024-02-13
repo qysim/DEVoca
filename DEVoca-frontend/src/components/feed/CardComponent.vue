@@ -2,7 +2,7 @@
   <div class="flex justify-center m-2">
     <div class="card h-fit bg-base-100 shadow-xl">
       <!-- 유저 -->
-      <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
+      <AvartarComponent :userInfo="userInfo" />
       <!-- 본문 -->
       <div class="card-body p-4">
         <div @click="goCardDetail(card.cardId)">
@@ -15,11 +15,19 @@
         <div class="flex justify-between p-2">
           <div class="flex gap-2">
             <ShareIcon @click="goShare(card.cardId)"/>
-            <BookmarkIcon />
+            <label class="swap swap-flip text-9xl">
+              <input type="checkbox" />
+              <div class="swap-on"><BookmarkIcon class="fill-devoca stroke-devoca" @click="likeCard(card.likeYn)"/></div>
+              <div class="swap-off"><BookmarkIcon @click="likeCard(card.likeYn)"/></div>
+            </label>
           </div>
           <div class="flex gap-4">
             <div class="flex gap-2">
-              <LikeIcon />
+              <label class="swap swap-flip text-9xl">
+                <input type="checkbox" />
+                <div class="swap-on"><LikeIcon class="stroke-devoca" @click="likeCard(card.likeYn)"/></div>
+                <div class="swap-off"><LikeIcon @click="likeCard(card.likeYn)"/></div>
+              </label>
               <p>{{ card.cardLikeCnt }}</p>
             </div>
             <div class="flex gap-2">
@@ -51,6 +59,7 @@ const router = useRouter()
 const props = defineProps({
   card: Object
 })
+// console.log(props.card)
 
 const userInfo = ref({
   userId: props.card.userId,
@@ -74,14 +83,6 @@ const originCard = ref({
   originCardContent : props.card.originCardContent
 })
 
-const goProfile = function (userId) {
-  if (userId === userStore.kakaoUserInfo['id']) {
-    router.push({name: 'MypageView'})
-  } else {
-    router.push({name: 'OtherUserProfileView', params: {id: userId}})
-  }
-}
-
 const goCardDetail = function (cardId) {
   router.push({name: 'CardDetailView', params: {id: cardId}})
 }
@@ -93,19 +94,25 @@ const goShare = async function (id) {
 }
 
 const goRepost = (card) => {
-  const cardInfo = {
-    userId: card.userId, // 리포스트하는 유저아이디
-    cardId: null,
-    cardContent: card.cardContent, //새로 추가하는 내용
-    cardLink: card.cardLink, // 새로 작성하는 참고링크
-    cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-    originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
-    wordId: card.wordId // 조상 단어 id
-  }
-  repostCard(cardInfo, (res) => {
-    console.log(res)
-  }, (err) => {
-    console.log(err)
-  })
+  router.push({name: 'CardRepostView'})
+  // const cardInfo = {
+  //   userId: card.userId, // 리포스트하는 유저아이디
+  //   cardId: null,
+  //   cardContent: card.cardContent, //새로 추가하는 내용
+  //   cardLink: card.cardLink, // 새로 작성하는 참고링크
+  //   cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
+  //   originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
+  //   wordId: card.wordId // 조상 단어 id
+  // }
+  // repostCard(cardInfo, (res) => {
+  //   console.log(res)
+  // }, (err) => {
+  //   console.log(err)
+  // })
+}
+
+const likeCard = (Yn) => {
+  props.card.likeYn = !Yn
+  console.log(props.card.likeYn)
 }
 </script>
