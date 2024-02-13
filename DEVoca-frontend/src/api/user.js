@@ -18,6 +18,14 @@ export function getUserInfo(success, fail) {
   }).then(success).catch(fail)
 }
 
+export function getOtherUserInfo(otherId, success, fail) {
+  local.get(`/user/${otherId}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+
 export function getUserBadge(success, fail) {
   local.get(`/mypage/badge`, {
     headers: {

@@ -23,12 +23,10 @@
 <script setup>
 import { followUser, unfollowUser } from "@/api/mypage";
 
-const props = defineProps({
+defineProps({
   userInfo: Object,
   option: String
 })
-
-console.table(props.userInfo)
 
 const followHandler = (option, id) => {
   if (option === 'N') {
@@ -37,5 +35,4 @@ const followHandler = (option, id) => {
     unfollowUser(id)
   }
 }
-
 </script>
