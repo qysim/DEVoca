@@ -22,7 +22,8 @@ public interface QuizMapper {
 
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws SQLException;
 
-    public void saveQuizAnswerList(@Param("userIdx") int userIdx, @Param("list") List<QuizAnswerDTO> quizAnswerDTOList)
+    public void saveQuizAnswerList(@Param("userIdx") int userIdx, @Param("quizId") int quizId,
+                                   @Param("list") List<QuizAnswerDTO> quizAnswerDTOList)
             throws SQLException;
 
     public int getQuizCnt(int loginUserIdx) throws SQLException;
