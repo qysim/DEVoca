@@ -10,7 +10,7 @@
         <result property="userName" column="user_name"/>
         <result property="userBirth" column="user_birth"/>
         <result property="userEmail" column="user_email"/>
-        <result property="userNickname" column="user_nickname"/>
+        <result property="userNickName" column="user_nickname"/>
         <result property="userIntro" column="user_intro"/>
         <result property="userExp" column="user_exp"/>
         <result property="userImg" column="user_img"/>
@@ -43,7 +43,7 @@
     <insert id="joinUser" parameterType="UserDTO"
         useGeneratedKeys="true" keyColumn="user_idx" keyProperty="userIdx">
         insert into users (user_id, user_name, user_birth, user_email, user_nickname, user_join_date)
-        values (#{userId}, #{userName}, #{userBirth}, #{userEmail}, #{userNickname}, now())
+        values (#{userId}, #{userName}, #{userBirth}, #{userEmail}, #{userNickName}, now())
     </insert>
 
     <!-- 회원 정보 조회 -->
@@ -72,8 +72,8 @@
     <update id="updateUserInfo" parameterType="UserDTO">
         update users
         <set>
-            <if test="userNickname != null">
-                user_nickname = #{userNickname},
+            <if test="userNickName != null">
+                user_nickname = #{userNickName},
             </if>
             <if test="userIntro != null">
                 user_intro = #{userIntro},

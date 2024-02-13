@@ -1,4 +1,5 @@
 <template>
+  <!-- <QuizPopupComponent/> -->
   <div>
     <div v-for="card in cardList">
       <CardComponent :card="card" />
@@ -10,6 +11,7 @@
 </template>
 
 <script setup>
+// import QuizPopupComponent from "@/components/quiz/QuizPopupComponent.vue";
 import CardComponent from '@/components/feed/CardComponent.vue'
 import WriteButtonComponent from '@/components/feed/WriteButtonComponent.vue'
 import BottomModalComponent from '@/components/common/BottomModalComponent.vue'

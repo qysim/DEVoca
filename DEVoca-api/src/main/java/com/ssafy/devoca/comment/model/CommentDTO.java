@@ -6,12 +6,13 @@ import java.sql.Timestamp;
 
 @Data
 public class CommentDTO {
-    private int boardId;
     private int commentId;
+    private int cardId;
+    private int boardId;
 
     private String userId;
+    private String userNickName;
     private String userImg;
-    private String userNickname;
 
     private String commentContent;
     private Boolean commentPicked;

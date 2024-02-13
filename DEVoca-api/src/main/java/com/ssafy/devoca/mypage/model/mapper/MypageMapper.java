@@ -19,4 +19,6 @@ public interface MypageMapper {
     List<UserDTO> getFollowList(int userIdx) throws SQLException;
     List<UserDTO> getFollowingList(int userIdx) throws SQLException;
     List<UserDTO> recommendFollow(int userIdx) throws SQLException;
+    String getObjectName(int userIdx) throws SQLException;
+    void saveImageUrl(@Param("url") String url, @Param("userIdx") int userIdx);
 }

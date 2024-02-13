@@ -11,15 +11,22 @@ import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.service.UserService;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -27,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -191,16 +199,17 @@ public class MypageController {
     public ResponseEntity<String> uploadProfileImg(@RequestHeader("token") String token
                                                 ,@RequestParam("image") MultipartFile image){
         try{
-            log.info("사용자 프로필 사진 업로드 api 호출: {}", image);
-            String url = null;
+            int userIdx = userService.loadUserIdx(token);
+            log.info("사용자 프로필 사진 업로드 api 호출: {}, {}", userIdx ,image);
+            String objectName = null;
             if (!image.isEmpty()) {
-                url = mypageService.uploadProfileImg(image);
+                objectName = mypageService.uploadProfileImg(image, userIdx);
             }
-            log.info("url");
-            return ResponseEntity.status(HttpStatus.CREATED).body(url);
+            return ResponseEntity.status(HttpStatus.CREATED).body(objectName);
         } catch (Exception e){
             log.info("프로필 이미지 업로드 실패: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }
