@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted } from 'vue';
+import {ref, onMounted } from 'vue';
 import LikeIcon from "@/components/icon/LikeIcon.vue";
 import ChatBubbleIcon from "@/components/icon/ChatBubbleIcon.vue";
 import AvatarComponent from '@/components/common/AvatarComponent.vue';
@@ -26,10 +26,6 @@ const userInfo = ref({
   cardRegistDate: props.board.boardRegistDate
 });
 
-// 컴포넌트가 마운트된 후에 실행되는 로직
-onMounted(() => {
-  // userInfo 데이터 확인
-  console.log('userInfo:', userInfo.value);
-});
+
 </script>
 

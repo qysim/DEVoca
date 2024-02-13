@@ -31,7 +31,6 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const userStore = useUserStore();
 
-const responseData = ref(null);
 
 const inputData = ref({
   boardType: '카테고리',
@@ -48,11 +47,9 @@ const submitBoard = function() {
     return;
   }
 
-  //  console.log('전송할 데이터:', inputData.value);
 
   createBoard(inputData.value, 
     (res) => {
-      responseData.value = res.data;
       router.push({ name: 'ArticleView' });
     }, 
     (err) => {

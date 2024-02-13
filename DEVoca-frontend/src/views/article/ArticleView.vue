@@ -35,17 +35,17 @@ const fetchBoardData = () => {
   );
 };
 
-onMounted(() => {
-  // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
-  getBoardList(boardType.value, 
-    (response) => {
-      boards.value = response.data;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-});
-</script>
+  onMounted(() => {
+    // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
+    getBoardList(boardType.value, 
+      (response) => {
+        boards.value = response.data;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  });
+  </script>
 
-<style scoped></style>
+  <style scoped></style>
