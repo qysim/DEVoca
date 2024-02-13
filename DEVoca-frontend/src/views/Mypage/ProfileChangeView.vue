@@ -48,20 +48,6 @@ const handleFileUpload = function(e) {
     const imageUrl = res.data;
     document.getElementById('image').src = imageUrl;
   }, null)
-
-  // axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
-  //   headers: {
-  //     token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
-  //   }
-  // })
-  // .then((response) => {
-  //   const imageUrl = response.data;
-  //   console.log(imageUrl)
-  //   document.getElementById('image').src = imageUrl;
-  // })
-  // .catch((error) => {
-  //   console.log(error)
-  // })
 }
 </script>
 

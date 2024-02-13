@@ -1,4 +1,5 @@
 import { localAxios } from '@/util/http-commons'
+import axios from 'axios';
 
 const local = localAxios()
 
@@ -59,7 +60,7 @@ export function unfollowUser(userId, success, fail) {
 }
 
 export function uploadImage(formData, success, fail){
-    local.post(`/mypage/profile`, formData, {
+    axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
         headers: {
             token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
         }
