@@ -1,4 +1,5 @@
 import { localAxios } from '@/util/http-commons'
+import axios from 'axios';
 
 const local = localAxios()
 
@@ -52,6 +53,14 @@ export function followUser(userId, success, fail) {
 
 export function unfollowUser(userId, success, fail) {
     local.delete(`/mypage/unfollow/${userId}`, {
+        headers: {
+            token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+        }
+    }).then(success).catch(fail)
+}
+
+export function uploadImage(formData, success, fail){
+    axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
         headers: {
             token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
         }
