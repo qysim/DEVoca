@@ -6,30 +6,9 @@
         type="text"
         placeholder="검색어를 입력하세요"
         v-model="searchInput"
+        @keyup.enter="searchBtnHandler"
       />
-      <svg
-        class="absolute right-6 z-10 cursor-pointer"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg" @click="searchBtnHandler"
-      >
-        <path
-          d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
-          stroke="#4B5563"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M21 21L15 15"
-          stroke="#4B5563"
-          stroke-width="1.66667"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <FindIcon class="mr-4" @click="searchBtnHandler" />
     </div>
   </div>
   <hr class="my-4">
@@ -38,6 +17,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import FindIcon from "@/components/icon/FindIcon.vue";
 
 const route = useRoute()
 const router = useRouter()
