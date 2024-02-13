@@ -2,29 +2,34 @@
   <div class="flex justify-center m-2">
     <div class="card h-fit w-full bg-base-100 shadow-xl">
       <div class="card-body p-6">
+        <AvatarComponent :userInfo="userInfo" />
         <p class="text-xl">{{ board.boardTitle }}</p>
-        <div>{{ board.boardContent }}</div>
-
-        <div class="flex justify-end ml-3">
-          <div class="flex">
-            <LikeIcon />
-            <p class="mt-1 ml-1">5</p>
-          </div>
-          <div class="flex">
-            <ChatBubbleIcon />
-            <p class="mt-1">5</p>
-          </div>
-        </div>
+        <p>{{ board.boardContent }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, ref, onMounted } from 'vue';
 import LikeIcon from "@/components/icon/LikeIcon.vue";
 import ChatBubbleIcon from "@/components/icon/ChatBubbleIcon.vue";
+import AvatarComponent from '@/components/common/AvatarComponent.vue';
 
-const props = defineProps(['board']);
+const props = defineProps({
+  board: Object
+});
 
+const userInfo = ref({
+  userImg: props.board.userImg,
+  userNickName: props.board.userNickName,
+  cardRegistDate: props.board.boardRegistDate
+});
+
+// 컴포넌트가 마운트된 후에 실행되는 로직
+onMounted(() => {
+  // userInfo 데이터 확인
+  console.log('userInfo:', userInfo.value);
+});
 </script>
+
