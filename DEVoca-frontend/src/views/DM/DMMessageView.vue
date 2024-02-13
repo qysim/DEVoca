@@ -10,11 +10,11 @@
               <img :src="dmUser.userImg" />
             </div>
           </div>
-          <div class="card-body">
-            <div class="">
+          <div class="card-body pl-5">
+            <div>
               <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
+              <p class="text-sm">{{dmUser.userIntro}}</p>
             </div>
-            <p class="text-sm">{{dmUser.userIntro}}</p>
           </div>
         </div>
       </div>
