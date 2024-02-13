@@ -1,28 +1,41 @@
 <template>
-  <div class="bg-devoca_skyblue">
-        <div class="card card-side bg-devoca_skyblue items-center">
-          <div class="avatar basis-1/4">
-            <div class="rounded-full m-3">
-              <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
-          </div>
-          <div class="card-body flex-row justify-between p-3">
-            <div>
-              <h2 class="card-title font-jalnan">닉네임</h2>
-              <p>한줄소개</p>
-            </div>
-            <div>
-              <button>팔로우</button>
-            </div>
-          </div>
-        </div>
+  <div class="card card-side bg-base-100 items-center py-2 px-4">
+    <div class="avatar basis-1/6">
+      <div class="rounded-full">
+        <img :src="userInfo.userImg" />
       </div>
+    </div>
+    <div class="card-body grow p-2">
+      <div class="flex flex-col">
+        <h2 class="card-title text-lg font-jalnan">{{ userInfo.userNickname }}</h2>
+        <span class="text-sm">{{ userInfo.userIntro }}</span>
+      </div>
+    </div>
+    <div class="flex flex-col basis-1/4 text-right">
+      <button v-if="userInfo.followingYn === 'N'" class="btn bg-devoca text-white"
+        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+      <button v-else class="btn border-devoca text-devoca"
+        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+    </div>
+  </div>
 </template>
 
 <script setup>
+import { followUser, unfollowUser } from "@/api/mypage";
+
+const props = defineProps({
+  userInfo: Object,
+  option: String
+})
+
+console.table(props.userInfo)
+
+const followHandler = (option, id) => {
+  if (option === 'N') {
+    followUser(id)
+  } else {
+    unfollowUser(id)
+  }
+}
 
 </script>
-
-<style scoped>
-
-</style>
