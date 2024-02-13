@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
       <div class="flex flex-row justify-between">
-        <h2 class="card-title mt-6">{{ userInfo.userNickname }}</h2>
+        <h2 class="card-title mt-6">{{ userInfo.userNickName }}</h2>
         <div class="flex justify-start gap-2">
           <router-link :to="{ name: 'ProfileChangeView', params: { id: userId } }">
             <PenIcon />
@@ -33,11 +33,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserInfo } from '@/api/user.js'
-import { useUserStore } from '@/stores/user'
 import PenIcon from '@/components/icon/PenIcon.vue'
 import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
-const userStore = useUserStore()
 const userInfo = ref({})
 const userId = ref(0)
 

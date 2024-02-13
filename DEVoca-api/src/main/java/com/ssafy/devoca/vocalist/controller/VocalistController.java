@@ -31,7 +31,7 @@ public class VocalistController {
     @PostMapping("")
     public ResponseEntity<String> createVocalist(@RequestHeader("token") String token
                                                  , @RequestBody VocalistDTO vocalistDTO){
-        log.info("단어장 생성 api 호출");
+        log.info("단어장 생성 api 호출 : {} ", vocalistDTO);
         try{
             int userIdx = userService.loadUserIdx(token);
             vocalistDTO.setUserIdx(userIdx);
