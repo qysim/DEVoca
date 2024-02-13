@@ -7,7 +7,7 @@
     </div>
     <div class="card-body grow p-2">
       <div class="flex flex-col">
-        <h2 class="card-title text-lg font-jalnan">{{ userInfo.userNickname }}</h2>
+        <h2 class="card-title text-lg font-jalnan">{{ userInfo.userNickName }}</h2>
         <span class="text-sm">{{ userInfo.userIntro }}</span>
       </div>
     </div>
