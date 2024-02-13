@@ -29,8 +29,14 @@ public interface CardMapper {
             throws SQLException;
 
     public void repostCard(CardDTO cardDTO) throws SQLException;
+
     public void repostCntUpdate(int originCardId) throws SQLException;
+
     public List<CardDTO> getMyCard
             (@Param("userIdx") int userIdx, @Param("scroll") int scroll) throws SQLException;
+
+    public void deleteLike(@Param("loginUserIdx") int loginUserIdx, @Param("cardId") int cardId);
+
+    public void addLike(@Param("loginUserIdx") int loginUserIdx, @Param("cardId") int cardId);
 
 }

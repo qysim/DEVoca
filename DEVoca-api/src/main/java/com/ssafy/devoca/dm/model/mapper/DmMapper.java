@@ -27,6 +27,7 @@ public interface DmMapper {
     public String getRoomUuidByRoomIdx(int roomIdx) throws SQLException;
     public void saveMessage(DmDTO dmDTO) throws SQLException;
     public void updateLastDate(LastDateDTO lastDateDTO) throws SQLException;
+    public void updateLastDateSendDate(DmDTO dmDTO) throws SQLException;
     public int getChatUserIdx(@Param("roomUuid") String roomUuid, @Param("userIdx") int userIdx) throws SQLException;
     public DmUserDTO getChatUser(@Param("roomUuid") String roomUuid, @Param("userIdx") int userIdx) throws SQLException;
 }

@@ -21,7 +21,9 @@ export default {
       }
     },
   },
-  plugins: [require("daisyui"), require("tw-elements/dist/plugin.cjs")],
+  plugins: [require("daisyui"),
+  require("tailwind-scrollbar-hide"),
+  require("tw-elements/dist/plugin.cjs")],
   daisyui: {
     themes: ["cupcake"]
   }

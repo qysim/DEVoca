@@ -15,16 +15,18 @@
     <!-- VocalistDTO 매핑 -->
     <resultMap id="getVocalistDetail" type="VldetailDTO">
         <result property="vocaListId" column="vl_id"/>
-        <result property="vlName" column="vl_name"/>
+        <result property="vocalistName" column="vl_name"/>
 
-        <result property="userNickname" column="user_nickname"/>
+        <result property="userId" column="user_id"/>
+        <result property="userNickName" column="user_nickname"/>
         <result property="userIntro" column="user_intro"/>
         <result property="userImg" column="user_img"/>
 
         <result property="cardId" column="card_id"/>
         <result property="cardContent" column="card_content"/>
         <result property="cardRepostCnt" column="card_repost_cnt"/>
-        <result property="cardDate" column="card_date"/>
+        <result property="cardRegistDate" column="card_regist_date"/>
+        <result property="cardUpdateDate" column="card_update_date"/>
         <result property="cardLikeYN" column="card_like_yn"/>
         <result property="cardLikeCnt" column="card_like_cnt"/>
 
@@ -74,8 +76,9 @@
     <select id="getVocalistDetail" parameterType="map" resultMap="getVocalistDetail">
         select vl.vl_id, vl.vl_name
             ,c.card_id, c.card_content, c.card_repost_cnt
-            ,if(c.card_regist_date <![CDATA[<]]> c.card_update_date, c.card_update_date, c.card_regist_date) as card_date  -- card 데이터
+            ,c.card_regist_date ,c.card_update_date -- card 데이터
             ,if(l.like_to is null, 'N', 'Y') as card_like_yn
+            ,(select count('true') from likes where like_to = u.user_idx) as card_like_cnt
             ,w.word_id, w.word_name_en, w.word_name_kr, w.word_summ -- word 데이터
             ,u.user_nickname, u.user_intro, u.user_img -- author 데이터
             ,rp.card_id as card_origin_card_id , rp.card_content as card_origin_card_content ,rp.user_idx as origin_author_idx
@@ -99,10 +102,10 @@
         from voca_lists vl
             left join (select * from voca_list_cards where vlc_wc_id = #{cardId}) vlc on vl.vl_id = vlc.vlc_sl_id
         where vl.fk_vl_user_idx = #{userIdx}
-        order by vl.vl_create_date
     </select>
     
     <delete id="cancelVocalist" parameterType="map">
         delete from voca_list_cards where vlc_sl_id = #{vlId} and vlc_wc_id = #{cardId}
     </delete>
+
 </mapper>

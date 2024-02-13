@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <!-- 원래 카드 보여주기 -->
-    <OriginCardComponent :card="card" v-else />
+    <!-- <OriginCardComponent :card="card" v-else /> -->
 
     <form @submit.prevent="submitCard">
       <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"

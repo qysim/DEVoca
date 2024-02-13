@@ -3,7 +3,6 @@ import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
-import FollowerView from '@/views/Mypage/FollowerView.vue'
 import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
 import DMMessageView from '@/views/DM/DMMessageView.vue'
@@ -58,16 +57,6 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path: '/Follow',
-      name : 'FollowView',
-      component : FollowView
-    },
-    {
-      path : '/Follower',
-      name : 'FollowerView',
-      component : FollowerView
-    },
-    {
       path : '/followrecommendation',
       name : 'FollowRecommendationView',
       component : FollowRecommendationView
@@ -117,6 +106,11 @@ const router = createRouter({
           path : '/myboard',
           name : 'MyBoardView',
           component : MyBoardView
+        },
+        {
+          path: '/follow/:option',
+          name : 'FollowView',
+          component : FollowView
         },
         {
           path : '/mycomment',
@@ -222,13 +216,13 @@ const router = createRouter({
         },
         // quiz
         {
-          path: '/quiz/quizpage',
+          path: '/quizpage',
           name: 'QuizPageView',
           component: QuizPageView,
-          redirect: '/quiz/quizpage/page/0',
+          redirect: '/quizpage/0',
           children: [
             {
-              path: "page/:index",
+              path: ":index",
               name: "QuizPageComponent",
               component: () => import("@/components/quiz/QuizPageComponent.vue"),
               props: true,

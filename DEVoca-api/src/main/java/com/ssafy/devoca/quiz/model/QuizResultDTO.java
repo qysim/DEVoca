@@ -9,6 +9,7 @@ import java.util.List;
 public class QuizResultDTO {
     private int quizId;
     private int userIdx;
+    private String userId;
     private int score;
     private List<QuizAnswerDTO> quizAnswerDTOList;
 }

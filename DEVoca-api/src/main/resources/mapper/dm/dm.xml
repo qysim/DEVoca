@@ -128,6 +128,13 @@
         where dp_dr_idx = #{roomIdx} and dp_user_idx = (select user_idx from users where user_id = #{userId})
     </update>
 
+    <!-- 마지막 조회 시간 = 메시지 전송 시간 갱신 -->
+    <update id="updateLastDateSendDate" parameterType="DmDTO">
+        update dm_participants
+        set dp_last_date = #{dmSendDate}
+        where dp_dr_idx = #{roomIdx} and dp_user_idx = (select user_idx from users where user_id = #{sendUserId})
+    </update>
+
     <!-- 나랑 채팅하는 유저 idx 가져오기 -->
     <select id="getChatUserIdx" resultType="int">
         select dp_user_idx
