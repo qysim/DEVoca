@@ -61,7 +61,7 @@ public class BoardController {
     @PostMapping("")
     public ResponseEntity<String> createBoard(@RequestHeader("token") String token
                                         ,@RequestBody BoardDTO boardDTO){
-        log.info("게시판 글 작성 api 호출");
+        log.info("게시판 글 작성 api 호출 : {}, {}", token, boardDTO);
         try{
             int userIdx = userService.loadUserIdx(token);
             boardDTO.setUserIdx(userIdx);
