@@ -1,4 +1,5 @@
 <template>
+  <div>
      <div class="card bg-base-100 shadow-xl m-2 w-96 h-96">
       <div class="card-body p-8 w-80 flex flex-col items-center self-center">
         <img src="@/assets/images/quiz/quiz_logo.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-56 h-20" alt="devoca_logo">
@@ -17,16 +18,18 @@
 
       </div>
     </div>
-  </template>
-  
+  </div>
+</template>
+
   <script setup>
   import { useRouter } from 'vue-router'
   const router = useRouter()
 
   const quiz_type = ["게릴라", "대결"];
   const goQuizPage = function (quizId) {
-  router.push({name: 'QuizPageView', params: {id: quizId}})
+    router.push({name: 'QuizPageView', params: {id: quizId}})
   }
   </script>
+>>>>>>> origin/develop
   
-  <style scoped></style>
+<style scoped></style>

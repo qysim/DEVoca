@@ -17,12 +17,15 @@
           </router-link>
         </div>
       </div>
-      <p class="text-sm">{{ userInfo.userIntro }}
+      <p class="text-sm">{{ userInfo.userIntro }}</p>
       <div class="flex-row">
-        <router-link :to="{ name: 'FollowView' }" class="mr-5 text-sm">팔로우 {{ userInfo.userFollowingCnt }}</router-link>
-        <router-link :to="{ name: 'FollowerView' }" class="text-sm">팔로워 {{ userInfo.userFollowerCnt }}</router-link>
+        <router-link :to="{ name: 'FollowView', params: { option: 'following' } }" class="mr-5 text-sm">
+          팔로우 {{ userInfo.userFollowingCnt }}
+        </router-link>
+        <router-link :to="{ name: 'FollowView', params: { option: 'follower' } }" class="text-sm">
+          팔로워 {{ userInfo.userFollowerCnt }}
+        </router-link>
       </div>
-      </p>
     </div>
   </div>
 </template>
@@ -30,21 +33,19 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserInfo } from '@/api/user.js'
-
+import { useUserStore } from '@/stores/user'
 import PenIcon from '@/components/icon/PenIcon.vue'
 import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
+const userStore = useUserStore()
 const userInfo = ref({})
-const userId = ref(0);
+const userId = ref(0)
 
 // TODO: 로그인 시 이 로직이 포함되어야 함. 로그인 완료되면 이렇게 직접 호출하는게 아니라 userStore에서 가져다 사용.
 onMounted(() => {
   getUserInfo((res) => {
     userInfo.value = res.data
     userId.value = Number(userInfo.value.userId)
-  }, (err) => {
-    console.err(err)
-  })
+  }, null)
 })
-
 </script>

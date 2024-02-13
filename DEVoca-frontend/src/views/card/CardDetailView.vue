@@ -1,19 +1,7 @@
 <template>
   <div>
     <div class="bg-neutral-100 py-1">
-      <CardComponent />
-      <div class="card bg-base-100 shadow-xl m-2">
-        <div class="card-body p-4">
-          <h2 class="text-lg font-jalnan">참 고</h2>
-          <p class="break-all">https://tailwindcss.com/docs/customizing-colors</p>
-        </div>
-      </div>
-      <div class="card bg-base-100 shadow-xl m-2">
-        <div class="card-body p-4">
-          <h2 class="text-lg font-jalnan">연관 개념</h2>
-          <p class="break-all">tailwind css, daisyUI</p>
-        </div>
-      </div>
+      <CardDetailComponent :card="card" v-if="card"/>
     </div>
 
     <div class="collapse collapse-arrow bg-base-100 shadow-xl m-2 w-auto">
@@ -38,11 +26,40 @@
         </div>
       </div>
     </div>
+
+    <!-- <div class="collapse collapse-arrow bg-base-100 shadow-xl w-full">
+      <input type="checkbox" />
+      <div class="collapse-title text-xl font-medium font-jalnan">관련 카드</div>
+      <div v-if="cardList && cardList.length === 0" class="collapse-content p-0">
+        <div class="card card-compact bg-base-100 dark:bg-base-100 shadow-xl mb-4 p-2">
+          <div class="card-body">관련 카드가 없습니다!</div>
+        </div>
+      </div>
+      <div v-if="cardList && cardList.length > 0" class="collapse-content p-0">
+        <CardComponent v-for="card in cardList" :key="card.id" :card="card" />
+      </div>
+    </div> -->
   </div>  
 </template>
 
 <script setup>
-import CardComponent from '@/components/feed/CardComponent.vue'
+import { ref, onMounted } from 'vue'
+import CardDetailComponent from '@/components/feed/CardDetailComponent.vue'
+import { getCardDetail } from '@/api/card'
+
+const props = defineProps({
+  id: String
+})
+
+const card = ref(null)
+
+onMounted(() => {
+  getCardDetail(props.id, (res) => {
+    card.value = res.data
+  }, (err) => {
+    console.log(err)
+  })
+})
 </script>
 
 <style scoped>

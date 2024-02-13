@@ -3,7 +3,6 @@ import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
 import FollowView from '@/views/Mypage/FollowView.vue'
-import FollowerView from '@/views/Mypage/FollowerView.vue'
 import FollowRecommendationView from '@/views/MembershipManagement/FollowRecommendationView.vue'
 import OtherUserProfileView from '@/views/DM/OtherUserProfileView.vue'
 import DMMessageView from '@/views/DM/DMMessageView.vue'
@@ -13,6 +12,7 @@ import MypageView from '@/views/Mypage/MypageView.vue'
 import MyBadgeView from '@/views/Mypage/MyBadgeView.vue'
 import MyBoardView from '@/views/Mypage/MyBoardView.vue'
 import MyCardView from '@/views/Mypage/MyCardView.vue'
+import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
@@ -55,23 +55,13 @@ const router = createRouter({
       component : SelectInterestsView
     },
     {
-      path: '/Follow',
-      name : 'FollowView',
-      component : FollowView
-    },
-    {
-      path : '/Follower',
-      name : 'FollowerView',
-      component : FollowerView
-    },
-    {
       path : '/followrecommendation',
       name : 'FollowRecommendationView',
       component : FollowRecommendationView
     },
     //DM
     {
-      path : '/otherusesrprofile',
+      path : '/profile/:id',
       name : 'OtherUserProfileView',
       component : OtherUserProfileView
     },
@@ -116,6 +106,16 @@ const router = createRouter({
           component : MyBoardView
         },
         {
+          path: '/follow/:option',
+          name : 'FollowView',
+          component : FollowView
+        },
+        {
+          path : '/mycomment',
+          name : 'MyCommentView',
+          component : MyCommentView
+        },
+        {
           path : '/profilechange/:id',
           name : 'ProfileChangeView',
           component : ProfileChangeView
@@ -152,9 +152,10 @@ const router = createRouter({
           component: CardCreateView,
         },
         {
-          path: '/card/detail',
+          path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
+          props: true
         },
         // word
         {
