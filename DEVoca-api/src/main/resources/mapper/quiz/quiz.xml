@@ -114,7 +114,9 @@
         insert into quiz_answers (qw_id, qa_user_idx, qa_answer, qa_yn)
         values
         <foreach collection="list" item="item" separator=",">
-            ((select qw_id from quiz_words where qw_word_id = #{item.quizWordId}), #{userIdx}, #{item.quizAnswer}, #{item.quizYn})
+            ((select qw_id from quiz_words where qw_word_id = #{item.quizWordId}
+                                           and qw_quiz_id = #{quizId}),
+             #{userIdx}, #{item.quizAnswer}, #{item.quizYn})
         </foreach>
     </insert>
 

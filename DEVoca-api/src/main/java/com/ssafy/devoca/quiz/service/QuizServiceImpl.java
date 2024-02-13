@@ -52,8 +52,11 @@ public class QuizServiceImpl implements QuizService{
     @Transactional
     @Override
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
+        log.info("saveQuizResult 호출 : 퀴즈 결과 저장");
         quizMapper.saveQuizResult(quizResultDTO);
-        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        log.info("saveQuizAnswerList 호출 : 퀴즈 답안 저장");
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizId(),
+                quizResultDTO.getQuizAnswerDTOList());
     }
 
     @Override
@@ -110,7 +113,7 @@ public class QuizServiceImpl implements QuizService{
         log.info("saveQuizResult 호출 : 대결 퀴즈 결과 저장");
         quizMapper.saveQuizResult(quizResultDTO);
         log.info("saveQuizAnswerList 호출 : 대결 퀴즈 답안 저장");
-        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizId(), quizResultDTO.getQuizAnswerDTOList());
         log.info("saveBattleResult 호출 : 대결 정보 업데이트");
         quizMapper.saveBattleResult(quizResultDTO.getQuizId(), quizResultDTO.getUserIdx(), quizResultDTO.getScore());
     }
