@@ -105,4 +105,11 @@
         insert into user_badges (ub_user_idx, ub_badge_id)
         values (#{userIdx}, #{badgeId});
     </insert>
+
+    <!-- userIdx로 userNickName 가져오기 -->
+    <select id="getUserNickName" parameterType="int">
+        select user_nickname
+        from users
+        where user_idx = #{userIdx};
+    </select>
 </mapper>

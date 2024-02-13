@@ -20,4 +20,5 @@ public interface UserService {
     void setFavCategory(Map<String, Object> params) throws Exception;
     List<FavCategoryDTO> getFavCategory(int userIdx) throws Exception;
     UserDTO getOtherUserInfo(int otherIdx, int userIdx) throws Exception;
+    String getUserNickName(int userIdx) throws Exception;
 }

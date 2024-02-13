@@ -63,11 +63,6 @@ const router = createRouter({
     },
     //DM
     {
-      path : '/profile/:id',
-      name : 'OtherUserProfileView',
-      component : OtherUserProfileView
-    },
-    {
       path : '/dmmessage/:roomUuid',
       name : 'DMMessageView',
       component : DMMessageView,
@@ -85,6 +80,11 @@ const router = createRouter({
           path : '/dmlist/:id',
           name : 'DMListView',
           component : DMListView
+        },
+        {
+          path : '/profile/:id',
+          name : 'OtherUserProfileView',
+          component : OtherUserProfileView
         },
         //mypage
         {

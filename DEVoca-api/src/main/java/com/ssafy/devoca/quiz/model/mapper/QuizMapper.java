@@ -45,4 +45,6 @@ public interface QuizMapper {
     public List<BattleResultDTO> getBattleResultDetail(@Param("loginUserIdx") int loginUserIdx, @Param("quizId") int quizId)
         throws SQLException;
 
+    public int getBattleUserIdx(@Param("loginUserIdx") int loginUserIdx, @Param("quizId") int quizId) throws SQLException;
+
 }

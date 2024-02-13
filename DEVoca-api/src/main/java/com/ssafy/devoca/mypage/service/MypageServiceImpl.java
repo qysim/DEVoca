@@ -86,8 +86,8 @@ public class MypageServiceImpl implements MypageService {
 
         // minio로 업로드
         String bucketName = "devoca";
-        log.info("minio로 업로드 완료 bucket : {}, fileName : {}", bucketName, saveFileName);
         putObjectMinio(bucketName, saveFileName, stream, size, type);
+        log.info("minio로 업로드 완료 bucket : {}, fileName : {}", bucketName, saveFileName);
         return getImageUrl(saveFileName, bucketName, userIdx);
     }
 
@@ -95,8 +95,8 @@ public class MypageServiceImpl implements MypageService {
     public String getImageUrl(String objectName, String bucket, int userIdx) throws Exception {
         MinioClient minioClient =
                 MinioClient.builder()
-                        .endpoint("http://i10d112.p.ssafy.io:19000")
-                        .credentials("QwFwVKMDdzVIJqwfVV0s", "SjCqIeKHNebf4U0I0fQpuJJyRZKq7hXKLRLlC5Gn")
+                        .endpoint(MINIO_HOST)
+                        .credentials(MINIO_USER, MINIO_USER_PASSWORD)
                         .build();
 
         String url = minioClient.getPresignedObjectUrl(
@@ -142,22 +142,21 @@ public class MypageServiceImpl implements MypageService {
                             .credentials(MINIO_USER, MINIO_USER_PASSWORD)
                             .build();
 
-            log.info("checking bucket");
-            boolean checkBucket = minioClient.bucketExists(
-                    BucketExistsArgs.builder().bucket(bucket).build());
-            if(checkBucket){
-                log.info("devoca exists");
-            } else {
-                log.info("devoca does not exists");
-            }
+//            log.info("checking bucket");
+//            boolean checkBucket = minioClient.bucketExists(
+//                    BucketExistsArgs.builder().bucket(bucket).build());
+//            if(checkBucket){
+//                log.info("devoca exists");
+//            } else {
+//                log.info("devoca does not exists");
+//            }
 
-            log.info("uploading image");
+            log.info("uploading image type :: {}", type);
             minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucket).object(objectName)
                             .stream(stream, size, -1)
                             .contentType(type).build()
             );
-            String url = MINIO_HOST+"/"+bucket+"/"+objectName;
         } catch (Exception e){
             log.info("putObject error ::: {}", e);
         }
