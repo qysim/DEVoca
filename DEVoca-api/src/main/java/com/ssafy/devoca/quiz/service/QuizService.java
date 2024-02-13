@@ -25,4 +25,6 @@ public interface QuizService {
 
     public List<BattleResultDTO> getBattleResultDetail(int loginUserIdx, int quizId) throws Exception;
 
+    public int getBattleUserIdx(int loginUserIdx, int quizId) throws Exception;
+
 }

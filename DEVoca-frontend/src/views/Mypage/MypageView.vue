@@ -39,7 +39,7 @@
         </RouterLink>
       </div>
       <div class="ml-10 mt-8">
-        <RouterLink to="/vocalist">
+        <RouterLink :to="{ name: 'QuizListView' }">
           <div class="flex justify-between">
             <div>
               <p>참여한 퀴즈</p>
