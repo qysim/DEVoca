@@ -25,9 +25,9 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Build API server"'
-                    sh 'docker-compose -p devoca-deploy build api'
+                    sh 'docker-compose build --no-cache api'
                     sh 'echo "Deploy API server"'
-                    sh 'docker-compose -p devoca-deploy up -d api'
+                    sh 'docker-compose up -d api'
                 }
                 sh 'sleep 10'
                 script {
@@ -70,8 +70,8 @@ pipeline {
             steps {
                 dir('deploy') {
                     sh 'echo "Build and deploy FE server"'
-                    sh 'docker-compose -p devoca-deploy up -d --build frontend'
-                    sh 'docker-compose -p devoca-deploy rm -f frontend'
+                    sh 'docker-compose build --no-cache frontend'
+                    sh 'docker compose up -d frontend && docker compose stop frontend && docker compose rm -f frontend'
                 }
                 sh 'sleep 10'
                 script {
