@@ -11,7 +11,7 @@ public class CommentDTO {
 
     private String userId;
     private String userImg;
-    private String userNickname;
+    private String userNickName;
 
     private String commentContent;
     private Boolean commentPicked;

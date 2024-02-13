@@ -86,9 +86,9 @@ public class VocalistController {
      * 단어장 삭제 api
      * @author Ryu jiyun
      * */
-    @DeleteMapping("list/{vlId}")
+    @DeleteMapping("list/{vocaListId}")
     public ResponseEntity<String> deleteVocalist(@RequestHeader("token") String token
-                                                , @PathVariable("vlId") Integer vlId){
+                                                , @PathVariable("vocaListId") Integer vlId){
         log.info("단어장 삭제 api 호출 : {}", vlId);
         try{
             int userIdx = userService.loadUserIdx(token);
@@ -146,9 +146,9 @@ public class VocalistController {
      * 의견카드 단어장 저장 취소 api
      * @author Ryu jiyun
      * */
-    @DeleteMapping("/{vlId}/{cardId}")
+    @DeleteMapping("/{vocaListId}/{cardId}")
     public ResponseEntity<String> cancelVocalist(@RequestHeader("token") String token
-                                                , @PathVariable("vlId") Integer vlId, @PathVariable("cardId") Integer cardId){
+                                                , @PathVariable("vocaListId") Integer vlId, @PathVariable("cardId") Integer cardId){
         log.info("의견 카드 단어장 저장 취소 api 호출 : {}, {}", vlId, cardId);
         try{
             int userIdx = userService.loadUserIdx(token);
