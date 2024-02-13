@@ -45,7 +45,7 @@ public class VocalistController {
     }
 
     /*
-    * 단어장 저장 api
+    * 단어장에 의견카드 저장 api
     * @author Ryu jiyun
     * */
     @PostMapping("/store")
@@ -65,7 +65,7 @@ public class VocalistController {
     }
 
     /*
-     * 단어장 목록 api
+     * 마이페이지 > 단어장 목록 api
      * @author Ryu jiyun
      * */
     @GetMapping("")
@@ -123,9 +123,11 @@ public class VocalistController {
     }
 
     /*
-     * 특정 카드 저장 여부 포함 단어장 목록 조회 api
+     * 메인 피드 > 단어장 목록 api
+     * 해당 의견 카드 id로 단어장 목록 호출
      * @author Ryu jiyun
      * */
+
     @GetMapping("/{cardId}")
     public ResponseEntity<List<VocalistDTO>>checkVocalist(@RequestHeader("token") String token
                                                             ,@PathVariable("cardId") Integer cardId){
@@ -157,4 +159,5 @@ public class VocalistController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 }
