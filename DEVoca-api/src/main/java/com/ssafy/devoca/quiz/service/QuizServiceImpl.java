@@ -37,10 +37,11 @@ public class QuizServiceImpl implements QuizService{
     }
 
     @Override
-    public List<QuizDTO> getQuiz() throws Exception {
-        log.info("getQuizId 호출 : 생성한 퀴즈 아이디 가져오기");
-        int quizId = quizMapper.getQuizId(0);
-
+    public List<QuizDTO> getQuiz(int quizId) throws Exception {
+        if(quizId == 0) {
+            log.info("getQuizId 호출 : 생성한 퀴즈 아이디 가져오기");
+            quizId = quizMapper.getQuizId(0);
+        }
         log.info("getQuizWordList 호출 : 퀴즈 단어 가져오기");
         List<QuizDTO> quizList = quizMapper.getQuizWordList(quizId);
         log.info(Arrays.toString(quizList.toArray()));
@@ -51,8 +52,11 @@ public class QuizServiceImpl implements QuizService{
     @Transactional
     @Override
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception{
+        log.info("saveQuizResult 호출 : 퀴즈 결과 저장");
         quizMapper.saveQuizResult(quizResultDTO);
-        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        log.info("saveQuizAnswerList 호출 : 퀴즈 답안 저장");
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizId(),
+                quizResultDTO.getQuizAnswerDTOList());
     }
 
     @Override
@@ -103,22 +107,13 @@ public class QuizServiceImpl implements QuizService{
         return quizId;
     }
 
-    @Override
-    public List<QuizDTO> getBattleQuiz(int quizId) throws Exception {
-        log.info("getQuizWordList 호출 : 대결 퀴즈 단어 가져오기");
-        List<QuizDTO> quizList = quizMapper.getQuizWordList(quizId);
-        log.info(Arrays.toString(quizList.toArray()));
-
-        return quizList;
-    }
-
     @Transactional
     @Override
     public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception {
         log.info("saveQuizResult 호출 : 대결 퀴즈 결과 저장");
         quizMapper.saveQuizResult(quizResultDTO);
         log.info("saveQuizAnswerList 호출 : 대결 퀴즈 답안 저장");
-        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizAnswerDTOList());
+        quizMapper.saveQuizAnswerList(quizResultDTO.getUserIdx(), quizResultDTO.getQuizId(), quizResultDTO.getQuizAnswerDTOList());
         log.info("saveBattleResult 호출 : 대결 정보 업데이트");
         quizMapper.saveBattleResult(quizResultDTO.getQuizId(), quizResultDTO.getUserIdx(), quizResultDTO.getScore());
     }

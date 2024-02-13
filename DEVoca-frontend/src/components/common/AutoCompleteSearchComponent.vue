@@ -43,7 +43,7 @@
 
 <script setup>
 import { Autocomplete, Input, initTE } from "tw-elements"
-import { getAutoCompList } from '@/api/word'
+import { getAutoCompList } from '@/api/search'
 import { ref, onMounted } from 'vue'
 import { getWordInCard } from '@/api/word'
 import WordComponent from '@/components/word/WordComponent.vue'

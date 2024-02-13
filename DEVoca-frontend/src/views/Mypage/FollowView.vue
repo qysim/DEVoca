@@ -1,23 +1,54 @@
 <template>
-    <div class="flex flex-row">
-      <a href="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mt-5 ml-5"><path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" /></svg>
-      </a>
-        <p class="mt-6 ml-5 text-xl">여기는 팔로우</p>
-    </div>
-    <div>
-        <FollowComponents/>
-    </div>
+  <div role="tablist" class="tabs tabs-bordered m-6">
+    <router-link :to="{ name: 'FollowView', params: { option: 'following' } }" role="tab" class="tab text-lg"
+      :class="{ 'tab-active': option === 'following' }">
+      팔로잉 {{ followingList.length }}명
+    </router-link>
+    <router-link :to="{ name: 'FollowView', params: { option: 'follower' } }" role="tab" class="tab text-lg"
+      :class="{ 'tab-active': option === 'follower' }">
+      팔로워 {{ followerList.length }}명
+    </router-link>
+  </div>
 
+  <div v-show="option === 'following'" class="mx-2">
+    <FollowCardComponent v-for="(item, index) in followingList" :key="index" :userInfo="item" />
+  </div>
+  <div v-show="option === 'follower'" class="mx-2">
+    <FollowCardComponent v-for="(item, index) in followerList" :key="index" :userInfo="item" />
+  </div>
 </template>
 
-
 <script setup>
-import FollowComponents from '@/components/mypage/FollowComponents.vue';
+import FollowCardComponent from '@/components/common/FollowCardComponent.vue'
 
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
+import { ref, onMounted } from "vue";
+import { getFollower, getFollowing } from "@/api/mypage";
+
+const route = useRoute()
+
+const option = ref()
+
+const followerList = ref([])
+const followingList = ref([])
+
+onBeforeRouteUpdate((to,) => {
+  option.value = to.params.option
+  updateList()
+})
+
+onMounted(() => {
+  option.value = route.params.option
+  updateList()
+})
+
+const updateList = () => {
+  getFollower((res) => {
+    followerList.value = res.data
+  }, null)
+  getFollowing((res) => {
+    followingList.value = res.data
+  }, null)
+}
 
 </script>
-
-<style scoped>
-
-</style>

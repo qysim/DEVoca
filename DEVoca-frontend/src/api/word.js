@@ -22,20 +22,6 @@ export function getCardListByWord(param, success, fail) {
   }).then(success).catch(fail)
 }
 
-// author: cheesecat47 <cheesecat47@gmail.com>
-export function getSearchResultWords(param, success, fail) {
-  local.get(`/search/word/${param}/0`).then(success).catch(fail)
-}
-
-// author: cheesecat47 <cheesecat47@gmail.com>
-export function getSearchResultCards(param, success, fail) {
-  local.get(`/search/card/${param}/0`).then(success).catch(fail)
-}
-
-export async function getAutoCompList(success, fail) {
-  await local.get('/search/autocomplete').then(success).catch(fail)
-}
-
 export function getWordInCard(param, success, fail) {
   local.get(`/dictionary/select/${param}`).then(success).catch(fail)
 }

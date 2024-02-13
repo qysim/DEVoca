@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Data
 public class BoardDTO {
-    private String userNickname;
+    private String userNickName;
     private String userId;
     private Integer userIdx;
     private String userImg;
@@ -14,6 +14,7 @@ public class BoardDTO {
     private String boardTitle;
     private String boardContent;
     private Integer boardType;
-    private Timestamp boardDate;
+    private Timestamp boardRegistDate;
+    private Timestamp boardUpdateDate;
     private String updateYN; // 수정 이력 여부
 }

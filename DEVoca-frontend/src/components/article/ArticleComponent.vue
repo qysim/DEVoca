@@ -26,4 +26,5 @@ import LikeIcon from "@/components/icon/LikeIcon.vue";
 import ChatBubbleIcon from "@/components/icon/ChatBubbleIcon.vue";
 
 const props = defineProps(['board']);
+
 </script>

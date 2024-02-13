@@ -1,5 +1,11 @@
 <template>
-    <div class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
+    <QuizResultComponent0 v-if="showModal0"
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    <QuizResultComponent1 v-if="showModal1"
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    <QuizFinishComponent v-if="showModal2"
+    :Qnum="props.quizList.length" :Anum="score/10*props.quizList.length" :score="score" />
+    <div v-if="!showModal" class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
       <img src="@/assets/images/quiz/quiz_page_logo.png" viewBox="0 0 24 24" class="stroke-info shrink-0 w-60 h-32" alt="devoca_logo">
       <div>
         <div class="text-slate-400 flex justify-end">{{ pageIndex }} / {{ quizList.length }}</div>
@@ -19,9 +25,26 @@
   </template>
   
   <script setup>
-  import { ref } from "vue";
+  import QuizResultComponent0 from "./QuizResultComponent0.vue";
+  import QuizResultComponent1 from "./QuizResultComponent1.vue";
+  import QuizFinishComponent from "./QuizFinishComponent.vue";
   import { useRoute, useRouter } from "vue-router";
-
+  import { saveQuizResult, saveBattleResult } from '@/api/quiz'
+  import { ref } from "vue";
+  
+  const emit = defineEmits(['add-answer']);
+  const route = useRoute();
+  const router = useRouter();
+  const { index } = route.params;
+  const pageIndex = Number(index) + 1;
+  const answer = ref(null);
+  const quizYn = ref(0);
+  const score = ref(0);
+  const showModal = ref(false);
+  const showModal0 = ref(false);  // 결과 : 오답일 경우
+  const showModal1 = ref(false);  // 결과 : 정답일 경우
+  const showModal2 = ref(false);  // 종료
+  
   const props = defineProps({
     quizList: {
       type: Array,
@@ -39,24 +62,19 @@
       type: Array,
       required: true
     },
+    battleYn: {
+      type: Number,
+      required: true
+    },
   });
-  const emit = defineEmits(['add-answer']);
-
-  const route = useRoute();
-  const router = useRouter();
-  const { index } = route.params;
-  const pageIndex = Number(index) + 1;
+  
   let Question = props.quizList[index].wordSumm;
   Question = Question.replaceAll(props.quizList[index].wordNameKr, " [ ? ] ");
-
-  const answer = ref(null);
-  const quizYn = ref(0);
-  const score = ref(0);
   
   const grading = function () {
     if (answer.value == props.quizList[index].wordNameKr
-      || answer.value == props.quizList[index].wordNameEn) {
-        quizYn.value = 1;
+    || answer.value == props.quizList[index].wordNameEn) {
+      quizYn.value = 1;
     }
     const quizAnswer = {
       "quizWordId": props.quizList[index].wordId,
@@ -67,17 +85,59 @@
   }
 
   const goNext = function () {
+    // 채점하고 결과에 따라 모달 띄우기
     grading();
+    showModal.value = true;
+    if (quizYn.value == 0) {
+      showModal0.value = true;
+    } else if(quizYn.value == 1) { 
+      showModal1.value = true;
+    }
+    setTimeout(() => {
+      timeout();
+    }, 0);
+  }
+
+  const timeout = function () {
+    // 마지막 문제 아니면 다음 문제로 넘기기
     if (pageIndex != props.quizList.length) {
       router.push({ name: "QuizPageComponent", params: { index: pageIndex } });
     } else {
+      // 마지막 문제면 score 계산
       score.value = props.answerList.reduce((total, item) => {
         return total + item.quizYn;
       }, 0);
       score.value = score.value / props.quizList.length * 10;
-      // saveQuizResult api에 전부 담아서 보내기
-      // 결과 모달 띄우기
+      finish();
     }
+  }
+  const finish = function () {
+    let data = {
+      quizAnswerDTOList: props.answerList,
+      score: score.value,
+      quizId: props.quizId,
+      userId: props.userId
+    }
+
+    // saveQuizResult api에 전부 담아서 보내기
+    if (props.battleYn == 0) {
+      saveQuizResult(data, () => {
+        console.log("게릴라 퀴즈 결과 저장 성공");
+      }, (err) => {
+        console.log(err)
+      })
+    } else {
+      saveBattleResult(data, () => {
+        console.log("대결 퀴즈 결과 저장 성공");
+      }, (err) => {
+        console.log(err)
+      })
+    }
+
+    // 종료 페이지
+    showModal0.value = false;
+    showModal1.value = false;
+    showModal2.value = true;
   }
   </script>
   

@@ -7,7 +7,7 @@ import java.util.List;
 public interface QuizService {
     public int createQuiz() throws Exception;
 
-    public List<QuizDTO> getQuiz() throws Exception;
+    public List<QuizDTO> getQuiz(int quizId) throws Exception;
 
     public void saveQuizResult(QuizResultDTO quizResultDTO) throws Exception;
 
@@ -20,8 +20,6 @@ public interface QuizService {
     public List<QuizVocaDTO> getBattleVocaList(int loginUserIdx, int oppoUserIdx) throws Exception;
 
     public int createBattle(BattleRequestDTO battleRequestDTO) throws Exception;
-
-    public List<QuizDTO> getBattleQuiz(int quizId) throws Exception;
 
     public void saveBattleResult(QuizResultDTO quizResultDTO) throws Exception;
 
