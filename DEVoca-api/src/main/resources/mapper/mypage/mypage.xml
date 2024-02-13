@@ -81,4 +81,8 @@
         order by userFollowerCnt desc
     </select>
 
+    <update id="saveImageUrl" parameterType="map">
+        update users
+        set user_img = #{url} where user_idx = #{userIdx}
+    </update>
 </mapper>
