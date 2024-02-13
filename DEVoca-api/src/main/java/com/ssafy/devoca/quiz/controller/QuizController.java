@@ -77,12 +77,10 @@ public class QuizController {
     }
 
     @GetMapping("/cnt")
-    public ResponseEntity<Integer> getQuizCnt(){
+    public ResponseEntity<Integer> getQuizCnt(@RequestHeader("token") String token){
         log.info("getQuizCnt 호출 : 참여한 퀴즈 수 조회 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             int cnt = quizService.getQuizCnt(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(cnt);
         }catch (Exception e){
@@ -92,12 +90,10 @@ public class QuizController {
     }
 
     @GetMapping("/result")
-    public ResponseEntity<List<QuizListDTO>> getQuizResultList(){
+    public ResponseEntity<List<QuizListDTO>> getQuizResultList(@RequestHeader("token") String token){
         log.info("getQuizResultList 호출 : 참여한 퀴즈 목록 조회 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<QuizListDTO> quizList = quizService.getQuizResultList(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(quizList);
         }catch (Exception e){
@@ -107,12 +103,11 @@ public class QuizController {
     }
 
     @GetMapping("/result/{quizId}")
-    public ResponseEntity<List<QuizResultDTO>> getQuizResultDetail(@PathVariable("quizId") int quizId){
+    public ResponseEntity<List<QuizResultDTO>> getQuizResultDetail(@RequestHeader("token") String token,
+                                                                   @PathVariable("quizId") int quizId){
         log.info("getQuizResultList 호출 : 참여한 퀴즈 상세 조회 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
             List<QuizResultDTO> quizDetailList = quizService.getQuizResultDetail(loginUserIdx, quizId);
             return ResponseEntity.status(HttpStatus.OK).body(quizDetailList);
         }catch (Exception e){
@@ -122,13 +117,12 @@ public class QuizController {
     }
 
     @GetMapping("/battle/vocalist")
-    public ResponseEntity<List<QuizVocaDTO>> getBattleVocaList(@RequestParam("oppoUserId") String oppoUserId){
+    public ResponseEntity<List<QuizVocaDTO>> getBattleVocaList(@RequestHeader("token") String token,
+                                                               @RequestParam("oppoUserId") String oppoUserId){
         log.info("getBattleVocaList 호출 : 사용자와 상대방의 단어장 목록 조회 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
-            int oppoUserIdx = userService.loadUserIdx(oppoUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
+            int oppoUserIdx = userService.loadUserIdxById(oppoUserId);
             List<QuizVocaDTO> battleVocaList = quizService.getBattleVocaList(loginUserIdx, oppoUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(battleVocaList);
         }catch (Exception e){
@@ -138,17 +132,16 @@ public class QuizController {
     }
 
     @PostMapping("/battle")
-    public ResponseEntity<String> createBattle(@RequestBody BattleRequestDTO battleRequestDTO){
+    public ResponseEntity<String> createBattle(@RequestHeader("token") String token,
+                                               @RequestBody BattleRequestDTO battleRequestDTO){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            battleRequestDTO.setFromUserId(loginUserId);
+            int loginUserIdx = userService.loadUserIdx(token);
+            battleRequestDTO.setFromUserIdx(loginUserIdx);
 
-            int fromUserIdx = userService.loadUserIdx(battleRequestDTO.getFromUserId());
-            int toUserIdx = userService.loadUserIdx(battleRequestDTO.getToUserId());
-            battleRequestDTO.setFromUserIdx(fromUserIdx);
+            int toUserIdx = userService.loadUserIdxById(battleRequestDTO.getToUserId());
             battleRequestDTO.setToUserIdx(toUserIdx);
+
             int quizId = quizService.createBattle(battleRequestDTO);
 
             //기능 미구현 :: quizId 포함 dm 전송 -> dm db boolean 값 quizId int로 변경 필요
@@ -219,13 +212,11 @@ public class QuizController {
     }
 
     @GetMapping("/battle/result/{quizId}")
-    public ResponseEntity<List<BattleResultDTO>> getBattleResultDetail(@PathVariable("quizId") int quizId){
+    public ResponseEntity<List<BattleResultDTO>> getBattleResultDetail(@RequestHeader("token") String token,
+                                                                       @PathVariable("quizId") int quizId){
         log.info("getQuizResultList 호출 : 참여한 대결 퀴즈 상세 조회 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-//            String loginUserId = "aabbccc";
-//            int loginUserIdx = userService.loadUserIdx(loginUserId);
-            int loginUserIdx = 8;
+            int loginUserIdx = userService.loadUserIdx(token);
             List<BattleResultDTO> quizDetailList = quizService.getBattleResultDetail(loginUserIdx, quizId);
             return ResponseEntity.status(HttpStatus.OK).body(quizDetailList);
         }catch (Exception e){
