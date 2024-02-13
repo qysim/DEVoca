@@ -60,10 +60,9 @@ public class QuizController {
     public ResponseEntity<String> saveQuizResult(@RequestBody QuizResultDTO quizResultDTO){
         log.info("saveQuizResult 호출 : 퀴즈 결과 저장 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
-            quizResultDTO.setUserIdx(loginUserIdx);
+            String userId = quizResultDTO.getUserId();
+            int userIdx = userService.loadUserIdxById(userId);
+            quizResultDTO.setUserIdx(userIdx);
             quizService.saveQuizResult(quizResultDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
@@ -156,26 +155,13 @@ public class QuizController {
         }
     }
 
-    @GetMapping("/battle/{quizId}")
-    public ResponseEntity<List<QuizDTO>> getBattleQuiz(@PathVariable("quizId") int quizId){
-        log.info("getBattleQuiz 호출 : 대결 퀴즈 조회 요청");
-        try{
-            List<QuizDTO> quizList = quizService.getBattleQuiz(quizId);
-            return ResponseEntity.status(HttpStatus.OK).body(quizList);
-        }catch (Exception e){
-            log.error("대결 퀴즈 조회 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
     @PostMapping("/battle/save")
     public ResponseEntity<String> saveBattleResult(@RequestBody QuizResultDTO quizResultDTO){
         log.info("saveBattleResult 호출 : 대결 퀴즈 결과 저장 요청");
         try{
-            //향후 session에서 loginUserId 뽑아 같이 보내기
-            String loginUserId = "aabbccc";
-            int loginUserIdx = userService.loadUserIdx(loginUserId);
-            quizResultDTO.setUserIdx(loginUserIdx);
+            String userId = quizResultDTO.getUserId();
+            int userIdx = userService.loadUserIdxById(userId);
+            quizResultDTO.setUserIdx(userIdx);
             quizService.saveBattleResult(quizResultDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
