@@ -10,20 +10,20 @@
     </div>
 
     <h3 class="font-jalnan text-xl ml-2 mt-4">인기 검색어</h3>
-    <table class="table table-zebra table-lg text-center">
+    <table class="table table-lg text-center">
       <thead class="text-sm">
         <tr>
-          <th>순위</th>
+          <th class="w-20 max-w-20">순위</th>
           <th>검색어</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="recommendWordList.length === 0">
-          <th class="w-10"></th>
+          <th class="w-20 max-w-20"></th>
           <td>인기 검색어가 없습니다.</td>
         </tr>
         <tr v-else v-for="(item, index) in recommendWordList" :key="index">
-          <th>{{ index + 1 }}</th>
+          <th class="w-20 max-w-20">{{ index + 1 }}</th>
           <td>
             <router-link :to="{ name: 'SearchResultView', query: { q: item.wordNameEn } }">
               {{ item.wordNameEn }}
