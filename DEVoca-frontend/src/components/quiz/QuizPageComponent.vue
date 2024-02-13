@@ -113,7 +113,7 @@
   }
   const finish = function () {
     let data = {
-      answerList: props.answerList,
+      quizAnswerDTOList: props.answerList,
       score: score.value,
       quizId: props.quizId,
       userId: props.userId
