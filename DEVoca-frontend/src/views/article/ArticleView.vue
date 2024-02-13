@@ -5,16 +5,7 @@
       <input :class="{ 'active': boardType === 1 }" @click="changeBoardType(1)" type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="Q&A" />
     </div>
 
-<<<<<<< HEAD
-
-    <!-- <ArticleComponent />
-    <ArticleComponent />
-    <ArticleComponent />
-    <ArticleComponent />
-    <ArticleComponent /> -->
-=======
     <ArticleComponent v-for="board in boards" :board="board" :key="board.id" />
->>>>>>> origin/develop
   </div>
 </template>
 

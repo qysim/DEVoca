@@ -90,4 +90,4 @@ function localAxios() {
 //   return instance;
 // }
 
-export { localAxios, urlApi };
+export { localAxios };

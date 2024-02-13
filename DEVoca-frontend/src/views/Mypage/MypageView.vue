@@ -37,14 +37,6 @@
         </div>
       </RouterLink>
       <RouterLink :to="{ name: 'QuizListView' }">
-        <div class="flex justify-between">
-          <div>
-            <p>참여한 퀴즈</p>
-          </div>
-          <RightArrowIcon />
-        </div>
-      </RouterLink>
-      <RouterLink :to="{ name: 'QuizListView' }">
         <div class="flex justify-between py-4">
           <div>
             <p>참여한 퀴즈</p>

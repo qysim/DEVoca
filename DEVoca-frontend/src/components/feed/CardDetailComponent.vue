@@ -5,7 +5,7 @@
     </button>
     <div class="card h-fit bg-base-100 shadow-xl pt-3">
       <!-- 유저 -->
-      <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
+      <AvartarComponent :userInfo="userInfo" />
       <!-- 본문 -->
       <div class="card-body p-4">
         <WordComponent :word="word" v-if="card.originCardId === 0" @click="goWordDetail(word.wordId)"/>
