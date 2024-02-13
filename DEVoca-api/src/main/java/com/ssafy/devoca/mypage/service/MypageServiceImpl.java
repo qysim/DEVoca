@@ -8,11 +8,13 @@ import com.ssafy.devoca.user.model.mapper.UserMapper;
 import com.ssafy.devoca.user.service.UserService;
 import com.ssafy.devoca.util.JwtUtil;
 import io.minio.BucketExistsArgs;
+import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -77,15 +79,50 @@ public class MypageServiceImpl implements MypageService {
         String extName
                 = originFileName.substring(originFileName.lastIndexOf("."), originFileName.length());
         Long size = image.getSize();
+        String type = image.getContentType();
+        log.info("type : {}" , type);
 
         // 저장할 이름
         String saveFileName = getSaveFileName(extName);
         InputStream stream = image.getInputStream();
 
         // minio로 업로드
-        String url = putObjectMinio("devoca", saveFileName, stream, size);
+        String url = putObjectMinio("devoca", saveFileName, stream, size, type);
         log.info("minio로 업로드 saveFileName : {}", url);
         return url;
+    }
+
+    @Override
+    public InputStreamResource getProfileImg(String objectName) throws Exception {
+        log.info("minio getObject 호출 ::: {}", objectName);
+        String bucket = "devoca";
+        try{
+            MinioClient minioClient =
+                    MinioClient.builder()
+                            .endpoint(MINIO_HOST)
+                            .credentials(MINIO_USER, MINIO_USER_PASSWORD)
+                            .build();
+
+            log.info("checking bucket");
+            boolean checkBucket = minioClient.bucketExists(
+                    BucketExistsArgs.builder().bucket(bucket).build());
+            if(checkBucket){
+                log.info("devoca exists");
+            } else {
+                log.info("devoca does not exists");
+            }
+
+            log.info("getting image");
+            InputStream inputStream = minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(bucket).object(objectName).build()
+            );
+            log.info("inputStream : {}", inputStream);
+            return new InputStreamResource(inputStream);
+        } catch (Exception e){
+            log.info("putObject error ::: {}", e);
+            return null;
+        }
     }
 
     private String getSaveFileName(String extName) {
@@ -104,7 +141,7 @@ public class MypageServiceImpl implements MypageService {
         return filename;
     }
 
-    private String putObjectMinio(String bucket, String objectName, InputStream stream, long size){
+    private String putObjectMinio(String bucket, String objectName, InputStream stream, long size, String type){
         log.info("minio putObjectMinio ::: {}", stream);
         try{
             MinioClient minioClient =
@@ -126,7 +163,7 @@ public class MypageServiceImpl implements MypageService {
             minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucket).object(objectName)
                             .stream(stream, size, -1)
-                            .contentType("image/jpeg").build()
+                            .contentType(type).build()
             );
             String url = MINIO_HOST+"/"+bucket+"/"+objectName;
             return url;
