@@ -10,7 +10,10 @@
     <AvatarComponent :userInfo="userInfo"/>
     <ArticleDetailComponent :boardInfo="boardInfo"/>
   </div>
-  <!-- <CommentComponent :comment="commentInfo"/> -->
+  <div v-for="board in boards" :key="board.boardId">
+      <!-- <ArticleComponent :board="board" @click="goArticleDetail(board.boardId)"/> -->
+      <CommentComponent :comment="commentInfo"/>
+  </div>
 </template>
 
 <script setup>
@@ -43,6 +46,18 @@ const boardInfo = ref({
   boardType: 0
 })
 
+const comments = ref([])
+const commentInfo = ref({
+  boardId: null,
+  cardId: null,
+  commentContent: null,
+  commentId: null,
+  commentPicked: null,
+  commentRegistDate: null,
+  userId: null,
+  userImg: null,
+  userNickName: null
+})
 
 onMounted(async () => {
   boardInfo.value.boardId = props.boardId
@@ -51,6 +66,12 @@ onMounted(async () => {
     userInfo.value = res.data
     userInfo.value.cardRegistDate = res.data.boardRegistDate
     console.log(userInfo.value.cardRegistDate)
+  }, (err) => {
+    console.log(err)
+  })
+  getCommentList("board", props.boardId, (res) => {
+    comments.value = res.data
+    console.log(comments.value)
   }, (err) => {
     console.log(err)
   })
