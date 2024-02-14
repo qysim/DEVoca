@@ -2,9 +2,9 @@
   <div class="flex justify-center m-2">
     <div class="card h-fit w-full bg-base-100 shadow-xl">
       <div class="card-body p-6">
-        <AvatarComponent :userInfo="userInfo" />
-        <p class="text-xl">{{ board.boardTitle }}</p>
-        <p>{{ board.boardContent }}</p>
+          <AvatarComponent :userInfo="userInfo" />
+          <p class="text-xl">{{ board.boardTitle }}</p>
+          <p>{{ board.boardContent }}</p>
       </div>
     </div>
   </div>
@@ -25,7 +25,5 @@ const userInfo = ref({
   userNickName: props.board.userNickName,
   cardRegistDate: props.board.boardRegistDate
 });
-
-
 </script>
 

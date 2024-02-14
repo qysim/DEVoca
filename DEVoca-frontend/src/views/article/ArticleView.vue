@@ -7,7 +7,9 @@
       :class="{ 'tab-active': boardType === 1 }" @click="changeBoardType(1)" type="radio" name="my_tabs_1" role="tab" aria-label="Q&A" />
     </div>
 
-    <ArticleComponent v-for="board in boards" :board="board" :key="board.id" />
+    <div v-for="board in boards" :key="board.boardId">
+      <ArticleComponent :board="board" @click="goArticleDetail(board.boardId)"/>
+    </div>
   </div>
 </template>
 
@@ -15,7 +17,9 @@
 import ArticleComponent from '@/components/article/ArticleComponent.vue';
 import { ref, onMounted } from 'vue';
 import { getBoardList } from '@/api/board';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const boards = ref([]);
 const boardType = ref(0);
 
@@ -25,7 +29,7 @@ const changeBoardType = (type) => {
 };
 
 const fetchBoardData = () => {
-  getBoardList(boardType.value, 
+  getBoardList(boardType.value,
     (response) => {
       boards.value = response.data;
     },
@@ -35,11 +39,17 @@ const fetchBoardData = () => {
   );
 };
 
+const goArticleDetail = function(boardId){
+  console.log(boardId)
+  router.push({name: 'ArticleDetailView', params: {boardId: boardId}})
+}
+
   onMounted(() => {
     // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
     getBoardList(boardType.value, 
       (response) => {
         boards.value = response.data;
+        console.log(boards.value)
       },
       (error) => {
         console.error(error);
