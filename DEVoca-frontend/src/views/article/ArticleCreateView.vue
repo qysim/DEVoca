@@ -1,7 +1,11 @@
 <template>
   <div class="m-2">
+    <div class="flex text-center" v-if="route.query.q == 2">
+      <p class="mt-2 ml-3 mr-2 text-xl font-jalnan text-devoca">단어</p>
+      <p class="mt-2 text-xl font-jalnan">요청</p>
+    </div>
     <form @submit.prevent="submitBoard">
-      <select v-model="inputData.boardType" class="select select-bordered max-w-xs">
+      <select v-model="inputData.boardType" class="select select-bordered max-w-xs" v-if="route.query.q != 2">
         <option disabled selected>카테고리</option>
         <option value="0">자유 게시판</option>
         <option value="1">Q&A 게시판</option>
@@ -25,12 +29,10 @@
 <script setup>
 import { ref } from 'vue';
 import { createBoard } from '@/api/board';
-import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute()
 const router = useRouter();
-const userStore = useUserStore();
-
 
 const inputData = ref({
   boardType: '카테고리',
@@ -47,6 +49,9 @@ const submitBoard = function() {
     return;
   }
 
+  if (route.query.q == 2) {
+    inputData.value.boardType = 2
+  }
 
   createBoard(inputData.value, 
     (res) => {
@@ -58,8 +63,3 @@ const submitBoard = function() {
   );
 }
 </script>
-
-
-<style scoped>
-
-</style>
