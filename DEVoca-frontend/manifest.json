@@ -1,7 +1,7 @@
 {
   "name": "DEVoca",
   "short_name": "DEVoca",
-  "start_url": "/",
+  "start_url": "/login",
   "background_color": "#fafafa",
   "theme_color": "#00B4D8",
   "display": "standalone",

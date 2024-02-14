@@ -5,19 +5,41 @@
         <p class="m-3 self-center font-jalnan text-3xl text-devoca">DEVOCA</p>
         <img src="@/assets/images/quiz/fight.png">
       </div>
-      <img src="@/assets/images/quiz/challenge.png">
-      <p>상대유저닉네임 님이</p>
-      <p>도전장을 보내셨습니다!</p>
-      <p>수락하시겠습니까??</p>
-      <div class="w-60 mt-5 flex flex-row justify-evenly">
-        <button class="btn bg-devoca text-white w-20">수락</button>
-        <button class="btn bg-devoca text-white w-20">거절</button>
+      <img src="@/assets/images/quiz/challenge.png" class="mb-5">
+      <div class="flex">
+        <p class="font-bold text-lg mr-2">{{ props.userNickName }}</p> <p class="text-lg">님이</p>
+      </div>
+      <p class="text-lg">도전장을 보내셨습니다!</p>
+      <p class="text-lg">수락하시겠습니까??</p>
+      <div class="modal-action w-60 mt-5 flex flex-row justify-evenly">
+        <button class="btn bg-devoca text-white w-20" @click="goQuizPage">수락</button>
+        <form method="dialog">
+          <button class="btn bg-devoca text-white w-20" @click="closeModal">거절</button>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
+const props = defineProps({
+  userNickName: String,
+  dmBattleQuizId: Number
+})
+
+const router = useRouter();
+
+const emit = defineEmits(['closeModal']);
+
+const goQuizPage = function () {
+    router.push({ name: 'QuizPageView', query: { quizId: props.dmBattleQuizId, battleYn: true } });
+  }
+
+const closeModal = () => {
+  emit('closeModal');
+}
 
 </script>
 

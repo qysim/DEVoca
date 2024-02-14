@@ -1,10 +1,7 @@
 <template>
-  <div class="container flex items-center">
+  <div class="flex flex-col justify-center items-center h-[85vh]">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
-      <div class="flex justify-center">
-        <img src="@/assets/images/DEVoca_logo_en_only.png" class="w-3/4">
-      </div>
-      <p class="text-center mt-6">관심 분야를 변경합니다.</p>
+      <p class="text-center ">관심 분야를 변경합니다.</p>
       <p class="text-center mt-1 mb-5">최대 3개 선택 가능</p>
       <div>
         <div v-for="(buttonGroup, groupIndex) in buttonGroups" :key="groupIndex" class="flex">
