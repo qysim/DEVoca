@@ -24,4 +24,6 @@ public interface CardService {
     public List<CardDTO> getMyCard(int userIdx, int scroll) throws Exception;
 
     public void likeCard(int loginUserIdx, int cardId, boolean cardLikeYn) throws Exception;
+
+    public int getCardUserIdx(int cardId) throws Exception;
 }

@@ -41,5 +41,10 @@ public class BoardServiceImpl implements BoardService{
         return boardMapper.getMyboard(userIdx);
     }
 
+    @Override
+    public int getBoardUserIdx(int boardId) throws Exception {
+        return boardMapper.getBoardUserIdx(boardId);
+    }
+
 
 }

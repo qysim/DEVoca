@@ -247,4 +247,10 @@
         values (#{loginUserIdx}, #{cardId});
     </insert>
 
+    <!-- 카드 작성자 아이디 가져오기 -->
+    <select id="getCardUserIdx" parameterType="int">
+        select fk_card_user_idx
+        from cards
+        where card_id = #{cardId};
+    </select>
 </mapper>
