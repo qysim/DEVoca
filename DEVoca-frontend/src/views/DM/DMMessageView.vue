@@ -122,7 +122,6 @@ onMounted(() => {
     ({ data }) => {
       data.forEach(element => {
         messageList.value.push(element)
-        console.log(element);
       });
       nextTick(() => {
         const chat = document.getElementById('chat');
