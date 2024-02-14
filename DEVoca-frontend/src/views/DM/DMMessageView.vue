@@ -28,7 +28,7 @@
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
           <div class="chat-bubble break-words bg-devoca_sky text-black">
             <div>{{ chat.dmContent }}</div>
-            <div class="flex justify-end">
+            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
               <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
             </div>
           </div>
