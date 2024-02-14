@@ -251,14 +251,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
-  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' || to.name === 'SearchResultView' 
-      || to.path === '/kakao/callback') {
-        // location.href.startsWith('https://i10d112.p.ssafy.io/kakao/callback')
-    console.log(`path : ${to.path}`)
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
+      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
     next()
   } else {
     // 로그인 여부 확인
-    console.log(`path : ${to.path}`)
     const userStore = useUserStore()
     if (userStore.kakaoUserInfo.id) {
       next()
