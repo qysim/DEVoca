@@ -251,7 +251,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // 로그인페이지, 검색결과페이지는 항상 접근을 허용
-  if (to.name === 'LoginView' || to.name === 'SearchResultView' || to.path === 'https://i10d112.p.ssafy.io/kakao/callback' ) {
+  if (to.name === 'LoginView' || to.name === 'SearchResultView' || to.path.startsWith('https://i10d112.p.ssafy.io/kakao/callback')) {
     next()
   } else {
     // 로그인 여부 확인
