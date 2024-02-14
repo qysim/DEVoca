@@ -1,13 +1,15 @@
 <template>
-  <div class="flex justify-center m-2">
-    <div class="card h-fit bg-base-100 shadow-xl">
+  <div class="flex justify-center m-2 relative">
+    <button class="btn btn-ghost absolute top-0 right-0 z-10" @click="deleteCards(card.cardId)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+    <div class="card h-fit bg-base-100 shadow-xl pt-3">
       <!-- 유저 -->
-      <AvartarComponent :userInfo="userInfo" @click="goProfile(userInfo.userId)"/>
+      <AvartarComponent :userInfo="userInfo" />
       <!-- 본문 -->
-      <div class="card-body p-4" @click="goCardDetail(card.cardId)">
-        <!-- originCard용 컴포넌트 만들기 -->
-        <!-- <CardComponent :card="originCard" v-if="props.card.originCardId" /> -->
-        <WordComponent :word="word" />
+      <div class="card-body p-4">
+        <WordComponent :word="word" v-if="card.originCardId === 0" @click="goWordDetail(word.wordId)"/>
+        <OriginCardComponent :card="card" v-else />
           
         <div class="m-2">{{ card.cardContent }}</div>
         
@@ -20,26 +22,7 @@
           <a :href="card.cardLink" class="text-xs text-wrap break-words text-blue-600">{{ card.cardLink }} <LinkIcon class="inline"/></a>
         </div>
 
-        <div class="flex justify-between p-2">
-          <div class="flex gap-2">
-            <button @click="bottom_modal.showModal">
-              <ShareIcon />
-            </button>
-            <button>
-              <BookmarkIcon />
-            </button>
-          </div>
-          <div class="flex gap-4">
-            <div class="flex gap-2">
-              <LikeIcon />
-              <p>{{ card.cardLikeCnt }}</p>
-            </div>
-            <div class="flex gap-2">
-              <RepostIcon />
-              <p>{{ card.cardRepostCnt }}</p>
-            </div>
-          </div>
-        </div>
+        <CardIconComponent :card="card"/>
       </div>
     </div>
   </div>
@@ -49,14 +32,12 @@
 import { ref } from 'vue'
 import AvartarComponent from '@/components/common/AvatarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue"
-import CardComponent from '@/components/feed/CardComponent.vue'
-import ShareIcon from "@/components/icon/ShareIcon.vue"
-import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
-import LikeIcon from "@/components/icon/LikeIcon.vue"
-import RepostIcon from "@/components/icon/RepostIcon.vue"
+import CardIconComponent from "@/components/feed/CardIconComponent.vue"
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import LinkIcon from "@/components/icon/LinkIcon.vue"
+import { deleteCard } from '@/api/card'
+import OriginCardComponent from '@/components/feed/OriginCardComponent.vue'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -80,13 +61,6 @@ const word = ref({
   wordSumm: props.card.wordSumm,
 })
 
-const originCard = ref({
-  originCardId: props.card.originCardId,
-  originUserNickName: props.card.originUserNickName,
-  originUserImg: props.card.originUserImg,
-  originCardContent : props.card.originCardContent
-})
-
 const goProfile = function (userId) {
   if (userId === userStore.kakaoUserInfo['id'].toString()) {
     router.push({name: 'MypageView'})
@@ -95,8 +69,21 @@ const goProfile = function (userId) {
   }
 }
 
-const goCardDetail = function (cardId) {
-  router.push({name: 'CardDetailView', params: {id: cardId}})
+const goWordDetail = function (wordId) {
+  router.push({name: 'WordDetailView', params: {id: wordId}})
 }
 
+const deleteCards = (cardId) => {
+  const confirmResult = confirm("글을 삭제하시겠어요?")
+  if (confirmResult) {
+    deleteCard(cardId, (res) => {
+      console.log(res.data)
+      router.push({name: 'MainView'})
+    }, (err) => {
+      console.log(err)
+    })
+  } else {
+    return
+  }
+}
 </script>

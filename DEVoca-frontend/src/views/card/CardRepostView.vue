@@ -1,7 +1,8 @@
 <template>
   <div class="p-3">
-    <h2 class="font-jalnan text-lg px-2">단어 선택</h2>
-    <AutoCompleteSearchComponent @selected-word="(id)=>{inputData.wordId = id}"/>
+    <!-- 원래 카드 보여주기 -->
+    <!-- <OriginCardComponent :card="card" /> -->
+
     <form @submit.prevent="submitCard">
       <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"
       v-model="inputData.cardContent"></textarea>
@@ -31,16 +32,16 @@
 
 <script setup>
 import { ref } from 'vue'
-import AutoCompleteSearchComponent from '@/components/common/AutoCompleteSearchComponent.vue'
-import { registCard } from '@/api/card'
-import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
+import { repostCard } from '@/api/card'
+import OriginCardComponent from '@/components/feed/OriginCardComponent.vue'
 
 const router = useRouter()
-const userStore = useUserStore()
+const repostInfo = history.state.repostInfo
+console.log(repostInfo)
 
 const inputData = ref({
-  userId: userStore.kakaoUserInfo['id'],
+  // userId: userStore.kakaoUserInfo['id'],
   wordId: null,
   cardContent: null,
   cardLink: null,
@@ -48,15 +49,30 @@ const inputData = ref({
 })
 
 const submitCard = function () {
-  if (inputData.value.cardRelatedKeywordList) {
-    inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
-      split(',').map(item => item.trim()).filter(item => item !== '')
-  }
-  registCard(inputData.value, (res) => {
-    router.push({name: 'MainView'})
-  }, (err) => {
-    console.log(`err : ${err}`)
-  })
+  // if (inputData.value.cardRelatedKeywordList) {
+  //   inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
+  //     split(',').map(item => item.trim()).filter(item => item !== '')
+  // }
+  // registCard(inputData.value, (res) => {
+  //   router.push({name: 'MainView'})
+  // }, (err) => {
+  //   console.log(`err : ${err}`)
+  // })
 }
+
+// const cardInfo = {
+  //   userId: card.userId, // 리포스트하는 유저아이디
+  //   cardId: null,
+  //   cardContent: card.cardContent, //새로 추가하는 내용
+  //   cardLink: card.cardLink, // 새로 작성하는 참고링크
+  //   cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
+  //   originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
+  //   wordId: card.wordId // 조상 단어 id
+  // }
+  // repostCard(cardInfo, (res) => {
+  //   console.log(res)
+  // }, (err) => {
+  //   console.log(err)
+  // })
 
 </script>
