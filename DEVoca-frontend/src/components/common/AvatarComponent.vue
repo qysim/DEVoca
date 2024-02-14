@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="flex flex-col basis-1/3 text-xs text-right">
-      <span v-if="dateString != 'Invalid Date'">{{ dateString }}</span>
-      <span v-if="timeString != 'Invalid Date'">{{ timeString }}</span>
+      <span>{{ dateString }}</span>
+      <span>{{ timeString }}</span>
     </div>
   </div>
 </template>
@@ -36,11 +36,11 @@ const dateString = ref(datetime.toLocaleDateString(locale, options))
 const timeString = ref(datetime.toLocaleTimeString(locale, options))
 
 const goProfile = function (userId) {
-    if (userId === userStore.kakaoUserInfo.id.toString()) {
-      router.push({name: 'MypageView'})
-    } else {
-      router.push({name: 'OtherUserProfileView', params: {id: userId}})
-    }
+  if (userId === userStore.kakaoUserInfo.id.toString()) {
+    router.push({ name: 'MypageView' })
+  } else {
+    router.push({ name: 'OtherUserProfileView', params: { id: userId } })
   }
+}
 
 </script>

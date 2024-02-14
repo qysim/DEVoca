@@ -249,22 +249,21 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   // 로그인페이지, 검색결과페이지는 항상 접근을 허용
-//   if (to.name === 'LoginView' || to.path.startsWith('https://i10d112.p.ssafy.io/search/result')
-//       || to.path.startsWith('https://i10d112.p.ssafy.io/kakao/callback')) {
-//     console.log(to.path)
-//     next()
-//   } else {
-//     // 로그인 여부 확인
-//     const userStore = useUserStore()
-//     if (userStore.kakaoUserInfo.id) {
-//       next()
-//     } else {
-//       // 로그인하지 않은 경우 로그인 페이지로 리디렉션
-//       next({name: 'LoginView'})
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
+      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
+    next()
+  } else {
+    // 로그인 여부 확인
+    const userStore = useUserStore()
+    if (userStore.kakaoUserInfo.id) {
+      next()
+    } else {
+      // 로그인하지 않은 경우 로그인 페이지로 리디렉션
+      next({name: 'LoginView'})
+    }
+  }
+})
 
 export default router
