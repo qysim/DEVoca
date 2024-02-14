@@ -14,7 +14,6 @@ import MyBoardView from '@/views/Mypage/MyBoardView.vue'
 import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
-import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
 import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
@@ -123,11 +122,6 @@ const router = createRouter({
           path : '/profilechange/:id',
           name : 'ProfileChangeView',
           component : ProfileChangeView
-        },
-        {
-          path : '/mypagesetting/:id',
-          name : 'MypageSettingView',
-          component : MypageSettingView
         },
         {
           path : '/selecinterestschange',

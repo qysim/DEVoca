@@ -5,12 +5,10 @@
         <img src="@/assets/images/DEVoca_logo_en_only.png" class="w-3/4">
       </div>
       <form class="card-body">
-        <div class="mt-3 flex flex-col items-center">
-          <div class="mb-5">
-            <a :href=kakaoURI>
-              <img alt="kakao logo" src="@/assets/images/kakao_login.png" class="logo" />
-            </a>
-          </div>
+        <div class="flex flex-col items-center my-10">
+          <a :href=kakaoURI>
+            <img alt="kakao logo" src="@/assets/images/kakao_login.png" class="logo" />
+          </a>
         </div>
       </form>
     </div>
