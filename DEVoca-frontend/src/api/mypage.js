@@ -60,7 +60,7 @@ export function unfollowUser(userId, success, fail) {
 }
 
 export function uploadImage(formData, success, fail){
-    axios.post(`https://i10d112.p.ssafy.io/devoca/mypage/profile`, formData, {
+    axios.post(`http://localhost/devoca/mypage/profile`, formData, {
         headers: {
             token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
         }

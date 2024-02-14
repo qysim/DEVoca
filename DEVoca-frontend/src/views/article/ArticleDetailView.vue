@@ -7,16 +7,54 @@
   </div>
   </div>
   <div>
-    <AvatarComponent />
-    <ArticleDetailComponent />
+    <AvatarComponent :userInfo="userInfo"/>
+    <ArticleDetailComponent :boardInfo="boardInfo"/>
   </div>
-  <CommentComponent />
+  <!-- <CommentComponent :comment="commentInfo"/> -->
 </template>
 
 <script setup>
+import {ref, onBeforeMount, onMounted } from 'vue';
+import { getBoardDetail, getCommentList } from '@/api/board.js'
+import { getUserInfo } from '@/api/user.js'
 import AvatarComponent from '@/components/common/AvatarComponent.vue';
 import ArticleDetailComponent from '@/components/article/ArticleDetailComponent.vue';
 import CommentComponent from '@/components/article/CommentComponent.vue';
+
+const props = defineProps({
+  boardId: String
+})
+
+const userInfo = ref({
+  userId: null,
+  userImg: null,
+  userIntro: null,
+  userName: null,
+  userNickName: null,
+  cardRegistDate: null
+})
+
+const boardInfo = ref({
+  boardId: null,
+  boardContent: null,
+  boardRegistDate: null,
+  boardUpdateDate: null,
+  boardTitle: null,
+  boardType: 0
+})
+
+
+onMounted(async () => {
+  boardInfo.value.boardId = props.boardId
+  getBoardDetail(boardInfo.value.boardId, (res) => {
+    boardInfo.value = res.data
+    userInfo.value = res.data
+    userInfo.value.cardRegistDate = res.data.boardRegistDate
+    console.log(userInfo.value.cardRegistDate)
+  }, (err) => {
+    console.log(err)
+  })
+})
 </script>
 
 <style scoped>
