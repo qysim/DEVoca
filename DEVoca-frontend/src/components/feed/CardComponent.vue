@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center m-2">
-    <div class="card h-fit bg-base-100 shadow-xl">
+    <div class="card bg-base-100 shadow-xl w-full">
       <!-- 유저 -->
       <AvartarComponent :userInfo="userInfo" />
       <!-- 본문 -->
