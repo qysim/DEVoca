@@ -49,18 +49,6 @@ public class SearchController {
         }
     }
 
-    @PatchMapping("/word/{wordId}")
-    public ResponseEntity<String> updateWordSearchedCnt(@PathVariable("wordId") int wordId){
-        log.info("pdateWordSearchedCnt 호출 : 단어 검색 조회수 업데이트 요청");
-        try{
-            searchService.updateWordSearchedCnt(wordId);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }catch (Exception e){
-            log.error("단어 검색 조회수 업데이트 실패 : {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
     @GetMapping("/card/{keyword}/{scroll}")
     public ResponseEntity<List<CardDTO>> searchCard(@RequestHeader("token") String token
                                 ,@PathVariable("keyword") String keyword, @PathVariable("scroll") int scroll){
