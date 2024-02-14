@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <p class="ml-5 mt-5">댓글 0개</p>
+  <!-- <p class="ml-5 mt-5">댓글 0개</p> -->
 </template>
 
 <script setup>
