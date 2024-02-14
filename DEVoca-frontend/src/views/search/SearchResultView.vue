@@ -10,7 +10,7 @@
         </div>
         <div v-show="!hasWordResults" class="flex flex-col items-center justify-center mt-12">
           <p>아직 등록되지 않은 단어입니다.</p>
-          <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
+          <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
         </div>
       </div>
 
@@ -21,7 +21,7 @@
         </div>
         <div v-show="!hasCardResults" class="flex flex-col items-center justify-center mt-12">
           <p>아직 등록되지 않은 단어입니다.</p>
-          <button class="btn bg-devoca text-white text-lg m-2">단어 등록 요청하러 가기</button>
+          <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
         </div>
       </div>
     </div>
@@ -89,6 +89,10 @@ const onWordClick = (id) => {
 
 const onCardClick = (id) => {
   router.push({ name: 'CardDetailView', params: { id } })
+}
+
+const goWordRequset = () => {
+  router.push({name : 'ArticleCreateView', query: {q: 2}})
 }
 
 </script>
