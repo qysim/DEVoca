@@ -105,5 +105,10 @@ public class CardServiceImpl implements CardService{
         }
     }
 
+    @Override
+    public int getCardUserIdx(int cardId) throws Exception {
+        return cardMapper.getCardUserIdx(cardId);
+    }
+
 
 }

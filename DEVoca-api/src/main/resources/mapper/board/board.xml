@@ -54,4 +54,11 @@
                  join users u on b.fk_board_user_idx = u.user_idx
         where u.user_idx = #{userIdx} and board_delete_date is null
     </select>
+
+    <!-- board 작성자 idx 가져오기 -->
+    <select id="getBoardUserIdx" parameterType="int">
+        select fk_board_user_idx
+        from boards
+        where board_id = #{boardId};
+    </select>
 </mapper>

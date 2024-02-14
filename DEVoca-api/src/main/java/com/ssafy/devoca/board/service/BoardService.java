@@ -10,4 +10,5 @@ public interface BoardService {
     void createBoard(BoardDTO boardDTO) throws Exception;
     BoardDTO getBoardDetail(Integer boardId) throws Exception;
     List<BoardDTO> getMyboard(Integer userIdx) throws Exception;
+    int getBoardUserIdx(int boardId) throws Exception;
 }
