@@ -56,6 +56,7 @@ const logOut = () => {
   //   userYn: false
   // }
   localStorage.clear()
+  console.log(userStore.kakaoUserInfo)
   location.href="https://i10d112.p.ssafy.io/devoca/kakao/logout"
 }
 
