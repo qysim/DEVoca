@@ -13,12 +13,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { storeVocaList, cancelVocaList } from '@/api/vocalist'
 import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
 
-const router = useRouter()
 const props = defineProps({
   vocalistInfo : Object
 })
@@ -35,7 +32,6 @@ const saveOrCancelVocalist = (vocalist) => {
     cancelVocaList(vocalist.vocalistId, vocalist.cardId, (res) => {
       console.log('삭제완료')
       emit('loadVocalist')
-      
     }, (err) => {
       console.log(err)
     })
@@ -45,6 +41,7 @@ const saveOrCancelVocalist = (vocalist) => {
       cardId: vocalist.cardId,
       vocalistId: vocalist.vocalistId
     }
+    console.log(data)
     storeVocaList(data, (res) => {
       console.log('저장 완료')
       emit('loadVocalist')
