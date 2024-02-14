@@ -1,7 +1,10 @@
 <template>
   <div class="flex">
     <div>
-      <p class="text-xl ml-5 mr-3 mt-5">DM</p>
+      <p class="mt-5 mb-3 ml-5 text-xl font-jalnan text-devoca">D</p>
+    </div>
+    <div>
+      <p class="mt-5 mb-3 text-xl font-jalnan">M</p>
     </div>
   </div>
   <div v-if="roomList == null" class="flex flex-col justify-center items-center h-[85vh]">
