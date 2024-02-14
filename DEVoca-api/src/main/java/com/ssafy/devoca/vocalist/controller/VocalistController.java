@@ -107,9 +107,9 @@ public class VocalistController {
      * 단어장 상세 목록 조회 api
      * @author Ryu jiyun
      * */
-    @GetMapping("detail/{vocaListId}")
+    @GetMapping("detail/{vocalistId}")
     public ResponseEntity<List<VldetailDTO>> getVocalistDetail(@RequestHeader("token") String token
-                                                                ,@PathVariable("vocaListId") Integer vocaListId){
+                                                                ,@PathVariable("vocalistId") Integer vocaListId){
         log.info("단어장 상세 목록 조회 api 호출 : {}", vocaListId);
         try{
             int userIdx = userService.loadUserIdx(token);
