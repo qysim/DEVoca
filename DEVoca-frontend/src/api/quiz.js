@@ -39,3 +39,11 @@ export function getQuizResultDetail(quizId, success, fail) {
     }
   }).then(success).catch(fail)
 }
+
+export function getBattleResultDetail(quizId, success, fail) {
+  local.get(`/quiz/battle/result/${quizId}`, {
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
