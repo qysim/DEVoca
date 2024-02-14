@@ -107,6 +107,11 @@ public class CardController {
         log.info("repostCard 호출 : 카드 재게시 요청");
         try{
             cardService.repostCard(cardDTO);
+
+            int originUserIdx = cardService.getCardUserIdx(cardDTO.getOriginCardId());
+
+            notifyService.send(originUserIdx, 3, cardDTO.getCardId());
+
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
             log.error("카드 재게시 실패 : {}", e);
