@@ -4,7 +4,7 @@
       <div class="flex justify-center">
         <img src="@/assets/images/DEVoca_logo_en_only.png" class="w-3/4">
       </div>
-      <form class="card-body" @submit.prevent="submitUserInfo">
+      <form class="card-body my-2" @submit.prevent="submitUserInfo">
         <div class="form-control">
           <label class="label">
             <span class="label-text">이메일</span>
@@ -50,7 +50,7 @@ const router = useRouter()
 const userStore = useUserStore()
 const datepicker = ref(null)
 const userInfo = ref({
-  userId: userStore.kakaoUserInfo['id'],
+  userId: userStore.kakaoUserInfo.id,
   userEmail: null,
   userName: null,
   userNickName: null,
@@ -59,7 +59,6 @@ const userInfo = ref({
 
 const submitUserInfo = function () {
   joinUser(userInfo.value, (res) => {
-    console.log(`joinUser.res : ${res}`)
     router.push({name: 'MainView'})
   }, (err) => {
     console.log(err)

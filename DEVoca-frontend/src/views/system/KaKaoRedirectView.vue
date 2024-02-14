@@ -22,9 +22,7 @@ onMounted (() => {
 
   getKaKaoToken(codeParam, (res) => {
     userStore.kakaoUserInfo = res.data
-    console.log(`전 : ${typeof(userStore.kakaoUserInfo.id)}`)
     userStore.kakaoUserInfo.id = userStore.kakaoUserInfo.id.toString()
-    console.log(`후 : ${typeof(userStore.kakaoUserInfo.id)}`)
 
     if (res.data.userYn === true) {
       router.push({name : 'MainView'})
