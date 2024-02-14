@@ -4,14 +4,16 @@
   </div>
   <ArticleDetailComponent :key="boardInfo" :board="boardInfo" />
   <p class="ml-5 mt-5">댓글 {{ comments.length }}개</p>
-  <!-- <CommentComponent :comments="comments" /> -->
+  <div v-for="comment in comments" :key="comment.commentId">
+    <CommentComponent :comment="comment" />
+  </div>
 </template>
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import { getBoardDetail, getCommentList } from '@/api/board.js'
 import ArticleDetailComponent from "@/components/article/ArticleDetailComponent.vue";
-// import CommentComponent from "@/components/article/CommentComponent.vue";
+import CommentComponent from "@/components/article/CommentComponent.vue";
 
 const props = defineProps({
   boardId: String
