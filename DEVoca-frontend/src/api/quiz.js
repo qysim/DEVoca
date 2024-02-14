@@ -32,6 +32,10 @@ export function getQuizResultList(success, fail) {
   }).then(success).catch(fail)
 }
 
-// export function repostCard(data, success, fail) {
-//   local.post('/card/repost', data).then(success).catch(fail)
-// }
+export function getQuizResultDetail(quizId, success, fail) {
+  local.get(`/quiz/result/${quizId}`, {
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
