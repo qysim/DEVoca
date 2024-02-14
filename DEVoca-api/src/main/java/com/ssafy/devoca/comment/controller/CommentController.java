@@ -145,6 +145,9 @@ public class CommentController {
 
             commentService.pickComment(commentId);
             log.info("commentId 채택 완료 : {}", commentId);
+
+            notifyService.send(commentUserIdx, 1, boardId);
+
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             log.error("pickComment 댓글 채택 실패 : {}", e);
