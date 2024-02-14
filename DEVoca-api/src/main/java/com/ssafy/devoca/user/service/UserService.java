@@ -21,4 +21,6 @@ public interface UserService {
     List<FavCategoryDTO> getFavCategory(int userIdx) throws Exception;
     UserDTO getOtherUserInfo(int otherIdx, int userIdx) throws Exception;
     String getUserNickName(int userIdx) throws Exception;
+    List<UserDTO> getOtherFollowingList(int userIdx, int otherIdx) throws Exception;
+    List<UserDTO> getOtherFollowList(int userIdx, int otherIdx) throws Exception;
 }
