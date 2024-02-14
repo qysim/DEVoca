@@ -84,16 +84,30 @@ const likeCards = () => {
 
 // TODO : 전달할 데이터 정의하기
 const goRepost = () => {
-  router.push({name: 'CardRepostView', state: {
-    repostInfo : {
-        userId: userStore.kakaoUserInfo['id'], // 리포스트하는 유저아이디
-        cardId: props.card.cardId,
-        cardContent: props.card.cardContent, //새로 추가하는 내용
-        cardLink: props.card.cardLink, // 새로 작성하는 참고링크
-        cardRelatedKeywordList: props.card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-        originCardId: props.card.cardId, // 리포스트 대상이 되는 카드 id
-        wordId: props.card.wordId // 조상 단어 id
-    }}})
+  const cardInfo = {
+    userId: card.userId, // 리포스트하는 유저아이디
+    cardId: null,
+    cardContent: card.cardContent, //새로 추가하는 내용
+    cardLink: card.cardLink, // 새로 작성하는 참고링크
+    cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
+    originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
+    wordId: card.wordId // 조상 단어 id
+  }
+  repostCard(cardInfo, (res) => {
+    console.log(res)
+  }, (err) => {
+    console.log(err)
+  })
+  // router.push({name: 'CardRepostView', state: {
+  //   repostInfo : {
+  //       userId: userStore.kakaoUserInfo['id'], // 리포스트하는 유저아이디
+  //       cardId: props.card.cardId,
+  //       cardContent: props.card.cardContent, //새로 추가하는 내용
+  //       cardLink: props.card.cardLink, // 새로 작성하는 참고링크
+  //       cardRelatedKeywordList: props.card.cardRelatedKeywordList, // 새로 작성하는 연관개념
+  //       originCardId: props.card.cardId, // 리포스트 대상이 되는 카드 id
+  //       wordId: props.card.wordId // 조상 단어 id
+  //   }}})
 }
 
 onMounted(() => {
