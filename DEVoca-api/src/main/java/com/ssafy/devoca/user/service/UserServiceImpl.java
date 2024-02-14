@@ -96,4 +96,14 @@ public class UserServiceImpl implements UserService{
         return userMapper.getUserNickName(userIdx);
     }
 
+    @Override
+    public List<UserDTO> getOtherFollowingList(int userIdx, int otherIdx) throws Exception {
+        return userMapper.getOtherFollowingList(userIdx, otherIdx);
+    }
+
+    @Override
+    public List<UserDTO> getOtherFollowList(int userIdx, int otherIdx) throws Exception {
+        return userMapper.getOtherFollowList(userIdx, otherIdx);
+    }
+
 }
