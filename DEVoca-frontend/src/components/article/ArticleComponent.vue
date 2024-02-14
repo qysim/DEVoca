@@ -2,28 +2,37 @@
   <div class="flex justify-center m-2">
     <div class="card h-fit w-full bg-base-100 shadow-xl">
       <div class="card-body p-6">
-          <AvatarComponent :userInfo="userInfo" />
-          <p class="text-xl">{{ board.boardTitle }}</p>
-          <p>{{ board.boardContent }}</p>
+        <p class="card-title text-xl">{{ board.boardTitle }}</p>
+        <div class="flex items-center gap-2">
+          <div class="avatar basis-8">
+            <div class="rounded-full">
+              <img :src="board.userImg" />
+            </div>
+          </div>
+          <h2 class="grow text-sm font-jalnan">{{ board.userNickName }}</h2>
+          <div class="flex flex-col basis-1/3 text-xs text-right">
+            <span :key="dateString">{{ dateString }}</span>
+            <span :key="timeString">{{ timeString }}</span>
+          </div>
+        </div>
+        <hr>
+        <p>{{ board.boardContent }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref, onMounted } from 'vue';
-import LikeIcon from "@/components/icon/LikeIcon.vue";
-import ChatBubbleIcon from "@/components/icon/ChatBubbleIcon.vue";
-import AvatarComponent from '@/components/common/AvatarComponent.vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   board: Object
 });
 
-const userInfo = ref({
-  userImg: props.board.userImg,
-  userNickName: props.board.userNickName,
-  cardRegistDate: props.board.boardRegistDate
-});
+const datetime = new Date(props.board.boardRegistDate)
+const locale = 'ko-KR'
+const options = { timeZone: 'Asia/Seoul' }
+const dateString = ref(datetime.toLocaleDateString(locale, options))
+const timeString = ref(datetime.toLocaleTimeString(locale, options))
 </script>
 
