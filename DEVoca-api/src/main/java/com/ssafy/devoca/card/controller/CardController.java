@@ -2,6 +2,7 @@ package com.ssafy.devoca.card.controller;
 
 import com.ssafy.devoca.card.model.CardDTO;
 import com.ssafy.devoca.card.service.CardService;
+import com.ssafy.devoca.notify.service.NotifyService;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class CardController {
 
     private final CardService cardService;
     private final UserService userService;
+    private final NotifyService notifyService;
 
     @PostMapping("")
     public ResponseEntity<String> registerCard(@RequestBody CardDTO cardDTO){
@@ -122,6 +124,11 @@ public class CardController {
             int loginUserIdx = userService.loadUserIdx(token);
             log.info("cardLikeYN : "+cardLikeYN);
             cardService.likeCard(loginUserIdx, cardId, cardLikeYN);
+
+            int originCardUserIdx = cardService.getCardUserIdx(cardId);
+
+            notifyService.send(originCardUserIdx, 2, cardId);
+
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
             log.error("카드 좋아요 토글 실패 : {}", e);
