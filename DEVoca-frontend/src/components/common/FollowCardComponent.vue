@@ -13,28 +13,33 @@
         </div>
       </a>
       <div class="flex flex-col basis-1/4 text-right">
-        <button v-if="userInfo.followingYn === 'N'" class="btn bg-devoca text-white"
-          @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+        <button v-if="followingState === 'N'" class="btn bg-devoca text-white"
+          @click="followHandler(followingState, userInfo.userId)">팔로우</button>
         <button v-else class="btn border-devoca text-devoca"
-          @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+          @click="followHandler(followingState, userInfo.userId)">팔로우</button>
       </div>
     </div>
   </router-link>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { followUser, unfollowUser } from "@/api/mypage";
 
-defineProps({
+const props = defineProps({
   userInfo: Object,
   option: String
 })
 
+const followingState = ref(props.userInfo.followingYn)
+
 const followHandler = (option, id) => {
   if (option === 'N') {
     followUser(id)
+    followingState.value = 'Y'
   } else {
     unfollowUser(id)
+    followingState.value = 'N'
   }
 }
 </script>
