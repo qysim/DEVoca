@@ -12,14 +12,14 @@
       </div>
     </div>
     <div class="flex flex-col basis-1/3 text-xs text-right">
-      <span v-if="dateString != 'Invalid Date'">{{ dateString }}</span>
-      <span v-if="timeString != 'Invalid Date'">{{ timeString }}</span>
+      <span>{{ dateString }}</span>
+      <span>{{ timeString }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
@@ -33,8 +33,8 @@ const props = defineProps({
 const datetime = new Date(props.userInfo.cardRegistDate)
 const locale = 'ko-KR'
 const options = { timeZone: 'Asia/Seoul' }
-const dateString = ref(datetime.toLocaleDateString(locale, options))
-const timeString = ref(datetime.toLocaleTimeString(locale, options))
+const dateString = datetime != 'Invalid Date' ? ref(datetime.toLocaleDateString(locale, options)) : ''
+const timeString = datetime != 'Invalid Date' ? ref(datetime.toLocaleTimeString(locale, options)) : ''
 
 const goProfile = function () {
   if (props.isOrigin) {
@@ -46,6 +46,12 @@ const goProfile = function () {
       router.push({name: 'OtherUserProfileView', params: {id: props.userInfo.userId}})
     }
   }
+  }
+
+
+  if (props.userInfo.cardRegistDate === '') {
+    dateString.value = ''
+    timeString.value = ''
   }
 
 </script>

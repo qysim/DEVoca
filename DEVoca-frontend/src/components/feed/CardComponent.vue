@@ -9,7 +9,7 @@
           <WordComponent :word="word" v-if="card.originCardId === 0" />
           <OriginCardComponent :card="originCard" v-else />
 
-          <div class="m-2">{{ card.cardContent }}</div>
+          <div class="m-2" v-html="card.cardContent"></div>
         </div>
 
         <CardIconComponent :card="card" />
@@ -55,7 +55,7 @@ const originCard = ref({
 })
 
 const goCardDetail = function (cardId) {
-  router.push({name: 'CardDetailView', params: {id: cardId}})
+  router.push({ name: 'CardDetailView', params: { id: cardId } })
 }
 
 </script>

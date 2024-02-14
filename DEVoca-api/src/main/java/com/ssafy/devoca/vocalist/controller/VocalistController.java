@@ -127,7 +127,6 @@ public class VocalistController {
      * 해당 의견 카드 id로 단어장 목록 호출
      * @author Ryu jiyun
      * */
-
     @GetMapping("/{cardId}")
     public ResponseEntity<List<VocalistDTO>>checkVocalist(@RequestHeader("token") String token
                                                             ,@PathVariable("cardId") Integer cardId){

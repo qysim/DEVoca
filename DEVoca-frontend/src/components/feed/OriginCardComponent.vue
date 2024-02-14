@@ -5,7 +5,7 @@
       <AvartarComponent :userInfo="userInfo" :isOrigin="true"/>
       <!-- 본문 -->
       <div class="card-body p-4">
-        <div class="m-2">{{ card.cardContent }}</div>
+        <div class="m-2">{{ card.originCardContent }}</div>
       </div>
     </div>
   </div>
@@ -20,15 +20,8 @@ const props = defineProps({
 })
 
 const userInfo = ref({
-  userNickName: props.card.originUserNickName,
   userImg: props.card.originUserImg,
-  cardRegistDate: ''
-})
-
-const originCard = ref({
-  originUserImg: props.card.originUserImg,
-  originUserNickName: props.card.originUserNickName,
-  originCardId: props.card.originCardId,
-  originCardContent: props.card.originCardContent
+  userIntro: '',
+  userNickName: props.card.originUserNickName,
 })
 </script>
