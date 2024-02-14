@@ -5,7 +5,7 @@
           <div class='w-16 h-10 mt-5' v-if="!battleYn">
             <p class='text-sm bg-orange-200 rounded-lg'>게릴라</p>
           </div>
-          <div class='w-10 h-10 mt-5' v-if="battleYn">
+          <div class='w-16 h-10 mt-5' v-if="battleYn">
             <p class='text-sm bg-devoca_skyblue rounded-lg'>대결</p>
           </div>
           <div class="flex flex-col items-center">
