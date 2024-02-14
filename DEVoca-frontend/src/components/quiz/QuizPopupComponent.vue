@@ -21,17 +21,17 @@
   </div>
 </template>
 
-  <script setup>
-  import { useRouter } from 'vue-router'
-  import { ref } from "vue";
-  const router = useRouter()
-  const quizId = 19;
-  const battleYn = ref(0);
+<script setup>
+import { useRouter } from 'vue-router'
+import { ref } from "vue";
+const router = useRouter();
+const quizId = 19;
+const battleYn = ref(0);
 
-  const quiz_type = ["게릴라", "대결"];
-  const goQuizPage = function () {
-    router.push({ name: 'QuizPageView', query: { quizId: quizId, battleYn: battleYn.value } });
-  }
-  </script>
+const quiz_type = ["게릴라", "대결"];
+const goQuizPage = function () {
+  router.push({ name: 'QuizPageView', query: { quizId: quizId, battleYn: battleYn.value } });
+}
+</script>
   
 <style scoped></style>

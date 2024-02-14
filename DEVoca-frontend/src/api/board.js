@@ -32,10 +32,15 @@ export function deleteBoard(data,success, error){
 })
 }
 
-export function getBoardDetail(success,error){
-  local.get(`/board/${boardid}`)
-  .then(success)
-  .catch((error) => {
-    console.log(error)
-  })
+export function getBoardDetail(boardId, success, error){
+  local.get(`/board/${boardId}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(error)
+}
+
+export function getCommentList(flag, cardBoardId, success, error){
+  local.get(`/comment/${flag}/${cardBoardId}`
+  ).then(success).catch(error)
 }

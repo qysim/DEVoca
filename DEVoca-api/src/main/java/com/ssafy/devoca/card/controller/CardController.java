@@ -118,10 +118,10 @@ public class CardController {
                                             @RequestBody Map<String, Boolean> requestBody){
         log.info("likeCard 호출 : 카드 좋아요 토글");
         try{
-            boolean cardLikeYn = requestBody.get("cardLikeYn");
+            boolean cardLikeYN = requestBody.get("cardLikeYN");
             int loginUserIdx = userService.loadUserIdx(token);
-            log.info("cardLikeYn : "+cardLikeYn);
-            cardService.likeCard(loginUserIdx, cardId, cardLikeYn);
+            log.info("cardLikeYN : "+cardLikeYN);
+            cardService.likeCard(loginUserIdx, cardId, cardLikeYN);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (Exception e){
             log.error("카드 좋아요 토글 실패 : {}", e);

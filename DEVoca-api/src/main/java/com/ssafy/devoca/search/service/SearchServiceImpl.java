@@ -27,11 +27,6 @@ public class SearchServiceImpl implements SearchService{
     }
 
     @Override
-    public void updateWordSearchedCnt(int wordId) throws Exception {
-        searchMapper.updateWordSearchedCnt(wordId);
-    }
-
-    @Override
     public List<CardDTO> searchCard(String keyword, int scroll, int loginUserIdx) throws Exception {
         return searchMapper.searchCard(keyword, scroll * 10, loginUserIdx);
     }
