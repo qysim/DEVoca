@@ -2,7 +2,7 @@
   <div class="flex justify-between p-2">
     <div class="flex gap-2">
       <!-- 링크 공유 -->
-      <ShareIcon @click="goShare(card.cardId)"/>
+      <ShareIcon @click="doShare(card.cardId)"/>
       <!-- 단어장 저장하기 -->
       <BookmarkIcon @click="selectModal"/>
       <VocalistSelectModal :class="{'modal-open' : isShowModal}" @close-modal="isShowModal = false" 
@@ -11,17 +11,17 @@
     <div class="flex gap-4">
       <div class="flex gap-2">
         <!-- 좋아요 -->
-        <label class="swap swap-flip">
-          <input type="checkbox" v-model="props.card.cardLikeYN" @click="likeCards"/>
+        <label class="swap swap-flip ">
+          <input type="checkbox" @click="likeCards(card.cardLikeYN)" v-model="card.cardLikeYN"/>
           <div class="swap-on"><LikeIcon :class="{'stroke-devoca' : isLike }" /></div>
           <div class="swap-off"><LikeIcon /></div>
         </label>
-        <p>{{ card.cardLikeCnt }}</p>
+        <p class="mt-1">{{ card.cardLikeCnt }}</p>
       </div>
       <!-- 리포스트 -->
       <div class="flex gap-2">
         <RepostIcon @click="goRepost(card)"/>
-        <p>{{ card.cardRepostCnt }}</p>
+        <p class="mt-1">{{ card.cardRepostCnt }}</p>
       </div>
     </div>
   </div>
@@ -45,9 +45,8 @@ const props = defineProps({
   card: Object
 })
 const vocalistInfo = ref(null)
-// console.log(props.card.cardId)
 
-const goShare = async function (id) {
+const doShare = async function (id) {
   const link = `https://i10d112.p.ssafy.io/card/detail/${id}`
   await navigator.clipboard.writeText(link)
   window.alert('클립보드에 링크가 복사되었습니다.')
@@ -73,10 +72,11 @@ const isLike = computed(() => {
   return props.card.cardLikeYN
 })
 
-const likeCards = () => {
+const likeCards = (likeYn) => {
+  console.log(likeYn)
   likeCard(props.card.cardId, {cardLikeYN : props.card.cardLikeYN}, (res) => {
+    console.log('좋아요 성공')
     // 컴포넌트 재렌더링
-    router.go()
   }, (err) => {
     console.log(err)
   })
@@ -84,20 +84,20 @@ const likeCards = () => {
 
 // TODO : 전달할 데이터 정의하기
 const goRepost = () => {
-  const cardInfo = {
-    userId: card.userId, // 리포스트하는 유저아이디
-    cardId: null,
-    cardContent: card.cardContent, //새로 추가하는 내용
-    cardLink: card.cardLink, // 새로 작성하는 참고링크
-    cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-    originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
-    wordId: card.wordId // 조상 단어 id
-  }
-  repostCard(cardInfo, (res) => {
-    console.log(res)
-  }, (err) => {
-    console.log(err)
-  })
+  // const cardInfo = {
+  //   userId: card.userId, // 리포스트하는 유저아이디
+  //   cardId: null,
+  //   cardContent: card.cardContent, //새로 추가하는 내용
+  //   cardLink: card.cardLink, // 새로 작성하는 참고링크
+  //   cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
+  //   originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
+  //   wordId: card.wordId // 조상 단어 id
+  // }
+  // repostCard(cardInfo, (res) => {
+  //   console.log(res)
+  // }, (err) => {
+  //   console.log(err)
+  // })
   // router.push({name: 'CardRepostView', state: {
   //   repostInfo : {
   //       userId: userStore.kakaoUserInfo['id'], // 리포스트하는 유저아이디
