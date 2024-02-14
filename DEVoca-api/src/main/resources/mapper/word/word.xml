@@ -44,4 +44,11 @@
             on w.word_id = wc.wc_word_id and c.category_id = wc.wc_category_id
         where w.word_id = #{wordId};
     </select>
+
+    <!--  단어 검색 조회수 업데이트  -->
+    <update id="updateWordViewedCnt" parameterType="int">
+        update words
+        set word_searched_cnt = word_searched_cnt + 1
+        where word_id = #{wordId};
+    </update>
 </mapper>

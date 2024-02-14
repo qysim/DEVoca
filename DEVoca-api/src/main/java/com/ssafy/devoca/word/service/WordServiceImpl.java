@@ -26,7 +26,6 @@ import java.util.List;
 public class WordServiceImpl implements WordService{
 
     private final WordMapper wordMapper;
-    private final SearchMapper searchMapper;
 
     @Value("${naver.client.id}")
     private String clientId;
@@ -52,13 +51,14 @@ public class WordServiceImpl implements WordService{
      * @return 단어 상세 (단어 정보, 뉴스 데이터, 카드 데이터)
      * @throws Exception
      */
-    @Transactional
     @Override
     public WordDetailDTO getWordDetail(int wordId) throws Exception {
         WordDetailDTO wordDetailDTO = new WordDetailDTO();
 
         // 단어 정보 가져오기
         WordDTO wordDTO = wordMapper.getWordDetail(wordId);
+
+        log.info("wordDTO 테스트 {}", wordDTO);
 
         // 뉴스 정보 가져오기
         String searchText = wordDTO.getWordNameKr() + " " + wordDTO.getWordNameEn();
@@ -69,7 +69,7 @@ public class WordServiceImpl implements WordService{
         wordDetailDTO.setNewsList(newsList);
 
         // 단어 조회수 업데이트
-        searchMapper.updateWordSearchedCnt(wordDTO.getWordId());
+        wordMapper.updateWordViewedCnt(wordId);
 
         return wordDetailDTO;
     }
