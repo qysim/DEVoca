@@ -10,10 +10,8 @@
     <AvatarComponent :userInfo="userInfo"/>
     <ArticleDetailComponent :boardInfo="boardInfo"/>
   </div>
-  <div v-for="board in boards" :key="board.boardId">
-      <!-- <ArticleComponent :board="board" @click="goArticleDetail(board.boardId)"/> -->
-      <CommentComponent :comment="commentInfo"/>
-  </div>
+  <p class="ml-5 mt-5">댓글 {{ comments.length }}개</p>
+  <CommentComponent :comments="comments"/>
 </template>
 
 <script setup>
