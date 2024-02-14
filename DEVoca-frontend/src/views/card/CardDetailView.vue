@@ -4,54 +4,66 @@
       <CardDetailComponent :card="card" v-if="card"/>
     </div>
 
+    <div class="input-container flex mx-2 mt-4">
+      <input type="text" placeholder="댓글을 남겨보세요" class="input input-bordered w-full" v-model="inputComment" @keyup.enter="submitComment"/>
+      <button @click="submitComment" class="btn bg-devoca text-white text-lg">등록</button>
+    </div>
+
     <div class="collapse collapse-arrow bg-base-100 shadow-xl m-2 w-auto">
       <input type="checkbox" /> 
       <div class="collapse-title text-xl font-jalnan">
         댓글
       </div>
       <div class="collapse-content"> 
-        <div>
-          <div class="card card-side bg-base-100 items-center">
-            <div class="avatar">
-              <div class="rounded-full size-10">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div class="card-body flex-row p-2">
-              <p class="card-title font-jalnan">닉네임</p>
-              <p class="text-right">시간</p>
-            </div>
-          </div>
-          <p class="p-2">댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글댓글</p>
+        <div v-show="hasCommentResults" class="flex flex-col">
+          <CardCommentComponent v-for="(comment, index) in commentList" :key="index" :comment="comment" 
+            @update-comments="updateComments"/>
         </div>
       </div>
     </div>
-
-    <!-- <div class="collapse collapse-arrow bg-base-100 shadow-xl w-full">
-      <input type="checkbox" />
-      <div class="collapse-title text-xl font-medium font-jalnan">관련 카드</div>
-      <div v-if="cardList && cardList.length === 0" class="collapse-content p-0">
-        <div class="card card-compact bg-base-100 dark:bg-base-100 shadow-xl mb-4 p-2">
-          <div class="card-body">관련 카드가 없습니다!</div>
-        </div>
-      </div>
-      <div v-if="cardList && cardList.length > 0" class="collapse-content p-0">
-        <CardComponent v-for="card in cardList" :key="card.id" :card="card" />
-      </div>
-    </div> -->
   </div>  
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import CardDetailComponent from '@/components/feed/CardDetailComponent.vue'
-import { getCardDetail } from '@/api/card'
+import CardCommentComponent from "@/components/feed/CardCommentComponent.vue"
+import { getCardDetail, getCommentList, registComment } from '@/api/card'
 
 const props = defineProps({
   id: String
 })
 
 const card = ref(null)
+const inputComment = ref(null)
+const hasCommentResults = ref(false)
+const commentList = ref([])
+
+const submitComment = () => {
+  const commentInfo = {
+    cardBoardId: props.id,
+    flag: 'card',
+    commentContent: inputComment.value
+  }
+  // console.log(commentInfo)
+  registComment(commentInfo, (res) => {
+    inputComment.value = ''
+    updateComments()
+  }, (err) => {
+    console.log(err)
+  })
+}
+
+const updateComments = () => {
+  getCommentList(props.id, (res) => {
+    hasCommentResults.value = res.data.length > 0
+    if (!hasCommentResults.value) return
+    commentList.value = res.data
+    console.log(res.data)
+  }, (err) => {
+    console.log(err)
+  })
+}
 
 onMounted(() => {
   getCardDetail(props.id, (res) => {
@@ -59,6 +71,8 @@ onMounted(() => {
   }, (err) => {
     console.log(err)
   })
+
+  updateComments()
 })
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="card card-side bg-devoca_skyblue">
+  <div class="card card-side bg-devoca_skyblue bg-opacity-60">
     <div class="avatar">
-      <div class="w-24 h-24 rounded-full my-10 ml-5">
+      <div class="w-24 h-24 rounded-full my-auto ml-5">
         <img :src="userInfo.userImg" />
       </div>
     </div>
@@ -20,7 +20,7 @@
         </template>
       </div>
       <p class="text-sm">{{ userInfo.userIntro }}</p>
-      <div class="flex-row">
+      <div class="flex-row mt-2">
         <router-link :to="{ name: 'FollowView', params: { option: 'following' } }" class="mr-5 text-sm">
           팔로우 {{ userInfo.userFollowingCnt }}
         </router-link>
