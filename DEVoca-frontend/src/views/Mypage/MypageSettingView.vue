@@ -36,7 +36,7 @@
     <div>
       <div class="flex flex-row justify-center">
         <p>버전1.1</p>
-        <a href="https://i10d112.p.ssafy.io/devoca/kakao/logout">/로그아웃</a>
+        <a @click="logOut">/로그아웃</a>
       </div>
       <div class="flex flex-row justify-center">
         <p>이용약관 / 개인정보 처리방침</p>
@@ -45,7 +45,18 @@
   </div>
 </template>
 <script setup>
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+
+const logOut = () => {
+  // userStore.kakaoUserInfo = {
+  //   id: null,
+  //   token: null,
+  //   userYn: false
+  // }
+  localStorage.clear()
+  location.href="https://i10d112.p.ssafy.io/devoca/kakao/logout"
+}
 
 </script>
-
-<style scoped></style>
