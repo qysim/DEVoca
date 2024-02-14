@@ -39,4 +39,6 @@ public interface CardMapper {
 
     public void addLike(@Param("loginUserIdx") int loginUserIdx, @Param("cardId") int cardId);
 
+    public int getCardUserIdx(int cardId) throws SQLException;
+
 }

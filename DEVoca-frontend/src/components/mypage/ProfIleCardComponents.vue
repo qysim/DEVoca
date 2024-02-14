@@ -9,14 +9,9 @@
       <div class="flex flex-row justify-between">
         <h2 class="card-title mt-6">{{ userInfo.userNickName }}</h2>
         <template v-if="props.otherUserId === undefined && userInfo.userId">
-          <div class="flex justify-start gap-2">
-            <router-link :to="{ name: 'ProfileChangeView', params: { id: userInfo.userId } }">
-              <PenIcon />
-            </router-link>
-            <router-link :to="{ name: 'MypageSettingView', params: { id: userInfo.userId } }">
-              <ConfigIcon />
-            </router-link>
-          </div>
+          <router-link :to="{ name: 'ProfileChangeView', params: { id: userInfo.userId } }">
+            <PenIcon />
+          </router-link>
         </template>
       </div>
       <p class="text-sm">{{ userInfo.userIntro }}</p>
@@ -36,7 +31,6 @@
 import { ref, onBeforeMount } from 'vue';
 import { getUserInfo, getOtherUserInfo } from '@/api/user.js'
 import PenIcon from '@/components/icon/PenIcon.vue'
-import ConfigIcon from '@/components/icon/ConfigIcon.vue'
 
 const userInfo = ref({})
 
