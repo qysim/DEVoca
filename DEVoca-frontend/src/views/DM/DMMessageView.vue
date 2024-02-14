@@ -10,20 +10,23 @@
               clip-rule="evenodd" />
           </svg>
         </div>
-        <div class="avatar ml-5">
-          <div class="w-14 h-14 rounded-full">
-            <img :src="dmUser.userImg" />
+        <div class="flex items-center" @click="goUser">
+          <div class="avatar ml-5">
+            <div class="w-14 h-14 rounded-full">
+              <img :src="dmUser.userImg" />
+            </div>
           </div>
-        </div>
-        <div class="card-body pl-5">
-          <div>
-            <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
-            <p class="text-sm">{{ dmUser.userIntro }}</p>
+          <div class="card-body pl-5">
+            <div>
+              <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
+              <p class="text-sm">{{ dmUser.userIntro }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div id="chat" class="overflow-y-scroll h-full grow-0">
+      <div class="trigger"></div>
       <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
           <div class="chat-bubble break-words bg-devoca_sky text-black">
@@ -91,7 +94,7 @@
 
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { ref, onMounted, onUnmounted, onBeforeUnmount, nextTick } from 'vue';
 import { getDmList, getDmUser } from '@/api/dm'
 import { useUserStore } from '@/stores/user';
 import router from '@/router';
@@ -108,6 +111,13 @@ const dmUser = ref({});
 const messageList = ref([]);
 const messages = ref([]);
 
+const scrollNum = ref(0)
+const observer = ref(null) // 스크롤 관찰 객체
+const trigger = ref(null) // 화면 맨 아래 위치할 요소
+const hasMoreDm = ref(true) // 더 불러올 데이터가 있는지 여부
+
+const scrollHeight = ref(0);
+
 onMounted(() => {
   getDmUser(
     props.roomUuid,
@@ -117,22 +127,51 @@ onMounted(() => {
     (error) => {
       console.log(error);
     });
+
+    // observer 정의 및 관찰 시작
+  observer.value = new IntersectionObserver(handleIntersection, {threshold: 0.5});
+  trigger.value = document.querySelector('.trigger');
+  observer.value.observe(trigger.value);
+
+  connect(props.roomUuid);
+})
+
+const loadDmList = () => {
   getDmList(
-    props.roomUuid, 0,
+    props.roomUuid, scrollNum.value,
     ({ data }) => {
-      data.forEach(element => {
-        messageList.value.push(element)
-      });
-      nextTick(() => {
-        const chat = document.getElementById('chat');
-        chat.scrollTop = chat.scrollHeight;
-      })
+      if(data.length > 0) {
+        messageList.value = [...messageList.value, ...data]
+        nextTick(() => {
+          const chat = document.getElementById('chat');
+          chat.scrollTop = chat.scrollHeight - scrollHeight.value;
+        })
+        scrollNum.value++;
+      } else {
+        hasMoreDm.value = false;
+      }
     },
     (error) => {
       console.log(error);
     });
-  connect(props.roomUuid);
+}
+
+// observer가 호출하는 callback 함수
+const handleIntersection = (entries) => {
+  entries.forEach((entry) => {
+    if (hasMoreDm.value && entry.isIntersecting) {
+      const chat = document.getElementById('chat');
+      scrollHeight.value = chat.scrollHeight;
+      loadDmList()
+    }
+  })
+}
+
+onBeforeUnmount(() => {
+  // 관찰 해제
+  observer.value.disconnect()
 })
+
 
 // websocket
 const socket = ref(null);
@@ -207,6 +246,10 @@ const exitChat = () => {
 
 const goDmList = () => {
   router.push({ name: 'DMListView', params: { id: userStore.kakaoUserInfo['id'] } });
+}
+
+const goUser = () => {
+  router.push({name : 'OtherUserProfileView', params: {id: dmUser.value.userId}})
 }
 
 onUnmounted(() => {

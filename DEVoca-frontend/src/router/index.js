@@ -36,6 +36,8 @@ import QuizDetailView from '@/views/Quiz/QuizDetailView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import QuizPageComponent from '@/components/quiz/QuizPageComponent.vue'
+import BattleDetailView from '@/views/Quiz/BattleDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -199,9 +201,10 @@ const router = createRouter({
           component : ArticleView
         },
         {
-          path : '/article/detail',
+          path : '/article/detail/:boardId',
           name : 'ArticleDetailView',
-          component : ArticleDetailView
+          component : ArticleDetailView,
+          props: true,
         },
         // vocalist
         {
@@ -224,7 +227,7 @@ const router = createRouter({
             {
               path: ":index",
               name: "QuizPageComponent",
-              component: () => import("@/components/quiz/QuizPageComponent.vue"),
+              component: QuizPageComponent,
               props: true,
             },
           ]
@@ -235,9 +238,14 @@ const router = createRouter({
           component : QuizListView,
         },
         {
-          path : '/quizdetail',
+          path : '/quizdetail/:quizId',
           name : 'QuizDetailView',
           component : QuizDetailView,
+        },
+        {
+          path : '/battledetail/:quizId',
+          name : 'BattleDetailView',
+          component : BattleDetailView,
         },
       ]
     },

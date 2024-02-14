@@ -17,8 +17,6 @@ public interface SearchMapper {
 
     List<WordDTO> searchWord(@Param("keyword")String keyword, @Param("scroll")int scroll) throws SQLException;
 
-    void updateWordSearchedCnt(int wordId) throws SQLException;
-
     List<CardDTO> searchCard(@Param("keyword")String keyword, @Param("scroll")int scroll, @Param("loginUserIdx") int loginUserIdx)
             throws SQLException;
 
