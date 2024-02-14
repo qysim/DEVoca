@@ -260,4 +260,23 @@ const router = createRouter({
   ]
 })
 
+// 
+router.beforeEach((to, from, next) => {
+  // 특정 페이지(/login)는 항상 접근을 허용
+  if (to.path === '/login') {
+    next();
+  } else {
+    // 예제: 실제로는 로그인 여부 확인 로직을 적용
+    const isLoggedIn = true; // 간단한 플래그로 대체
+    
+    if (isLoggedIn) {
+      // 로그인한 경우 접근을 허용
+      next();
+    } else {
+      // 로그인하지 않은 경우 로그인 페이지로 리디렉션
+      next('/login');
+    }
+  }
+});
+
 export default router
