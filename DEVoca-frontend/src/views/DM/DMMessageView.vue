@@ -10,15 +10,17 @@
               clip-rule="evenodd" />
           </svg>
         </div>
-        <div class="avatar ml-5">
-          <div class="w-14 h-14 rounded-full">
-            <img :src="dmUser.userImg" />
+        <div class="flex items-center" @click="goUser">
+          <div class="avatar ml-5">
+            <div class="w-14 h-14 rounded-full">
+              <img :src="dmUser.userImg" />
+            </div>
           </div>
-        </div>
-        <div class="card-body pl-5">
-          <div>
-            <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
-            <p class="text-sm">{{ dmUser.userIntro }}</p>
+          <div class="card-body pl-5">
+            <div>
+              <h2 class="card-title text-lg">{{ dmUser.userNickName }}</h2>
+              <p class="text-sm">{{ dmUser.userIntro }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -244,6 +246,10 @@ const exitChat = () => {
 
 const goDmList = () => {
   router.push({ name: 'DMListView', params: { id: userStore.kakaoUserInfo['id'] } });
+}
+
+const goUser = () => {
+  router.push({name : 'OtherUserProfileView', params: {id: dmUser.value.userId}})
 }
 
 onUnmounted(() => {

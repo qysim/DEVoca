@@ -2,7 +2,12 @@
     <button class="btn btn-lg w-full rounded-lg bg-base-100 shadow-xl my-2 mt-5 flex flex-col"
     @click="goQuizDetail">
         <div class="flex justify-between items-center space-x-7">
-          <div v-html="typeHtml[battleYn]"></div>
+          <div class='w-16 h-10 mt-5' v-if="!battleYn">
+            <p class='text-sm bg-orange-200 rounded-lg'>게릴라</p>
+          </div>
+          <div class='w-16 h-10 mt-5' v-if="battleYn">
+            <p class='text-sm bg-devoca_skyblue rounded-lg'>대결</p>
+          </div>
           <div class="flex flex-col items-center">
             <p class="text-center text-xl">{{ txtRank[type] }}</p>
             <p class="text-center text-sm w-24">{{ formatDate(props.quiz.participateDate) }}</p>
@@ -15,6 +20,7 @@
             <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[4]"/>
             <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[5]"/>
             <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[6]"/>
+            <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[7]"/>
           </div>
         </div>
     </button>
@@ -27,12 +33,9 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const type = ref(0);
 const battleYn = ref(0);
-const imgRank = ref([false, false, false, false, false, false, false]);
-const txtRank = ref(["1등", "2등", "3등", "순위권 밖", "승리", "패배", "무승부"]);
-const typeHtml = [
-    "<div class='w-16 h-10 mt-5'><p class='text-sm bg-orange-200 rounded-lg'>게릴라</p></div>",
-    "<div class='w-10 h-10 mt-5'><p class='text-sm bg-devoca_skyblue rounded-lg'>대결</p></div>"
-]
+const imgRank = ref([false, false, false, false, false, false, false, false]);
+const txtRank = ref(["1등", "2등", "3등", "순위권 밖", "승리", "패배", "무승부", "대기중"]);
+
 const props = defineProps({
     quiz: Object
 })
@@ -63,8 +66,11 @@ onMounted(() => {
         case 0:
           type.value = 5;
           break;
-        default:
+        case 2:
           type.value = 6;
+          break;
+        default:
+          type.value = 7;
           break;
       }
   }
@@ -80,13 +86,21 @@ const goQuizDetail = function () {
         quizInfo: {
           participateDate: props.quiz.participateDate,
           rank: props.quiz.rank,
-          battleWinYN: props.quiz.battleWinYN,
           type: type.value
         }
       }
     });
   } else {
-    router.push({});
+    router.push({
+      name: 'BattleDetailView', params: { quizId: props.quiz.quizId },
+      state: {
+        quizInfo: {
+          participateDate: props.quiz.participateDate,
+          battleWinYN: props.quiz.battleWinYN,
+          type: type.value - 4
+        }
+      }
+    });
   }
 }
 

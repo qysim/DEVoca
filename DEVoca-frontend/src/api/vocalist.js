@@ -42,8 +42,8 @@ export function storeVocaList(data, success, fail) {
   }).then(success).catch(fail)
 }
 
-export function checkVocaList(cardId, success, fail) {
-  local.get(`/vocalist/${cardId}`, {
+export async function checkVocaList(cardId, success, fail) {
+  await local.get(`/vocalist/${cardId}`, {
     headers: {
       token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }
