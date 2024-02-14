@@ -20,6 +20,7 @@ import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
+import CardRepostView from '@/views/card/CardRepostView.vue'
 import CardDetailView from '@/views/card/CardDetailView.vue'
 import WordListView from '@/views/word/WordListView.vue'
 import WordDetailView from '@/views/word/WordDetailView.vue'
@@ -29,6 +30,7 @@ import ArticleCreateView from '@/views/article/ArticleCreateView.vue'
 import ArticleView from '@/views/article/ArticleView.vue'
 import ArticleDetailView from '@/views/article/ArticleDetailView.vue'
 import VocalistListView from '@/views/vocalist/VocalistListView.vue'
+import VocalistDetailView from '@/views/vocalist/VocalistDetailView.vue'
 import QuizListView from '@/views/Quiz/QuizListView.vue'
 import QuizDetailView from '@/views/Quiz/QuizDetailView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
@@ -152,6 +154,11 @@ const router = createRouter({
           component: CardCreateView,
         },
         {
+          path: '/card/repost',
+          name: 'CardRepostView',
+          component: CardRepostView,
+        },
+        {
           path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
@@ -202,6 +209,11 @@ const router = createRouter({
           name: 'VocalistListView',
           component: VocalistListView,
         },
+        {
+          path: '/vocalist/:id',
+          name: 'VocalistDetailView',
+          component: VocalistDetailView,
+        },
         // quiz
         {
           path: '/quizpage',
@@ -223,7 +235,7 @@ const router = createRouter({
           component : QuizListView,
         },
         {
-          path : '/quizdetail',
+          path : '/quizdetail/:quizId',
           name : 'QuizDetailView',
           component : QuizDetailView,
         },

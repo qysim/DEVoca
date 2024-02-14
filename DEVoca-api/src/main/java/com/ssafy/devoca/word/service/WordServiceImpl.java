@@ -1,5 +1,6 @@
 package com.ssafy.devoca.word.service;
 
+import com.ssafy.devoca.search.model.mapper.SearchMapper;
 import com.ssafy.devoca.word.model.NewsApiResponseDTO;
 import com.ssafy.devoca.word.model.NewsDTO;
 import com.ssafy.devoca.word.model.WordDTO;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import reactor.core.publisher.Flux;
@@ -56,6 +58,8 @@ public class WordServiceImpl implements WordService{
         // 단어 정보 가져오기
         WordDTO wordDTO = wordMapper.getWordDetail(wordId);
 
+        log.info("wordDTO 테스트 {}", wordDTO);
+
         // 뉴스 정보 가져오기
         String searchText = wordDTO.getWordNameKr() + " " + wordDTO.getWordNameEn();
         List<NewsDTO> newsList = getNews(searchText);
@@ -63,6 +67,9 @@ public class WordServiceImpl implements WordService{
         // wordDetailDTO에 저장
         wordDetailDTO.setWordDTO(wordDTO);
         wordDetailDTO.setNewsList(newsList);
+
+        // 단어 조회수 업데이트
+        wordMapper.updateWordViewedCnt(wordId);
 
         return wordDetailDTO;
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="flex flex-col justify-center items-center h-[85vh]">
     <div class="card shrink-0 w-full max-w-sm bg-base-100 mx-auto">
       <div class="h-full">
         <p class="text-2xl text-center mt-5">비밀번호 변경</p>

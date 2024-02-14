@@ -17,7 +17,7 @@
     </resultMap>
 
     <select id="getBoardList" parameterType="Integer" resultMap="getBoardDTO">
-        select u.user_id, u.user_nickname, u.user_img
+        select u.user_id, u.user_nickname, u.user_img, b.board_id
                ,b.board_title, b.board_content,b.board_type
                 ,board_update_date, board_regist_date
         from boards b
@@ -38,7 +38,7 @@
 
     <!-- 게시판 상세 조회 -->
     <select id="getBoardDetail" parameterType="Integer" resultMap="getBoardDTO">
-        select u.user_id, u.user_nickname
+        select u.user_id, u.user_nickname, u.user_img
              ,board_id, board_title, board_content, board_type
             ,board_update_date, board_regist_date
         from boards b
