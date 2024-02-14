@@ -18,7 +18,7 @@
           </button>
           <button class="mt-2 flex-shrink-0 bg-devoca_sky hover:bg-devoca_skyblue text-sm text-devoca py-1 px-4 rounded-3xl"
           type="button" @click="goMain">
-            종료
+            메인으로
           </button>
         </div>
       </div>
