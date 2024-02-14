@@ -199,9 +199,10 @@ const router = createRouter({
           component : ArticleView
         },
         {
-          path : '/article/detail',
+          path : '/article/detail/:boardId',
           name : 'ArticleDetailView',
-          component : ArticleDetailView
+          component : ArticleDetailView,
+          props: true,
         },
         // vocalist
         {

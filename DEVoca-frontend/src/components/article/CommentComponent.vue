@@ -23,6 +23,7 @@ import AvartarComponent from '@/components/common/AvatarComponent.vue'
 const props = defineProps({
   comment: Object
 })
+console.log(props.comment)
 
 const userInfo = ref({
   userId: props.comment.userId,
@@ -30,5 +31,14 @@ const userInfo = ref({
   userIntro: props.comment.userIntro,
   userNickName: props.comment.userNickName,
   cardRegistDate: props.comment.commentRegistDate
+})
+
+const comment = ref({
+  boardId: null,
+  cardId: null,
+  commentContent: null,
+  commentId: null,
+  commentPicked: null,
+  commentRegistDate: null
 })
 </script>
