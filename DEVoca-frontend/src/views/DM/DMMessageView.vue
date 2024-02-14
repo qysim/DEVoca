@@ -28,8 +28,8 @@
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
           <div class="chat-bubble break-words bg-devoca_sky text-black">
             <div>{{ chat.dmContent }}</div>
-            <div class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" onclick="FightChallengeModal.showModal()">확인</button>
+            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
             </div>
           </div>
           <div class="chat-footer">
@@ -40,23 +40,20 @@
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
             <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
             </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
           </div>
         </div>
-        <!-- <dialog id="FightChallengeModal" class="modal sm:modal-middle">
-          <FightChallengeComponent :userNickName="dmUser.userNickName" :dmBattleQuizId="chat.dmBattleQuizId"/>
-        </dialog> -->
       </div>
       <div v-for="(chat, index) in messages" :key="index">
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
           <div class="chat-bubble break-words bg-devoca_sky text-black">
             <div>{{ chat.dmContent }}</div>
             <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
             </div>
           </div>
           <div class="chat-footer">
@@ -67,16 +64,13 @@
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
             <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5">확인</button>
+              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
             </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
           </div>
         </div>
-        <!-- <dialog id="FightChallengeModalCur" class="modal sm:modal-middle">
-          <FightChallengeComponent :userNickName="dmUser.userNickName" :dmBattleQuizId="chat.dmBattleQuizId"/>
-        </dialog> -->
       </div>
     </div>
     <div class="input-container  bg-base-100 w-full flex pl-3 py-3 bottom-0">
@@ -90,8 +84,8 @@
       </button>
     </div>
   </div>
-  <dialog id="FightChallengeModal" class="modal sm:modal-middle">
-    <FightChallengeComponent :userNickName="dmUser.userNickName"/>
+  <dialog id="FightChallengeModal" class="modal sm:modal-middle" :class="{'modal-open': isShowModal}">
+    <FightChallengeComponent @close-modal="isShowModal=false" :userNickName="dmUser.userNickName" v-if="isShowModal" :dmBattleQuizId="dmBattleQuizId"/>
   </dialog>
 </template>
 
@@ -230,6 +224,16 @@ const options = {
 const formatDateTime = (date) => {
   const dateTime = new Date(date);
   return `${dateTime.toLocaleDateString(locale, options)}`;
+}
+
+
+// 도전장 모달
+const isShowModal = ref(false);
+const dmBattleQuizId = ref(0);
+
+const selectModal = (battleQuizid) => {
+  dmBattleQuizId.value = battleQuizid;
+  isShowModal.value = true;
 }
 
 </script>

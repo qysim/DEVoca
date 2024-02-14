@@ -12,9 +12,9 @@
       <p class="text-lg">도전장을 보내셨습니다!</p>
       <p class="text-lg">수락하시겠습니까??</p>
       <div class="modal-action w-60 mt-5 flex flex-row justify-evenly">
-        <button class="btn bg-devoca text-white w-20">수락</button>
+        <button class="btn bg-devoca text-white w-20" @click="goQuizPage">수락</button>
         <form method="dialog">
-          <button class="btn bg-devoca text-white w-20">거절</button>
+          <button class="btn bg-devoca text-white w-20" @click="closeModal">거절</button>
         </form>
       </div>
     </div>
@@ -22,10 +22,25 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
 const props = defineProps({
   userNickName: String,
   dmBattleQuizId: Number
 })
+
+const router = useRouter();
+
+const emit = defineEmits(['closeModal']);
+
+const goQuizPage = function () {
+    router.push({ name: 'QuizPageView', query: { quizId: props.dmBattleQuizId, battleYn: true } });
+  }
+
+const closeModal = () => {
+  emit('closeModal');
+}
+
 </script>
 
 <style scoped></style>
