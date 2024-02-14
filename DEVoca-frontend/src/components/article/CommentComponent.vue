@@ -1,10 +1,18 @@
 <template>
   <div class="flex justify-center m-2">
-    <!-- TODO: 클릭 시 해당 글로 이동 -->
     <div class="card h-fit w-full bg-base-100 shadow-xl">
-      <AvartarComponent :userInfo="userInfo" />
-
       <div class="card-body p-6">
+        <div class="flex items-center gap-2">
+          <div class="avatar basis-8">
+            <img :src="comment.userImg" class="rounded-full" />
+          </div>
+          <h2 class="grow text-sm font-jalnan">{{ comment.userNickName }}</h2>
+          <div class="flex flex-col basis-1/3 text-xs text-right">
+            <span :key="dateString">{{ dateString }}</span>
+            <span :key="timeString">{{ timeString }}</span>
+          </div>
+        </div>
+        <hr class="mt-1 mb-2">
         <div class="flex justify-between">
           <p class="ml-3">{{ comment.commentContent }}</p>
           <div class="flex justify-end">
@@ -18,27 +26,14 @@
 
 <script setup>
 import { ref } from "vue"
-import AvartarComponent from '@/components/common/AvatarComponent.vue'
 
 const props = defineProps({
-  comment: Object
-})
-console.log(props.comment)
-
-const userInfo = ref({
-  userId: props.comment.userId,
-  userImg: props.comment.userImg,
-  userIntro: props.comment.userIntro,
-  userNickName: props.comment.userNickName,
-  cardRegistDate: props.comment.commentRegistDate
+  comment: Array
 })
 
-const comment = ref({
-  boardId: null,
-  cardId: null,
-  commentContent: null,
-  commentId: null,
-  commentPicked: null,
-  commentRegistDate: null
-})
+const datetime = new Date(props.comment.commentRegistDate)
+const locale = 'ko-KR'
+const options = { timeZone: 'Asia/Seoul' }
+const dateString = ref(datetime.toLocaleDateString(locale, options))
+const timeString = ref(datetime.toLocaleTimeString(locale, options))
 </script>

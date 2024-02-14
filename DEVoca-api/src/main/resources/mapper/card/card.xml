@@ -194,11 +194,11 @@
     </select>
 
     <!--  카드 재게시  -->
-    <select id="repostCard" parameterType="CardDTO">
+    <insert id="repostCard" parameterType="CardDTO" useGeneratedKeys="true" keyProperty="cardId" keyColumn="card_id">
         insert into cards (fk_card_user_idx, card_word_id, card_content, card_link, card_related_keyword, card_origin_card_id)
         values((<include refid="loadUserIdx"></include> and user_revoke_date is null),
                #{wordId}, #{cardContent}, #{cardLink}, #{cardRelatedKeyword}, #{originCardId});
-    </select>
+    </insert>
     <!--  재게시 시 원본 카드의 repostCnt  -->
     <update id="repostCntUpdate" parameterType="int">
         update cards
@@ -247,4 +247,10 @@
         values (#{loginUserIdx}, #{cardId});
     </insert>
 
+    <!-- 카드 작성자 아이디 가져오기 -->
+    <select id="getCardUserIdx" parameterType="int">
+        select fk_card_user_idx
+        from cards
+        where card_id = #{cardId};
+    </select>
 </mapper>

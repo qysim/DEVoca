@@ -95,7 +95,7 @@
     }
     setTimeout(() => {
       timeout();
-    }, 0);
+    }, 5000);
   }
 
   const timeout = function () {

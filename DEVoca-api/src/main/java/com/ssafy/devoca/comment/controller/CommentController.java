@@ -1,7 +1,10 @@
 package com.ssafy.devoca.comment.controller;
 
+import com.ssafy.devoca.board.service.BoardService;
+import com.ssafy.devoca.card.service.CardService;
 import com.ssafy.devoca.comment.model.CommentDTO;
 import com.ssafy.devoca.comment.service.CommentService;
+import com.ssafy.devoca.notify.service.NotifyService;
 import com.ssafy.devoca.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +29,9 @@ import java.util.Objects;
 public class CommentController {
     private final CommentService commentService;
     private final UserService userService;
+    private final NotifyService notifyService;
+    private final CardService cardService;
+    private final BoardService boardService;
 
     /**
      * Card나 Board의 상세 페이지에서 댓글 조회
@@ -64,6 +70,18 @@ public class CommentController {
             map.put("userIdx", userIdx);
 
             commentService.registComment(map);
+
+            String flag = map.get("flag").toString();
+            int cardBoardId = Integer.parseInt(map.get("cardBoardId").toString());
+
+            if(flag.equals("card")) {
+                int originUserIdx = cardService.getCardUserIdx(cardBoardId);
+                notifyService.send(originUserIdx, 6, cardBoardId);
+            } else {
+                int originUserIdx = boardService.getBoardUserIdx(cardBoardId);
+                notifyService.send(originUserIdx, 0, cardBoardId);
+            }
+
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
             log.error("registComment 댓글 등록 실패 : {}", e);
@@ -127,6 +145,9 @@ public class CommentController {
 
             commentService.pickComment(commentId);
             log.info("commentId 채택 완료 : {}", commentId);
+
+            notifyService.send(commentUserIdx, 1, boardId);
+
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
             log.error("pickComment 댓글 채택 실패 : {}", e);

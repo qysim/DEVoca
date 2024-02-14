@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
@@ -14,9 +15,7 @@ import MyBoardView from '@/views/Mypage/MyBoardView.vue'
 import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
-import MypageSettingView from '@/views/Mypage/MypageSettingView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
-import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
@@ -36,6 +35,8 @@ import QuizDetailView from '@/views/Quiz/QuizDetailView.vue'
 import KaKaoRedirectView from '@/views/system/KaKaoRedirectView.vue'
 import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
+import QuizPageComponent from '@/components/quiz/QuizPageComponent.vue'
+import BattleDetailView from '@/views/Quiz/BattleDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -123,19 +124,9 @@ const router = createRouter({
           component : ProfileChangeView
         },
         {
-          path : '/mypagesetting/:id',
-          name : 'MypageSettingView',
-          component : MypageSettingView
-        },
-        {
           path : '/selecinterestschange',
           name : 'SelectInterestsChangeView',
           component : SelectInterestsChangeView
-        },
-        {
-          path : '/passwordchange',
-          name : 'PasswordChangeView',
-          component : PasswordChangeView
         },
         {
           path : '/alarm/:id',
@@ -225,7 +216,7 @@ const router = createRouter({
             {
               path: ":index",
               name: "QuizPageComponent",
-              component: () => import("@/components/quiz/QuizPageComponent.vue"),
+              component: QuizPageComponent,
               props: true,
             },
           ]
@@ -240,6 +231,11 @@ const router = createRouter({
           name : 'QuizDetailView',
           component : QuizDetailView,
         },
+        {
+          path : '/battledetail/:quizId',
+          name : 'BattleDetailView',
+          component : BattleDetailView,
+        },
       ]
     },
     {
@@ -251,6 +247,23 @@ const router = createRouter({
       component: RouterErrorView,
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
+      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
+    next()
+  } else {
+    // 로그인 여부 확인
+    const userStore = useUserStore()
+    if (userStore.kakaoUserInfo.id) {
+      next()
+    } else {
+      // 로그인하지 않은 경우 로그인 페이지로 리디렉션
+      next({name: 'LoginView'})
+    }
+  }
 })
 
 export default router

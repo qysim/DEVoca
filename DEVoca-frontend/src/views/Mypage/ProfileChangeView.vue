@@ -30,6 +30,9 @@
 import { ref, onMounted } from 'vue';
 import { updateUserInfo, uploadImage } from '@/api/mypage'
 import { getUserInfo } from '@/api/user';
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const inputData = ref({
   userNickName: null,
@@ -65,7 +68,9 @@ const handleFileUpload = function(e) {
 
 const modifyInfo = function() {
   updateUserInfo(inputData.value, (res) => {
-    console.log(inputData.value)
+    router.push({name: 'MypageView'})
+  }, (err) => {
+    console.log(err)
   })
 }
 </script>
