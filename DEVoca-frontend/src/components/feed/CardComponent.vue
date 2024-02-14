@@ -50,4 +50,5 @@ const word = ref({
 const goCardDetail = function (cardId) {
   router.push({name: 'CardDetailView', params: {id: cardId}})
 }
+
 </script>

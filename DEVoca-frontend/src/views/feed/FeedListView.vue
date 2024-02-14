@@ -2,7 +2,7 @@
   <!-- <QuizPopupComponent/> -->
   <div>
     <div v-for="card in cardList">
-      <CardComponent :card="card" @load-card="loadCards"/>
+      <CardComponent :card="card" />
     </div>
     <WriteButtonComponent onclick="bottom_modal.showModal()"/>
     <BottomModalComponent />

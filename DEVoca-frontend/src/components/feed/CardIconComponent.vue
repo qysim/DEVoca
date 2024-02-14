@@ -6,15 +6,15 @@
       <!-- 단어장 저장하기 -->
       <BookmarkIcon @click="selectModal"/>
       <VocalistSelectModal :class="{'modal-open' : isShowModal}" @close-modal="isShowModal = false" 
-        :vocalistInfo="vocalistInfo" @load-vocalist="loadVocalist"/>
+        :vocalistInfo="vocalistInfo" @load-vocalist="loadVocalist" v-if="vocalistInfo"/>
     </div>
     <div class="flex gap-4">
       <div class="flex gap-2">
         <!-- 좋아요 -->
         <label class="swap swap-flip">
-          <input type="checkbox" />
-          <div class="swap-on"><LikeIcon :class="{'stroke-devoca' : card.likeYn}" @click="likeCards()"/></div>
-          <div class="swap-off"><LikeIcon @click="likeCards()"/></div>
+          <input type="checkbox" v-model="props.card.cardLikeYN" @click="likeCards"/>
+          <div class="swap-on"><LikeIcon :class="{'stroke-devoca' : isLike }" /></div>
+          <div class="swap-off"><LikeIcon /></div>
         </label>
         <p>{{ card.cardLikeCnt }}</p>
       </div>
@@ -28,14 +28,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import ShareIcon from "@/components/icon/ShareIcon.vue"
 import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
 import LikeIcon from "@/components/icon/LikeIcon.vue"
 import RepostIcon from "@/components/icon/RepostIcon.vue"
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
-import { likeCard, repostCard } from '@/api/card'
+import { likeCard } from '@/api/card'
 import { checkVocaList } from '@/api/vocalist'
 import VocalistSelectModal from '@/components/vocalist/VocalistSelectModal.vue'
 
@@ -44,9 +44,8 @@ const router = useRouter()
 const props = defineProps({
   card: Object
 })
-const emit = defineEmits(['loadCard'])
 const vocalistInfo = ref(null)
-// console.log(props.card)
+// console.log(props.card.cardId)
 
 const goShare = async function (id) {
   const link = `https://i10d112.p.ssafy.io/card/detail/${id}`
@@ -59,12 +58,25 @@ const selectModal = () => {
   isShowModal.value = true
 }
 
-const likeCards = (likeYn) => {
-  console.log(props.card.cardLikeYN)
+const loadVocalist = () => {
+  checkVocaList(props.card.cardId, (res) => {
+    vocalistInfo.value = res.data
+    vocalistInfo.value.forEach((obj) => {obj.cardId = props.card.cardId})
+    // console.log(props.card.cardId, vocalistInfo.value)
+  }, (err) => {
+    console.log(err)
+  })
+}
 
+const isLike = computed(() => {
+
+  return props.card.cardLikeYN
+})
+
+const likeCards = () => {
   likeCard(props.card.cardId, {cardLikeYN : props.card.cardLikeYN}, (res) => {
-    console.log(res)
-    emit('loadCard') // TODO : 상위컴포넌트마다 emit 설정
+    // 컴포넌트 재렌더링
+    router.go()
   }, (err) => {
     console.log(err)
   })
@@ -82,16 +94,6 @@ const goRepost = () => {
         originCardId: props.card.cardId, // 리포스트 대상이 되는 카드 id
         wordId: props.card.wordId // 조상 단어 id
     }}})
-}
-
-const loadVocalist = () => {
-  checkVocaList(props.card.cardId, (res) => {
-    vocalistInfo.value = res.data
-    vocalistInfo.value.forEach((obj) => {obj.cardId = props.card.cardId})
-    // console.log(vocalistInfo.value)
-  }, (err) => {
-    console.log(err)
-  })
 }
 
 onMounted(() => {
