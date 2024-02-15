@@ -38,3 +38,5 @@ DEVoca는 개발 용어(이하 단어)와 설명을 피드에 올리고, 다른 
 - [디자인 시스템](./docs/design-system.md)
 - [ERD](./docs/ERD.md)
 - [포팅 매뉴얼](exec/1.BuildAndDeploy.md)
+- [외부 서비스 정보](exec/2.ExternalServices.md)
+- [시연 시나리오](exec/4.DemoScenario.md)
