@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
@@ -47,11 +47,4 @@ const goProfile = function () {
     }
   }
   }
-
-
-  if (props.userInfo.cardRegistDate === '') {
-    dateString.value = ''
-    timeString.value = ''
-  }
-
 </script>
