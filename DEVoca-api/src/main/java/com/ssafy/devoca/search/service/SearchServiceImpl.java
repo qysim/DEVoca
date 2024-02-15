@@ -6,10 +6,12 @@ import com.ssafy.devoca.search.model.mapper.SearchMapper;
 import com.ssafy.devoca.word.model.WordDTO;
 import com.ssafy.devoca.word.model.WordRecoDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService{
@@ -18,6 +20,7 @@ public class SearchServiceImpl implements SearchService{
 
     @Override
     public void saveSearchKeyword(String keyword, int loginUserIdx) throws Exception {
+        log.info("keyword : " , keyword);
         searchMapper.saveSearchKeyword(keyword, loginUserIdx);
     }
 

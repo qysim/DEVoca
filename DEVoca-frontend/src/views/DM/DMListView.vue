@@ -36,7 +36,10 @@
 import { ref, onMounted } from 'vue';
 import { getDmRoomList } from '@/api/dm';
 import router from "@/router";
+import { useUserStore } from "@/stores/user";
 
+
+const userStore = useUserStore();
 
 const message = (roomUuid) => {
   // room을 사용하여 원하는 작업 수행
@@ -47,6 +50,7 @@ const message = (roomUuid) => {
 const roomList = ref([]);
 
 onMounted(() => {
+  userStore.isDMNotify = false;
   getDmRoomList(
     ({ data }) => {
       roomList.value = data

@@ -3,7 +3,7 @@
         <div class="card card-compact bg-base-100 shadow-xl m-2 text-xs">
             <div class="card-body">
                 <h2 class="card-title text-sm">
-                    <NewsIcon />{{ news.title }}
+                    <NewsIcon /><div v-html="news.title"></div>
                 </h2>
                 <hr>
                 <p v-html="news.description" class="text-wrap break-words truncate"></p>
