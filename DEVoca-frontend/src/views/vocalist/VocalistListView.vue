@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col items-center ml-12 mr-8 my-4">
     <div class="flex flex-row w-full justify-center" v-for="vocalist in vocalistInfo">
-      <RouterLink :to="{name: 'VocalistDetailView', params: {id: vocalist.vocalistId}, state: {vocalistName: vocalist.vocalistName}}" 
+      <div @click="goVocalistDetail"
         class="btn btn-lg w-full bg-base-100 shadow-xl flex justify-between my-2">
         <p>{{ vocalist.vocalistName }}</p>
         <RightArrowIcon />
-      </RouterLink>
+      </div>
       <button class="btn btn-ghost my-auto btn-sm p-2 ml-2" @click="deleteVocalists(vocalist.vocalistId)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
@@ -22,10 +22,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from "vue-router"
 import RightArrowIcon from '@/components/icon/RightArrowIcon.vue'
 import VocalistCreateModal from '@/components/vocalist/VocalistCreateModal.vue'
 import { getVocaList, deleteVocaList } from '@/api/vocalist'
-
+const router = useRouter();
 const vocalistInfo = ref(null)
 
 const loadVocalist = () => {
@@ -49,6 +50,14 @@ const deleteVocalists = (id) => {
     return
   }
 }
+
+const goVocalistDetail = () => {
+  router.push({
+    name: 'VocalistDetailView',
+    params: { id: vocalist.vocalistId },
+    state: { vocalistName: vocalist.vocalistName }
+  });
+};
 
 onMounted(() => {
   loadVocalist()

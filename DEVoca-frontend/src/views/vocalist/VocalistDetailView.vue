@@ -17,7 +17,7 @@ const cardList = ref([])
 const vocalistName = history.state.vocalistName
 
 onMounted(() => {
-  // console.log(route.params.id)
+  console.log("라우트 파람아이디!!", route.params.id);
   getVocaListDetail(route.params.id, (res) => {
     let set = new Set()
     cardList.value = res.data.filter((card) => {
