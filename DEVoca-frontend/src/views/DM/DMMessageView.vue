@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-between h-full">
-    <div class="card card-side bg-base-100 h-24 w-full z-10 overflow-hidden shrink-0">
+    <div class="card card-side bg-base-100 h-24 w-full z-10 shrink-0">
       <div class="flex items-center">
         <div class="ml-5">
           <svg @click="goDmList" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div id="chat" class="overflow-y-scroll h-full grow-0">
+    <div id="chat" class="overflow-y-scroll h-full grow-0 scrollbar-hide">
       <div class="trigger"></div>
       <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
