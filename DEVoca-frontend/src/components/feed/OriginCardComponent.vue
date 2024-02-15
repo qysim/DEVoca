@@ -5,7 +5,7 @@
       <AvartarComponent :userInfo="userInfo" :isOrigin="true"/>
       <!-- 본문 -->
       <div class="card-body p-4">
-        <div class="m-2">{{ card.originCardContent }}</div>
+        <div class="m-2" v-html="card.originCardContent"></div>
       </div>
     </div>
   </div>
