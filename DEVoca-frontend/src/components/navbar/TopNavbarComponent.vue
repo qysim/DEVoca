@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 fixed top-0 right-0 left-0 z-10">
+  <div class="navbar bg-base-100 fixed top-0 right-0 left-0 z-20 ">
     <div class="navbar-start ml-2">
       <router-link :to="{ name : 'MainView'}">
         <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-1/2 max-h-16" alt="devoca_logo">
