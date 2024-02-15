@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 각 페이지 연결 후 hover, selected 효과 넣을 예정 -->
-    <div class="btm-nav z-10">
+    <div class="btm-nav z-20">
       <!-- 사전 -->
       <router-link :to="{ name: 'WordListView' }">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 14 14">
