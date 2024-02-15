@@ -32,22 +32,32 @@
 import { ref, onMounted } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { getSearchResultWords, getSearchResultCards } from '@/api/search'
-
+import { useUserStore } from "@/stores/user"
 import SearchBarComponent from '@/components/common/SearchBarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue";
 import CardComponent from "@/components/feed/CardComponent.vue";
+
 
 const hasWordResults = ref(false)
 const searchResultWords = ref([])
 const hasCardResults = ref(false)
 const searchResultCards = ref([])
 
+const userStore = useUserStore()
 const router = useRouter()
 const route = useRoute()
 const param = ref(route.query.q)
 const option = ref('')
 
 const getSearchResults = () => {
+  if (!userStore.kakaoUserInfo.id) {
+    const confirmResult = confirm("로그인이 필요한 서비스입니다. 로그인하시겠어요?")
+  if (confirmResult) {
+    router.push({name: 'LoginView'})
+  } else {
+    return
+  }
+  }
   if (param.value !== undefined) {
     getSearchResultWords(param.value,
       (res) => {
