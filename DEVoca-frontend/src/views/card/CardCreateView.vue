@@ -48,7 +48,9 @@ const inputData = ref({
 })
 
 const submitCard = function () {
-  inputData.value.cardContent = inputData.value.cardContent.replaceAll(/(\n|\r\n)/g,'<br>')
+  if (inputData.value) {
+    inputData.value.cardContent = inputData.value.cardContent.replaceAll(/(\n|\r\n)/g,'<br>')
+  }
   if (inputData.value.cardRelatedKeywordList) {
     inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
       split(',').map(item => item.trim()).filter(item => item !== '')
