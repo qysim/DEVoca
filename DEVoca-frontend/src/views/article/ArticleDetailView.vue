@@ -6,7 +6,7 @@
       <CommentComponent :comment="comment" @update-comments="updateComments"/>
     </div>
   </div>
-  <div class="input-container flex mt-4 fixed bottom-16 left-0 right-0 bg-base-100">
+  <div class="input-container flex my-4 fixed bottom-16 left-0 right-0 bg-base-100">
     <input type="text" placeholder="댓글을 남겨보세요" class="mx-2 input input-bordered w-full" v-model="inputComment" @keyup.enter="submitComment"/>
     <button @click="submitComment" class="btn bg-devoca text-white text-lg">등록</button>
   </div>
