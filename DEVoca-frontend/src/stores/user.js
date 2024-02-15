@@ -8,7 +8,9 @@ export const useUserStore = defineStore("user", () => {
     userYn: false
   })
 
+  const isNotify = ref(false);
+
   return {
-    kakaoUserInfo
+    kakaoUserInfo, isNotify
   }
 },{persist:true})
