@@ -25,6 +25,7 @@ public class VldetailDTO {
     private String wordNameKr;
     private String wordNameEn;
     private String wordSumm;
+    private String wordDef;
 
     private Integer originCardId;
     private String originUserNickName;
