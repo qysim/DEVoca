@@ -14,6 +14,14 @@ export function getCardList(scroll, success, fail) {
   }).then(success).catch(fail)
 }
 
+export function getCardListByUserId(param, success, fail) {
+  local.get(`/card/list/${param}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+
 export function getCardDetail(cardId, success, fail) {
   local.get(`/card/${cardId}`, {
     headers: {

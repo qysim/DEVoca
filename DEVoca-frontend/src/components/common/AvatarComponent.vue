@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-side bg-base-100 items-center py-2 px-4" @click="goProfile(userInfo.userId)">
+  <div class="card card-side bg-base-100 items-center py-2 px-4" @click="goProfile()">
     <div class="avatar basis-1/6">
       <div class="rounded-full">
         <img :src="userInfo.userImg" />
@@ -26,21 +26,25 @@ import { useUserStore } from '@/stores/user'
 const router = useRouter()
 const userStore = useUserStore()
 const props = defineProps({
-  userInfo: Object
+  userInfo: Object,
+  isOrigin: Boolean
 })
 
 const datetime = new Date(props.userInfo.cardRegistDate)
 const locale = 'ko-KR'
 const options = { timeZone: 'Asia/Seoul' }
-const dateString = ref(datetime.toLocaleDateString(locale, options))
-const timeString = ref(datetime.toLocaleTimeString(locale, options))
+const dateString = datetime != 'Invalid Date' ? ref(datetime.toLocaleDateString(locale, options)) : ''
+const timeString = datetime != 'Invalid Date' ? ref(datetime.toLocaleTimeString(locale, options)) : ''
 
-const goProfile = function (userId) {
-  if (userId === userStore.kakaoUserInfo.id.toString()) {
-    router.push({ name: 'MypageView' })
+const goProfile = function () {
+  if (props.isOrigin) {
+    return
   } else {
-    router.push({ name: 'OtherUserProfileView', params: { id: userId } })
+    if (props.userInfo.userId === userStore.kakaoUserInfo.id) {
+      router.push({name: 'MypageView'})
+    } else {
+      router.push({name: 'OtherUserProfileView', params: {id: props.userInfo.userId}})
+    }
   }
-}
-
+  }
 </script>

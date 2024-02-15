@@ -9,13 +9,13 @@
       <button @click="submitComment" class="btn bg-devoca text-white text-lg">등록</button>
     </div>
 
-    <div class="collapse collapse-arrow bg-base-100 shadow-xl m-2 w-auto">
+    <div class="collapse collapse-arrow bg-base-100 shadow-xl m-2 w-auto" v-show="hasCommentResults" >
       <input type="checkbox" /> 
       <div class="collapse-title text-xl font-jalnan">
         댓글
       </div>
       <div class="collapse-content"> 
-        <div v-show="hasCommentResults" class="flex flex-col">
+        <div class="flex flex-col">
           <CardCommentComponent v-for="(comment, index) in commentList" :key="index" :comment="comment" 
             @update-comments="updateComments"/>
         </div>
@@ -26,14 +26,13 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import CardDetailComponent from '@/components/feed/CardDetailComponent.vue'
 import CardCommentComponent from "@/components/feed/CardCommentComponent.vue"
 import { getCardDetail, getCommentList, registComment } from '@/api/card'
 
-const props = defineProps({
-  id: String
-})
-
+const route = useRoute()
+const cardId = route.params.id
 const card = ref(null)
 const inputComment = ref(null)
 const hasCommentResults = ref(false)
@@ -41,7 +40,7 @@ const commentList = ref([])
 
 const submitComment = () => {
   const commentInfo = {
-    cardBoardId: props.id,
+    cardBoardId: cardId,
     flag: 'card',
     commentContent: inputComment.value
   }
@@ -55,7 +54,7 @@ const submitComment = () => {
 }
 
 const updateComments = () => {
-  getCommentList(props.id, (res) => {
+  getCommentList(cardId, (res) => {
     hasCommentResults.value = res.data.length > 0
     if (!hasCommentResults.value) return
     commentList.value = res.data
@@ -66,7 +65,7 @@ const updateComments = () => {
 }
 
 onMounted(() => {
-  getCardDetail(props.id, (res) => {
+  getCardDetail(cardId, (res) => {
     card.value = res.data
   }, (err) => {
     console.log(err)
