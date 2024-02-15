@@ -19,7 +19,7 @@
 
     <!-- getWordList 쿼리 -->
     <select id="getWordList" parameterType="String" resultMap="wordResultMap">
-        select w.word_id, w.word_name_kr, w.word_name_en, w.word_summ, c.category_name
+        select w.word_id, w.word_name_kr, w.word_name_en, w.word_def, w.word_summ, c.category_name
         from words w join words_categories wc join categories c
         on w.word_id = wc.wc_word_id
         and c.category_id = wc.wc_category_id
