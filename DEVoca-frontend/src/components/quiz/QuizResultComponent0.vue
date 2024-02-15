@@ -10,10 +10,10 @@
       </div>
       <div>
         <p class="text-xl">Q. {{ props.wordSumm }}</p>
-        <p class="text-devoca text-2xl font-jalnan mt-4 text-end">A. {{ props.wordNameKr }}</p>
+        <p class="text-devoca break-words text-2xl font-jalnan mt-4 text-end">A. {{ props.wordNameKr }} / {{ props.wordNameEn }}</p>
       </div>
     </div>
-    <div class="mt-2">5 초 후 종료됩니다...</div>
+    <div class="mt-2">3 초 후 종료됩니다...</div>
   </div>
 </template>
 
@@ -29,6 +29,10 @@ const props = defineProps({
     required: true
   },
   wordNameKr: {
+    type: String,
+    required: true
+  },
+  wordNameEn: {
     type: String,
     required: true
   },

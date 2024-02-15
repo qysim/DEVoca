@@ -13,9 +13,9 @@
             <p class="text-center text-sm w-24">{{ formatDate(props.quiz.participateDate) }}</p>
           </div>
           <div>
-            <img src='@/assets/images/quiz/list_1.png' class='w-12 h-12' v-if="imgRank[0]"/>
-            <img src='@/assets/images/quiz/list_2.png' class='w-12 h-12' v-if="imgRank[1]"/>
-            <img src='@/assets/images/quiz/list_3.png' class='w-12 h-12' v-if="imgRank[2]"/>
+            <img v-if="imgRank[0]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/1st%20Place%20Medal.png" alt="1st Place Medal" width="45" height="45" />
+            <img v-if="imgRank[1]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/2nd%20Place%20Medal.png" alt="2nd Place Medal" width="35" height="35" />
+            <img v-if="imgRank[2]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/3rd%20Place%20Medal.png" alt="3rd Place Medal" width="35" height="35" />
             <img src='@/assets/images/quiz/list_4.png' class='w-12 h-12' v-if="imgRank[3]"/>
             <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[4]"/>
             <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[5]"/>
