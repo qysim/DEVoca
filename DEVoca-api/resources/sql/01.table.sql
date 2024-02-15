@@ -153,7 +153,7 @@ CREATE TABLE `voca_list_cards` (
     `vlc_sl_id`	int	NOT NULL,
     `vlc_wc_id`	int	NOT NULL,
     `vlc_wc_select`	int	NOT NULL	COMMENT '1 : 단어, 2 : 카드',
-    `svc_delete_date`	datetime	NULL,
+    `vlc_store_date`	datetime	NULL,
     CONSTRAINT `PK_VOCA_LIST_CARDS` PRIMARY KEY (`vlc_id`,	`vlc_sl_id`)
 )default character set utf8mb4;
 
