@@ -1,4 +1,5 @@
 <template>
+  <p class="mt-2 mr-3 ml-5 text-xl font-jalnan">{{ vocalistName }}</p>
   <div class="flex flex-col items-center">
     <CardComponent v-for="(card, index) in cardList" :key="index" :card="card"/>
     <p v-if="cardList.length == 0"  class="text-xl m-12">저장한 단어가 없습니다</p>
@@ -13,6 +14,7 @@ import CardComponent from "@/components/feed/CardComponent.vue"
 
 const route = useRoute()
 const cardList = ref([])
+const vocalistName = history.state.vocalistName
 
 onMounted(() => {
   // console.log(route.params.id)

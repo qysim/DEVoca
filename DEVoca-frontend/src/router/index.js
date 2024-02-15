@@ -153,7 +153,6 @@ const router = createRouter({
           path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
-          props: true
         },
         // word
         {
