@@ -40,7 +40,7 @@ onMounted(() => {
 
   getQuizResultList((data) => {
     quizList.value = data.data;
-    console.log(data.data);
+    // console.log(data.data);
   }, (err) => {
     console.log(err)
   })
