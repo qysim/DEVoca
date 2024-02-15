@@ -1,7 +1,11 @@
 <template>
-<div class="ml-5 mt-5">
+<div class="ml-5">
   <hr/>
-  <p @click="goRoute()">● {{ notificationString[type] }}</p>
+  <div class="m-3" @click="goRoute()">
+    <div v-if="isRead" class="inline">●</div>
+    <div v-if="!isRead" class="inline text-red-500">●</div>
+    {{ notificationString[type] }}
+  </div>
 </div>
 </template>
 
@@ -16,6 +20,7 @@ const props = defineProps({
   },
 });
 const type = props.notify.notificationType;
+const isRead = props.notify.isRead;
 
 const notificationString = ["내 게시글에 댓글이 달렸어요.", "내 댓글이 채택되었어요.",
   "내 카드가 좋아요를 받았어요.", "내 카드가 재게시되었어요.",
