@@ -37,3 +37,4 @@ DEVoca는 개발 용어(이하 단어)와 설명을 피드에 올리고, 다른 
 - [화면 설계서](./docs/pages.md)
 - [디자인 시스템](./docs/design-system.md)
 - [ERD](./docs/ERD.md)
+- [포팅 매뉴얼](exec/1.BuildAndDeploy.md)
