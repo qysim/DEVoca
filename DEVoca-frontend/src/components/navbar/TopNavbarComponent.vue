@@ -1,7 +1,7 @@
 <template>
   <div class="navbar bg-base-100 fixed top-0 right-0 left-0 z-20 ">
     <div class="navbar-start ml-1">
-        <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-7/12 max-h-16" alt="devoca_logo" @click="goMainOrTop">
+        <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-1/2 max-h-16" alt="devoca_logo" @click="goMainOrTop">
     </div>
 
     <!-- 알림페이지 연결 후 swap 기능 구현 예정 -->
