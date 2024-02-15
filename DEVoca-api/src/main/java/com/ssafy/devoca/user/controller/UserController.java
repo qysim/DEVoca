@@ -1,5 +1,6 @@
 package com.ssafy.devoca.user.controller;
 
+import com.ssafy.devoca.mypage.service.MypageService;
 import com.ssafy.devoca.user.model.BadgeDTO;
 import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final MypageService mypageService;
 
     /*
      * 회원 가입 api
@@ -76,6 +78,36 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(userInfo);
         } catch (Exception e) {
             log.error("다른 회원 정보 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/follower/{otherId}")
+    public ResponseEntity<List<UserDTO>> getOtherFollowList(@RequestHeader("token") String token
+                                                        ,@PathVariable("otherId") String otherId){
+        log.info("다른 회원의 팔로워 목록 조회 호출 : {}를 팔로우하는 사람들 : ", otherId);
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            int otherIdx = userService.loadUserIdxById(otherId);
+            List<UserDTO> followList = userService.getOtherFollowList(userIdx, otherIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(followList);
+        } catch (Exception e){
+            log.error("다른 회원의 팔로워 목록 조회 실패 : {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/following/{otherId}")
+    public ResponseEntity<List<UserDTO>> getOtherFollowingList(@RequestHeader("token") String token
+                                                                ,@PathVariable("otherId") String otherId){
+        log.info("다른 회원의 팔로잉 목록 조회 호출 : {}가 팔로우 하는 사람들 : ", otherId);
+        try{
+            int userIdx = userService.loadUserIdx(token);
+            int otherIdx = userService.loadUserIdxById(otherId);
+            List<UserDTO> followingList = userService.getOtherFollowingList(userIdx, otherIdx);
+            return ResponseEntity.status(HttpStatus.OK).body(followingList);
+        } catch (Exception e){
+            log.error("다른 회원의 팔로잉 목록 조회 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

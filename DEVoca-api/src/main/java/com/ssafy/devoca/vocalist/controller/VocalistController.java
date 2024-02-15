@@ -55,7 +55,7 @@ public class VocalistController {
         try{
             int userIdx = userService.loadUserIdx(token);
             vocalistDTO.setUserIdx(userIdx);
-            vocalistDTO.setVlWordCard(1);
+            vocalistDTO.setVlWordCard(2);
             vocalistService.storeVocalist(vocalistDTO);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
@@ -127,7 +127,6 @@ public class VocalistController {
      * 해당 의견 카드 id로 단어장 목록 호출
      * @author Ryu jiyun
      * */
-
     @GetMapping("/{cardId}")
     public ResponseEntity<List<VocalistDTO>>checkVocalist(@RequestHeader("token") String token
                                                             ,@PathVariable("cardId") Integer cardId){

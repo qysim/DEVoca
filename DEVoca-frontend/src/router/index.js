@@ -153,7 +153,6 @@ const router = createRouter({
           path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
-          props: true
         },
         // word
         {
@@ -250,8 +249,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // 로그인페이지, 검색결과페이지는 항상 접근을 허용
-  if (to.name === 'LoginView' || to.name === 'SearchResultView') {
+  // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
+      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
     next()
   } else {
     // 로그인 여부 확인
