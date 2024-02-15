@@ -34,16 +34,17 @@ const searchBtnHandler = () => {
   // 검색어 저장
   saveSearchKeyword(searchInput.value, () => {
     console.log("검색어 저장 완료");
+    // 화면 전환
+    router.push({
+      name: 'SearchResultView',
+      query: {
+        q: searchInput.value
+      }
+    })
   }, (err) => {
     console.log(err);
   })
 
-  // 화면 전환
-  router.push({
-    name: 'SearchResultView',
-    query: {
-      q: searchInput.value
-    }
-  })
+  
 }
 </script>
