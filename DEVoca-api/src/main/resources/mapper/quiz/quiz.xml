@@ -147,7 +147,9 @@
                (<include refid="loadBattleWinYN"></include>) as battle_win_yn
         from quiz_participants qp left join battles bt
             on qp.qp_quiz_id = bt.fk_battle_quiz_id
-        where fk_qp_user_idx = #{loginUserIdx};
+        where fk_qp_user_idx = #{loginUserIdx}
+        order by qp_quiz_id desc
+        limit 20;
     </select>
 
     <!--  퀴즈 상세내역 가져오기  -->
