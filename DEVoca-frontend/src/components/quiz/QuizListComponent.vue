@@ -20,7 +20,7 @@
             <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[4]"/>
             <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[5]"/>
             <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[6]"/>
-            <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[7]"/>
+            <img src='@/assets/images/quiz/list_wait.png' class='w-12 h-12' v-if="imgRank[7]"/>
           </div>
         </div>
     </button>
