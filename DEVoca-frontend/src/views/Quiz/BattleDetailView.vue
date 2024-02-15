@@ -7,7 +7,7 @@
         <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[0]"/>
         <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[1]"/>
         <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[2]"/>
-        <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[3]"/>
+        <img src='@/assets/images/quiz/list_wait.png' class='w-12 h-12' v-if="imgRank[3]"/>
         <p class="self-center text-2xl font-jalnan text-amber-400">{{ txtRank[quizInfo.type] }}</p>
       </div>
       <p class="text-xl text-center"> {{ correctCnt }} / {{ quizCnt }} </p>

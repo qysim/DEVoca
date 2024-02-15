@@ -15,6 +15,13 @@
       <button class="btn btn-sm w-24 mr-5 bg-devoca text-white">VS</button>
     </div>
   </div>
+  <h2 class="mx-6 mt-8 font-bold text-lg">{{ userInfo.userNickName }}님의 글</h2>
+  <div v-if="hasCardResults" class="flex flex-col">
+    <CardComponent v-for="(card, index) in cardList" :key="index" :card="card" />
+  </div>
+  <div v-else>
+    <p>작성한 글이 없습니다.</p>
+  </div>
 </template>
 
 <script setup>
@@ -24,6 +31,8 @@ import { getOtherUserInfo } from '@/api/user.js'
 import { getRoomUuid } from '@/api/dm'
 import { followUser, unfollowUser } from "@/api/mypage"
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
+import { getCardListByUserId } from "@/api/card"
+import CardComponent from "@/components/feed/CardComponent.vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -31,9 +40,18 @@ const router = useRouter()
 const userId = ref(route.params.id)
 const userInfo = ref({})
 
+const hasCardResults = ref(false)
+const cardList = ref([])
+
 onBeforeMount(() => {
   getOtherUserInfo(userId.value, (res) => {
     userInfo.value = res.data
+  }, null)
+
+  getCardListByUserId(`${userId.value}/0`, (res) => {
+    hasCardResults.value = res.data.length > 0
+    if (!hasCardResults.value) return
+    cardList.value = res.data
   }, null)
 })
 

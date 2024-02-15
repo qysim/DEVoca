@@ -7,9 +7,9 @@
       <div class="card-body p-4">
         <div @click="goCardDetail(card.cardId)">
           <WordComponent :word="word" v-if="card.originCardId === 0" />
-          <OriginCardComponent :card="card" v-else />
+          <OriginCardComponent :card="originCard" v-else />
 
-          <div class="m-2">{{ card.cardContent }}</div>
+          <div class="m-2" v-html="card.cardContent"></div>
         </div>
 
         <CardIconComponent :card="card" />
@@ -47,8 +47,15 @@ const word = ref({
   wordSumm: props.card.wordSumm,
 })
 
+const originCard = ref({
+  originUserImg: props.card.originUserImg,
+  originUserNickName: props.card.originUserNickName,
+  originCardId: props.card.originCardId,
+  originCardContent: props.card.originCardContent
+})
+
 const goCardDetail = function (cardId) {
-  router.push({name: 'CardDetailView', params: {id: cardId}})
+  router.push({ name: 'CardDetailView', params: { id: cardId } })
 }
 
 </script>
