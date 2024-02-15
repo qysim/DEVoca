@@ -39,13 +39,17 @@ import OriginCardComponent from '@/components/feed/OriginCardComponent.vue'
 const router = useRouter()
 const userStore = useUserStore()
 const repostInfo = ref(history.state)
-// console.log(repostInfo.value)
+console.log(repostInfo.value)
 
 const originCard = ref({
   originUserImg: repostInfo.value.userImg,
   originUserNickName: repostInfo.value.userNickName,
   originCardId: repostInfo.value.cardId,
-  originCardContent: repostInfo.value.cardContent
+  originCardContent: repostInfo.value.cardContent,
+  wordId: repostInfo.value.wordId,
+  wordNameEn: repostInfo.value.wordNameEn,
+  wordNameKr: repostInfo.value.wordNameKr,
+  wordSumm: repostInfo.value.wordSumm,
 })
 
 const inputData = ref({

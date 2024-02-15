@@ -20,6 +20,7 @@ import WordComponent from "@/components/word/WordComponent.vue"
 const props = defineProps({
   card: Object
 })
+console.log(props.card)
 
 const userInfo = ref({
   userImg: props.card.originUserImg,
