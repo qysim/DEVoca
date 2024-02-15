@@ -17,6 +17,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { saveSearchKeyword } from '@/api/search'
 import FindIcon from "@/components/icon/FindIcon.vue";
 
 const route = useRoute()
@@ -29,6 +30,13 @@ const searchInput = ref(route.query.q)
 const searchBtnHandler = () => {
   // 입력이 없는 경우
   if (searchInput.value === "" || searchInput.value === undefined) return
+
+  // 검색어 저장
+  saveSearchKeyword(searchInput.value, () => {
+    console.log("검색어 저장 완료");
+  }, (err) => {
+    console.log(err);
+  })
 
   // 화면 전환
   router.push({
