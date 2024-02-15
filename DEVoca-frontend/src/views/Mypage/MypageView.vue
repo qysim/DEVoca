@@ -53,12 +53,8 @@
         </div>
       </RouterLink>
     </div>
-    <div class="flex flex-row justify-center text-sm">
-      <p class="mr-1">버전1.1</p>
-      <a @click="logOut" role="button">/ 로그아웃</a>
-    </div>
-    <div class="flex flex-row justify-center text-sm">
-      <p>이용약관 / 개인정보 처리방침</p>
+    <div class="flex justify-center text-sm">
+      <a @click="logOut" role="button">로그아웃</a>
     </div>
   </div>
 </template>

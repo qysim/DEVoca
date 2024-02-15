@@ -101,11 +101,11 @@ const router = createRouter({
           name : 'MyBadgeView',
           component : MyBadgeView
         },
-        // {
-        //   path : '/mycard',
-        //   name : 'MyCardView',
-        //   component : MyCardView
-        // },
+        {
+          path : '/mycard',
+          name : 'MyCardView',
+          component : MyCardView
+        },
         // {
         //   path : '/myboard',
         //   name : 'MyBoardView',
@@ -116,11 +116,11 @@ const router = createRouter({
           name : 'FollowView',
           component : FollowView
         },
-        {
-          path : '/mycomment',
-          name : 'MyCommentView',
-          component : MyCommentView
-        },
+        // {
+        //   path : '/mycomment',
+        //   name : 'MyCommentView',
+        //   component : MyCommentView
+        // },
         {
           path : '/profilechange/:id',
           name : 'ProfileChangeView',
