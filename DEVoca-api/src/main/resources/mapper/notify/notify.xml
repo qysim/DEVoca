@@ -34,7 +34,6 @@
         order by notifications_id desc
         limit 20;
     </select>
-git
 
     <!--  모든 유저의 Idx 가져오기  -->
     <select id="getAllUserIdx" resultType="int">
