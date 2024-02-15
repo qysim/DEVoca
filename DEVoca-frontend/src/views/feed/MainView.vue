@@ -2,7 +2,7 @@
   <div class="py-16 relative">
     <TopNavbarComponent/>
     <div v-if="popup" @click="isPopupClicked"
-    class="z-20 fixed">
+    class="z-30 fixed">
       <NotificationComponent :pushedData="pushedData"/>
     </div>
     <div class="flex justify-center" v-if="quizPopup" @click="isPopupClicked">

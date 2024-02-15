@@ -12,7 +12,8 @@
         <div class="w-80 p-5 rounded-lg bg-slate-100">Q. {{ Question }}</div>
         <div class="mt-5 flex items-center border-b border-devoca py-2">
           <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-          type="text" placeholder="답을 입력하세요" aria-label="Answer" v-model="answer"/>
+          type="text" placeholder="답을 입력하세요" aria-label="Answer" v-model="answer"
+          v-on:keydown.enter="goNext"/>
         </div>
         <div v-if="!answerYN" class="text-[red]">답을 입력해주세요!</div>
         <div class="flex justify-end">
@@ -93,7 +94,7 @@
     if(answer.value.length == 0) {
       answerYN.value = false;
     } else {
-      // 채점하고 결과에 따라 모달 띄우기
+      // 채점하고 결과에 따라 창 띄우기
       grading();
       showModal.value = true;
       if (quizYn.value == 0) {

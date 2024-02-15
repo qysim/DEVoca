@@ -30,6 +30,7 @@ import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import CardDetailComponent from '@/components/feed/CardDetailComponent.vue'
 import CardCommentComponent from "@/components/feed/CardCommentComponent.vue"
 import { getCardDetail, getCommentList, registComment } from '@/api/card'
+import router from "@/router"
 
 const route = useRoute()
 const card = ref(null)
@@ -76,6 +77,8 @@ onMounted(() => {
     updateComments()
   }, (err) => {
     console.log(err)
+    router.push({ name: 'MainView' });
+    alert("존재하지 않는 카드입니다.");
   })
 })
 
