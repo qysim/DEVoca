@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
         userMapper.joinUser(userDTO);
         int userIdx = userDTO.getUserIdx();
         userMapper.getBadge(userIdx, 3); // getting first badge
-        mypageMapper.followUser(userIdx, 41); // following æ_devoca bot
+        mypageMapper.followUser(userIdx, 6); // following æ_devoca bot
 
         VocalistDTO vocalistDTO = new VocalistDTO();
         vocalistDTO.setVocalistName("기본 단어장");
