@@ -120,7 +120,7 @@
         from follows t
                  join users u on t.follow_to = u.user_idx
                  left join (select follow_to from follows where follow_from = #{userIdx}) i on i.follow_to = t.follow_to
-        where t.follow_from = #{otherIdx} and u.user_idx != #{userIdx}
+        where t.follow_from = #{otherIdx}
     </select>
 
     <!-- 다른 사람의 팔로워 목록 조회 : 다른 사람을 팔로우하는 목록 -->
@@ -130,6 +130,6 @@
         from follows t
                  join users u on t.follow_from = u.user_idx
                  left join (select follow_to from follows where follow_from = #{userIdx}) i on i.follow_to = t.follow_from
-        where t.follow_to = #{otherIdx} and u.user_idx != #{userIdx}
+        where t.follow_to = #{otherIdx}
     </select>
 </mapper>

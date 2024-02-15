@@ -1,8 +1,8 @@
 import axios from "axios"
 import { httpStatusCode } from "./http-status"
 
-const urlApi = 'https://i10d112.p.ssafy.io/devoca'
-// const urlApi = 'http://localhost/devoca'
+// const urlApi = 'https://i10d112.p.ssafy.io/devoca'
+const urlApi = 'http://localhost/devoca'
 // console.log(`urlApi : ${urlApi}`)
 
 // local vue api axios instance

@@ -24,8 +24,13 @@ import FollowCardComponent from '@/components/common/FollowCardComponent.vue'
 import { onBeforeRouteUpdate, useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
 import { getFollower, getFollowing } from "@/api/mypage";
+import { getOtherFollowList, getOtherFollowingList } from "@/api/user";
+import { useUserStore } from "@/stores/user";
 
+const userStore = useUserStore();
+const loginUserId = userStore.kakaoUserInfo.id;
 const route = useRoute()
+const targetUserId = history.state.targetUserId;
 
 const option = ref()
 
@@ -43,12 +48,21 @@ onMounted(() => {
 })
 
 const updateList = () => {
-  getFollower((res) => {
-    followerList.value = res.data
-  }, null)
-  getFollowing((res) => {
-    followingList.value = res.data
-  }, null)
+  if (targetUserId == loginUserId) {
+    getFollower((res) => {
+      followerList.value = res.data
+    }, null)
+    getFollowing((res) => {
+      followingList.value = res.data
+    }, null)
+  } else {
+    getOtherFollowList(targetUserId, (res) => {
+      followerList.value = res.data
+    }, null)
+    getOtherFollowingList(targetUserId, (res) => {
+      followingList.value = res.data
+    }, null)
+  }
 }
 
 </script>

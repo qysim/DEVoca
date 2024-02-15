@@ -30,11 +30,7 @@ const isCorrect = ref(null);
 
 onMounted(() => {
     isCorrect.value = props.quiz.quizYn;
-
 })
-
-
-
 
 </script>
 
