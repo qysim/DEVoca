@@ -227,7 +227,7 @@ const router = createRouter({
           component : QuizListView,
         },
         {
-          path : '/quizpopup',
+          path : '/quizpopup/:quizId',
           name : 'QuizPopupView',
           component : QuizPopupView,
         },

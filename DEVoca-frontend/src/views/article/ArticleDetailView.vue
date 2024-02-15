@@ -42,7 +42,11 @@ onBeforeMount(() => {
     const options = { timeZone: 'Asia/Seoul' }
     dateString.value = datetime.toLocaleDateString(locale, options)
     timeString.value = datetime.toLocaleTimeString(locale, options)
-  }, null)
+  }, (err) => {
+    console.log(err);
+    router.push({ name: 'MainView' });
+    alert("존재하지 않는 게시글입니다.");
+  })
 
   getCommentList("board", props.boardId, (res) => {
     comments.value = res.data
