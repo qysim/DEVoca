@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-//@RequestMapping("/search")
+@RequestMapping("/search")
 public class SearchController {
 
     private final SearchService searchService;
