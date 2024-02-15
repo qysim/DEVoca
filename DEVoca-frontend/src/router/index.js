@@ -37,6 +37,7 @@ import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
 import QuizPageComponent from '@/components/quiz/QuizPageComponent.vue'
 import BattleDetailView from '@/views/Quiz/BattleDetailView.vue'
+import QuizPopupView from '@/views/Quiz/QuizPopupView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -224,6 +225,11 @@ const router = createRouter({
           path : '/quizlist',
           name : 'QuizListView',
           component : QuizListView,
+        },
+        {
+          path : '/quizpopup',
+          name : 'QuizPopupView',
+          component : QuizPopupView,
         },
         {
           path : '/quizdetail/:quizId',

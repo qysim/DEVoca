@@ -10,7 +10,7 @@
     </div>
 
     <div>
-      <NotificationPageComponent v-for="(notify, index) in notifyListList" :key="index" :notify="notify"/>
+      <NotificationPageComponent v-for="(notify, index) in notifyList" :key="index" :notify="notify"/>
     </div>
   </div>
 </template>
@@ -28,8 +28,6 @@ onMounted(() => {
   userStore.isNotify = false;
   getNotification(scroll.value, (data) => {
     notifyList.value = data.data;
-    console.log("notify : ", notifyList.value);
-
   }, (err) => {
     console.log(err);
   });
