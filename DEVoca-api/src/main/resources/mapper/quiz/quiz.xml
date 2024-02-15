@@ -90,6 +90,7 @@
     <select id="createQuizWordList" resultMap="QuizDTOMap">
         select word_id, word_name_kr, word_name_en, word_summ
         from words
+        where length(word_summ) > 1
         order by RAND()
         limit 10;
     </select>
