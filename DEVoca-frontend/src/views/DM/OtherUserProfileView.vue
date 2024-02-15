@@ -12,9 +12,12 @@
       <button class="btn btn-sm w-24 bg-devoca text-white" @click="dmHandler(userInfo.userId)">DM</button>
     </div>
     <div>
-      <button class="btn btn-sm w-24 mr-5 bg-devoca text-white">VS</button>
+      <button class="btn btn-sm w-24 mr-5 bg-devoca text-white" @click="selectModal()">VS</button>
     </div>
   </div>
+  <dialog id="FightPopupModal" class="modal sm:modal-middle" :class="{'modal-open': isShowModal}">
+    <FightPopupComponent v-if="isShowModal" @close-modal="isShowModal=false" :oppoUserId="userId"/>
+  </dialog>
 </template>
 
 <script setup>
@@ -24,6 +27,7 @@ import { getOtherUserInfo } from '@/api/user.js'
 import { getRoomUuid } from '@/api/dm'
 import { followUser, unfollowUser } from "@/api/mypage"
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
+import FightPopupComponent from '@/components/quiz/FightPopupComponent.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,5 +58,11 @@ const dmHandler = (id) => {
       params: { roomUuid: res.data }
     })
   }, null)
+}
+
+const isShowModal = ref(false);
+
+const selectModal = () => {
+  isShowModal.value = true;
 }
 </script>
