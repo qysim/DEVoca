@@ -16,7 +16,7 @@ import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
-import AlarmPageView from '@/views/feed/AlarmPageView.vue'
+import NotificationPageView from '@/views/feed/NotificationPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardRepostView from '@/views/card/CardRepostView.vue'
@@ -129,9 +129,9 @@ const router = createRouter({
           component : SelectInterestsChangeView
         },
         {
-          path : '/alarm/:id',
-          name : 'AlarmPageView',
-          component : AlarmPageView
+          path : '/notify',
+          name : 'NotificationPageView',
+          component : NotificationPageView
         },
         // feed
         {
