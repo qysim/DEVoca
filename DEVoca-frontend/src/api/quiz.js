@@ -47,3 +47,19 @@ export function getBattleResultDetail(quizId, success, fail) {
     }
   }).then(success).catch(fail)
 }
+
+export function getBattleVocaList(oppoUserId, success, fail) {
+  local.get(`/quiz/battle/vocalist`, { params: {oppoUserId: oppoUserId}, 
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+
+export function createBattle(sendVocaList, success, fail) {
+  local.post(`/quiz/battle`, sendVocaList, {
+    headers: {
+        token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail);
+}

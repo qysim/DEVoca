@@ -1,10 +1,11 @@
 <template>
-  <div class="py-16">
+  <div class="py-16 relative">
     <TopNavbarComponent/>
-    <div v-if="false" @click="isPopupClicked">
-      <NotificationComponent />
+    <div v-if="popup" @click="isPopupClicked"
+    class="z-20 fixed">
+      <NotificationComponent :pushedData="pushedData"/>
     </div>
-    <div class="flex justify-center" v-if="popup" @click="isPopupClicked">
+    <div class="flex justify-center" v-if="quizPopup" @click="isPopupClicked">
       <QuizPopupComponent/>
     </div>
 
@@ -18,51 +19,70 @@ import TopNavbarComponent from '@/components/navbar/TopNavbarComponent.vue'
 import BottomNavbarComponent from '@/components/navbar/BottomNavbarComponent.vue'
 import NotificationComponent from "@/components/common/NotificationComponent.vue";
 import QuizPopupComponent from "@/components/quiz/QuizPopupComponent.vue";
-// import { connectSSE } from '@/api/notify'
-// import urlApi from '@/util/http-commons.js'
-import { ref } from "vue";
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore();
 const popup = ref(false);
+const router = useRouter();
 const isPopupClicked = function () {
   popup.value = !popup.value;
+  router.push({ name: 'NotificationPageView', });
 }
-
+const quizPopup = ref(false);
 const pushedData = ref({});
-const notificationLink = ["/board/", "/board/", "/card/", "/card/", "/dm/", "/quiz/"]
-const routeto = ref({});
 const lastEventId = ref(null);
-const token = JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token;
+const SSE = ref(null);
 
-const SSE = new EventSourcePolyfill(
-  'https://i10d112.p.ssafy.io/devoca/notify/connect?Last-Event-ID='+lastEventId.value,
-  {
-    headers: { token: token },
-    withCredentials: true,
-    heartbeatTimeout: 300000000,
-  }
-);
-
-// SSE.onmessage = (event) => { 
-//   console.log("push notify!");
-//   console.log(event.data);
-//   console.log(JSON.parse(event.data));
-//   pushedData.value = JSON.parse(event.data);
-//   lastEventId = event.lastEventId;
-// }
-
-SSE.addEventListener('connect', (event) => {
-  console.log("SSE 연결 완료!!");
-  console.log(event.data);
-  console.log(JSON.parse(event.data));
+onMounted(() => {
+  initSSE();
 })
 
-SSE.onerror = (err) => { 
-  console.log(err);
-  SSE.close();
-  console.log("SSE 종료!");
+const showPopup = () => {
+  popup.value = true;
+  setTimeout(() => {
+    popup.value = false;
+  }, 3000);
 }
 
+const initSSE = () => { 
+  if (!SSE.value) {
+    const token = JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token;
 
+    SSE.value = new EventSourcePolyfill(
+      'https://i10d112.p.ssafy.io/devoca/notify/connect?Last-Event-ID=' + lastEventId.value,
+      {
+        headers: { token: token },
+        withCredentials: true,
+        heartbeatTimeout: 300000000,
+      }
+    );
 
+    SSE.value.addEventListener('sse', (event) => {
+      console.log(event.data);
+      if (event.data != "SSE Connected.") {
+        userStore.isNotify = true;
+        console.log("pushed!");
+        pushedData.value = JSON.parse(event.data);
+        showPopup();
+      }
+
+      const eventId = event.lastEventId;
+      if (eventId) {
+        lastEventId.value = eventId;
+      }
+    })
+
+    SSE.value.onerror = (err) => {
+      console.log(err);
+      SSE.value.close();
+      console.log("SSE 종료!");
+      SSE.value = null;
+    }
+  } else {
+    console.log("기존 SSE 연결 이용");
+  }
+}
 
 </script>
