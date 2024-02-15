@@ -1,10 +1,10 @@
 <template>
   <form class="card-body" @submit.prevent="modifyInfo">
-    <img id="image" src="@/assets/images/profile.png" alt="" class="mt-5 m-auto w-40 h-40 rounded-full">
-    <div class="flex justify-center">
+    <img id="image" src="./profile.png" alt="" class="mt-5 m-auto w-40 h-40 rounded-full">
+    <!-- <div class="flex justify-center">
       <a class="upload" @click="triggerFileUpload">프로필 사진 선택하기</a>
       <input type="file" id="profileUpload" @change="handleFileUpload" style="display:none">
-    </div>
+    </div> -->
 
     <div class="form-control">
       <label class="label">
