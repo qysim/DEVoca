@@ -37,7 +37,7 @@
     </insert>
 
     <!-- 게시판 상세 조회 -->
-    <select id="getBoardDetail" parameterType="Integer" resultMap="getBoardDTO":>
+    <select id="getBoardDetail" parameterType="Integer" resultMap="getBoardDTO">
         select u.user_id, u.user_nickname, u.user_img
              ,board_id, board_title, board_content, board_type
             ,board_update_date, board_regist_date
