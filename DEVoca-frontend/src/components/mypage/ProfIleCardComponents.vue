@@ -17,7 +17,7 @@
       <p class="text-sm">{{ userInfo.userIntro }}</p>
       <div class="flex-row mt-2">
         <router-link :to="{ name: 'FollowView', params: { option: 'following' } }" class="mr-5 text-sm">
-          팔로우 {{ userInfo.userFollowingCnt }}
+          팔로잉 {{ userInfo.userFollowingCnt }}
         </router-link>
         <router-link :to="{ name: 'FollowView', params: { option: 'follower' } }" class="text-sm">
           팔로워 {{ userInfo.userFollowerCnt }}

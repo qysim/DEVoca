@@ -2,34 +2,34 @@
   <div class="m-2 h-full flex flex-col">
     <SearchBarComponent />
 
-    <div role="tablist" class="tabs tabs-bordered tabs-lg [&_input]:!w-32">
-      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="단어" checked />
-      <div role="tabpanel" class="tab-content p-2 pb-16">
-        <div v-show="hasWordResults" class="flex flex-col">
-          <WordComponent v-for="word of searchResultWords" :key="word.id" :word="word" @click="onWordClick(word.wordId)" />
-        </div>
-        <div v-show="!hasWordResults" class="flex flex-col items-center justify-center mt-12">
-          <p>아직 등록되지 않은 단어입니다.</p>
-          <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
-        </div>
-      </div>
+    <div role="tablist" class="tabs tabs-bordered m-6">
+      <div role="tab" class="tab text-lg" :class="{ 'tab-active': option === 'word' }" @click="option='word'">단어</div>
+      <div role="tab" class="tab text-lg" :class="{ 'tab-active': option === 'card' }" @click="option='card'">카드</div>
+    </div>
 
-      <input type="radio" name="my_tabs_1" role="tab" class="tab" aria-label="글" />
-      <div role="tabpanel" class="tab-content p-2 pb-16">
-        <div v-show="hasCardResults" class="flex flex-col">
-          <CardComponent v-for="card of searchResultCards" :key="card.id" :card="card" @click="onCardClick(card.cardId)" />
-        </div>
-        <div v-show="!hasCardResults" class="flex flex-col items-center justify-center mt-12">
-          <p>아직 등록되지 않은 단어입니다.</p>
-          <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
-        </div>
+    <div v-show="option === 'word'" class="mx-2">
+      <div v-show="hasWordResults" class="flex flex-col">
+        <WordComponent v-for="word of searchResultWords" :key="word.id" :word="word" @click="onWordClick(word.wordId)" />
+      </div>
+      <div v-show="!hasWordResults" class="flex flex-col items-center justify-center mt-12">
+        <p>아직 등록되지 않은 단어입니다.</p>
+        <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
+      </div>
+    </div>
+    <div v-show="option === 'card'" class="mx-2">
+      <div v-show="hasCardResults" class="flex flex-col">
+        <CardComponent v-for="card of searchResultCards" :key="card.id" :card="card" @click="onCardClick(card.cardId)" />
+      </div>
+      <div v-show="!hasCardResults" class="flex flex-col items-center justify-center mt-12">
+        <p>아직 등록되지 않은 단어입니다.</p>
+        <button class="btn bg-devoca text-white text-lg m-2" @click="goWordRequset">단어 등록 요청하러 가기</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { getSearchResultWords, getSearchResultCards } from '@/api/search'
 
@@ -45,6 +45,7 @@ const searchResultCards = ref([])
 const router = useRouter()
 const route = useRoute()
 const param = ref(route.query.q)
+const option = ref('')
 
 const getSearchResults = () => {
   if (param.value !== undefined) {
@@ -80,6 +81,11 @@ getSearchResults()
 
 onBeforeRouteUpdate((to,) => {
   param.value = to.query.q
+  getSearchResults()
+})
+
+onMounted(() => {
+  option.value = 'word'
   getSearchResults()
 })
 

@@ -28,13 +28,14 @@ const notificationString = ["내 게시글에 댓글이 달렸어요.", "내 댓
   "내 카드에 댓글이 달렸어요."];
 
 const notificationLink = ['/article/detail/', '/article/detail/', '/card/detail/',
-  '/card/detail/', '/dmmessage/', '/quizpopup', '/card/detail/']
+  '/card/detail/', '/dmmessage/', '/quizpopup/', '/card/detail/']
 
 const goRoute = () => {
   let url = notificationLink[type] + ""
-  if (type != 5) {
+  if (props.notify.notificationLinkId != null && props.notify.notificationLinkId != 0) {
     url = url + props.notify.notificationLinkId + "";
   }
+  console.log(url);
   router.push(url);
 }
 </script>

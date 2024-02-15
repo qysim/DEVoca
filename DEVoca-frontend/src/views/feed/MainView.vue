@@ -2,7 +2,7 @@
   <div class="py-16 relative">
     <TopNavbarComponent/>
     <div v-if="popup" @click="isPopupClicked"
-    class="z-20 fixed">
+    class="z-30 fixed">
       <NotificationComponent :pushedData="pushedData"/>
     </div>
     <div class="flex justify-center" v-if="quizPopup" @click="isPopupClicked">
@@ -26,10 +26,16 @@ import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
 const popup = ref(false);
 const router = useRouter();
+
 const isPopupClicked = function () {
   popup.value = !popup.value;
-  router.push({ name: 'NotificationPageView', });
+  if(pushedData.value.notificationType == 4) {
+    router.push({name : 'DMListView', params : {id : userStore.kakaoUserInfo['id']} })
+  } else {
+    router.push({ name: 'NotificationPageView', });
+  }
 }
+
 const quizPopup = ref(false);
 const pushedData = ref({});
 const lastEventId = ref(null);
@@ -62,9 +68,13 @@ const initSSE = () => {
     SSE.value.addEventListener('sse', (event) => {
       console.log(event.data);
       if (event.data != "SSE Connected.") {
-        userStore.isNotify = true;
         console.log("pushed!");
         pushedData.value = JSON.parse(event.data);
+        if(pushedData.value.notificationType == 4) {
+          userStore.isDMNotify = true;
+        } else {
+          userStore.isNotify = true;
+        }
         showPopup();
       }
 

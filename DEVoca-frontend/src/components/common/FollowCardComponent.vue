@@ -16,7 +16,7 @@
         <button v-if="followingState === 'N'" class="btn bg-devoca text-white"
           @click="followHandler(followingState, userInfo.userId)">팔로우</button>
         <button v-else class="btn border-devoca text-devoca"
-          @click="followHandler(followingState, userInfo.userId)">팔로우</button>
+          @click="followHandler(followingState, userInfo.userId)">팔로잉</button>
       </div>
     </div>
   </router-link>
