@@ -63,6 +63,7 @@
     <!--  sql: 대결 이겼는지 여부 가져오기  -->
     <sql id="loadBattleWinYN">
         select case
+                   when battle_to_date is null then 3
                    when fk_battle_from_user_idx = #{loginUserIdx} then
                        if(battle_from_score = battle_to_score, 2,
                           if(battle_from_score > battle_to_score, 1, 0))
@@ -212,6 +213,7 @@
              left join cards c on vlc_wc_id = c.card_id and vlc_wc_select = 2
              left join words w2 on c.card_word_id = w2.word_id and vlc_wc_select = 2
         where vlc_sl_id = #{vocaListId}
+        order by rand()
         limit #{wordCnt};
     </select>
 

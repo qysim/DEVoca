@@ -16,7 +16,7 @@ import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
-import AlarmPageView from '@/views/feed/AlarmPageView.vue'
+import NotificationPageView from '@/views/feed/NotificationPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardRepostView from '@/views/card/CardRepostView.vue'
@@ -37,6 +37,7 @@ import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
 import QuizPageComponent from '@/components/quiz/QuizPageComponent.vue'
 import BattleDetailView from '@/views/Quiz/BattleDetailView.vue'
+import QuizPopupView from '@/views/Quiz/QuizPopupView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -129,9 +130,9 @@ const router = createRouter({
           component : SelectInterestsChangeView
         },
         {
-          path : '/alarm/:id',
-          name : 'AlarmPageView',
-          component : AlarmPageView
+          path : '/notify',
+          name : 'NotificationPageView',
+          component : NotificationPageView
         },
         // feed
         {
@@ -224,6 +225,11 @@ const router = createRouter({
           path : '/quizlist',
           name : 'QuizListView',
           component : QuizListView,
+        },
+        {
+          path : '/quizpopup',
+          name : 'QuizPopupView',
+          component : QuizPopupView,
         },
         {
           path : '/quizdetail/:quizId',

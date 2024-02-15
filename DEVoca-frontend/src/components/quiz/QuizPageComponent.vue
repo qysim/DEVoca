@@ -1,8 +1,8 @@
 <template>
     <QuizResultComponent0 v-if="showModal0"
-    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr" :wordNameEn="props.quizList[index].wordNameEn"/>
     <QuizResultComponent1 v-if="showModal1"
-    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr"/>
+    :wordSumm="props.quizList[index].wordSumm" :wordNameKr="props.quizList[index].wordNameKr" :wordNameEn="props.quizList[index].wordNameEn"/>
     <QuizFinishComponent v-if="showModal2"
     :Qnum="props.quizList.length" :Anum="score/10*props.quizList.length" :score="score" />
     <div v-if="!showModal" class="card bg-white shadow-xl m-2 w-96 h-fit flex flex-col items-center p-12">
@@ -14,8 +14,9 @@
           <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text" placeholder="답을 입력하세요" aria-label="Answer" v-model="answer"/>
         </div>
+        <div v-if="!answerYN" class="text-[red]">답을 입력해주세요!</div>
         <div class="flex justify-end">
-          <button class="mt-2 flex-shrink-0 bg-devoca hover:bg-devoca_sky text-sm text-white py-1 px-4 rounded-3xl"
+          <button class="mt-2 flex-shrink-0 bg-devoca text-sm text-white py-1 px-4 rounded-3xl"
           type="button" @click="goNext">
             제 출
           </button>
@@ -37,7 +38,7 @@
   const router = useRouter();
   const { index } = route.params;
   const pageIndex = Number(index) + 1;
-  const answer = ref(null);
+  const answer = ref("");
   const quizYn = ref(0);
   const score = ref(0);
   const showModal = ref(false);
@@ -68,12 +69,16 @@
     },
   });
   
+  const answerYN = ref(true);
+
   let Question = props.quizList[index].wordSumm;
   Question = Question.replaceAll(props.quizList[index].wordNameKr, " [ ? ] ");
+  Question = Question.replaceAll(props.quizList[index].wordNameEn, " [ ? ] ");
+  Question = Question.replaceAll(props.quizList[index].wordNameEn.toLowerCase(), " [ ? ] ");
   
   const grading = function () {
     if (answer.value == props.quizList[index].wordNameKr
-    || answer.value == props.quizList[index].wordNameEn) {
+    || answer.value.toLowerCase() == props.quizList[index].wordNameEn.toLowerCase()) {
       quizYn.value = 1;
     }
     const quizAnswer = {
@@ -85,18 +90,22 @@
   }
 
   const goNext = function () {
-    // 채점하고 결과에 따라 모달 띄우기
-    grading();
-    showModal.value = true;
-    if (quizYn.value == 0) {
-      showModal0.value = true;
-    } else if(quizYn.value == 1) { 
-      showModal1.value = true;
+    if(answer.value.length == 0) {
+      answerYN.value = false;
+    } else {
+      // 채점하고 결과에 따라 모달 띄우기
+      grading();
+      showModal.value = true;
+      if (quizYn.value == 0) {
+        showModal0.value = true;
+      } else if(quizYn.value == 1) { 
+        showModal1.value = true;
+      }
+      setTimeout(() => {
+        timeout();
+      }, 3000);
+      }
     }
-    setTimeout(() => {
-      timeout();
-    }, 5000);
-  }
 
   const timeout = function () {
     // 마지막 문제 아니면 다음 문제로 넘기기

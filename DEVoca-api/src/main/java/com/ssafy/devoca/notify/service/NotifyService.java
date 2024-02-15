@@ -71,8 +71,10 @@ public class NotifyService {
         NotifyDTO notifyDTO = new NotifyDTO(userIdx, notificationType, notificationLinkId, null, false);
         notifyDTO.setNotificationId(createEId(userIdx));
         log.info("notifyDTO 생성 완료");
-        // 알림 DB에 저장
-        notifyMapper.saveNotify(notifyDTO);
+        // DM 제외 알림 DB에 저장
+        if(notificationType != 4){
+            notifyMapper.saveNotify(notifyDTO);
+        }
         log.info("notifyDTO DB 저장 완료");
 
         String eventId = notifyDTO.getNotificationId();
@@ -91,9 +93,9 @@ public class NotifyService {
     }
 
     // 알림창 조회 메서드
-    public  List<NotifyDTO> getNotification(int scroll, int loginUserIdx) throws Exception{
+    public  List<NotifyDTO> getNotification(int loginUserIdx) throws Exception{
         // 알림 가져오기
-        List<NotifyDTO> notifyDTOList = notifyMapper.getNotification(scroll * 10, loginUserIdx);
+        List<NotifyDTO> notifyDTOList = notifyMapper.getNotification(loginUserIdx);
         // 지금까지의 모든 알림 isRead true로 바꾸기
         notifyMapper.updateNotificationReadYN(loginUserIdx);
         return notifyDTOList;

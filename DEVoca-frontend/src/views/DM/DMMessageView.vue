@@ -42,9 +42,6 @@
         <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
-            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
-            </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
@@ -66,9 +63,6 @@
         <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
-            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
-            </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>

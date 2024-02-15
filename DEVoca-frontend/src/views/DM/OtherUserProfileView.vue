@@ -12,7 +12,7 @@
       <button class="btn btn-sm w-24 bg-devoca text-white" @click="dmHandler(userInfo.userId)">DM</button>
     </div>
     <div>
-      <button class="btn btn-sm w-24 mr-5 bg-devoca text-white">VS</button>
+      <button class="btn btn-sm w-24 mr-5 bg-devoca text-white" @click="selectModal()">VS</button>
     </div>
   </div>
   <h2 class="mx-6 mt-8 font-bold text-lg">{{ userInfo.userNickName }}님의 글</h2>
@@ -22,6 +22,9 @@
   <div v-else>
     <p>작성한 글이 없습니다.</p>
   </div>
+  <dialog id="FightPopupModal" class="modal sm:modal-middle" :class="{'modal-open': isShowModal}">
+    <FightPopupComponent v-if="isShowModal" @close-modal="isShowModal=false" :oppoUserId="userId"/>
+  </dialog>
 </template>
 
 <script setup>
@@ -31,6 +34,7 @@ import { getOtherUserInfo } from '@/api/user.js'
 import { getRoomUuid } from '@/api/dm'
 import { followUser, unfollowUser } from "@/api/mypage"
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
+import FightPopupComponent from '@/components/quiz/FightPopupComponent.vue'
 import { getCardListByUserId } from "@/api/card"
 import CardComponent from "@/components/feed/CardComponent.vue";
 
@@ -72,5 +76,11 @@ const dmHandler = (id) => {
       params: { roomUuid: res.data }
     })
   }, null)
+}
+
+const isShowModal = ref(false);
+
+const selectModal = () => {
+  isShowModal.value = true;
 }
 </script>

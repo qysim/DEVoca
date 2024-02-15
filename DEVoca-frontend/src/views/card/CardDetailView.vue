@@ -26,25 +26,23 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import CardDetailComponent from '@/components/feed/CardDetailComponent.vue'
 import CardCommentComponent from "@/components/feed/CardCommentComponent.vue"
 import { getCardDetail, getCommentList, registComment } from '@/api/card'
 
 const route = useRoute()
-const cardId = route.params.id
 const card = ref(null)
-const inputComment = ref(null)
+const inputComment = ref('')
 const hasCommentResults = ref(false)
 const commentList = ref([])
 
 const submitComment = () => {
   const commentInfo = {
-    cardBoardId: cardId,
+    cardBoardId: route.params.id,
     flag: 'card',
     commentContent: inputComment.value
   }
-  // console.log(commentInfo)
   registComment(commentInfo, (res) => {
     inputComment.value = ''
     updateComments()
@@ -54,27 +52,37 @@ const submitComment = () => {
 }
 
 const updateComments = () => {
-  getCommentList(cardId, (res) => {
+  getCommentList(route.params.id, (res) => {
     hasCommentResults.value = res.data.length > 0
     if (!hasCommentResults.value) return
     commentList.value = res.data
-    console.log(res.data)
+  }, (err) => {
+    console.log(err)
+  })
+}
+
+const ReloadCard = (id) => {
+    getCardDetail(id, (res) => {
+    card.value = res.data
+    updateComments()
   }, (err) => {
     console.log(err)
   })
 }
 
 onMounted(() => {
-  getCardDetail(cardId, (res) => {
+  getCardDetail(route.params.id, (res) => {
     card.value = res.data
+    updateComments()
   }, (err) => {
     console.log(err)
   })
+})
 
-  updateComments()
+onBeforeRouteUpdate(async (to, from, next) => {
+  if (to.params.id !== from.params.id) {
+    ReloadCard(to.params.id)
+    next()
+  }
 })
 </script>
-
-<style scoped>
-
-</style>

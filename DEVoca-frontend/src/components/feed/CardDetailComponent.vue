@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AvartarComponent from '@/components/common/AvatarComponent.vue'
 import WordComponent from "@/components/word/WordComponent.vue"
 import CardIconComponent from "@/components/feed/CardIconComponent.vue"
@@ -44,14 +44,15 @@ const userStore = useUserStore()
 const props = defineProps({
   card: Object
 })
-// console.log(props.card)
 
-const userInfo = ref({
-  userId: props.card.userId,
-  userImg: props.card.userImg,
-  userIntro: props.card.userIntro,
-  userNickName: props.card.userNickName,
-  cardRegistDate: props.card.cardRegistDate
+const userInfo = computed(() => {
+  return {
+    userId: props.card.userId,
+    userImg: props.card.userImg,
+    userIntro: props.card.userIntro,
+    userNickName: props.card.userNickName,
+    cardRegistDate: props.card.cardRegistDate
+  }
 })
 
 const word = ref({

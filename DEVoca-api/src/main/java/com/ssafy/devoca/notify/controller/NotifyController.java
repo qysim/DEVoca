@@ -40,7 +40,7 @@ public class NotifyController {
         log.info("getNotification 호출 : 알림창 조회");
         try{
             int loginUserIdx = userService.loadUserIdx(token);
-            List<NotifyDTO> notifyDTOList = notifyService.getNotification(scroll, loginUserIdx);
+            List<NotifyDTO> notifyDTOList = notifyService.getNotification(loginUserIdx);
             return ResponseEntity.status(HttpStatus.OK).body(notifyDTOList);
         }catch (Exception e){
             log.error("알림창 조회 실패", e);

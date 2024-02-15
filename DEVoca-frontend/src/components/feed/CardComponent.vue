@@ -30,7 +30,6 @@ const router = useRouter()
 const props = defineProps({
   card: Object
 })
-// console.log(props.card)
 
 const userInfo = ref({
   userId: props.card.userId,
