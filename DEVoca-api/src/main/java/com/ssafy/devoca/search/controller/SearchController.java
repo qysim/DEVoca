@@ -28,6 +28,7 @@ public class SearchController {
                                                     ,@RequestBody String keyword){
         log.info("saveSearchKeyword 호출 : 검색 키워드 저장 요청");
         try{
+            keyword = keyword.replaceAll("\"", "");
             int loginUserIdx = userService.loadUserIdx(token);
             searchService.saveSearchKeyword(keyword, loginUserIdx);
             return ResponseEntity.status(HttpStatus.CREATED).build();

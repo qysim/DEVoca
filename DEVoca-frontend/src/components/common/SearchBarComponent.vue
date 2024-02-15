@@ -30,7 +30,6 @@ const searchInput = ref(route.query.q)
 const searchBtnHandler = () => {
   // 입력이 없는 경우
   if (searchInput.value === "" || searchInput.value === undefined) return
-
   // 검색어 저장
   saveSearchKeyword(searchInput.value, () => {
     console.log("검색어 저장 완료");
