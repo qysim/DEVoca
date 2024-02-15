@@ -269,8 +269,12 @@ const isShowModal = ref(false);
 const dmBattleQuizId = ref(0);
 
 const selectModal = (battleQuizid) => {
-  dmBattleQuizId.value = battleQuizid;
-  isShowModal.value = true;
+  if(battleQuizid === -1) {
+    alert("이미 참여한 대결입니다.");
+  } else {
+    dmBattleQuizId.value = battleQuizid;
+    isShowModal.value = true;
+  }
 }
 
 </script>
