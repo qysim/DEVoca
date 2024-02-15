@@ -22,8 +22,8 @@ export function getCardListByUserId(param, success, fail) {
   }).then(success).catch(fail)
 }
 
-export function getCardDetail(cardId, success, fail) {
-  local.get(`/card/${cardId}`, {
+export async function getCardDetail(cardId, success, fail) {
+  await local.get(`/card/${cardId}`, {
     headers: {
       token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }
