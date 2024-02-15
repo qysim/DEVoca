@@ -28,7 +28,7 @@
 import { ref } from "vue"
 
 const props = defineProps({
-  comment: Array
+  comment: Object
 })
 
 const datetime = new Date(props.comment.commentRegistDate)
