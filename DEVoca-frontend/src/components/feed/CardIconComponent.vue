@@ -11,9 +11,9 @@
     <div class="flex gap-4">
       <div class="flex gap-2">
         <!-- 좋아요 -->
-        <label class="swap swap-flip ">
-          <input type="checkbox" @click="likeCards(card.cardLikeYN)" v-model="card.cardLikeYN"/>
-          <div class="swap-on"><LikeIcon :class="{'stroke-devoca' : isLike }" /></div>
+        <label class="swap swap-flip">
+          <input type="checkbox" @click="likeCards()" v-model="card.cardLikeYN"/>
+          <div class="swap-on"><LikeIcon class="stroke-devoca" /></div>
           <div class="swap-off"><LikeIcon /></div>
         </label>
         <p class="mt-1">{{ card.cardLikeCnt }}</p>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import ShareIcon from "@/components/icon/ShareIcon.vue"
 import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
 import LikeIcon from "@/components/icon/LikeIcon.vue"
@@ -61,22 +61,14 @@ const loadVocalist = () => {
   checkVocaList(props.card.cardId, (res) => {
     vocalistInfo.value = res.data
     vocalistInfo.value.forEach((obj) => {obj.cardId = props.card.cardId})
-    // console.log(props.card.cardId, vocalistInfo.value)
   }, (err) => {
     console.log(err)
   })
 }
 
-const isLike = computed(() => {
-
-  return props.card.cardLikeYN
-})
-
-const likeCards = (likeYn) => {
-  console.log(likeYn)
+const likeCards = () => {
   likeCard(props.card.cardId, {cardLikeYN : props.card.cardLikeYN}, (res) => {
-    console.log('좋아요 성공')
-    // 컴포넌트 재렌더링
+    props.card.cardLikeCnt += props.card.cardLikeYN ? 1 : -1
   }, (err) => {
     console.log(err)
   })

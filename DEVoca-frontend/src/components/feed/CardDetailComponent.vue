@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center m-2 relative">
-    <button class="btn btn-ghost absolute top-0 right-0 z-10" @click="deleteCards(card.cardId)" v-if="userStore.kakaoUserInfo.id === card.userId">
+    <button class="btn btn-ghost absolute -top-2 -right-2 z-10" @click="deleteCards(card.cardId)" v-if="userStore.kakaoUserInfo.id === card.userId">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
     <div class="card bg-base-100 shadow-xl w-full mt-2 pt-4">
