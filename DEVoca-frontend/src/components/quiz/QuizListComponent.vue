@@ -59,7 +59,7 @@ onMounted(() => {
       }
     } else {  // 대결이라면
       // 이미지, 순위 계산
-      switch (props.quiz.battleWinYn) {
+      switch (props.quiz.battleWinYN) {
         case 1:
           type.value = 4;
           break;
