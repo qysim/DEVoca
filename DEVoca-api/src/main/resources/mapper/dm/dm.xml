@@ -53,9 +53,12 @@
 
     <!-- getDmList 쿼리 -->
     <select id="getDmList" resultMap="DmResultMap">
-        select u.user_id, dm.dm_content, dm.dm_send_date, dm.dm_battle_quiz_id
+        select u.user_id, dm.dm_content, dm.dm_send_date,
+               case when b.battle_from_date is not null and b.battle_to_date is not null then -1
+                   else dm.dm_battle_quiz_id end as dm_battle_quiz_id
         from dm_messages dm join users u
             on dm.fk_dm_user_idx = u.user_idx
+            left join battles b on dm.dm_battle_quiz_id = b.fk_battle_quiz_id
         where fk_dm_dr_idx = (select dr_idx from dm_rooms where dr_uuid = #{roomUuid})
         order by dm_send_date desc
         limit #{scroll}, 10;
