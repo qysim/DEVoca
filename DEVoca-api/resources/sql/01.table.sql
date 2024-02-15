@@ -176,7 +176,7 @@ CREATE TABLE `dm_participants` (
     CONSTRAINT `PK_DM_PARTICIPANTS` PRIMARY KEY (`dp_dr_idx`, `dp_user_idx`)
 )default character set utf8mb4;
 
-CREATE TABLE `dms` (
+CREATE TABLE `dm_messages` (
     `dm_id`	int	NOT NULL	auto_increment,
     `fk_dm_dr_idx`	int	NOT NULL,
     `fk_dm_user_idx`	int	NOT NULL,
