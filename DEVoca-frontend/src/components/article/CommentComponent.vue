@@ -18,9 +18,9 @@
         <hr class="mt-1 mb-2">
         <div class="flex justify-between">
           <p class="ml-3">{{ comment.commentContent }}</p>
-          <div class="flex justify-end">
+          <!-- <div class="flex justify-end">
             <button class="btn btn-sm text-white text-lg" :class="{ 'bg-devoca': comment.commentPicked }">채택</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
