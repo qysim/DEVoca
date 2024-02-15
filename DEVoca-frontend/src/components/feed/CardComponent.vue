@@ -6,7 +6,7 @@
       <!-- 본문 -->
       <div class="card-body p-4">
         <div @click="goCardDetail(card.cardId)">
-          <WordComponent :word="word" v-if="card.originCardId === 0" />
+          <WordComponent :word="word" v-if="card.originCardId === null || card.originCardId === 0" />
           <OriginCardComponent :card="originCard" v-else />
 
           <div class="m-2" v-html="card.cardContent"></div>
