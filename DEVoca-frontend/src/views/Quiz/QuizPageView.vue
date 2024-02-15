@@ -26,6 +26,7 @@ onMounted(() => {
   quizId.value = route.query.quizId;
   battleYn.value = route.query.battleYn;
 
+  console.log(quizId.value);
   getQuiz(quizId.value, (data) => {
     quizList.value = data.data;
     console.log(quizList.value);

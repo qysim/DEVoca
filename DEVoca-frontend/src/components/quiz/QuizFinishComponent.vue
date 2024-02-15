@@ -6,15 +6,21 @@
       <div class="relative">
         <p class="text-3xl font-jalnan mt-5">퀴즈 종료!</p>
       </div>
+      <div class="flex">
+        <img v-if="score > 0" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Party%20Popper.png" alt="Party Popper" width="50" height="50" />
+        <img v-if="score == 0" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20Holding%20Back%20Tears.png" alt="Face Holding Back Tears" width="50" height="50" />
+        <p class="mt-5 mx-2 text-center w-auto text-base">{{ Qnum }} 문제 중 {{ Anum }}개 정답</p>
+        <img v-if="score > 0" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Party%20Popper.png" alt="Party Popper" width="50" height="50" />
+        <img v-if="score == 0" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20Holding%20Back%20Tears.png" alt="Face Holding Back Tears" width="50" height="50" />
+      </div>
       <div>
-        <p class="mt-5 text-sm">{{ Qnum }} 문제 중 {{ Anum }}개 정답으로..</p>
-        <div class="w-80 mb-5 p-5 rounded-lg bg-slate-200 text-amber-500 flex justfy-center text-center">
-          <p class="text-xl text-amber-500">{{ score*10 }}점</p>
+        <div class="w-80 mb-5 p-5 rounded-lg text-amber-500 flex justfy-center text-center">
+          <p class="text-3xl text-devoca font-bold">{{ Math.ceil(score*10) }}점</p>
         </div>
         <div class="flex justify-evenly">
           <button class="mt-2 flex-shrink-0 bg-devoca_sky hover:bg-devoca_skyblue text-sm text-devoca py-1 px-4 rounded-3xl"
             type="button" @click="goQuizList">
-            등수 확인하러 가기
+            결과 확인하기
           </button>
           <button class="mt-2 flex-shrink-0 bg-devoca_sky hover:bg-devoca_skyblue text-sm text-devoca py-1 px-4 rounded-3xl"
           type="button" @click="goMain">
