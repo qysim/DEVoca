@@ -55,7 +55,11 @@ const submitBoard = function() {
 
   createBoard(inputData.value, 
     (res) => {
-      router.push({ name: 'ArticleView' });
+      if (inputData.value.boardType == 2) {
+        router.push({ name: 'SearchView' });
+      } else {
+        router.push({ name: 'ArticleView' });
+      }
     }, 
     (err) => {
       console.log(`err : ${err}`);
