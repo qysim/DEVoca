@@ -1,9 +1,7 @@
 <template>
   <div class="navbar bg-base-100 fixed top-0 right-0 left-0 z-20 ">
-    <div class="navbar-start ml-2">
-      <router-link :to="{ name : 'MainView'}">
-        <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-1/2 max-h-16" alt="devoca_logo">
-      </router-link>
+    <div class="navbar-start ml-1">
+        <img src="@/assets/images/DEVoca_logo_en_only.png" class="size-7/12 max-h-16" alt="devoca_logo" @click="goMainOrTop">
     </div>
 
     <!-- 알림페이지 연결 후 swap 기능 구현 예정 -->
@@ -31,10 +29,11 @@
 </template>
 
 <script setup>
-
-import router from '@/router';
+import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 
+const route = useRoute()
+const router = useRouter()
 const userStore = useUserStore()
 
 const goDM = (userId) => {
@@ -44,6 +43,14 @@ const goDM = (userId) => {
 const goNotification = () => {
   router.push({name : 'NotificationPageView'});
 };
+
+const goMainOrTop = () => {
+  if (route.name != 'FeedListView') {
+    router.push({name: 'MainView'})
+  } else {
+    document.getElementById("appView").scrollTo({top: 0, behavior: 'smooth'})
+  }
+}
 </script>
 
 <style scoped>
