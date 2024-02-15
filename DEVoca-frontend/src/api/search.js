@@ -3,8 +3,7 @@ import { localAxios } from '@/util/http-commons'
 const local = localAxios()
 
 export function saveSearchKeyword(keyword, success, fail) {
-  local.post(`/search`, {
-    params: {keyword: keyword},
+  local.post(`/search`, keyword, {
     headers: {
       token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }
