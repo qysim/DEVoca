@@ -1,8 +1,8 @@
 {
   "name": "DEVoca",
   "short_name": "DEVoca",
-  "start_url": "https://i10d112.p.ssafy.io/login",
-  "scope": "https://i10d112.p.ssafy.io/",
+  "start_url": "/login",
+  "scope": ".",
   "background_color": "#fafafa",
   "theme_color": "#00B4D8",
   "display": "standalone",

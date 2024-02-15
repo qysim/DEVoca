@@ -17,10 +17,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { createVocaList, getVocaList } from '@/api/vocalist'
+import { createVocaList } from '@/api/vocalist'
 
-const router = useRouter()
 const inputName = ref('')
 const emit = defineEmits(['newVocalist'])
 
@@ -34,6 +32,7 @@ const makeNewVocalist = () => {
       emit('newVocalist')
       const vocalistModal = document.getElementById('NewVocalist')
       vocalistModal.close()
+      inputName.value = ''
     }, (err) => {
       console.log(err)
     })
