@@ -71,8 +71,10 @@ public class NotifyService {
         NotifyDTO notifyDTO = new NotifyDTO(userIdx, notificationType, notificationLinkId, null, false);
         notifyDTO.setNotificationId(createEId(userIdx));
         log.info("notifyDTO 생성 완료");
-        // 알림 DB에 저장
-        notifyMapper.saveNotify(notifyDTO);
+        // DM 제외 알림 DB에 저장
+        if(notificationType != 4){
+            notifyMapper.saveNotify(notifyDTO);
+        }
         log.info("notifyDTO DB 저장 완료");
 
         String eventId = notifyDTO.getNotificationId();
