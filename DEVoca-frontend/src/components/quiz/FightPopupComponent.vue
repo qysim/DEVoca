@@ -5,10 +5,9 @@
     </form>
     <div class="card-body p-8 w-80 flex flex-col justify-center content-center self-center">
       <div class="w-full mt-1 flex">
-        <p class="m-3 self-center text-lg">도전할 단어장을 선택하세요.</p>
+        <p class="self-center text-lg">도전할 단어장을 선택하세요.</p>
       </div>
-      <select v-model="selectedVocaList" @change="vocaListSelect" placeholder="Example placeholder" class="my-3 text-center text-base border-devoca select select-bordered w-full max-w-xs">
-        <option disabled value="">단어장 선택</option>
+      <select v-model="selectedVocaList" @change="vocaListSelect" class="my-3 text-center text-base border-devoca select select-bordered w-full max-w-xs">
         <optgroup label="도전자의 단어장">
           <option v-for="(vocalist, index) in vocaListMe" :key="index" :value="vocalist">{{ vocalist.vocalistName }}</option>
         </optgroup>
@@ -18,7 +17,7 @@
       </select>
       <form @submit.prevent="" class="max-w-xs mx-auto">
         <label for="counter-input" class="block mb-2 text-base font-medium text-gray-900">문제 수</label>
-        <div class="relative flex items-center">
+        <div class="relative">
           <button type="button" id="decrement-button" @click="decreaseCnt" data-input-counter-decrement="counter-input"
             class="flex-shrink-0 bg-devoca_sky inline-flex items-center justify-center border border-gray-300 rounded-md h-6 w-6 focus:ring-gray-100 focus:ring-2 focus:outline-none">
             <svg class="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
