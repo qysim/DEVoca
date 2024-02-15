@@ -18,7 +18,7 @@ DEVoca는 개발 용어(이하 단어)와 설명을 피드에 올리고, 다른 
 
 ## 실행 방법
 
-- 개발 환경 실행은 [FE README](./DEVoca-frontend/README.md), [API README](./DEVoca-api/README.md) 참고.
+- 개발 환경 실행은 [포팅 매뉴얼](exec/1.BuildAndDeploy.md) 참고.
 
 ## 시스템 구조도
 
