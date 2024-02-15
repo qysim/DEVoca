@@ -41,6 +41,8 @@ const props = defineProps({
 })
 
 onMounted(() => {
+  console.log(props.quiz.battleId);
+
     if (props.quiz.battleId == null || props.quiz.battleId == 0 ) { // 게릴라 퀴즈라면
       // 이미지, 순위 계산
       switch (props.quiz.rank) {
@@ -74,7 +76,7 @@ onMounted(() => {
           break;
       }
   }
-  battleYn.value = type.value / 4;
+  battleYn.value = Math.floor(type.value / 4);
   imgRank.value[type.value] = true;
 })
 
