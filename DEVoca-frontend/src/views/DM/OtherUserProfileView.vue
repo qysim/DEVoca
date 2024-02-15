@@ -6,7 +6,7 @@
         class="btn btn-sm w-24 ml-5 bg-devoca text-white"
         @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
       <button v-else class="btn btn-sm w-24 ml-5 border-devoca text-devoca"
-        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로우</button>
+        @click="followHandler(userInfo.followingYn, userInfo.userId)">팔로잉</button>
     </div>
     <div>
       <button class="btn btn-sm w-24 bg-devoca text-white" @click="dmHandler(userInfo.userId)">DM</button>
