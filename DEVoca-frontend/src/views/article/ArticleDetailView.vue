@@ -1,12 +1,9 @@
 <template>
-  <div class="flex my-2 ml-5">
-    <p class="text-2xl">Q<span class="text-devoca">&</span>A</p>
-  </div>
   <ArticleDetailComponent :key="boardInfo" :board="boardInfo" />
   <p class="ml-5 mt-5">댓글 {{ comments.length }}개</p>
   <div class="mb-14">
     <div v-for="comment in comments" :key="comment.commentId">
-      <CommentComponent :comment="comment" />
+      <CommentComponent :comment="comment" @update-comments="updateComments"/>
     </div>
   </div>
   <div class="input-container flex mt-4 fixed bottom-16 left-0 right-0 bg-base-100">

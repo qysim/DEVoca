@@ -15,8 +15,15 @@
 </template>
 
 <script setup>
-defineProps({
+import { onMounted } from 'vue'
+const props = defineProps({
   word: Object,
   isOrigin: Boolean
+})
+
+onMounted(() => {
+  if (props.word.wordDef && props.word.wordDef.length > 20) {
+    props.word.wordSumm = props.word.wordDef.slice(0, 50) + '...'
+  }
 })
 </script>

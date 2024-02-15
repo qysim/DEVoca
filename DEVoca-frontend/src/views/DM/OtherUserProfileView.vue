@@ -20,7 +20,7 @@
     <CardComponent v-for="(card, index) in cardList" :key="index" :card="card" />
   </div>
   <div v-else>
-    <p>작성한 글이 없습니다.</p>
+    <p class="ml-2">작성한 글이 없습니다.</p>
   </div>
   <dialog id="FightPopupModal" class="modal sm:modal-middle" :class="{'modal-open': isShowModal}">
     <FightPopupComponent v-if="isShowModal" @close-modal="isShowModal=false" :oppoUserId="userId"/>
