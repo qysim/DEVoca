@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 import LoginView from '@/views/MembershipManagement/LoginView.vue'
 import SignupView from '@/views/MembershipManagement/SignupView.vue'
 import SelectInterestsView from '@/views/MembershipManagement/SelectInterestsView.vue'
@@ -15,7 +16,6 @@ import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
-import PasswordChangeView from '@/views/Mypage/PasswordChangeView.vue'
 import AlarmPageView from '@/views/feed/AlarmPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
@@ -129,11 +129,6 @@ const router = createRouter({
           component : SelectInterestsChangeView
         },
         {
-          path : '/passwordchange',
-          name : 'PasswordChangeView',
-          component : PasswordChangeView
-        },
-        {
           path : '/alarm/:id',
           name : 'AlarmPageView',
           component : AlarmPageView
@@ -158,7 +153,6 @@ const router = createRouter({
           path: '/card/detail/:id',
           name: 'CardDetailView',
           component: CardDetailView,
-          props: true
         },
         // word
         {
@@ -252,6 +246,23 @@ const router = createRouter({
       component: RouterErrorView,
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
+      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
+    next()
+  } else {
+    // 로그인 여부 확인
+    const userStore = useUserStore()
+    if (userStore.kakaoUserInfo.id) {
+      next()
+    } else {
+      // 로그인하지 않은 경우 로그인 페이지로 리디렉션
+      next({name: 'LoginView'})
+    }
+  }
 })
 
 export default router

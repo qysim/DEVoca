@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col items-center ml-12 mr-8 my-4">
     <div class="flex flex-row w-full justify-center" v-for="vocalist in vocalistInfo">
-      <RouterLink :to="{name: 'VocalistDetailView', params: {id: vocalist.vocalistId}}" class="btn btn-lg w-full bg-base-100 shadow-xl flex justify-between my-2">
+      <RouterLink :to="{name: 'VocalistDetailView', params: {id: vocalist.vocalistId}, state: {vocalistName: vocalist.vocalistName}}" 
+        class="btn btn-lg w-full bg-base-100 shadow-xl flex justify-between my-2">
         <p>{{ vocalist.vocalistName }}</p>
         <RightArrowIcon />
       </RouterLink>

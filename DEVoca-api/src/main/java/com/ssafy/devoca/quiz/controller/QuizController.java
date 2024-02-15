@@ -132,7 +132,7 @@ public class QuizController {
     }
 
     @PostMapping("/battle")
-    public ResponseEntity<String> createBattle(@RequestHeader("token") String token,
+    public ResponseEntity<Integer> createBattle(@RequestHeader("token") String token,
                                                @RequestBody BattleRequestDTO battleRequestDTO){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");
         try{
@@ -186,7 +186,7 @@ public class QuizController {
             // 푸시 알림 보내기
             notifyService.send(toUserIdx, 4, roomIdx);
 
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).body(quizId);
         }catch (Exception e){
             log.error("퀴즈 생성 실패 : {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
