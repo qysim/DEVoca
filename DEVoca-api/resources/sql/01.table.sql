@@ -464,3 +464,6 @@ ALTER TABLE `notifications` ADD CONSTRAINT `FK_users_TO_Notifications_1` FOREIGN
 REFERENCES `users` (
     `user_idx`
 );
+
+ALTER TABLE voca_list_cards DROP FOREIGN KEY FK_voca_lists_TO_voca_list_cards_1;
+ALTER TABLE voca_list_cards ADD CONSTRAINT FK_voca_lists_TO_voca_list_cards_1 FOREIGN KEY (vlc_sl_id) REFERENCES voca_lists (vl_id) ON DELETE CASCADE;
