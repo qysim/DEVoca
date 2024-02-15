@@ -20,7 +20,7 @@
       </div>
       <!-- 리포스트 -->
       <div class="flex gap-2">
-        <RepostIcon @click="goRepost(card)"/>
+        <RepostIcon @click="goRepost()"/>
         <p class="mt-1">{{ card.cardRepostCnt }}</p>
       </div>
     </div>
@@ -33,13 +33,11 @@ import ShareIcon from "@/components/icon/ShareIcon.vue"
 import BookmarkIcon from "@/components/icon/BookmarkIcon.vue"
 import LikeIcon from "@/components/icon/LikeIcon.vue"
 import RepostIcon from "@/components/icon/RepostIcon.vue"
-import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { likeCard } from '@/api/card'
 import { checkVocaList } from '@/api/vocalist'
 import VocalistSelectModal from '@/components/vocalist/VocalistSelectModal.vue'
 
-const userStore = useUserStore()
 const router = useRouter()
 const props = defineProps({
   card: Object
@@ -74,32 +72,8 @@ const likeCards = () => {
   })
 }
 
-// TODO : 전달할 데이터 정의하기
 const goRepost = () => {
-  // const cardInfo = {
-  //   userId: card.userId, // 리포스트하는 유저아이디
-  //   cardId: null,
-  //   cardContent: card.cardContent, //새로 추가하는 내용
-  //   cardLink: card.cardLink, // 새로 작성하는 참고링크
-  //   cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-  //   originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
-  //   wordId: card.wordId // 조상 단어 id
-  // }
-  // repostCard(cardInfo, (res) => {
-  //   console.log(res)
-  // }, (err) => {
-  //   console.log(err)
-  // })
-  // router.push({name: 'CardRepostView', state: {
-  //   repostInfo : {
-  //       userId: userStore.kakaoUserInfo['id'], // 리포스트하는 유저아이디
-  //       cardId: props.card.cardId,
-  //       cardContent: props.card.cardContent, //새로 추가하는 내용
-  //       cardLink: props.card.cardLink, // 새로 작성하는 참고링크
-  //       cardRelatedKeywordList: props.card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-  //       originCardId: props.card.cardId, // 리포스트 대상이 되는 카드 id
-  //       wordId: props.card.wordId // 조상 단어 id
-  //   }}})
+  router.push({name: 'CardRepostView', state: props.card})
 }
 
 onMounted(() => {
