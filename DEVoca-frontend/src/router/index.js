@@ -101,16 +101,16 @@ const router = createRouter({
           name : 'MyBadgeView',
           component : MyBadgeView
         },
-        {
-          path : '/mycard',
-          name : 'MyCardView',
-          component : MyCardView
-        },
-        {
-          path : '/myboard',
-          name : 'MyBoardView',
-          component : MyBoardView
-        },
+        // {
+        //   path : '/mycard',
+        //   name : 'MyCardView',
+        //   component : MyCardView
+        // },
+        // {
+        //   path : '/myboard',
+        //   name : 'MyBoardView',
+        //   component : MyBoardView
+        // },
         {
           path: '/follow/:option',
           name : 'FollowView',

@@ -20,7 +20,7 @@
           <RightArrowIcon />
         </div>
       </RouterLink>
-      <RouterLink :to="{ name: 'MyBoardView' }">
+      <!-- <RouterLink :to="{ name: 'MyBoardView' }">
         <div class="flex justify-between py-4">
           <div>
             <p>나의 글</p>
@@ -35,7 +35,7 @@
           </div>
           <RightArrowIcon />
         </div>
-      </RouterLink>
+      </RouterLink> -->
       <RouterLink :to="{ name: 'QuizListView' }">
         <div class="flex justify-between py-4">
           <div>
