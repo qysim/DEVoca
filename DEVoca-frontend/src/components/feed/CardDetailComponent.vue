@@ -66,7 +66,11 @@ const originCard = ref({
   originUserImg: props.card.originUserImg,
   originUserNickName: props.card.originUserNickName,
   originCardId: props.card.originCardId,
-  originCardContent: props.card.originCardContent
+  originCardContent: props.card.originCardContent,
+  wordId: props.card.wordId,
+  wordNameEn: props.card.wordNameEn,
+  wordNameKr: props.card.wordNameKr,
+  wordSumm: props.card.wordSumm
 })
 
 const goWordDetail = function (wordId) {
