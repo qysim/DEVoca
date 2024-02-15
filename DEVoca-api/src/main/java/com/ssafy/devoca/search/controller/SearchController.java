@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/search")
+//@RequestMapping("/search")
 public class SearchController {
 
     private final SearchService searchService;
@@ -25,7 +25,7 @@ public class SearchController {
 
     @PostMapping("")
     public ResponseEntity<String> saveSearchKeyword(@RequestHeader("token") String token
-                                                    ,@RequestParam("keyword") String keyword){
+                                                    ,@RequestBody String keyword){
         log.info("saveSearchKeyword 호출 : 검색 키워드 저장 요청");
         try{
             int loginUserIdx = userService.loadUserIdx(token);

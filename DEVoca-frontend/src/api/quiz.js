@@ -49,7 +49,7 @@ export function getBattleResultDetail(quizId, success, fail) {
 }
 
 export function getBattleVocaList(oppoUserId, success, fail) {
-  local.get(`/quiz/battle/vocalist`, { params: {oppoUserId: oppoUserId}, 
+  local.get(`/quiz/battle/vocalist`, {params: {oppoUserId: oppoUserId}, 
     headers: {
         token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
     }
