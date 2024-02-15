@@ -86,7 +86,7 @@
         from cards c
             left join (<include refid="loadOriginCardInfo"></include>) rp
                         on c.card_origin_card_id = rp.card_id
-            left join likes l on c.card_id = l.like_to
+            left join likes l on c.card_id = l.like_to and l.like_from = #{userIdx}
             join (select vl.vl_id, vl.vl_name, vlc.vlc_wc_id, vlc.vlc_store_date
                     from voca_lists vl join voca_list_cards vlc on vl.vl_id = vlc.vlc_sl_id
                     where vl.vl_id = #{vocaListId} and vl.fk_vl_user_idx = #{userIdx}) vl on vl.vlc_wc_id = c.card_id
