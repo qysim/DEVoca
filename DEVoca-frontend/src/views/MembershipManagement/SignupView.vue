@@ -66,7 +66,7 @@ const submitUserInfo = function () {
 }
 
 onBeforeMount (() => {
-  if (userStore.kakaoUserInfo.token != null) {
+  if (!userStore.kakaoUserInfo.token) {
     router.push({ name: 'MainView' });
     alert("비정상적인 접근입니다.");
   }

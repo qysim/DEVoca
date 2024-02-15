@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public String joinUser(UserDTO userDTO) throws Exception {
+        userMapper.joinUser(userDTO);
         int userIdx = userDTO.getUserIdx();
+        userMapper.getBadge(userIdx, 3); // getting first badge
+        mypageMapper.followUser(userIdx, 6); // following æ_devoca bot
+
         VocalistDTO vocalistDTO = new VocalistDTO();
         vocalistDTO.setVocalistName("기본 단어장");
         vocalistDTO.setUserIdx(userIdx);
-
-        userMapper.joinUser(userDTO);
-        userMapper.getBadge(userIdx, 3); // getting first badge
-        mypageMapper.followUser(userIdx, 41); // following æ_devoca bot
         vocalistMapper.createVocaList(vocalistDTO); //creating vocalist
         String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
         log.info("accessToken : {}", accessToken);

@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between p-2">
-    <div class="flex gap-2">
+    <div class="flex gap-3">
       <!-- 링크 공유 -->
       <ShareIcon @click="doShare(card.cardId)"/>
       <!-- 단어장 저장하기 -->
@@ -9,19 +9,19 @@
         :vocalistInfo="vocalistInfo" @load-vocalist="loadVocalist" v-if="vocalistInfo"/>
     </div>
     <div class="flex gap-4">
+      <!-- 리포스트 -->
+      <div class="flex gap-2" v-if="card.originCardId === 0 || card.originCardId === null">
+        <RepostIcon @click="goRepost()"/>
+        <p class="mt-1">{{ card.cardRepostCnt }}</p>
+      </div>
+      <!-- 좋아요 -->
       <div class="flex gap-2">
-        <!-- 좋아요 -->
         <label class="swap swap-flip">
           <input type="checkbox" @click="likeCards()" v-model="card.cardLikeYN"/>
           <div class="swap-on"><LikeIcon class="stroke-devoca" /></div>
           <div class="swap-off"><LikeIcon /></div>
         </label>
         <p class="mt-1">{{ card.cardLikeCnt }}</p>
-      </div>
-      <!-- 리포스트 -->
-      <div class="flex gap-2">
-        <RepostIcon @click="goRepost()"/>
-        <p class="mt-1">{{ card.cardRepostCnt }}</p>
       </div>
     </div>
   </div>

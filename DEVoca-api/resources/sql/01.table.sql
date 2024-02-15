@@ -7,7 +7,7 @@ CREATE TABLE `users` (
     `user_nickname`	varchar(20)	NOT NULL	COMMENT 'null 시 user_name으로',
     `user_intro`	varchar(100)	NULL,
     `user_exp`	int	NOT NULL	DEFAULT 0,
-    `user_img`	varchar(2000)	NOT NULL	DEFAULT '/src/assets/images/profile.png',
+    `user_img`	varchar(2000)	NOT NULL	DEFAULT '/profile.png',
     `user_join_date`	datetime	NOT NULL	DEFAULT now(),
     `user_update_date`	datetime	NULL,
     `user_revoke_date`	datetime	NULL,
