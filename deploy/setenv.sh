@@ -29,8 +29,4 @@ touch .env
   echo "REDIS_USER=${REDIS_USER}";
   echo "REDIS_PASSWORD=${REDIS_PASSWORD}";
   echo "";
-  echo "MINIO_HOST=${MINIO_HOST}";
-  echo "MINIO_USER=${MINIO_USER}";
-  echo "MINIO_USER_PASSWORD=${MINIO_USER_PASSWORD}";
-  echo "";
 } > .env
