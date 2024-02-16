@@ -50,14 +50,6 @@ const param = ref(route.query.q)
 const option = ref('')
 
 const getSearchResults = () => {
-  // if (!userStore.kakaoUserInfo.id) {
-  //   const confirmResult = confirm("로그인이 필요한 서비스입니다. 로그인하시겠어요?")
-  // if (confirmResult) {
-  //   router.push({name: 'LoginView'})
-  // } else {
-  //   return
-  // }
-  // }
   if (param.value !== undefined) {
     getSearchResultWords(param.value,
       (res) => {
