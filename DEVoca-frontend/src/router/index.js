@@ -265,7 +265,7 @@ router.beforeEach((to, from, next) => {
   } else {
     // 로그인 여부 확인
     const userStore = useUserStore()
-    if (userStore.kakaoUserInfo.id) {
+    if (userStore.kakaoUserInfo?.id) {
       next()
     } else {
       // 로그인하지 않은 경우 로그인 페이지로 리디렉션

@@ -61,14 +61,21 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
 import { getUserBadge } from '@/api/user.js'
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
 import RightArrowIcon from '@/components/icon/RightArrowIcon.vue'
 
+const userStore = useUserStore()
 const userBadge = ref([])
 
 const logOut = () => {
   localStorage.clear()
+  userStore.kakaoUserInfo = {
+    id: null,
+    token: null,
+    userYn: false
+  }
   location.href="https://i10d112.p.ssafy.io/devoca/kakao/logout"
 }
 
