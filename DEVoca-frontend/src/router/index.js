@@ -260,12 +260,12 @@ router.beforeEach((to, from, next) => {
   // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
   console.log(to.path.startsWith('/search'))
   if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' || to.name === 'SearchResultView' 
-    || to.path === '/kakao/callback' || to.path.startsWith('/search')) {
+    || to.path === '/kakao/callback' || to.path.startsWith('/search') || to.path.startsWith('/search/result')) {
     next()
   } else {
     // 로그인 여부 확인
     const userStore = useUserStore()
-    if (userStore.kakaoUserInfo.id) {
+    if (userStore.kakaoUserInfo?.id) {
       next()
     } else {
       // 로그인하지 않은 경우 로그인 페이지로 리디렉션

@@ -7,7 +7,7 @@
         name="my_tabs_1" role="tab" aria-label="Q&A" />
     </div>
 
-    <div v-for="board in boards" :key="board.boardId">
+    <div v-for="board in reversedBoards" :key="board.boardId">
       <ArticleComponent :board="board" />
     </div>
   </div>
@@ -15,11 +15,16 @@
 
 <script setup>
 import ArticleComponent from '@/components/article/ArticleComponent.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { getBoardList } from '@/api/board';
 
 const boards = ref([]);
 const boardType = ref(0);
+
+// 역순으로 정렬된 배열 계산
+const reversedBoards = computed(() => {
+      return boards.value.slice().reverse(); // 기존 배열을 변경하지 않고 역순으로 정렬된 새 배열 반환
+    })
 
 const changeBoardType = (type) => {
   boardType.value = type;
