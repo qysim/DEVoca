@@ -1,23 +1,23 @@
 <template>
-  <div class="m-12 p-12 bg-white flex flex-col card shadow-3">
-    <div class="w-full h-20 rounded-lg">
+  <div class="m-8 p-12 bg-white flex flex-col card shadow-3">
+    <div class="w-full rounded-lg">
       <p class="text-3xl text-center font-jalnan">대결 퀴즈</p>
-      <p class="text-sm text-center">{{ formatDateTime(quizInfo.participateDate) }}</p>
-      <div class="mt-1 flex justify-evenly">
+      <p class="text-sm text-center my-2">{{ formatDateTime(quizInfo.participateDate) }}</p>
+      <div class="mt-1 flex justify-center">
         <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[0]"/>
         <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[1]"/>
         <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[2]"/>
         <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[3]"/>
-        <p class="self-center text-2xl font-jalnan text-amber-400">{{ txtRank[quizInfo.type] }}</p>
+        <p class="self-center ml-3 text-2xl font-jalnan text-amber-400">{{ txtRank[quizInfo.type] }}</p>
       </div>
-      <p class="text-xl text-center"> {{ correctCnt }} / {{ quizCnt }} </p>
+      <p class="text-xl text-center my-2"> {{ correctCnt }} / {{ quizCnt }} </p>
       <div class="text-end">
-        with.<div class="inline bg-orange-50" @click="goBattleUserProfile">
+        with. <div class="inline bg-orange-50" @click="goBattleUserProfile">
           {{ battleUserInfo.battleUserNickname }}</div>
       </div>
-      <hr class="bg-black">
+      <hr class="bg-black my-2">
     </div>
-    <div class="mt-24">
+    <div >
       <QuizDetailComponent class="mt-1" v-for="(quiz, index) in quizResultList"
       :key="index" :quiz="quiz" :index="index" v-if="quizResultList.length"/>
     </div>
@@ -52,7 +52,7 @@ onMounted(() => {
     quizAnswerDTOList.value = data.data[0].quizAnswerDTOList;
     score.value = data.data[0].score;
     quizCnt.value = quizAnswerDTOList.value.length;
-    correctCnt.value = score.value * 10 / quizCnt.value;
+    correctCnt.value = score.value / quizCnt.value;
 
     battleUserInfo.value = {
       ...battleUserInfo.value,

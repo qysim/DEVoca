@@ -1,9 +1,9 @@
 <template>
   <div class="p-3">
-    <OriginCardComponent :card="card" />
+    <OriginCardComponent :card="originCard" />
 
-    <form @submit.prevent="submitCard">
-      <textarea class="textarea textarea-bordered w-full h-[30vh] resize-none mb-2" placeholder="나누고 싶은 글을 적어주세요"
+    <form @submit.prevent="submitRepost">
+      <textarea class="textarea textarea-bordered w-full h-[25vh] resize-none my-3" placeholder="나누고 싶은 글을 적어주세요"
       v-model="inputData.cardContent"></textarea>
       
       <label class="form-control w-full mb-4">
@@ -32,46 +32,51 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 import { repostCard } from '@/api/card'
 import OriginCardComponent from '@/components/feed/OriginCardComponent.vue'
 
 const router = useRouter()
-const repostInfo = history.state.repostInfo
-console.log(repostInfo)
+const userStore = useUserStore()
+const repostInfo = ref(history.state)
+console.log(repostInfo.value)
 
-const inputData = ref({
-  // userId: userStore.kakaoUserInfo['id'],
-  wordId: null,
-  cardContent: null,
-  cardLink: null,
-  cardRelatedKeywordList: null
+const originCard = ref({
+  originUserImg: repostInfo.value.userImg,
+  originUserNickName: repostInfo.value.userNickName,
+  originCardId: repostInfo.value.cardId,
+  originCardContent: repostInfo.value.cardContent,
+  wordId: repostInfo.value.wordId,
+  wordNameEn: repostInfo.value.wordNameEn,
+  wordNameKr: repostInfo.value.wordNameKr,
+  wordSumm: repostInfo.value.wordSumm,
 })
 
-const submitCard = function () {
-  // if (inputData.value.cardRelatedKeywordList) {
-  //   inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
-  //     split(',').map(item => item.trim()).filter(item => item !== '')
-  // }
-  // registCard(inputData.value, (res) => {
-  //   router.push({name: 'MainView'})
-  // }, (err) => {
-  //   console.log(`err : ${err}`)
-  // })
-}
+const inputData = ref({
+  userId: userStore.kakaoUserInfo.id, // 현재 로그인 유저
+  cardId: null, // BE에서 처리
+  cardContent: null, // 새로 추가하는 내용
+  cardLink: null, // 새로 작성하는 참고링크
+  cardRelatedKeywordList: null, // 새로 작성하는 연관개념
+  originCardId: repostInfo.value.cardId,
+  wordId: repostInfo.value.wordId // 조상 단어 id
+})
 
-// const cardInfo = {
-  //   userId: card.userId, // 리포스트하는 유저아이디
-  //   cardId: null,
-  //   cardContent: card.cardContent, //새로 추가하는 내용
-  //   cardLink: card.cardLink, // 새로 작성하는 참고링크
-  //   cardRelatedKeywordList: card.cardRelatedKeywordList, // 새로 작성하는 연관개념
-  //   originCardId: card.cardId, // 리포스트 대상이 되는 카드 id
-  //   wordId: card.wordId // 조상 단어 id
-  // }
-  // repostCard(cardInfo, (res) => {
-  //   console.log(res)
-  // }, (err) => {
-  //   console.log(err)
-  // })
+const submitRepost = function () {
+  if (inputData.value) {
+    inputData.value.cardContent = inputData.value.cardContent.replaceAll(/(\n|\r\n)/g,'<br>')
+  }
+  if (inputData.value.cardRelatedKeywordList) {
+    inputData.value.cardRelatedKeywordList = inputData.value.cardRelatedKeywordList.
+      split(',').map(item => item.trim()).filter(item => item !== '')
+  }
+
+  repostCard(inputData.value, (res) => {
+    console.log(res)
+    router.push({name: 'MainView'})
+  }, (err) => {
+    console.log(err)
+  })
+}
 
 </script>

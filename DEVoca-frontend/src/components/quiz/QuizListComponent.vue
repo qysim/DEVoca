@@ -13,14 +13,14 @@
             <p class="text-center text-sm w-24">{{ formatDate(props.quiz.participateDate) }}</p>
           </div>
           <div>
-            <img src='@/assets/images/quiz/list_1.png' class='w-12 h-12' v-if="imgRank[0]"/>
-            <img src='@/assets/images/quiz/list_2.png' class='w-12 h-12' v-if="imgRank[1]"/>
-            <img src='@/assets/images/quiz/list_3.png' class='w-12 h-12' v-if="imgRank[2]"/>
+            <img v-if="imgRank[0]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/1st%20Place%20Medal.png" alt="1st Place Medal" width="45" height="45" />
+            <img v-if="imgRank[1]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/2nd%20Place%20Medal.png" alt="2nd Place Medal" width="45" height="45" />
+            <img v-if="imgRank[2]" src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/3rd%20Place%20Medal.png" alt="3rd Place Medal" width="45" height="45" />
             <img src='@/assets/images/quiz/list_4.png' class='w-12 h-12' v-if="imgRank[3]"/>
             <img src='@/assets/images/quiz/list_win.png' class='w-12 h-12' v-if="imgRank[4]"/>
             <img src='@/assets/images/quiz/list_lose.png' class='w-12 h-12' v-if="imgRank[5]"/>
             <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[6]"/>
-            <img src='@/assets/images/quiz/list_draw.png' class='w-12 h-12' v-if="imgRank[7]"/>
+            <img src='@/assets/images/quiz/list_wait.png' class='w-12 h-12' v-if="imgRank[7]"/>
           </div>
         </div>
     </button>
@@ -41,6 +41,8 @@ const props = defineProps({
 })
 
 onMounted(() => {
+  console.log(props.quiz.battleId);
+
     if (props.quiz.battleId == null || props.quiz.battleId == 0 ) { // 게릴라 퀴즈라면
       // 이미지, 순위 계산
       switch (props.quiz.rank) {
@@ -59,7 +61,7 @@ onMounted(() => {
       }
     } else {  // 대결이라면
       // 이미지, 순위 계산
-      switch (props.quiz.battleWinYn) {
+      switch (props.quiz.battleWinYN) {
         case 1:
           type.value = 4;
           break;
@@ -74,7 +76,7 @@ onMounted(() => {
           break;
       }
   }
-  battleYn.value = type.value / 4;
+  battleYn.value = Math.floor(type.value / 4);
   imgRank.value[type.value] = true;
 })
 

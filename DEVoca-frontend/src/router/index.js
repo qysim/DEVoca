@@ -16,7 +16,7 @@ import MyCardView from '@/views/Mypage/MyCardView.vue'
 import MyCommentView from '@/views/Mypage/MyCommentView.vue'
 import ProfileChangeView from '@/views/Mypage/ProfileChangeView.vue'
 import SelectInterestsChangeView from '@/views/Mypage/SelectInterestsChangeView.vue'
-import AlarmPageView from '@/views/feed/AlarmPageView.vue'
+import NotificationPageView from '@/views/feed/NotificationPageView.vue'
 import FeedListView from '@/views/feed/FeedListView.vue'
 import CardCreateView from '@/views/card/CardCreateView.vue'
 import CardRepostView from '@/views/card/CardRepostView.vue'
@@ -37,6 +37,9 @@ import QuizPageView from '@/views/Quiz/QuizPageView.vue'
 import RouterErrorView from '@/views/system/RouterErrorView.vue'
 import QuizPageComponent from '@/components/quiz/QuizPageComponent.vue'
 import BattleDetailView from '@/views/Quiz/BattleDetailView.vue'
+import QuizPopupView from '@/views/Quiz/QuizPopupView.vue'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,7 +53,7 @@ const router = createRouter({
     {
       path:'/signup',
       name:'SignupView',
-      component : SignupView
+      component: SignupView,
     },
     {
       path: '/selectinterests',
@@ -103,21 +106,21 @@ const router = createRouter({
           name : 'MyCardView',
           component : MyCardView
         },
-        {
-          path : '/myboard',
-          name : 'MyBoardView',
-          component : MyBoardView
-        },
+        // {
+        //   path : '/myboard',
+        //   name : 'MyBoardView',
+        //   component : MyBoardView
+        // },
         {
           path: '/follow/:option',
           name : 'FollowView',
           component : FollowView
         },
-        {
-          path : '/mycomment',
-          name : 'MyCommentView',
-          component : MyCommentView
-        },
+        // {
+        //   path : '/mycomment',
+        //   name : 'MyCommentView',
+        //   component : MyCommentView
+        // },
         {
           path : '/profilechange/:id',
           name : 'ProfileChangeView',
@@ -129,9 +132,9 @@ const router = createRouter({
           component : SelectInterestsChangeView
         },
         {
-          path : '/alarm/:id',
-          name : 'AlarmPageView',
-          component : AlarmPageView
+          path : '/notify',
+          name : 'NotificationPageView',
+          component : NotificationPageView
         },
         // feed
         {
@@ -226,6 +229,11 @@ const router = createRouter({
           component : QuizListView,
         },
         {
+          path : '/quizpopup/:quizId',
+          name : 'QuizPopupView',
+          component : QuizPopupView,
+        },
+        {
           path : '/quizdetail/:quizId',
           name : 'QuizDetailView',
           component : QuizDetailView,
@@ -250,13 +258,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // 로그인 관련 페이지, 검색결과페이지는 항상 접근을 허용
-  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' 
-      || to.name === 'SearchResultView' || to.path === '/kakao/callback') {
+  console.log(to.path.startsWith('/search'))
+  if (to.name === 'LoginView' || to.name === 'KaKaoRedirectView' || to.name === 'SearchResultView' 
+    || to.path === '/kakao/callback' || to.path.startsWith('/search') || to.path.startsWith('/search/result')) {
     next()
   } else {
     // 로그인 여부 확인
     const userStore = useUserStore()
-    if (userStore.kakaoUserInfo.id) {
+    if (userStore.kakaoUserInfo?.id) {
       next()
     } else {
       // 로그인하지 않은 경우 로그인 페이지로 리디렉션

@@ -7,7 +7,7 @@ CREATE TABLE `users` (
     `user_nickname`	varchar(20)	NOT NULL	COMMENT 'null 시 user_name으로',
     `user_intro`	varchar(100)	NULL,
     `user_exp`	int	NOT NULL	DEFAULT 0,
-    `user_img`	varchar(2000)	NOT NULL	DEFAULT '/src/assets/images/profile.png',
+    `user_img`	varchar(2000)	NOT NULL	DEFAULT '/profile.png',
     `user_join_date`	datetime	NOT NULL	DEFAULT now(),
     `user_update_date`	datetime	NULL,
     `user_revoke_date`	datetime	NULL,
@@ -153,7 +153,7 @@ CREATE TABLE `voca_list_cards` (
     `vlc_sl_id`	int	NOT NULL,
     `vlc_wc_id`	int	NOT NULL,
     `vlc_wc_select`	int	NOT NULL	COMMENT '1 : 단어, 2 : 카드',
-    `svc_delete_date`	datetime	NULL,
+    `vlc_store_date`	datetime	NULL,
     CONSTRAINT `PK_VOCA_LIST_CARDS` PRIMARY KEY (`vlc_id`,	`vlc_sl_id`)
 )default character set utf8mb4;
 
@@ -176,7 +176,7 @@ CREATE TABLE `dm_participants` (
     CONSTRAINT `PK_DM_PARTICIPANTS` PRIMARY KEY (`dp_dr_idx`, `dp_user_idx`)
 )default character set utf8mb4;
 
-CREATE TABLE `dms` (
+CREATE TABLE `dm_messages` (
     `dm_id`	int	NOT NULL	auto_increment,
     `fk_dm_dr_idx`	int	NOT NULL,
     `fk_dm_user_idx`	int	NOT NULL,
@@ -464,3 +464,6 @@ ALTER TABLE `notifications` ADD CONSTRAINT `FK_users_TO_Notifications_1` FOREIGN
 REFERENCES `users` (
     `user_idx`
 );
+
+ALTER TABLE voca_list_cards DROP FOREIGN KEY FK_voca_lists_TO_voca_list_cards_1;
+ALTER TABLE voca_list_cards ADD CONSTRAINT FK_voca_lists_TO_voca_list_cards_1 FOREIGN KEY (vlc_sl_id) REFERENCES voca_lists (vl_id) ON DELETE CASCADE;

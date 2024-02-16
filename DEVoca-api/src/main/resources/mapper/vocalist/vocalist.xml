@@ -34,6 +34,7 @@
         <result property="wordNameKr" column="word_name_kr"/>
         <result property="wordNameEn" column="word_name_en"/>
         <result property="wordSumm" column="word_summ"/>
+        <result property="wordDef" column="word_def"/>
 
         <result property="originCardId" column="card_origin_card_id"/>
         <result property="originUserNickName" column="card_origin_user_nickname"/>
@@ -71,22 +72,22 @@
         delete from voca_lists
                where vl_id = #{vlId} and fk_vl_user_idx = #{userIdx};
     </delete>
-    
+
     <!-- 단어장 상세 목록 -->
     <select id="getVocalistDetail" parameterType="map" resultMap="getVocalistDetail">
         select vl.vl_id, vl.vl_name
             ,c.card_id, c.card_content, c.card_repost_cnt
             ,c.card_regist_date ,c.card_update_date -- card 데이터
             ,if(l.like_to is null, 'N', 'Y') as card_like_yn
-            ,(select count('true') from likes where like_to = u.user_idx) as card_like_cnt
-            ,w.word_id, w.word_name_en, w.word_name_kr, w.word_summ -- word 데이터
+            ,(select count('true') from likes where like_to = c.card_id) as card_like_cnt
+            ,w.word_id, w.word_name_en, w.word_name_kr, w.word_def, w.word_summ -- word 데이터
             ,u.user_nickname, u.user_intro, u.user_img -- author 데이터
             ,rp.card_id as card_origin_card_id , rp.card_content as card_origin_card_content ,rp.user_idx as origin_author_idx
             ,rp.user_img as card_origin_user_img, rp.user_nickname as card_origin_user_nickname -- ori_author_img, ori_author_name
         from cards c
             left join (<include refid="loadOriginCardInfo"></include>) rp
                         on c.card_origin_card_id = rp.card_id
-            left join likes l on c.card_id = l.like_to
+            left join likes l on c.card_id = l.like_to and l.like_from = #{userIdx}
             join (select vl.vl_id, vl.vl_name, vlc.vlc_wc_id, vlc.vlc_store_date
                     from voca_lists vl join voca_list_cards vlc on vl.vl_id = vlc.vlc_sl_id
                     where vl.vl_id = #{vocaListId} and vl.fk_vl_user_idx = #{userIdx}) vl on vl.vlc_wc_id = c.card_id
@@ -103,7 +104,7 @@
             left join (select * from voca_list_cards where vlc_wc_id = #{cardId}) vlc on vl.vl_id = vlc.vlc_sl_id
         where vl.fk_vl_user_idx = #{userIdx}
     </select>
-    
+
     <delete id="cancelVocalist" parameterType="map">
         delete from voca_list_cards where vlc_sl_id = #{vlId} and vlc_wc_id = #{cardId}
     </delete>

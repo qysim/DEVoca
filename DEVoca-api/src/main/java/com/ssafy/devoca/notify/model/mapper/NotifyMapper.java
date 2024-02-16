@@ -10,6 +10,6 @@ public interface NotifyMapper {
     public void saveNotify(NotifyDTO notifyDTO) throws SQLException;
     public List<Integer> getAllUserIdx() throws SQLException;
     public void updateNotificationReadYN(@Param("loginUserIdx") int loginUserIdx) throws SQLException;
-    public List<NotifyDTO> getNotification(@Param("scroll") int scroll, @Param("loginUserIdx") int loginUserIdx)
+    public List<NotifyDTO> getNotification(int loginUserIdx)
         throws SQLException;
 }

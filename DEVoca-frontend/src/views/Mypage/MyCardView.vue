@@ -1,6 +1,11 @@
 <template>
-  <div v-show="hasCardResults" class="flex flex-col">
-    <CardComponent v-for="(card, index) in cardList" :key="index" :card="card" />
+  <div class="flex flex-col items-center">
+    <div v-if="hasCardResults" >
+      <CardComponent v-for="(card, index) in cardList" :key="index" :card="card" />
+    </div >
+    <div v-else>
+      <p class="text-xl m-12">작성한 글이 없습니다</p>
+    </div>
   </div>
 </template>
 

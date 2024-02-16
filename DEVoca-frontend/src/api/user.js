@@ -33,3 +33,20 @@ export function getUserBadge(success, fail) {
     }
   }).then(success).catch(fail)
 }
+
+export function getOtherFollowList(otherId, success, fail) {
+  local.get(`/user/follower/${otherId}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+
+export function getOtherFollowingList(otherId, success, fail) {
+  local.get(`/user/following/${otherId}`, {
+    headers: {
+      token: JSON.parse(localStorage.getItem('user')).kakaoUserInfo.token
+    }
+  }).then(success).catch(fail)
+}
+

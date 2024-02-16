@@ -63,6 +63,7 @@
     <!--  sql: 대결 이겼는지 여부 가져오기  -->
     <sql id="loadBattleWinYN">
         select case
+                   when battle_to_date is null then 3
                    when fk_battle_from_user_idx = #{loginUserIdx} then
                        if(battle_from_score = battle_to_score, 2,
                           if(battle_from_score > battle_to_score, 1, 0))
@@ -89,6 +90,7 @@
     <select id="createQuizWordList" resultMap="QuizDTOMap">
         select word_id, word_name_kr, word_name_en, word_summ
         from words
+        where length(word_summ) > 1
         order by RAND()
         limit 10;
     </select>
@@ -146,7 +148,9 @@
                (<include refid="loadBattleWinYN"></include>) as battle_win_yn
         from quiz_participants qp left join battles bt
             on qp.qp_quiz_id = bt.fk_battle_quiz_id
-        where fk_qp_user_idx = #{loginUserIdx};
+        where fk_qp_user_idx = #{loginUserIdx}
+        order by qp_quiz_id desc
+        limit 20;
     </select>
 
     <!--  퀴즈 상세내역 가져오기  -->
@@ -209,9 +213,10 @@
             -- vlc_wc_select 값이 1일 때 word 테이블과 조인
              left join words w on vlc_wc_id = w.word_id and vlc_wc_select = 1
             -- vlc_wc_select 값이 2일 때 card 테이블과 word 테이블을 조인
-             left join cards c on vlc_wc_id = c.card_word_id and vlc_wc_select = 2
+             left join cards c on vlc_wc_id = c.card_id and vlc_wc_select = 2
              left join words w2 on c.card_word_id = w2.word_id and vlc_wc_select = 2
         where vlc_sl_id = #{vocaListId}
+        order by rand()
         limit #{wordCnt};
     </select>
 

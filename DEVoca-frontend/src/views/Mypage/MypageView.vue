@@ -20,7 +20,7 @@
           <RightArrowIcon />
         </div>
       </RouterLink>
-      <RouterLink :to="{ name: 'MyBoardView' }">
+      <!-- <RouterLink :to="{ name: 'MyBoardView' }">
         <div class="flex justify-between py-4">
           <div>
             <p>나의 글</p>
@@ -35,7 +35,7 @@
           </div>
           <RightArrowIcon />
         </div>
-      </RouterLink>
+      </RouterLink> -->
       <RouterLink :to="{ name: 'QuizListView' }">
         <div class="flex justify-between py-4">
           <div>
@@ -53,26 +53,29 @@
         </div>
       </RouterLink>
     </div>
-    <div class="flex flex-row justify-center text-sm">
-      <p class="mr-1">버전1.1</p>
-      <a @click="logOut" role="button">/ 로그아웃</a>
-    </div>
-    <div class="flex flex-row justify-center text-sm">
-      <p>이용약관 / 개인정보 처리방침</p>
+    <div class="flex justify-center text-sm">
+      <a @click="logOut" role="button">로그아웃</a>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
 import { getUserBadge } from '@/api/user.js'
 import ProfIleCardComponents from '@/components/mypage/ProfIleCardComponents.vue'
 import RightArrowIcon from '@/components/icon/RightArrowIcon.vue'
 
+const userStore = useUserStore()
 const userBadge = ref([])
 
 const logOut = () => {
   localStorage.clear()
+  userStore.kakaoUserInfo = {
+    id: null,
+    token: null,
+    userYn: false
+  }
   location.href="https://i10d112.p.ssafy.io/devoca/kakao/logout"
 }
 

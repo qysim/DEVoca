@@ -39,7 +39,7 @@
 </template>
   
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeMount } from 'vue'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 import { useRouter } from 'vue-router'
@@ -64,6 +64,13 @@ const submitUserInfo = function () {
     console.log(err)
   })
 }
+
+onBeforeMount (() => {
+  if (!userStore.kakaoUserInfo.token) {
+    router.push({ name: 'MainView' });
+    alert("비정상적인 접근입니다.");
+  }
+})
 
 onMounted(() => {
   flatpickr(datepicker.value, {

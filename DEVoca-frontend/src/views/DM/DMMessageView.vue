@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col justify-between h-full">
-    <div class="card card-side bg-base-100 h-24 w-full z-10 overflow-hidden shrink-0">
+    <div class="card card-side bg-base-100 h-24 w-full z-10 shrink-0">
       <div class="flex items-center">
         <div class="ml-5">
           <svg @click="goDmList" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div id="chat" class="overflow-y-scroll h-full grow-0">
+    <div id="chat" class="overflow-y-scroll h-full grow-0 scrollbar-hide">
       <div class="trigger"></div>
       <div v-for="(chat, index) in messageList.slice().reverse()" :key="index">
         <div v-if="chat.sendUserId == dmUser.userId" class="chat chat-start mt-3 ml-5 z-0">
@@ -42,9 +42,6 @@
         <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
-            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
-            </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
@@ -66,9 +63,6 @@
         <div v-if="chat.sendUserId !== dmUser.userId" class="chat chat-end mt-3 mr-5 z-0">
           <div class="chat-bubble break-words bg-devoca text-white">
             <div>{{ chat.dmContent }}</div>
-            <div v-if="chat.dmBattleQuizId != 0" class="flex justify-end">
-              <button class="w-14 h-7 bg-white text-black text-xs rounded-full mt-5" @click="selectModal(chat.dmBattleQuizId)">확인</button>
-            </div>
           </div>
           <div class="chat-footer">
             <time class="text-xs opacity-50">{{ formatDateTime(chat.dmSendDate) }}</time>
@@ -275,8 +269,12 @@ const isShowModal = ref(false);
 const dmBattleQuizId = ref(0);
 
 const selectModal = (battleQuizid) => {
-  dmBattleQuizId.value = battleQuizid;
-  isShowModal.value = true;
+  if(battleQuizid === -1) {
+    alert("이미 참여한 대결입니다.");
+  } else {
+    dmBattleQuizId.value = battleQuizid;
+    isShowModal.value = true;
+  }
 }
 
 </script>

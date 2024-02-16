@@ -29,7 +29,7 @@ public class QuizController {
     private final DmService dmService;
 
     // 스케줄러 설정 : 월~금 오전 8시 35분에 퀴즈 생성 및 저장 메서드 실행
-    @Scheduled(cron = "0 35 8 ? * MON-FRI", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 55 06 ? * MON-FRI", zone = "Asia/Seoul")
     @PostMapping("")
     public ResponseEntity<String> createQuiz(){
         log.info("createQuiz 호출 : 퀴즈 생성 및 저장 요청");

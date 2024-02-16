@@ -25,9 +25,10 @@ public class SearchController {
 
     @PostMapping("")
     public ResponseEntity<String> saveSearchKeyword(@RequestHeader("token") String token
-                                                    ,@RequestParam("keyword") String keyword){
+                                                    ,@RequestBody String keyword){
         log.info("saveSearchKeyword 호출 : 검색 키워드 저장 요청");
         try{
+            keyword = keyword.replaceAll("\"", "");
             int loginUserIdx = userService.loadUserIdx(token);
             searchService.saveSearchKeyword(keyword, loginUserIdx);
             return ResponseEntity.status(HttpStatus.CREATED).build();

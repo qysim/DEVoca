@@ -16,12 +16,12 @@
       </div>
       <p class="text-sm">{{ userInfo.userIntro }}</p>
       <div class="flex-row mt-2">
-        <router-link :to="{ name: 'FollowView', params: { option: 'following' } }" class="mr-5 text-sm">
-          팔로우 {{ userInfo.userFollowingCnt }}
-        </router-link>
-        <router-link :to="{ name: 'FollowView', params: { option: 'follower' } }" class="text-sm">
+        <div class="mr-5 text-sm inline" @click="goFolloing">
+          팔로잉 {{ userInfo.userFollowingCnt }}
+        </div>
+        <div class="text-sm inline" @click="goFollower">
           팔로워 {{ userInfo.userFollowerCnt }}
-        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -29,9 +29,11 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
+import { useRouter } from "vue-router";
 import { getUserInfo, getOtherUserInfo } from '@/api/user.js'
 import PenIcon from '@/components/icon/PenIcon.vue'
 
+const router = useRouter();
 const userInfo = ref({})
 
 const props = defineProps({
@@ -51,4 +53,21 @@ onBeforeMount(() => {
     }, null)
   }
 })
+
+const goFolloing = () => {
+  router.push({
+    name: 'FollowView',
+    params: { option: 'following' },
+    state: { targetUserId: userInfo.value.userId }
+  });
+}
+
+const goFollower = () => {
+  router.push({
+    name: 'FollowView',
+    params: { option: 'follower' },
+    state: { targetUserId: userInfo.value.userId }
+  });
+}
+
 </script>

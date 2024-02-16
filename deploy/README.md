@@ -20,7 +20,6 @@ vi .env
 ```bash
 docker network create devoca_network
 docker compose up -d redis
-docker compose up -d minio
 docker compose up -d --build api
 docker compose up -d --build frontend && docker compose stop frontend && docker compose rm -f frontend
 docker compose up -d nginx

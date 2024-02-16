@@ -6,6 +6,9 @@ import com.ssafy.devoca.user.model.FavCategoryDTO;
 import com.ssafy.devoca.user.model.UserDTO;
 import com.ssafy.devoca.user.model.mapper.UserMapper;
 import com.ssafy.devoca.util.JwtUtil;
+import com.ssafy.devoca.vocalist.model.VocalistDTO;
+import com.ssafy.devoca.vocalist.model.mapper.VocalistMapper;
+import com.ssafy.devoca.vocalist.service.VocalistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserMapper userMapper;
     private final MypageMapper mypageMapper;
+    private final VocalistMapper vocalistMapper;
     private final JwtUtil jwtUtil;
 
     @Override
@@ -44,8 +48,14 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public String joinUser(UserDTO userDTO) throws Exception {
         userMapper.joinUser(userDTO);
-        userMapper.getBadge(userDTO.getUserIdx(), 3); // getting first badge
-        mypageMapper.followUser(userDTO.getUserIdx(), 41); // following æ_devoca bot
+        int userIdx = userDTO.getUserIdx();
+        userMapper.getBadge(userIdx, 3); // getting first badge
+        mypageMapper.followUser(userIdx, 6); // following æ_devoca bot
+
+        VocalistDTO vocalistDTO = new VocalistDTO();
+        vocalistDTO.setVocalistName("기본 단어장");
+        vocalistDTO.setUserIdx(userIdx);
+        vocalistMapper.createVocaList(vocalistDTO); //creating vocalist
         String accessToken = jwtUtil.createAccessToken(userDTO.getUserId());
         log.info("accessToken : {}", accessToken);
         return accessToken;
